@@ -6,5 +6,5 @@ syntax: glob
 *~
 #*#
 .#*
-_build
+build
 _static
