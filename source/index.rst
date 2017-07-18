@@ -7,6 +7,8 @@ gkyl
    :maxdepth: 2
    :caption: Contents:
 
+   BasisFunctions
+
 
 
 Indices and tables
