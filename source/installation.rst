@@ -29,10 +29,10 @@ Analytics Python distribution `Anaconda
 be found in the official `conda documentation
 <https://conda.io/docs/download.html>`_.
 
-Installing postgkyl
+Installing gkyl
 -------------------
 
-With conda installed and on ``PATH``, postgkyl can be simply installed
+With Conda installed and on ``PATH``, gkyl can be simply installed
 with just one command:
 
 .. code-block:: bash
