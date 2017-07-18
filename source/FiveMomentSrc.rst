@@ -1,3 +1,5 @@
+.. index:: FiveMomentSrc
+
 Updating five-moment source terms
 =================================
 

@@ -1,3 +1,5 @@
+.. module:: Time
+
 High-precision timers
 =====================
 

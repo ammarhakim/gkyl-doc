@@ -1,3 +1,5 @@
+.. index:: WavePropagation
+
 The finite-volume wave-propagation updater
 ==========================================
 
