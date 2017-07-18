@@ -7,7 +7,9 @@ gkyl
    :maxdepth: 2
    :caption: Contents:
 
-   BasisFunctions
+   installation
+   getting_started
+   modules
 
 
 
