@@ -40,7 +40,7 @@ with just one command:
    conda install -c gkyl gkyl
 
 The flag ``-c`` is specifying the ``gkyl`` channel that contains both
-Gkyl and postgkyl and also the custom builds of dependencies, which
+gkyl and postgkyl and also the custom builds of dependencies, which
 are not available through main Conda channel (or are not available for
 both Linux and OSx).
 
