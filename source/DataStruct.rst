@@ -111,8 +111,8 @@ the field.
 ``field:accumulate(c1, fld1, ...)`` : Accumulate into ``field`` the
 linear combination ``c1*fld1 + ...`` .
 
-``field:combine(c1, fld1, ...)`` : `` Replace contents of ``field``
-with the linear combination ``c1*fld1 + ...`` .
+``field:combine(c1, fld1, ...)`` : Replace contents of ``field`` with
+the linear combination ``c1*fld1 + ...`` .
 
 ``field:clear(v)`` : Sets every element in the field, including ghost
 cell, to ``v``.
