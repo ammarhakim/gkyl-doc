@@ -1,3 +1,5 @@
+.. index:: PhMaxwell
+
 (Perfectly Hyperbolic) Maxwell equations for electromagnetism
 =============================================================
 

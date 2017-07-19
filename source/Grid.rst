@@ -1,3 +1,5 @@
+.. module:: Grid
+
 Grid objects
 ============
 
@@ -8,6 +10,8 @@ Grid objects can be accessed by loading the "Grid" module as follows:
     Grid = require "Grid"
 
 The following objects are provided by this module.
+
+.. index:: RectCart
 
 ``RectCart``: Uniform, cartesian grid
 -------------------------------------
@@ -85,6 +89,8 @@ important to keep in mind if using a raw ffi object as an index.
 
 ``grid:cellCenter(xc)`` : Cell center coordinate of current cell (set by
 ``setIndex`` method). ``xc`` must be pre-allocated.
+
+.. index:: NonUniformRectCart
 
 ``NonUniformRectCart``: Non-uniform, cartesian grid
 ---------------------------------------------------

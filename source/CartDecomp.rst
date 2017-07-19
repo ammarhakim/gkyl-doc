@@ -1,3 +1,5 @@
+.. module:: CartDecomp
+
 Domain decomposition for Cartesian grids
 ========================================
 
@@ -10,6 +12,8 @@ accessed by loading the ``CartDecomp`` module:
 
 This module provides the following objects for decomposing Cartesian
 grids using different methods.
+
+.. index:: CartProd
 
 ``CartProd``: Decomposition specified by "cuts"
 -----------------------------------------------

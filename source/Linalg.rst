@@ -1,3 +1,5 @@
+.. module:: Linalg
+
 Vectors, matrices and linear algebra
 ====================================
 
@@ -9,6 +11,8 @@ Linear algebra objects and methods can be accessed by loading the
     Lin = require "Lib.Linalg"
 
 The following objects are provided b this module.
+
+.. index:: Vec
 
 ``Vec``: 1D vector
 ------------------

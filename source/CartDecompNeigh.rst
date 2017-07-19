@@ -1,3 +1,5 @@
+.. module:: CartDecompNeigh
+
 Computing neighbor relations for parallel communication
 =======================================================
 
