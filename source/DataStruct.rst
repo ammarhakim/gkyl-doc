@@ -93,6 +93,15 @@ range spanned by field.
 local/global index range spanned by field. This includes the indices of
 the ghost cells.
 
+``field:localRangeIter()``, ``field:globalRangeIter()`` : Returns
+iterator object over extended (include ghost cells) local/global range
+for use in for loops. Accounts for internal layout of field.
+
+``field:localExtRangeIter()``, ``field:globalExtRangeIter()`` :
+Returns iterator object over local/global range for use in for
+loops. Accounts for internal layout of field.
+
+
 ``field:size()`` : The total number of elements stored in field,
 including ghost cells.
 
