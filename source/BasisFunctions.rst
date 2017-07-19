@@ -1,3 +1,5 @@
+.. module:: Basis
+
 Basis functions
 ===============
 
@@ -13,6 +15,8 @@ reference cell is a (hyper) cube with side 2, and each side spans
 :math:`[-1,1]`.
 
 The following objects are provided by this module.
+
+.. index:: CartModalMaxOrder
 
 ``CartModalMaxOrder``: Modal, maximal order basis functions
 -----------------------------------------------------------
@@ -48,6 +52,8 @@ basis on surface on lower edge in specified direction
 ``basis:volumeToUpperSurfExpansion(dir, volIn, surfOut)`` : Given
 expansion coefficients in element, compute expansion coefficients for
 basis on surface on upper edge in specified direction
+
+.. index:: CartModalSerendipity
 
 ``CartModalSerendipity``: Modal, serendipity basis functions
 ------------------------------------------------------------

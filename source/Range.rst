@@ -1,3 +1,5 @@
+.. module:: Range
+
 Range: N-dimensional Cartesian index set
 ========================================
 

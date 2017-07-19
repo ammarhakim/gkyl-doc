@@ -1,3 +1,5 @@
+.. module:: DataStruct
+
 Data-structures for fields and diagnostics
 ==========================================
 
@@ -9,6 +11,8 @@ Various data-structures defined in Gkyl can be accessed by loading the
     DataStruct = require "DataStruct" 
 
 The following objects are provided by this module.
+
+.. index:: Field
 
 ``Field``: Multi-component fields on Cartesian grids
 ----------------------------------------------------
@@ -206,6 +210,8 @@ independent technique:
        fitr[1].rhou = 0
        fitr[1].E = 3
     end
+
+.. index:: DynVector
 
 ``DynVector``: Dynamically adjustable 1D array
 ----------------------------------------------
