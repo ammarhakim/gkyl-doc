@@ -9,16 +9,16 @@ Postgkyl supports the following commands:
 - :doc:`collect <pgkyl-collect>`:      Collect data from the active datasets
 - :doc:`comp <pgkyl-comp>`:         Select component(s)
 - curl:         Calculate curl
-- dataset:      Select data sets(s)
+- :doc:`dataset <pgkyl-dataset>`:      Select data sets(s)
 - div:          Calculate divergence
 - :doc:`euler <pgkyl-euler>`:        Extract Euler (five-moment) primitive variables
 - fft:          Calculate Fast Fourier Transform
-- fix:          Fix a coordinate
+- :doc:`fix <pgkyl-fix>`:          Fix a coordinate
 - grad:         Calculate gradient
 - growth:       Fit exponential to data
-- hold:         Hold the plotting
-- info:         Print the current top of stack info
-- integrate:    Integrate over axes
+- :doc:`hold <pgkyl-hold>`:         Hold the plotting
+- :doc:`info <pgkyl-info>`:         Print the current top of stack info
+- :doc:`integrate <pgkyl-integrate>`:    Integrate over axes
 - :doc:`interpolate <pgkyl-interpolate>`:  Interpolate DG data on a uniform mesh
 - log:          Calculate natural log of data
 - mask:         Mask data
