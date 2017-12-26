@@ -5,9 +5,9 @@ Gkeyll v2.0 (also known as Gkyl, or G2) is a computational plasma
 physics code mostly written in `LuaJIT <http://luajit.org>`_, with
 time-critical parts written in C++. Gkyl contains solvers for
 gyrokinetic equations, Vlasov-Maxwell equations, and multi-fluid
-equations. Gkyl is a successor of the Gkeyll (aka G1) code, and
-*contains ab-initio and novel implementations* of algorithms in the
-original code.
+equations. Gkyl *contains ab-initio and novel implementations* of a
+number of algorithms, and perhaps is unique in using a JIT compiled
+typeless dynamic language for its implementation.
 
 One of the main innovations in Gkyl is the blurring of boundaries
 between user written code (i.e. input files) and backend solver

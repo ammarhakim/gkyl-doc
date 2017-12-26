@@ -19,7 +19,7 @@ tensor. It takes the following options:
 Note that the "vel" variable produces a velocity vector field, i.e. a
 field with 3 components. The "pressure" variable produces a 6
 component field with the pressure tensor arranged as :math:`P_{xx},
-P_{xy}, P_{yz}, P_{yy}, P_{yz}, P_{zz}`.
+P_{xy}, P_{xz}, P_{yy}, P_{yz}, P_{zz}`.
 
 For example, to extract the electron :math:`P_{xy}` from a ten-moment
 simulation do::
