@@ -8,3 +8,5 @@ syntax: glob
 .#*
 build
 _static
+.DS_Store
+*/.DS_Store
