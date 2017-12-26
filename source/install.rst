@@ -1,5 +1,5 @@
-Building Gkyl
-+++++++++++++
+Installing Gkyl
++++++++++++++++
 
 Depending on your system, building Gkyl can be easy (Linux, Mac latops
 and small clusters) or hard (supercomputing centers). The instructions
@@ -24,17 +24,14 @@ Optionally, you will need
 
 -  Petsc for linear and non-linear solvers.
 
-.. contents::
-
-
 Building dependencies
 ---------------------
 
 Depending on your system, building dependencies can be complicated.
 On a Mac or Linux machine you can simply run the mkdeps.sh script in
-the install-deps directory. First, please check details by running
+the install-deps directory. First, please check details by running::
 
-./mkdeps.sh -h
+  ./mkdeps.sh -h
 
 On most supercomputers you will likely need to use the system
 recommended compilers and MPI libraries. In this case, you should pass
