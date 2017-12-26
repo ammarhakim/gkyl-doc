@@ -18,7 +18,7 @@ below. Gkyl depends on the following tools and packages:
    post-processing)
 -  LuaJIT
 -  MPI
--  ADIO IO library
+-  ADIOS IO library
 
 Optionally, you will need
 
@@ -35,9 +35,14 @@ the install-deps directory. First, please check details by running::
 
 On most supercomputers you will likely need to use the system
 recommended compilers and MPI libraries. In this case, you should pass
-the appropriate compilers to mkdeps.sh, and then build libraries *not*
-provided by the system. In practice, this likely means LuaJIT, ADIOS
-and, optionally Petsc.
+the appropriate compilers to mkdeps.sh as follows::
+
+  ./mkdeps.sh CC=cc CXX=cxx MPICC=mpicc MPICXX=mpicxx  
+
+You should only build libraries *not* provided by the system. In
+practice, this likely means LuaJIT, ADIOS and, perhaps Petsc. (Many
+supercomputer centers at DOE already offer ADIOS and Petsc builds and
+should be prefered instead of your own builds).
 
 By default, the mkdeps.sh script will install dependencies in
 $HOME/gkylsoft directory. If you install it elsewhere, you will need
@@ -49,8 +54,8 @@ Building Gkyl
 Once you have all dependencies installed, you can build Gkyl itself.
 Gkyl uses the Waf build system. You do NOT need to install waf as it
 is included with the distribution. However, waf depends on Python
-(included on most systems). Waf take a number of options, you can do
-::
+(included on most systems). Waf takes a number of options. To get a
+list do ::
 
    ./waf --help
 
@@ -92,7 +97,7 @@ If you need to clean up a build do:
 
 ::
 
-    ./waf distclean
+    ./waf clean
 
 If you need to uninstall do:
 
