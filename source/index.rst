@@ -19,6 +19,7 @@ Gkyl Documentation
   about
   license
   install
+  applications
 
 Postgkyl Documentation
 ----------------------
