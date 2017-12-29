@@ -35,3 +35,14 @@ plot the results.
 
   install-pgkyl
   pgkyl-docs  
+
+Technical Notes
+---------------
+
+.. toctree::
+  :maxdepth: 1
+
+  maxwell-eigensystem
+  euler-eigensystem
+  tenmom-eigensystem
+  twofluid-sources
