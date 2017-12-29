@@ -21,7 +21,7 @@ The following apps are available in Gkyl.
 
 .. [#gsim] The concept of apps was introduced in Gkeyll 2.0 (Gkyl). In
    the 1.0 version of the code the input files contained the complete
-   simulation cycle. Although Gkyl can still be used in this fashion,
+   simulation cycle. Although Gkyl can still be used in that fashion,
    it is best to switch to the app model as it simplifies the user
    input considerably.
 
