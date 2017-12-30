@@ -36,8 +36,8 @@ plot the results.
   install-pgkyl
   pgkyl-docs  
 
-Technical Notes
----------------
+Dev Notes
+---------
 
 .. toctree::
   :maxdepth: 1
