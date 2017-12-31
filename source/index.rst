@@ -20,6 +20,7 @@ Gkyl Documentation
   license
   install
   applications
+  devnotes
 
 Postgkyl Documentation
 ----------------------
@@ -36,13 +37,4 @@ plot the results.
   install-pgkyl
   pgkyl-docs  
 
-Dev Notes
----------
 
-.. toctree::
-  :maxdepth: 1
-
-  maxwell-eigensystem
-  euler-eigensystem
-  tenmom-eigensystem
-  twofluid-sources
