@@ -106,7 +106,7 @@ default values can be omitted.
      -
    * - cfl
      - CFL number to use. **This parameter should be avoided and
-       instead cflFrac used instead.**
+       cflFrac used instead.**
      - Determined from cflFrac
    * - cflFrac
      - Fraction (usually 1.0) to multiply CFL determined time-step. 
@@ -205,7 +205,8 @@ files and so reasonable names should be used.
      -
    * - evolve
      - If set to ``false`` the species distribution function is not
-       evolved.
+       evolved. In this case, only initial conditions for this species
+       will be written to file.
      - true
      
 References
