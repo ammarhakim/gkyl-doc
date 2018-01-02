@@ -1,7 +1,7 @@
 Installing Gkyl
 +++++++++++++++
 
-Depending on your system, building Gkyl can be easy (Linux, Mac latops
+Depending on your system, building Gkyl can be easy (Linux, Mac laptops
 and small clusters) or hard (supercomputing centers). The instructions
 below will help you build the code, but some amount of experimentation
 may be required to get a build.
@@ -42,7 +42,7 @@ the appropriate compilers to mkdeps.sh as follows::
 You should only build libraries *not* provided by the system. In
 practice, this likely means LuaJIT, ADIOS and, perhaps Petsc. (Many
 supercomputer centers at DOE already offer ADIOS and Petsc builds and
-should be prefered instead of your own builds).
+should be preferred instead of your own builds).
 
 By default, the mkdeps.sh script will install dependencies in
 $HOME/gkylsoft directory. If you install it elsewhere, you will need
@@ -89,9 +89,9 @@ and install::
     ./waf build install
 
 The builds are created in the 'build' directory and the executable is
-installed in $HOME/gkylsoft/gkyl/bin, unless you specified a differnt
+installed in $HOME/gkylsoft/gkyl/bin, unless you specified a different
 install prefix. The executable can *only* be run from the install
-directory.
+directory [#why]_.
 
 If you need to clean up a build do:
 
@@ -122,3 +122,10 @@ to:
 ::
 
     CC= $(DEFAULT_CC) -std=gnu99
+
+.. rubric:: Footnotes
+
+.. [#why] The reason for this is that Gkyl is in reality a LuaJIT
+    compiler extended with MPI. Hence, for the compiler to find Lua
+    modules (i.e. Gkyl specific code) certain paths need to be set
+    which is done relative to the install location.
