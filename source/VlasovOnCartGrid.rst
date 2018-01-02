@@ -57,6 +57,10 @@ The overall structure of the app is as follows
     elc = Vlasov.Species {
       -- species parameters
     },
+
+    -- fields (optional, can be ommited for neutral particles)
+    field = Vlasov.EmField {
+    },
   }
   -- run application
   vlasovApp:run()
@@ -125,7 +129,7 @@ default values can be omitted.
        configuration space direction.
      - { }
    * - useShared
-     - Set to ``true`` to use MPI-SHM based shared memory paradigm.
+     - Set to ``true`` to use shared memory.
      - false
    * - periodicDirs
      - Periodic directions. Note: X is 1, Y is 2 and Z is 3.
@@ -139,6 +143,11 @@ default values can be omitted.
    * - bcz
      - Length two table with BCs in Z direction. Only needed if CDIM>2
      - { }
+   * - field
+     - Type of field solver to use. See details below. This is
+       optional and if not specified no force terms will be evolved,
+       i.e. the particles will be assumed to be neutral.
+     - nil
 
 .. note::
 
@@ -158,11 +167,11 @@ Species parameters
 ------------------
 
 The Vlasov app works with arbitrary number of species. Each species is
-described using the ``Vlasov.Species`` objects. By default every species
-in the app is evolved. However, species evolution can be turned off by
-setting the ``evolve`` flag to ``false``. Species can be given arbitrary
-names. However, the species names are used to label the output data
-files and so reasonable names should be used.
+described using the ``Vlasov.Species`` objects. By default every
+species in the app is evolved. However, species evolution can be
+turned off by setting the ``evolve`` flag to ``false``. Species can be
+given arbitrary names. As the species names are used to label the
+output data files, reasonable names should be used.
 
 .. code-block:: lua
 
@@ -179,10 +188,10 @@ files and so reasonable names should be used.
      - Description
      - Default
    * - charge
-     - Species charge
+     - Species charge (ignored for neutral particles)
      -
    * - mass
-     - Species mass
+     - Species mass (ignored for neutral particles)
      -
    * - lower
      - VDIM length table with lower-left velocity space coordinates
