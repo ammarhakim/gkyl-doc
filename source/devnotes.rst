@@ -8,6 +8,7 @@ wishing to understand some of the internal details of Gkyl.
   :maxdepth: 1
 
   modalbasis
+  ssp-rk
   maxwell-eigensystem
   euler-eigensystem
   tenmom-eigensystem
