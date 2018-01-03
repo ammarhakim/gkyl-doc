@@ -18,9 +18,9 @@ where :math:`f_s` the *particle* distribution function,
 :math:`\mathbf{a}_s` is particle acceleration and
 :math:`C[f_s,f_{s'}]` are collisions. This app uses a version of the
 discontinuous Galerkin (DG) scheme to discretize the phase-space
-advection, and Strong Stability-Preserving Runge-Kutta (SSP-RK)
-schemes to discretize the time derivative. We use a *matrix and
-quadrature free* version of the algorithm described in [Juno2018]_
+advection, and :doc:`Strong Stability-Preserving Runge-Kutta (SSP-RK)
+schemes <ssp-rk>` to discretize the time derivative. We use a *matrix
+and quadrature free* version of the algorithm described in [Juno2018]_
 which should be consulted for details of the numerics the properties
 of the discrete system.
 
