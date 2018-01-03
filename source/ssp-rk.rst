@@ -60,15 +60,16 @@ For each of the above schemes, I have plotted below the region of
 absolute stability. Note that only the RK3 schemes are stable when
 there is no diffusion in the system, and hence should be prefered.
 
-.. figure:: ssp-rk-abs-stablity.png
+.. figure:: ssp-rk-abs-stability.png
   :width: 100%
   :align: center
 
   Absolute stability regions for a equation :math:`\dot{y} =
-  e^{\lambda t}e^{i\omega t}`. When there is no diffusion
+  e^{\lambda t}e^{i\omega t}` for SSP-RK2 (red), SSP-RK3 (black) and
+  four stage SSP-RK3 (magenta). When there is no diffusion
   (:math:`\lambda=0`) the SSP-RK2 scheme is slightly unstable as it
-  has no intercept on the imaginary axis.
-
+  has no intercept on the imaginary axis. Hence, the third order
+  schemes should be preferred.
 
 References
 ----------
