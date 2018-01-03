@@ -3,9 +3,10 @@ Strong-Stability preserving Runge-Kutta time-steppers
 
 The Gkyl DG solvers use SSP-RK time-steppers. Three steppers are
 implemented: SSP-RK2, SSP-RK3 and a four-stage SSP-RK3 that allows
-twice the CFL as the other schemes. See [DurranBook]_ page 56. The
-schemes are described below. Here, the symbol :math:`\mathcal{F}` is
-used to indicate a first-order Euler update:
+twice the CFL (for the cost of additional memory) as the other
+schemes. See [DurranBook]_ page 56. The schemes are described
+below. Here, the symbol :math:`\mathcal{F}` is used to indicate a
+first-order Euler update:
 
 .. math::
 
