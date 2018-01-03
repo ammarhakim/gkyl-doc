@@ -58,8 +58,9 @@ The overall structure of the app is as follows
       -- species parameters
     },
 
-    -- fields (optional, can be ommited for neutral particles)
-    field = Vlasov.EmField {
+    -- fields (optional, can be omitted for neutral particles)
+    field = Vlasov.EmField { -- or EsField
+      -- field parameters
     },
   }
   -- run application
@@ -91,7 +92,8 @@ default values can be omitted.
      - Initial suggested time-step. Adjusted as simulation progresses.
      - tEnd/nFrame
    * - nFrame
-     - Number of frames
+     - Number of frames of data to write. Initial conditions are
+       always written.
      -
    * - lower
      - CDIM length table with lower-left configuration space coordinates
@@ -148,6 +150,10 @@ default values can be omitted.
        optional and if not specified no force terms will be evolved,
        i.e. the particles will be assumed to be neutral.
      - nil
+   * - *species-name*
+     - Species objects. There can be more than one of these. See
+       details below.
+     - 
 
 .. note::
 
@@ -217,7 +223,86 @@ output data files, reasonable names should be used.
        evolved. In this case, only initial conditions for this species
        will be written to file.
      - true
-     
+
+EXAMPLE INIT FUNCTION
+
+Field parameters
+----------------
+
+At present, two types of field equations are supported: EM fields and
+ES fields. The former evolves the fields using the full Maxwell
+equations and the latter with the Poisson equations, with an optional
+static magnetic field.
+
+The EM field object is used as follows
+
+.. code-block:: lua
+
+    field = Vlasov.EmField {
+      -- field parameters
+    },
+
+
+The ES field object is used as follows (**does not work at present!**)
+
+.. code-block:: lua
+
+    field = Vlasov.EsField {
+      -- field parameters
+    },
+
+**Note that the field object must be called "field".** You can also
+omit the field object completely. In this case, it will be assumed
+that you are evolving neutral particles and the acceleration will be
+set to zero (i.e. :math:`\mathbf{a}_s = 0` in the Vlasov equation).
+
+.. list-table:: Parameters for field objects
+   :widths: 20, 60, 20
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+     - Default
+   * - epsilon0
+     - Vacuum permittivity (:math:`\epsilon_0`)
+     -
+   * - mu0
+     - Vacuum permeability (:math:`\mu_0`)
+     -
+   * - init
+     - Function with signature ``function(t,xn)`` that initializes the
+       field. This function must return 6 values arranged as
+       :math:`E_x, E_y, E_z, B_x, B_y, B_z` at :math:`t=0` at ``xn``,
+       which is a CDIM vector.
+     -
+   * - evolve
+     - If set to ``false`` the field is not evolved. In this case,
+       only initial conditions will be written to file.
+     - true
+
+EXAMPLE INIT FUNCTION
+       
+App output
+----------
+
+The app will write distribution function for each species and the EM
+fields at the equal time intervals. Besides the initial condition,
+``nFrame`` data frames will be written. The output format is ADIOS BP
+files. Say your input file is called "vlasov.lua" and your species are
+called "elc" and "ion". Then, the app will write out the following
+files:
+
+- ``vlasov_elc_N.bp``
+- ``vlasov_ion_N.bp``
+- ``vlasov_field_N.bp``
+
+Where ``N`` is the frame number (frame 0 is the initial
+conditions). Note that if a species or the field is not evolved, then
+only initial conditions will be written.
+
+In addition to the above, optionally diagnostic data may also be
+written. (MORE HERE)
+
 References
 ----------
 

@@ -4,7 +4,7 @@ local Vlasov = require "App.VlasovOnCartGrid"
 vlasovApp = Vlasov.App {
    logToFile = true,
 
-   tEnd = 10.0, -- end time
+   tEnd = 20.0, -- end time
    nFrame = 2, -- number of output frames
    lower = {0.0}, -- configuration space lower left
    upper = {2*math.pi}, -- configuration space upper right
@@ -28,15 +28,24 @@ vlasovApp = Vlasov.App {
       -- velocity space grid
       lower = {-6.0},
       upper = {6.0},
-      cells = {32},
+      cells = {16},
       decompCuts = {1},
       -- initial conditions
       init = function (t, xn)
 	 local x, v = xn[1], xn[2]
-	 return 1/math.sqrt(2*math.pi)*math.exp(-v^2/2)*math.cos(x)
+	 return 1/math.sqrt(2*math.pi)*math.exp(-v^2/2)
       end,
-      -- evolve species?
-      evolve = true,
+      evolve = true, -- evolve species?
+   },
+
+   -- field solver
+   field = Vlasov.EmField {
+      epsilon0 = 1.0, mu0 = 1.0,
+      init = function (t, xn)
+	 local Ex = -math.sin(xn[1])
+	 return Ex, 0.0, 0.0, 0.0, 0.0, 0.0
+      end,
+      evolve = false, -- evolve field?
    },
 }
 -- run application
