@@ -18,7 +18,7 @@ cs = contour(XX, YY, WW3_4, levels=[1], colors='m')
 
 xlabel(r'$\Delta t \lambda$')
 ylabel(r'$\Delta t \omega$')
-title(r'Absolute Stability Region for $e^{\lambda t}e^{i \omega t}$')
+title(r'Absolute Stability Region')
 
 grid()
 axis('image')
