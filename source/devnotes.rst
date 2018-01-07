@@ -7,6 +7,7 @@ wishing to understand some of the internal details of Gkyl.
 .. toctree::
   :maxdepth: 1
 
+  onmaxima
   modalbasis
   ssp-rk
   maxwell-eigensystem

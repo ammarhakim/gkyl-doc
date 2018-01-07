@@ -50,9 +50,10 @@ Four stage SSP-RK3
    f^{(3)} &= \frac{2}{3} f^{n} + \frac{1}{6} f^{(2)} + \frac{1}{6} \mathcal{F}[f^{(2)}] \\
    f^{n+1} &= \frac{1}{2} f^{(3)} + \frac{1}{2} \mathcal{F}[f^{(3)}]
 
-with :math:`CFL<2`. Note that this scheme has four stages, but allows
-twice the time-step that SSP-RK2 and SSP-RK3, hence will result in a
-speed up of :math:`1.5X` compared to the three-stage SSP-RK3 scheme.
+with :math:`CFL\le 2`. Note that this scheme has four stages, but
+allows twice the time-step that SSP-RK2 and SSP-RK3, hence will result
+in a speed up of :math:`1.5X` compared to the three-stage SSP-RK3
+scheme.
 
 Region of absolute stability
 ----------------------------

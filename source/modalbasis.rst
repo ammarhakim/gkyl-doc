@@ -17,17 +17,6 @@ straighforward stuff, but it is good to write it down somewhere).
 
 .. contents::
 
-On use of the Maxima computer algebra system
---------------------------------------------
-
-Throughout Gkyl a large amount of Lua and C++ code is automatically
-pre-generated using the `Maxima <http://maxima.sourceforge.net>`_
-computer algebra system (CAS). Maxima is free and has a vast amount of
-features. For some of the calculations the use of a CAS is essential
-as the algebra, even though relatively easy, is very tedious, needing
-thousands of evaluations of various integrals etc. All Maxima code is
-checked into the gkyl/cas-scripts directory.
-
 Pre-computed basis functions
 ----------------------------
 
@@ -39,11 +28,14 @@ and 4. Computing orthonormal basis set in higher dimensions is
 time-consuming and so these pre-computed lisp files should be
 used. For example::
 
-  load("basisSer2x3v")
+  load("basis-precalc/basisSer2x3v")
 
-will load the serendipity basis sets in 2x3v phase-space. **NOTE: you
-will need to specify the full path to the lisp file**. The files
-define the following Maxima variables::
+will load the serendipity basis sets in 2x3v phase-space.
+
+NOTE: please read :doc:`Maxima notes <onmaxima>` to get this commmand
+to work.
+
+The files define the following Maxima variables::
 
   varsC, varsP, basisC, basisP
 
