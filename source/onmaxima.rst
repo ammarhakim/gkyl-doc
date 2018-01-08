@@ -6,12 +6,20 @@ pre-generated using the `Maxima <http://maxima.sourceforge.net>`_
 computer algebra system (CAS). Maxima is free and has a vast amount of
 features. For some of the calculations the use of a CAS is essential
 as the algebra, even though relatively easy, is very tedious, needing
-thousands of evaluations of various integrals etc. All Maxima code is
-checked into the gkyl/cas-scripts directory.
+thousands of evaluations of various integrals etc.
 
-To use the Maxima code in this directory you need to tell Maxima to
-find it. To do this, create the directory (if it does not exist
-already)::
+A very pleasant front-end for Maxima is provided by the `TeXmacs
+<http://www.texmacs.org>`_ program. When Maxima is run through TeXmacs
+one can mix regular text (and equations) with Maxima
+interactions. Other front-ends to Maxima also exist, although I have
+not tested or used any of them.
+
+A very comprehensive physics oriented tutorial is `Maxima by Example
+by Edwin Woollett <https://web.csulb.edu/~woollett/>`_.
+
+All Maxima code is checked into the gkyl/cas-scripts directory. To use
+the Maxima code in this directory you need to tell Maxima to find
+it. To do this, create the directory (if it does not exist already)::
 
   mkdir $HOME/.maxima
 
