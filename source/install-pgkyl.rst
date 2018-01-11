@@ -10,7 +10,7 @@ ships with Anaconda Python. Once you have installed `Anaconda
 version of postgkyl can be installed from the gkyl channel using the
 command::
 
-  conda -c gkyl install postgkyl
+  conda install -c gkyl postgkyl 
 
 To update the conda installed version of postgkyl, do::
 

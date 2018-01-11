@@ -37,12 +37,17 @@ On most supercomputers you will likely need to use the system
 recommended compilers and MPI libraries. In this case, you should pass
 the appropriate compilers to mkdeps.sh as follows::
 
-  ./mkdeps.sh CC=cc CXX=cxx MPICC=mpicc MPICXX=mpicxx  
+  ./mkdeps.sh CC=cc CXX=cxx MPICC=mpicc MPICXX=mpicxx ....
 
 You should only build libraries *not* provided by the system. In
 practice, this likely means LuaJIT, ADIOS and, perhaps Petsc. (Many
 supercomputer centers at DOE already offer ADIOS and Petsc builds and
-should be preferred instead of your own builds).
+should be preferred instead of your own builds). A typical command
+will be::
+
+  ./mkdeps.sh --build-adios=yes --build-openmpi=yes --build-luajit=yes
+
+(in addition, you may need to specify compilers also).
 
 By default, the mkdeps.sh script will install dependencies in
 $HOME/gkylsoft directory. If you install it elsewhere, you will need
