@@ -12,9 +12,9 @@ combinations are allowed, making the system extremely powerful.
 .. toctree::
   :maxdepth: 1
 
-  pgkyl-usage
-  pgkyl-examples
-  pgkyl-commands
+  cli-usage
+  cli-examples
+  cli-commands
 
    
 

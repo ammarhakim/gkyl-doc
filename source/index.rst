@@ -8,7 +8,7 @@ is written in a combination of LuaJIT and C++. Most of the top-level
 code is written in LuaJIT, while time-critical parts are written in
 C++. Gkyl is developed at `Princeton Plasma Physics Laboratory (PPPL)
 <http://www.pppl.gov>`_. For a full list of contributors see
-:doc:`Authors <authors>` list.
+:doc:`Authors <gkyl/authors>` list.
 
 Gkyl Documentation
 ------------------
@@ -16,25 +16,27 @@ Gkyl Documentation
 .. toctree::
   :maxdepth: 2
 
-  about
+  gkyl/about
   license
-  install
-  applications
-  devnotes
+  gkyl/install
+  gkyl/applications
+  gkyl/devnotes
+
+And now for something completely different:
 
 Postgkyl Documentation
 ----------------------
 
-Postgkyl is a command line tool for post-processing Gkeyll 1.0 and
-Gkyl data. Postgkyl allows the user to read data from HDF5 and ADIOS
-BP files, manipulate the data in many wonderful ways and then save or
-plot the results.
+Postgkyl is a command line tool and Python package for post-processing
+Gkeyll 1.0 and Gkyl data. Postgkyl allows the user to read data from
+HDF5 and ADIOS BP files, manipulate the data in many wonderful ways
+and then save or plot the results.
 
 
 .. toctree::
   :maxdepth: 2
 
-  install-pgkyl
-  pgkyl-docs  
+  postgkyl/install
+  postgkyl/climode  
 
 
