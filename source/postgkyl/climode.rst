@@ -1,5 +1,5 @@
-Documentation of Postgkyl Commands
-++++++++++++++++++++++++++++++++++
+Running Postgkyl in Command Line Mode
++++++++++++++++++++++++++++++++++++++
 
 Postgkyl uses a command pipeline approach: commands can be chained,
 the output of one command being fed to the next command in the chain.

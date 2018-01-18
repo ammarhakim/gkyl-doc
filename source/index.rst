@@ -24,19 +24,27 @@ Gkyl Documentation
 
 And now for something completely different:
 
+.. image:: postgkyl/anfscd.jpg
+   :width: 30%
+   :align: center
+
+
+
 Postgkyl Documentation
 ----------------------
 
-Postgkyl is a command line tool and Python package for post-processing
-Gkeyll 1.0 and Gkyl data. Postgkyl allows the user to read data from
-HDF5 and ADIOS BP files, manipulate the data in many wonderful ways
-and then save or plot the results.
+Postgkyl is a Python post-processing tool for Gkeyll 1.0 and Gkyl
+data.  It allows the user to read data from HDF5 and ADIOS BP files,
+manipulate the data in many wonderful ways, and then save or plot the
+results.  Postgkyl can be run in two modes: command line mode and
+Python package mode.
 
 
 .. toctree::
   :maxdepth: 2
 
   postgkyl/install
-  postgkyl/climode  
+  postgkyl/pymode
+  postgkyl/climode
 
 
