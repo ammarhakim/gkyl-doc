@@ -20,15 +20,13 @@ Gkyl Documentation
   license
   gkyl/install
   gkyl/applications
-  gkyl/devnotes
 
-And now for something completely different:
+..
+   And now for something completely different:
 
-.. image:: postgkyl/anfscd.jpg
-   :width: 30%
-   :align: center
-
-
+   .. image:: postgkyl/anfscd.jpg
+      :width: 30%
+      :align: center
 
 Postgkyl Documentation
 ----------------------
@@ -47,4 +45,20 @@ Python package mode.
   postgkyl/pymode
   postgkyl/climode
 
+Dev Notes
+---------
+
+This is a collection of notes, mainly meant for developers and those
+wishing to understand some of the internal details of Gkyl.
+
+.. toctree::
+  :maxdepth: 1
+
+  dev/onmaxima
+  dev/modalbasis
+  dev/ssp-rk
+  dev/maxwell-eigensystem
+  dev/euler-eigensystem
+  dev/tenmom-eigensystem
+  dev/twofluid-sources
 
