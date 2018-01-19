@@ -19,10 +19,10 @@ where :math:`f_s` the *particle* distribution function,
 :math:`C[f_s,f_{s'}]` are collisions. This app uses a version of the
 discontinuous Galerkin (DG) scheme to discretize the phase-space
 advection, and :doc:`Strong Stability-Preserving Runge-Kutta (SSP-RK)
-schemes <ssp-rk>` to discretize the time derivative. We use a *matrix
-and quadrature free* version of the algorithm described in [Juno2018]_
-which should be consulted for details of the numerics the properties
-of the discrete system.
+schemes <../dev/ssp-rk>` to discretize the time derivative. We use a
+*matrix and quadrature free* version of the algorithm described in
+[Juno2018]_ which should be consulted for details of the numerics the
+properties of the discrete system.
 
 For neutral particles, the acceleration can be set to zero. For
 electromagnetic (or electrostatic) problems, the acceleration is due
@@ -93,7 +93,8 @@ default values can be omitted.
      - tEnd/nFrame
    * - nFrame
      - Number of frames of data to write. Initial conditions are
-       always written.
+       always written. For more fine-grained control over species and
+       field output, see below.
      -
    * - lower
      - CDIM length table with lower-left configuration space coordinates
@@ -193,6 +194,16 @@ output data files, reasonable names should be used.
    * - Parameter
      - Description
      - Default
+   * - nDistFuncFrame
+     - These many distribution function outputs will be written during
+       simulation. If not specified, top-level ``nFrame`` parameter
+       will be used
+     - ``nFrame`` from top-level
+   * - nDiagnosticFrame
+     - These many diagnostics outputs (moments etc) will be written
+       during simulation. If not specified, top-level ``nFrame``
+       parameter will be used
+     - ``nFrame`` from top-level
    * - charge
      - Species charge (ignored for neutral particles)
      -
@@ -223,8 +234,6 @@ output data files, reasonable names should be used.
        evolved. In this case, only initial conditions for this species
        will be written to file.
      - true
-
-EXAMPLE INIT FUNCTION
 
 Field parameters
 ----------------
@@ -263,6 +272,10 @@ set to zero (i.e. :math:`\mathbf{a}_s = 0` in the Vlasov equation).
    * - Parameter
      - Description
      - Default
+   * - nFrame
+     - These many field outputs will be written during simulation. If
+       not specified, top-level ``nFrame`` parameter will be used
+     - ``nFrame`` from top-level
    * - epsilon0
      - Vacuum permittivity (:math:`\epsilon_0`)
      -
@@ -280,17 +293,18 @@ set to zero (i.e. :math:`\mathbf{a}_s = 0` in the Vlasov equation).
        only initial conditions will be written to file.
      - true
 
-EXAMPLE INIT FUNCTION
-       
 App output
 ----------
 
 The app will write distribution function for each species and the EM
-fields at the equal time intervals. Besides the initial condition,
-``nFrame`` data frames will be written. The output format is ADIOS BP
-files. Say your input file is called "vlasov.lua" and your species are
-called "elc" and "ion". Then, the app will write out the following
-files:
+fields at specified time intervals. Depending on input parameters
+specified to the species and field block, different number of
+distribution functions, fields and diagnostics (moments, integrated
+quantities) will be written.
+
+The output format is ADIOS BP files. Say your input file is called
+"vlasov.lua" and your species are called "elc" and "ion". Then, the
+app will write out the following files:
 
 - ``vlasov_elc_N.bp``
 - ``vlasov_ion_N.bp``
@@ -301,7 +315,7 @@ conditions). Note that if a species or the field is not evolved, then
 only initial conditions will be written.
 
 In addition to the above, optionally diagnostic data may also be
-written. (MORE HERE)
+written.
 
 References
 ----------
