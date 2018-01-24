@@ -3,7 +3,8 @@
 VlasovOnCartGrid: Vlasov equations on a Cartesian grid
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-The ``VlasovOnCartGrid`` app solves the Vlasov equation on a Cartesian grid.
+The ``VlasovOnCartGrid`` app solves the Vlasov equation on a Cartesian
+grid.
 
 .. math::
 
@@ -66,9 +67,6 @@ The overall structure of the app is as follows
   -- run application
   vlasovApp:run()
 
-For a complete example, see :doc:`Vlasov app
-example <VlasovOnCartGridExample_LD>`.
-  
 Basic parameters
 ----------------
   
@@ -234,7 +232,26 @@ output data files, reasonable names should be used.
        evolved. In this case, only initial conditions for this species
        will be written to file.
      - true
+   * - diagnosticMoments
+     - List of moments to compute for diagnostics. See below for list
+       of moments supported.
+     - { }
 
+The supported diagnostic moments are, "M0", "M1i", "M2ij", "M2" and
+"M3i" defined by
+
+.. math::
+
+   M0 &= \int f \thinspace dv \\
+   M1i &= \int v_i f \thinspace dv \\
+   M2ij &= \int v_i v_j f \thinspace dv \\
+   M2 &= \int v^2 f \thinspace dv \\
+   M3i &= \int v^2 v_i f \thinspace dv
+
+In these diagnostics, the index :math:`i,j` run over :math:`1\ldots
+VDIM`.
+   
+   
 Field parameters
 ----------------
 

@@ -13,7 +13,7 @@ a constant, be the basis. Then the basis satisfy
 where the angle brackets indicate integration over the hypercube
 :math:`I_d`. In this note I describe some common operations that are
 needed while working with these basis sets. (All of this relatively
-straighforward stuff, but it is good to write it down somewhere).
+straightforward stuff, but it is good to write it down somewhere).
 
 .. contents::
 
@@ -32,7 +32,7 @@ used. For example::
 
 will load the serendipity basis sets in 2x3v phase-space.
 
-NOTE: please read :doc:`Maxima notes <onmaxima>` to get this commmand
+NOTE: please read :doc:`Maxima notes <onmaxima>` to get this command
 to work.
 
 The files define the following Maxima variables::
@@ -77,3 +77,23 @@ This means that the cell-average is given by
 .. math::
 
    \overline{f} = \frac{f_1}{\sqrt{2^d}}
+
+Convolution of two functions
+----------------------------
+
+Now consider two functions, :math:`f` and :math:`g` that are both
+expanded in the basis. The inner product of the two functions is:
+
+.. math::
+
+   \overline{f g} = \frac{1}{2^d}  \langle f g \rangle
+
+Now, as the basis functions are orthonormal, this leads to the
+particularly simple expression
+
+.. math::
+
+   \overline{f g} = \frac{1}{2^d} \sum_k f_k g_k
+
+This makes it very easy to compute things like electromagnetic energy,
+and other quadratic quantities.
