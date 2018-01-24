@@ -14,6 +14,6 @@ Hampshire and Darthmouth College.
 The lead developer of the code is Ammar Hakim. The lead architects of
 the algorithms and physics are Ammar Hakim and `Greg Hammett
 <http://w3.pppl.gov/~hammett>`_. The other contributors are (to either
-older Gkeyll 1.0 or the new Gkyl code) are: Eric Shi, James (Jimmy)
-Juno, Jonathan Ng, Petr Cagas, Liang Wang, Mana F. Rodriguez, Jason
-TenBarge, Chaunfei Dong, Bhuvana Srinivasan and Noah Mandel.
+Gkeyll 1.0 or Gkyl code) are: Eric Shi, James (Jimmy) Juno, Jonathan
+Ng, Petr Cagas, Liang Wang, Mana F. Rodriguez, Jason TenBarge,
+Chaunfei Dong, Bhuvana Srinivasan and Noah Mandel.
