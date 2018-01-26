@@ -367,6 +367,7 @@ Examples
 --------
 
 - :doc:`Advection in a potential well <pot-well>` (Field not evolved)
+- :doc:`Landau damping of Langmuir waves <es-landau-damp>`  
 - :doc:`Two-stream instability <es-two-stream>`
 - :doc:`Three species electrostatic shock problem
   <al-ion-es-shock>`. See [Pusztai2018]_ for full problem description.
