@@ -323,9 +323,10 @@ specified to the species and field block, different number of
 distribution functions, fields and diagnostics (moments, integrated
 quantities) will be written.
 
-The output format is ADIOS BP files. Say your input file is called
-"vlasov.lua" and your species are called "elc" and "ion". Then, the
-app will write out the following files:
+The output format is `ADIOS BP
+<https://www.olcf.ornl.gov/center-projects/adios/>`_ files. Say your
+input file is called "vlasov.lua" and your species are called "elc"
+and "ion". Then, the app will write out the following files:
 
 - ``vlasov_elc_N.bp``
 - ``vlasov_ion_N.bp``
