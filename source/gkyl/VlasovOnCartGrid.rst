@@ -368,6 +368,8 @@ Examples
 
 - :doc:`Advection in a potential well <pot-well>` (Field not evolved)
 - :doc:`Two-stream instability <es-two-stream>`
+- :doc:`Three species electrostatic shock problem
+  <al-ion-es-shock>`. See [Pusztai2018]_ for full problem description.
 
 
 References
@@ -377,3 +379,9 @@ References
     W.. "Discontinuous Galerkin algorithms for fully kinetic plasmas",
     *Journal of Computational Physics*, **353**,
     110–147, 2018. http://doi.org/10.1016/j.jcp.2017.10.009
+
+.. [Pusztai2018] I Pusztai, J M TenBarge, A N Csapó, J Juno, A Hakim,
+   L Yi and T Fülöp "Low Mach-number collisionless electrostatic
+   shocks and associated ion acceleration". Plasma
+   Phys. Control. Fusion **60**
+   035004, 2018. https://doi.org/10.1088/1361-6587/aaa2cc
