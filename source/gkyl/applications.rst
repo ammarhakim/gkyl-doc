@@ -16,6 +16,7 @@ The following apps are available in Gkyl.
   :maxdepth: 1
 
   VlasovOnCartGrid
+  GyroOnCartGrid
 
 .. rubric:: Footnotes
 
