@@ -67,6 +67,10 @@ The overall structure of the app is as follows
   -- run application
   vlasovApp:run()
 
+Note that if the app's ``run`` method is not called, the simulation
+will not be run, but the simulation will be initialized and the
+initial conditions will be written out to file.
+  
 Basic parameters
 ----------------
   
@@ -332,7 +336,38 @@ conditions). Note that if a species or the field is not evolved, then
 only initial conditions will be written.
 
 In addition to the above, optionally diagnostic data may also be
-written.
+written. For example, the moments files are named:
+
+- ``vlasov_elc_M0_N.bp``
+- ``vlasov_ion_M0_N.bp``
+- ``vlasov_elc_M1i_N.bp``
+- ``vlasov_ion_M1i_N.bp``
+
+etc, depending on the entried in the ``diagnosticMoments`` table for
+each species. In addition, integrated moments for each species are
+written:
+
+- ``vlasov_elc_intMom_N.bp``
+
+This file has the time-dependent "M0", three contributions of kinetic
+energy and the "M2" (integrated over configuration space) stored in
+them.
+
+For the field, the electromagentic energy components :math:`E_x^2`,
+:math:`E_y^2`, :math:`E_z^2`, :math:`B_x^2`, :math:`B_y^2`, and
+:math:`B_z^2` (integrated over configuration space) are stored in the
+file:
+
+- ``vlasov_fieldEnergy_N.bp``
+
+These can be plotted using postgkyl in the usual way.
+
+Examples
+--------
+
+- :doc:`Advection in a potential well <pot-well>` (Field not evolved)
+- :doc:`Two-stream instability <es-two-stream>`
+
 
 References
 ----------
