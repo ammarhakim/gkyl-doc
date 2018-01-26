@@ -11,8 +11,7 @@ vlasovApp = Vlasov.App {
    cells = {32}, -- configuration space cells
    basis = "serendipity", -- one of "serendipity" or "maximal-order"
    polyOrder = 2, -- polynomial order
-   cflFrac = 1.0, -- CFL "fraction". Usually 1.0
-   timeStepper = "rk2", -- one of "rk2" or "rk3"
+   timeStepper = "rk3s4", -- one of "rk2" or "rk3"
 
    -- decomposition for configuration space
    decompCuts = {1}, -- cuts in each configuration direction
