@@ -35,7 +35,7 @@ so should only be used in special cases.
 
 Example::
 
-  pgkyl -f vm_distf_10.h5 interpolate -b ns -p plot
+  pgkyl -f vm_distf_10.h5 interpolate -b ns -p 2 plot
 
 
 This will read a distribution function computes by a nodal serendipity

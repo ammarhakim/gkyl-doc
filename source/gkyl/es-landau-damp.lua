@@ -55,12 +55,13 @@ vlasovApp = Vlasov.App {
       end,
       evolve = false, -- evolve species?
    },
+   
    -- field solver
    field = Vlasov.EmField {
       epsilon0 = 1.0, mu0 = 1.0,
       init = function (t, xn)
-	    local Ex = -1.0*alpha/k * math.sin(k*xn[1])
-	    return Ex, 0.0, 0.0, 0.0, 0.0, 0.0
+	 local Ex = -1.0*alpha/k * math.sin(k*xn[1])
+	 return Ex, 0.0, 0.0, 0.0, 0.0, 0.0
       end,
       evolve = true, -- evolve field?
    },
