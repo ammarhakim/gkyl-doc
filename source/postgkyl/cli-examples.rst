@@ -21,7 +21,7 @@ The complete command is::
 
 Note the command chaining: the "comp 0:5" command selects the five
 conserved electron moments, the "euler -v pressure -g 1.4" command
-plots the pressure and the "plot" command makes the actual plot.
+computes the pressure and the "plot" command makes the actual plot.
 
 To plot the ion pressure instead do::
 
