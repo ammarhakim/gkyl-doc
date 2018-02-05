@@ -379,7 +379,8 @@ Examples
 - :doc:`Two-stream instability <es-two-stream>`
 - :doc:`Three species electrostatic shock problem
   <al-ion-es-shock>`. See [Pusztai2018]_ for full problem description.
-
+- :doc:`Weibel instability in 1x2v <weibel-1x2v>`. See [Cagas2017]_
+  for full problem description.
 
 References
 ----------
@@ -394,3 +395,8 @@ References
    shocks and associated ion acceleration". Plasma
    Phys. Control. Fusion **60**
    035004, 2018. https://doi.org/10.1088/1361-6587/aaa2cc
+
+.. [Cagas2017] P. Cagas, A. Hakim, W. Scales, and
+   B. Srinivasan, "Nonlinear saturation of the Weibel
+   instability. Physics of Plasmas", **24** (11), 112116–8, 2017
+   http://doi.org/10.1063/1.4994682
