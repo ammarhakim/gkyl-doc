@@ -303,6 +303,9 @@ set to zero (i.e. :math:`\mathbf{a}_s = 0` in the Vlasov equation).
    * - mu0
      - Vacuum permeability (:math:`\mu_0`)
      -
+   * - hasMagneticField
+     - Flag to indicate if there is a magnetic field
+     - true
    * - init
      - Function with signature ``function(t,xn)`` that initializes the
        field. This function must return 6 values arranged as
@@ -314,6 +317,11 @@ set to zero (i.e. :math:`\mathbf{a}_s = 0` in the Vlasov equation).
        only initial conditions will be written to file.
      - true
 
+**Note**: When doing an electrostatic problem with no magnetic field,
+set the ``hasMagneticField`` to ``false``. This will choose
+specialized solvers that are much faster and can lead to significant
+gain in efficiency.
+       
 App output
 ----------
 
