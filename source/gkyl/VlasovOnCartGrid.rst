@@ -127,7 +127,8 @@ default values can be omitted.
    * - ioMethod
      - Method to use for file output. One of "MPI" or "POSIX". When
        "POSIX" is selected, each node writes to its own file in a
-       sub-directory.
+       sub-directory. Depending on your system "MPI_LUSTRE" may be
+       available and, if so, should be preferred.
      - "MPI"
    * - decompCuts
      - CDIM length table with number of processors to use in each
@@ -138,15 +139,6 @@ default values can be omitted.
      - false
    * - periodicDirs
      - Periodic directions. Note: X is 1, Y is 2 and Z is 3.
-     - { }
-   * - bcx
-     - Length two table with BCs in X direction. See details on BCs below.
-     - { }
-   * - bcy
-     - Length two table with BCs in Y direction. Only needed if CDIM>1
-     - { }
-   * - bcz
-     - Length two table with BCs in Z direction. Only needed if CDIM>2
      - { }
    * - field
      - Type of field solver to use. See details below. This is
@@ -231,6 +223,15 @@ output data files, reasonable names should be used.
        single value, :math:`f(x,v,t=0)` at ``xn``, which is a NDIM
        vector.
      -
+   * - bcx
+     - Length two table with BCs in X direction. See details on BCs below.
+     - { }
+   * - bcy
+     - Length two table with BCs in Y direction. Only needed if CDIM>1
+     - { }
+   * - bcz
+     - Length two table with BCs in Z direction. Only needed if CDIM>2
+     - { }     
    * - evolve
      - If set to ``false`` the species distribution function is not
        evolved. In this case, only initial conditions for this species
@@ -312,6 +313,15 @@ set to zero (i.e. :math:`\mathbf{a}_s = 0` in the Vlasov equation).
        :math:`E_x, E_y, E_z, B_x, B_y, B_z` at :math:`t=0` at ``xn``,
        which is a CDIM vector.
      -
+   * - bcx
+     - Length two table with BCs in X direction. See details on BCs below.
+     - { }
+   * - bcy
+     - Length two table with BCs in Y direction. Only needed if CDIM>1
+     - { }
+   * - bcz
+     - Length two table with BCs in Z direction. Only needed if CDIM>2
+     - { }
    * - evolve
      - If set to ``false`` the field is not evolved. In this case,
        only initial conditions will be written to file.
@@ -352,7 +362,7 @@ written. For example, the moments files are named:
 - ``vlasov_elc_M1i_N.bp``
 - ``vlasov_ion_M1i_N.bp``
 
-etc, depending on the entried in the ``diagnosticMoments`` table for
+etc, depending on the entries in the ``diagnosticMoments`` table for
 each species. In addition, integrated moments for each species are
 written:
 
@@ -362,7 +372,7 @@ This file has the time-dependent "M0", three contributions of kinetic
 energy and the "M2" (integrated over configuration space) stored in
 them.
 
-For the field, the electromagentic energy components :math:`E_x^2`,
+For the field, the electromagnetic energy components :math:`E_x^2`,
 :math:`E_y^2`, :math:`E_z^2`, :math:`B_x^2`, :math:`B_y^2`, and
 :math:`B_z^2` (integrated over configuration space) are stored in the
 file:
