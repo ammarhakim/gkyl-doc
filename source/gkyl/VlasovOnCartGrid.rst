@@ -389,6 +389,8 @@ Examples
 - :doc:`Two-stream instability <es-two-stream>`
 - :doc:`Three species electrostatic shock problem
   <al-ion-es-shock>`. See [Pusztai2018]_ for full problem description.
+- :doc:`Advection of particles in a constant magnetic field
+  <adv-const-mag>`. (Field not evolved)
 - :doc:`Weibel instability in 1x2v <weibel-1x2v>`. See [Cagas2017]_
   for full problem description.
 
