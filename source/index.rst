@@ -57,7 +57,7 @@ wishing to understand some of the internal details of Gkyl.
   dev/onmaxima
   dev/modalbasis
   dev/ssp-rk
-  dev/vlasov-normalization
+  dev/vlasov-normalizations
   dev/maxwell-eigensystem
   dev/euler-eigensystem
   dev/tenmom-eigensystem
