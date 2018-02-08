@@ -5,7 +5,7 @@ The Gkyl design philosophy involves the implementation of unit-full systems of e
 
 .. math::
 
-   \frac{\partial f_s}{\partial t} + \mathbf{v} \cdot \nabla_{\mathbf{x}} \thinspace f_s + \frac{q_s}{m_s} (\mathbf{E} + \mathbf{v} \times \mathbf{B}) \cdot \nabla_{\mathbf{v}} \thinspace f_s &= 0, \\
+   \frac{\partial f_s}{\partial t} + \mathbf{v} \cdot \nabla_{\mathbf{x}} \thinspace f_s + \frac{q_s}{m_s} (\mathbf{E} + \mathbf{v} \times \mathbf{B}) \cdot & \nabla_{\mathbf{v}} \thinspace f_s= 0, \\
    \frac{\partial \mathbf{B}}{\partial t} + \nabla_{\mathbf{x}} \times \mathbf{E} = 0, \qquad & \nabla_{\mathbf{x}} \cdot \mathbf{B} = 0, \\
    \epsilon_0\mu_0\frac{\partial \mathbf{E}}{\partial t} - \nabla_{\mathbf{x}} \times \mathbf{B} = -\mu_0 \mathbf{J}, \qquad &  \nabla_{\mathbf{x}} \cdot \mathbf{E} = \frac{\rho_c}{\epsilon_0} \\
    \rho_c = \sum_s q_s \int_{-\infty}^{\infty} f_s \thinspace d\mathbf{v}, \qquad & \mathbf{J} = \sum_s q_s \int_{-\infty}^{\infty} \mathbf{v} f_s \thinspace d\mathbf{v}.
@@ -42,7 +42,31 @@ With these normalizations, the Vlasov-Maxwell system of equations then becomes,
 
 .. math::
 
-   \frac{\partial f_s}{\partial \tau} + \boldsymbol \nu \cdot \nabla_{\boldsymbol \chi} \thinspace f_s + \frac{\tilde{q}_s}{\tilde{m}_s} (\tilde{\mathbf{E}} + \boldsymbol \nu \times \tilde{\mathbf{B}}) \cdot \nabla_{\boldsymbol \nu} \thinspace f_s &= 0, \\
+   \frac{\partial f_s}{\partial \tau} + \boldsymbol \nu \cdot \nabla_{\boldsymbol \chi} \thinspace f_s + \frac{\tilde{q}_s}{\tilde{m}_s} (\tilde{\mathbf{E}} + \boldsymbol \nu \times \tilde{\mathbf{B}}) \cdot & \nabla_{\boldsymbol \nu} \thinspace f_s= 0, \\
    \frac{\partial \tilde{\mathbf{B}}}{\partial \tau} + \nabla_{\boldsymbol \chi} \times \tilde{\mathbf{E}} = 0, \quad & \nabla_{\boldsymbol \chi} \cdot \tilde{\mathbf{B}} = 0, \\
    \frac{\partial \tilde{\mathbf{E}}}{\partial \tau} - \nabla_{\boldsymbol \chi} \times \tilde{\mathbf{B}} = -\tilde{\mathbf{J}}, \quad &  \nabla_{\boldsymbol \chi} \cdot \mathbf{E} = \tilde{\rho_c} \\
    \tilde{\rho_c} = \sum_s \tilde{q}_s \int_{-\infty}^{\infty} f_s \thinspace d\boldsymbol \nu, \quad & \tilde{\mathbf{J}} = \sum_s \tilde{q}_s \int_{-\infty}^{\infty} \boldsymbol \nu f_s \thinspace d\boldsymbol \nu.
+
+This system of equations has the obvious advantage that universal constants, such as :math:`\epsilon_0`, are eliminated. In doing so, one does not need to worry about the propagation of round off error from, for example, the accumulation of the current to the electric field in the Ampere-Maxwell law, :math:`E^{n+1} = E^{n} + \delta t \mathbf{J}/\epsilon_0 \qquad \rightarrow \qquad E^{n+1} = E^{n} + \delta t \tilde{\mathbf{J}}`. Given Gkyl's unit-full representation, a simple way to force the Vlasov-Maxwell solver to ``use'' these units is to specify the following parameters be equal to 1.0,
+
+.. math::
+
+   \epsilon_0 = 1.0, & \qquad \mu_0 = 1.0, \qquad c = 1.0, \\
+   m_e = 1.0, & \qquad q_i = 1.0, \qquad q_e = -1.0, \\
+   \omega_{pe} = 1.0, & \qquad d_e = 1.0, \\
+   n_0 = 1.0. &
+
+With the above parameters set to 1.0, then Vlasov-Maxwell simulations require only a few parameters to be completely determined. In a proton-electron plasma, these are, the proton-to-electron mass ratio, :math:`m_p/m_e`, the proton-to-electron temperature ratio, :math:`T_p/T_e`, the ratio of some characteristic velocity, such as the electron Alfv\'en speed, to the speed of light, :math:`v_{A_e}/c`, and the plasma beta of either the protons or the electrons, :math:`\beta`. It is often convenient with this normalized system to use the combination of the ratio of the electron  Alfv\'en speed to the speed of light and the plasma beta to derive the temperature in normalized units, like so,
+
+.. math::
+
+   \frac{v_{A_e}}{c} & = \frac{|\mathbf{B}|/\sqrt{n_e m_e \mu_0}}{c} \qquad \rightarrow \qquad \tilde{v_{A_e}} = |\tilde{\mathbf{B}}|, \\
+   \beta_e & = \frac{ 2 n_e T_e \mu_0}{|\mathbf{B}|^2} \qquad \rightarrow \qquad \tilde{T_e} = \tilde{\beta_e} \tilde{v_{A_e}}^2/2.0,
+
+assuming the plasma is quasineutral and thus, :math:`n_0 = 1.0` for both the protons and electrons. The proton beta and proton temperature then follow from the specified proton-to-electron temperature ratio. It is recommended that the user initialize Maxwellian distribution functions using this derived temperature, so as to avoid the ambiguity of the user's definition of the thermal velocity,
+
+.. math::
+
+   f_{\textrm{maxwellian}} = \frac{\tilde{n_s}}{\sqrt{2 \pi \tilde{T_s}/\tilde{m_s}}} \exp \left (-\tilde{m_s} \frac{(\boldsymbol\nu - \tilde{\mathbf{u}_s})^2}{2 \tilde{T_s}} \right ).
+
+Whether the user ultimately elects to use :math:`v_{th_s} = \sqrt{2 T_s/m_s}` or :math:`v_{th_s} = \sqrt{T_s/m_s}` is of no consequence to the initialization of the simulation, and likely only to manifest in the user's specification of the velocity space extents. 
