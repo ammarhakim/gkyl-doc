@@ -255,8 +255,35 @@ The supported diagnostic moments are, "M0", "M1i", "M2ij", "M2" and
 
 In these diagnostics, the index :math:`i,j` run over :math:`1\ldots
 VDIM`.
-   
-   
+
+The boundary conditions (if not periodic) are specified with the
+``bcx`` etc. tables. Each table must have exactly two entries, one for
+BC on the lower edge and one for the upper edge. The supported values
+are
+
+.. list-table:: Boundary conditions for ``Vlasov.Species``
+   :widths: 30, 70
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+   * - Vlasov.Species.bcAbsorb
+     - All outgoing particles leave the domain, and none reenter.
+   * - Vlasov.Species.bcOpen
+     - A zero-gradient BC, approximating an open domain
+   * - Vlasov.Species.bcReflect
+     - Particles are specularly reflected (i.e. billiard ball reflection)
+
+Note that often then "reflection" boundary condition is used to
+specify a symmetry for particles.
+       
+For example, for a 1x simulation, to specify that the left boundary is
+a reflector, while the right an absorber use:
+
+.. code-block:: lua
+
+   bcx = { Vlasov.Species.bcReflect, Vlasov.Species.bcAbsorb }
+       
 Field parameters
 ----------------
 
