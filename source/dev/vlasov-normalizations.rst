@@ -1,5 +1,7 @@
 A Set of Normalized Units for the Vlasov-Maxwell System of Equations
-+++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+:Author: Jimmy Juno
 
 The Gkyl design philosophy involves the implementation of unit-full systems of equations, i.e., Gkyl simulations can be run with real parameters for direct comparison with experiments, with universal constants specified by using values provided by the National Institute of Standards and Technology. For example, in the absence of collisions, the Vlasov-Maxwell system of equations in S.I. units is as follows,
 
@@ -47,7 +49,7 @@ With these normalizations, the Vlasov-Maxwell system of equations then becomes,
    \frac{\partial \tilde{\mathbf{E}}}{\partial \tau} - \nabla_{\boldsymbol \chi} \times \tilde{\mathbf{B}} = -\tilde{\mathbf{J}}, \quad &  \nabla_{\boldsymbol \chi} \cdot \mathbf{E} = \tilde{\rho_c} \\
    \tilde{\rho_c} = \sum_s \tilde{q}_s \int_{-\infty}^{\infty} f_s \thinspace d\boldsymbol \nu, \quad & \tilde{\mathbf{J}} = \sum_s \tilde{q}_s \int_{-\infty}^{\infty} \boldsymbol \nu f_s \thinspace d\boldsymbol \nu.
 
-This system of equations has the obvious advantage that universal constants, such as :math:`\epsilon_0`, are eliminated. In doing so, one does not need to worry about the propagation of round off error from, for example, the accumulation of the current to the electric field in the Ampere-Maxwell law, :math:`E^{n+1} = E^{n} + \delta t \mathbf{J}/\epsilon_0 \qquad \rightarrow \qquad E^{n+1} = E^{n} + \delta t \tilde{\mathbf{J}}`. Given Gkyl's unit-full representation, a simple way to force the Vlasov-Maxwell solver to ``use'' these units is to specify the following parameters be equal to 1.0,
+This system of equations has the obvious advantage that universal constants, such as :math:`\epsilon_0`, are eliminated. In doing so, one does not need to worry about the propagation of round off error from, for example, the accumulation of the current to the electric field in the Ampere-Maxwell law, :math:`E^{n+1} = E^{n} + \delta t \mathbf{J}/\epsilon_0` becomed :math:`E^{n+1} = E^{n} + \delta t \tilde{\mathbf{J}}`. Given Gkyl's unit-full representation, a simple way to force the Vlasov-Maxwell solver to "use" these units is to specify the following parameters be equal to 1.0,
 
 .. math::
 
