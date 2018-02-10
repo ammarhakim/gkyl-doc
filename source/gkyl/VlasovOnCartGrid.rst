@@ -274,8 +274,8 @@ are
    * - Vlasov.Species.bcReflect
      - Particles are specularly reflected (i.e. billiard ball reflection)
 
-Note that often then "reflection" boundary condition is used to
-specify a symmetry for particles.
+Note that often "reflection" boundary condition is used to specify a
+symmetry for particles.
        
 For example, for a 1x simulation, to specify that the left boundary is
 a reflector, while the right an absorber use:
@@ -331,6 +331,12 @@ set to zero (i.e. :math:`\mathbf{a}_s = 0` in the Vlasov equation).
    * - mu0
      - Vacuum permeability (:math:`\mu_0`)
      -
+   * - mgnErrorSpeedFactor
+     - Factor specifying speed for magnetic field divergence error correction
+     - 0.0
+   * - elcErrorSpeedFactor
+     - Factor specifying speed for electric field divergence error correction
+     - 0.0
    * - hasMagneticField
      - Flag to indicate if there is a magnetic field
      - true
@@ -358,6 +364,22 @@ set to zero (i.e. :math:`\mathbf{a}_s = 0` in the Vlasov equation).
 set the ``hasMagneticField`` to ``false``. This will choose
 specialized solvers that are much faster and can lead to significant
 gain in efficiency.
+
+The boundary conditions (if not periodic) are specified with the
+``bcx`` etc. tables. Each table must have exactly two entries, one for
+BC on the lower edge and one for the upper edge. The supported values
+are
+
+.. list-table:: Boundary conditions for ``Vlasov.EmField``
+   :widths: 30, 70
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+   * - Vlasov.EmField.bcOpen
+     - A zero-gradient BC, approximating an open domain
+   * - Vlasov.EmField.bcReflect
+     - Perfect electrical conductor wall
        
 App output
 ----------
