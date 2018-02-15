@@ -22,7 +22,7 @@ data. The data loading is performed with:::
 Init parameters and partial loading
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Appart from the file name, ``GData`` initialization has optional
+Apart from the file name, ``GData`` initialization has optional
 parameters for partial loading (only works with ADIOS ``.bp`` files
 now) and for the control of the internal stack.
 
@@ -31,7 +31,7 @@ now) and for the control of the internal stack.
    :header-rows: 1
 
    * - Parameter
-     - Decription
+     - Description
      - Default
    * - fileName (str)
      - Name of the file to be loaded or a name root for the history
@@ -74,14 +74,14 @@ i.e. '1:5' (quotes are required) is selecting the indices 1, 2, 3,
 and 4.  The reasons for splitting the partial load indices into
 individual parameters rather than multiple ``tuple`` like ``offset``
 and ``count`` are: a) natural specification of the edges instead of
-length and b) independance on other coordinates; user can subselect
+length and b) independent on other coordinates; user can subselect
 just one coordinate without knowing how many elements have the other
 one or even how many dimensions are there in total. Subselections of
 higher dimensions than included in the data are safely ignored.
 
-Gkyl data have offten one extra dimension.  This last dimension,
-commonly refered to as *component*, can hade many meanings like vector
-componets or DG expansion coefficients inside a cell.
+Gkyl data have often one extra dimension.  This last dimension,
+commonly referred to as *component*, can have many meanings like vector
+components or DG expansion coefficients inside a cell.
 
 Postgkyl is strictly retaining the number of dimensions and the
 component index. This means that, for example, fixing the second
@@ -92,9 +92,9 @@ Postgkyl treats such data as 1D for the plotting purposes.
 Members and the internal stack
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-``GData`` inludes an internal stack for storing the history of data
-manipulations (mainly usefull in the command line mode).  For this
-reason, the internal variables should not be accesed directly but
+``GData`` includes an internal stack for storing the history of data
+manipulations (mainly useful in the command line mode).  For this
+reason, the internal variables should not be accessed directly but
 rather through helper functions
 
 .. list-table:: Members of the ``GData`` class
@@ -102,16 +102,16 @@ rather through helper functions
    :header-rows: 1
 
    * - Member
-     - Decription
+     - Description
    * - getBounds() -> narray, narray
      - Returns the upper and lower bounds for the current top of the
        stack.
    * - getNumCells() -> narray
-     - Returns a narray withn numbers of cells.
+     - Returns a narray with numbers of cells.
    * - getNumComps() -> int
      - Returns the number of components (i.e., the last data index).
    * - getNumDims() -> int
-     - Returns the nuber of dimentsions. Note that this includes the
+     - Returns the number of dimensions. Note that this includes the
        squeezed dimensions as well.
    * - peakGrid() -> [narray, ...]
      - Returns a list of 1D narray slices of the grid.
@@ -119,10 +119,10 @@ rather through helper functions
      - Returns a narray of values with (N+1) dimensions.
    * - popGrid() -> narray
      - Returns a list of 1D narray slices of the grid and removes it
-       from the stack (dissabled when the stack is off).
+       from the stack (disabled when the stack is off).
    * - popValues() -> narray
      - Returns a narray of values with (N+1) dimensions and removes it
-       from the stack (dissabled when the stack is off).
+       from the stack (disabled when the stack is off).
    * - pushGrid(list grid, narray lo, narray up) -> None
      - Pushes the specified grid and bounds to the stack. Bounds are
        optional and when not specified, the previous values are used.
@@ -153,10 +153,10 @@ Note on history data
 ``GData`` treats the output frame data and the history sequence data
 the same way.  The time array is stored as a ``grid`` and values
 naturally as ``values``.  The only internal difference is that the
-history data are missing the ``GData.time`` variable (more preciselly,
+history data are missing the ``GData.time`` variable (more precisely,
 it is set to ``None``).  By default, *Postgkyl* tries to load data as a
 history when the file name is incomplete (history data are usually
-spread accross multiple files) and as a frame when the file
+spread across multiple files) and as a frame when the file
 exists. However, when a single file does not have the internal
 structure of a *Gkyl* frame, *Postgkyl* tries to load it as a history
 before raising an exception.
@@ -166,7 +166,7 @@ GInterp class
 
 ``GInterp`` is the class responsible for interpreting DG nodal and
 modal data.  However, it should not be accessed directly; rather, its
-childs ``GInterpModal`` and ``GInterpNodal`` should be used.
+children ``GInterpModal`` and ``GInterpNodal`` should be used.
 
 Init parameters
 ^^^^^^^^^^^^^^^
@@ -177,7 +177,7 @@ Init parameters
    :header-rows: 1
 
    * - Parameter
-     - Decription
+     - Description
      - Default
    * - gdata (GData)
      - A GData object to be used.
@@ -203,12 +203,12 @@ derivatives
    :header-rows: 1
 
    * - Member
-     - Decription
+     - Description
    * - interpolate(int component) -> narray, narray
      - Interpolates the selected component (default is 0) of the DG
        data on a uniform grid
    * - derivative(int component) -> narray, narray
-     - Calculates the deriative of the DG data
+     - Calculates the derivative of the DG data
 
 An example of the usage::
 
