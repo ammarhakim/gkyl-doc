@@ -10,7 +10,7 @@ first-order Euler update:
 
 .. math::
 
-   \mathcal{F}[f] = f + \Delta t \mathcal{L}[f]
+   \mathcal{F}[f,t] = f + \Delta t \mathcal{L}[f,t]
 
 where :math:`\mathcal{L}[f]` is the RHS operator from the spatial
 discretization of the DG scheme.
@@ -22,8 +22,8 @@ SSP-RK2
 
 .. math::
 
-   f^{(1)} &= \mathcal{F}[f^{n}] \\
-   f^{n+1} &= \frac{1}{2} f^{n} + \frac{1}{2}\mathcal{F}[f^{(1)}]
+   f^{(1)} &= \mathcal{F}[f^{n},t^n] \\
+   f^{n+1} &= \frac{1}{2} f^{n} + \frac{1}{2}\mathcal{F}[f^{(1)},t^n+\Delta t]
 
 with :math:`CFL \le 1`.
 
@@ -32,9 +32,9 @@ SSP-RK3
 
 .. math::
 
-   f^{(1)} &= \mathcal{F}[f^{n}] \\
-   f^{(2)} &= \frac{3}{4} f^{n} + \frac{1}{4}\mathcal{F}[f^{(1)}] \\
-   f^{n+1} &= \frac{1}{3} f^{n} + \frac{2}{3}\mathcal{F}[f^{(2)}]
+   f^{(1)} &= \mathcal{F}[f^{n},t^n] \\
+   f^{(2)} &= \frac{3}{4} f^{n} + \frac{1}{4}\mathcal{F}[f^{(1)},t^n+\Delta t ] \\
+   f^{n+1} &= \frac{1}{3} f^{n} + \frac{2}{3}\mathcal{F}[f^{(2)},t^n+\Delta t/2]
 
 with :math:`CFL \le 1`. As this scheme has three stages instead of
 two, it will take about :math:`1.5X` longer to run than the SSP-RK2
@@ -45,10 +45,10 @@ Four stage SSP-RK3
 
 .. math::
 
-   f^{(1)} &= \frac{1}{2} f^{n} + \frac{1}{2} \mathcal{F}[f^{n}] \\
-   f^{(2)} &= \frac{1}{2} f^{(1)} + \frac{1}{2} \mathcal{F}[f^{(1)}] \\
-   f^{(3)} &= \frac{2}{3} f^{n} + \frac{1}{6} f^{(2)} + \frac{1}{6} \mathcal{F}[f^{(2)}] \\
-   f^{n+1} &= \frac{1}{2} f^{(3)} + \frac{1}{2} \mathcal{F}[f^{(3)}]
+   f^{(1)} &= \frac{1}{2} f^{n} + \frac{1}{2} \mathcal{F}[f^{n},t^n] \\
+   f^{(2)} &= \frac{1}{2} f^{(1)} + \frac{1}{2} \mathcal{F}[f^{(1)},t^n+\Delta t/2] \\
+   f^{(3)} &= \frac{2}{3} f^{n} + \frac{1}{6} f^{(2)} + \frac{1}{6} \mathcal{F}[f^{(2)},t^n+\Delta t] \\
+   f^{n+1} &= \frac{1}{2} f^{(3)} + \frac{1}{2} \mathcal{F}[f^{(3)},t^n+\Delta t/2]
 
 with :math:`CFL\le 2`. Note that this scheme has four stages, but
 allows twice the time-step that SSP-RK2 and SSP-RK3, hence will result
