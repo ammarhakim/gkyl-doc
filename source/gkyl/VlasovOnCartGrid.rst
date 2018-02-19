@@ -60,7 +60,7 @@ The overall structure of the app is as follows
     },
 
     -- fields (optional, can be omitted for neutral particles)
-    field = Vlasov.EmField { -- or EsField
+    field = Vlasov.EmField {
       -- field parameters
     },
   }
@@ -163,7 +163,15 @@ default values can be omitted.
      "rk2" and "rk3" at the cost of an additional RK stage. Hence,
      with this stepper a speed-up of 1.5X can be expected.
 
+**Note that the field object must be called "field".** You can also
+omit the field object completely. In this case, it will be assumed
+that you are evolving neutral particles and the acceleration will be
+set to zero (i.e. :math:`\mathbf{a}_s = 0` in the Vlasov equation).
 
+Only one field object (if not omitted) is required. At present, the
+app supports a EM field evolved with Maxwell equations, or a EM field
+specified as a time-dependent function.
+     
 Species parameters
 ------------------
 
@@ -179,7 +187,6 @@ output data files, reasonable names should be used.
     elc = Vlasov.Species {
       -- species parameters
     },
-
 
 .. list-table:: Parameters for ``Vlasov.Species``
    :widths: 20, 60, 20
@@ -284,13 +291,8 @@ a reflector, while the right an absorber use:
 
    bcx = { Vlasov.Species.bcReflect, Vlasov.Species.bcAbsorb }
        
-Field parameters
-----------------
-
-At present, two types of field equations are supported: EM fields and
-ES fields. The former evolves the fields using the full Maxwell
-equations and the latter with the Poisson equations, with an optional
-static magnetic field.
+Electromagnetic field parameters
+--------------------------------
 
 The EM field object is used as follows
 
@@ -301,20 +303,7 @@ The EM field object is used as follows
     },
 
 
-The ES field object is used as follows (**does not work at present!**)
-
-.. code-block:: lua
-
-    field = Vlasov.EsField {
-      -- field parameters
-    },
-
-**Note that the field object must be called "field".** You can also
-omit the field object completely. In this case, it will be assumed
-that you are evolving neutral particles and the acceleration will be
-set to zero (i.e. :math:`\mathbf{a}_s = 0` in the Vlasov equation).
-
-.. list-table:: Parameters for field objects
+.. list-table:: Parameters for EM field objects
    :widths: 20, 60, 20
    :header-rows: 1
 
@@ -380,7 +369,40 @@ are
      - A zero-gradient BC, approximating an open domain
    * - Vlasov.EmField.bcReflect
      - Perfect electrical conductor wall
-       
+
+Functional field parameters
+---------------------------
+
+To peform "test-particle" simulation one can specify a time-dependent
+electromagnetic field which does not react to particle currents.
+
+.. code-block:: lua
+
+    field = Vlasov.FuncField {
+      -- field parameters
+    },
+
+.. list-table:: Parameters for functional field objects
+   :widths: 20, 60, 20
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+     - Default
+   * - nFrame
+     - These many field outputs will be written during simulation. If
+       not specified, top-level ``nFrame`` parameter will be used
+     - ``nFrame`` from top-level
+   * - emFunc
+     - Function with signature ``function(t, xn)`` that specifies
+       time-dependent EM field. It should return six values, in order,
+       :math:`E_x, E_y, E_z, B_x, B_y, B_z`.
+     - 
+   * - evolve
+     - If set to ``false`` the field is not evolved. In this case,
+       only initial conditions will be written to file.
+     - true
+
 App output
 ----------
 
