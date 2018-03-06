@@ -42,8 +42,7 @@ Python package mode.
   :maxdepth: 2
 
   postgkyl/install
-  postgkyl/pymode
-  postgkyl/climode
+  postgkyl/usage
 
 Dev Notes
 ---------
