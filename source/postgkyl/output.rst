@@ -12,7 +12,7 @@ Info: Printing quick data summary
 
 ``info`` is a very useful command which prints an overview of the
 data. It outputs time (when available), number of components, number
-of dimenstions, minimum and maximum (plus where they occur), and
+of dimensions, minimum and maximum (plus where they occur), and
 number of cells and bounds for each dimension.
 
 .. code-block:: bash
@@ -45,8 +45,8 @@ Plot
 
 Plotting -- visualization -- is one of the main purposes of Postgkyl.
 For this, Postgkyl has the ``plot`` command which works with both 1D
-and 2D data, supports special type of plots like countous or quiver,
-and deals with the basic formating.
+and 2D data, supports special type of plots like contour or quiver,
+and deals with the basic formatting.
 
 A simple example of plotting electron distribution function from a
 two-stream instability simulation:
@@ -69,7 +69,7 @@ Multiple Figures and Subplots
    :widths: 10, 30, 60
    :header-rows: 1
 
-   * - Abreviation
+   * - Abbreviation
      - Parameter
      - Description
    * - ``-f``
@@ -81,7 +81,7 @@ Multiple Figures and Subplots
 
 By default, Postgkyl creates a single figure for each data set (file
 loaded).  However, it is often useful to to plot different data sets
-on top of each other, e.g., number densities at the begining and the
+on top of each other, e.g., number densities at the beginning and the
 end of the simulation. This could be done with the ``-f``
 (``--figure``) flag:
 
@@ -109,7 +109,7 @@ into a separate subplots:
 
 The motivation behind this is, that unless the user specifies a
 component, he/she wants to get an overview on all of them and not
-clutter the whole destop with figures.  However, this could be
+clutter the whole desktop with figures.  However, this could be
 overcome with the ``--squeeze`` flag which puts all the components
 into just a single subplot (useful, for example, for comparing different
 components of an electromagnetic field).
@@ -121,7 +121,7 @@ Special Plots
    :widths: 10, 30, 60
    :header-rows: 1
 
-   * - Abreviation
+   * - Abbreviation
      - Parameter
      - Description
    * - ``-c``
@@ -140,19 +140,19 @@ Special Plots
    Electron distribution function from a two-stream
    instability simulation with plot in the contour mode (``-c``).
 
-Basic Formating
+Basic Formatting
 ^^^^^^^^^^^^^^^
 
 .. list-table:: Plot parameters: basic formatting
    :widths: 10, 30, 60
    :header-rows: 1
 
-   * - Abreviation
+   * - Abbreviation
      - Parameter
      - Description
    * - ``-a``
      - ``--arg``
-     - Pass aditional arguments, e.g. ``*--``, to the plot
+     - Pass additional arguments, e.g. ``*--``, to the plot
    * -
      - ``--style``
      - Set Matplotlib style
@@ -161,10 +161,10 @@ Basic Formating
      - Enforce the same scaling on both axes
    * -
      - ``--logx``
-     - Set the x-axis to logaritmic scale
+     - Set the x-axis to logarithmic scale
    * -
      - ``--logy``
-     - Set the y-axis to logaritmic scale
+     - Set the y-axis to logarithmic scale
    * -
      - ``--no-legend``
      - Turn off the legend
@@ -178,7 +178,7 @@ Basic Formating
      - ``--title``
      - Set the figure title
 
-The ``--arg`` flag allows for passing aditional arguments to the
+The ``--arg`` flag allows for passing additional arguments to the
 Matplotlib plot which is called internally. For example, slightly
 modifying the density plot with ``-a 'o--k'`` turns on circular
 markers (``o``), switches line style to dashed (``--``), and sets
@@ -197,7 +197,7 @@ color to black (``k``).
 Custom axis labels can be added with ``--xlabel`` and ``--ylabel``. If
 they are not specified, neutral *z_i* labels are added (*z* is
 customary for a general phase-space coordinate).  Note that the
-*z*-labes are retained throught the postprocessing chain (see
+*z*-labels are retained through the postprocessing chain (see
 :ref:`pg_chain` for more information on chaining the commands).  For
 example, in a 1X2V Vlasov simulation *z_0* will be *x*, *z_1* will be
 *v_x*, and *z_2* will be *v_y* even if some dimension gets integrated
@@ -220,7 +220,7 @@ The ``plot`` command internally calls the ``output.plot()`` function.
 Note that, similarly to the Matplotlib ``plt.plot()``, ``plt.show()``
 is required to see the figure.
 
-Most of the command line parametrs are pased into the function as keyword
+Most of the command line parameters are passed into the function as keyword
 arguments. For example:
 
 .. code-block:: python
@@ -231,16 +231,16 @@ arguments. For example:
 Write
 -----
 
-Postgkyl can store data into a new ADIOS ``bp`` file (defautl; useful for
+Postgkyl can store data into a new ADIOS ``bp`` file (default; useful for
 storing partially processed data) or into a ASCII ``txt`` file (useful
-when one wants to open the data in a program taht does not support
+when one wants to open the data in a program that does not support
 ``bp`` or ``h5``).
 
 .. list-table:: Write parameters
    :widths: 10, 30, 60
    :header-rows: 1
 
-   * - Abreviation
+   * - Abbreviation
      - Parameter
      - Description
    * - ``-f``
