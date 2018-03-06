@@ -159,5 +159,15 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
+# import easydev
+# import os
+# extensions.append('easydev.copybutton')
+# jscopybutton_path = easydev.copybutton.get_copybutton_path()
 
+# if os.path.isdir('_static')==False:
+#     os.mkdir('_static')
 
+# import shutil
+# shutil.copy(jscopybutton_path, '_static')
+
+# html_static_path = ['_static']
