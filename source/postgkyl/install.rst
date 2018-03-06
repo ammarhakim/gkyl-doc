@@ -1,5 +1,5 @@
-Installing Postgkyl: Post-processing for Gkeyll/Gkyl output
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Installing Postgkyl
++++++++++++++++++++
 
 Installing Postgkyl is even easier than installing Gkyl.  One option
 is to to use the Conda package manager, the other is to manually clone the
