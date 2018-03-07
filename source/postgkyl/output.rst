@@ -259,4 +259,4 @@ The ``write`` command internally calls the ``write()`` method of the
   import postgkyl as pg
   
   data = pg.data.GData('bgk_neut_0.bp')
-  print(data.write())
+  data.write()
