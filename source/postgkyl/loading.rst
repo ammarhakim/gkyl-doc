@@ -1,8 +1,8 @@
 Data Loading
 ++++++++++++
 
-Loading Files in the Command Line Mode
---------------------------------------
+Command Line Mode
+-----------------
 
 Loading data in the command line mode is done using the ``-f`` or
 ``--filename`` flag:
@@ -10,6 +10,10 @@ Loading data in the command line mode is done using the ``-f`` or
 .. code-block:: bash
 
   pgkyl -f file.bp
+
+
+Loading Multiple Files
+^^^^^^^^^^^^^^^^^^^^^^
 
 Note that it is a parameter (keyword argument) rather than a simple
 argument of the base ``pgkyl`` program.  This way, ``pgkyl`` can load
@@ -20,14 +24,11 @@ an arbitrary number of files:
   pgkyl -f file1.bp -f file2.bp
 
 Without the ``-f`` flags, there is no simple way for Postgkyl to
-determine whathever the input is a file to load or a first command.
+determine whether the input is a file to load or a first command.
 
 A new data set is internally created for each file loaded.  Postgkyl
 retains the input order, so the data in the ``file1.bp`` will become
 the data set 0 and the data from the ``file2.bp`` will be data set 1.
-
-Loading Multiple Files
-^^^^^^^^^^^^^^^^^^^^^^
 
 Apart from the above mentioned loading with multiple ``-f`` flags,
 Postgkyl allows for loading with a wild card characters:
@@ -44,10 +45,10 @@ Note that the quotes are mandatory in this case because the whole
 
   pgkyl -f 'file*.bp' -> pgkyl -f file1.bp file2.bp ...
 
-Finally, one needs to becareful about the wild card character because
+Finally, one needs to be careful about the wild card character because
 of the way Gkyl outputs data files. For example, for species ``elc``
 Gkyl will create ``sim_elc_0.bp``, ``sim_elc_1.bp``, ... However, it
-could be also set to create dignostics data like ``sim_elc_M0_0.bp``
+could be also set to create diagnostics data like ``sim_elc_M0_0.bp``
 or ``sim_elc_intMom_0.bp``.  This way, running
 
 .. code-block:: bash
@@ -55,14 +56,14 @@ or ``sim_elc_intMom_0.bp``.  This way, running
   pgkyl -f 'sim_elc_*.bp'
 
 would pull all of them.  The correct way is to manually exclude the
-characters the diagnostics outpust start with:
+characters the diagnostics outputs start with:
 
 .. code-block:: bash
 
   pgkyl -f 'sim_elc_[!iM]*.bp'
 
-Loading Frames vs. Hstory Files
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Loading Frames vs. History Files
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Postgkyl treats the output frame data and the history sequence data
 the same way.  Internally, the time array of history data is stored as
@@ -78,14 +79,81 @@ and as a frame when the file exists. However, when a single file does
 not have the internal structure of a Gkyl frame, Postgkyl tries to
 load it as a history before raising an exception.
 
-GData class
+Partial Loading
+^^^^^^^^^^^^^^^
+
+Postgkyl allows for loading only a subset of the data. It is controlled
+with additional flags of the top-level script (i.e., before the first
+command).
+
+.. list-table:: Partial load flags
+   :widths: 30, 10, 60
+   :header-rows: 1
+
+   * - Parameter
+     - Abbreviation
+     - Description
+   * - ``--c0``
+     -
+     - Specify a single index or a slice of indices of the first
+       coordinate to load (default: all) 
+   * - ``--c1``
+     -
+     - Specify a single index or a slice of indices of the second
+       coordinate to load (default: all) 
+   * - ``--c2``
+     -
+     - Specify a single index or a slice of indices of the third
+       coordinate to load (default: all) 
+   * - ``--c3``
+     -
+     - Specify a single index or a slice of indices of the fourth
+       coordinate to load (default: all) 
+   * - ``--c4``
+     -
+     - Specify a single index or a slice of indices of the fifth
+       coordinate to load (default: all) 
+   * - ``--c5``
+     -
+     - Specify a single index or a slice of indices of the sixth
+       coordinate to load (default: all) 
+   * - ``-c``
+     - ``--comp``
+     -
+     - Specify a single index or a slice of indices of the
+       component(s) to load (default: all)
+
+Note that when specifying the slice, the last index is excluded,
+i.e. '1:5' (quotes are required) is selecting the indices 1, 2, 3,
+and 4.  The reasons for splitting the partial load indices into
+individual parameters rather than multiple ``tuple`` like ``offset``
+and ``count`` are: a) natural specification of the edges instead of
+length and b) independent on other coordinates; user can subselect
+just one coordinate without knowing how many elements have the other
+one or even how many dimensions are there in total. Subselections of
+higher dimensions than included in the data are safely ignored.
+
+Unlike the ``select`` command (see :ref:`pg_cmd-select`), indices must
+be specified directly, not the numerical values of the coordinate.
+Therefore, some prior knowledge about the data is required.
+
+For example, selecting a data line-out for velocity cell with index 8
+is done with:
+
+.. code-block:: bash
+
+   pgkyl -f sim_elc_0.bp --c1 8
+
+------
+
+Script Mode
 -----------
 
-Internally, all the data loading is done throught the ``GData`` class.
-It is a single unified class used for manipulation with all
-Gkeyll/Gkyl data.  Externally, it does not distinguish between
-ADIOS/HDF5 data nor between output frames and history sequence
-data as was mentioned before. The data loading is performed with:
+All the data loading is done through the ``GData`` class.  It is a
+unified class used for manipulation with all Gkeyll/Gkyl data.
+Similarly to the operation in the command line mode, it does not
+distinguish between ADIOS/HDF5 data nor between output frames and
+history sequence data. The data loading is performed with:
 
 .. code-block:: python
 
@@ -97,8 +165,8 @@ Init parameters and partial loading
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Apart from the file name, ``GData`` initialization has optional
-parameters for partial loading (currently, works only for ADIOS
-``.bp`` files) and for the control of the internal stack.
+parameters for partial loading (see above; currently, works only for
+ADIOS ``.bp`` files) and for the control of the internal stack.
 
 .. list-table:: Initialization parameters for ``GData``
    :widths: 20, 60, 20
@@ -143,33 +211,13 @@ parameters for partial loading (currently, works only for ADIOS
      - Turns the internal data stack on and off.
      - True
 
-Note that when specifying the slice, the last index is excluded,
-i.e. '1:5' (quotes are required) is selecting the indices 1, 2, 3,
-and 4.  The reasons for splitting the partial load indices into
-individual parameters rather than multiple ``tuple`` like ``offset``
-and ``count`` are: a) natural specification of the edges instead of
-length and b) independent on other coordinates; user can subselect
-just one coordinate without knowing how many elements have the other
-one or even how many dimensions are there in total. Subselections of
-higher dimensions than included in the data are safely ignored.
-
-Gkyl data have often one extra dimension.  This last dimension,
-commonly referred to as *component*, can have many meanings like vector
-components or DG expansion coefficients inside a cell.
-
-Postgkyl is strictly retaining the number of dimensions and the
-component index. This means that, for example, fixing the second
-coordinate and selecting one component from originally 16 x 16 wit 8
-components will produce data with a shape (16, 1, 1).  Note that
-Postgkyl treats such data as 1D for the plotting purposes.
-
 Members and the internal stack
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``GData`` includes an internal stack for storing the history of data
 manipulations (mainly useful in the command line mode).  For this
 reason, the internal variables should not be accessed directly but
-rather through helper functions
+rather through helper functions.
 
 .. list-table:: Members of the ``GData`` class
    :widths: 30, 70
@@ -206,8 +254,5 @@ rather through helper functions
      - Returns a string with information about the data
    * - write() -> None
      - Writes data into ADIOS ``bp`` file or ASCII ``txt`` file
-
-More information about the ``info`` and ``write`` methods is in the
-:ref:`pg_output` section.  
 
 

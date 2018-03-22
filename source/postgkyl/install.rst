@@ -58,5 +58,5 @@ or joint student projects with Princeton.
 
 Once you have access to the Bitbucket repository, clone postgkyl into a new
 directory and add the path of the directory to your ``PYTHONPATH`` env
-variable. You will also need to add the pgkyl executable to your
+variable. You will also need to add the ``pgkyl`` executable to your
 ``PATH``.
