@@ -1,25 +1,40 @@
-Write
-+++++
+write: processed data storing
+-----------------------------
 
-The write command is used to save the dataset on the top of the stack
-to a file. The data can be either saved to HDF5 file or to a
-plain-text file. *HDF5 should be preferred for large files*, and is
-the default. The other advantage of HDF5 output it that the saved
-files can be later read back into Postgkyl to do further analysis if
-needed.
+Command Line Mode
+^^^^^^^^^^^^^^^^^
 
-The command takes the following options:
+Postgkyl can store data into a new ADIOS ``bp`` file (default; useful for
+storing partially processed data) or into a ASCII ``txt`` file (useful
+when one wants to open the data in a program that does not support
+``bp`` or ``h5``).
 
-.. list-table::
-   :widths: 10, 80, 10
+.. list-table:: Write parameters
+   :widths: 10, 30, 60
    :header-rows: 1
 
-   * - Option
+   * - Abbreviation
+     - Parameter
      - Description
-     - Default
-   * - -f
-     - Name for output file
-     -
-   * - -m
-     - Output file format. Either h5 or txt
-     - h5
+   * - ``-f``
+     - ``--filename``
+     - Specify a name of the new file (an automatic name is
+       composed if left blank)
+   * - ``-t``
+     - ``--txt``
+     - Write into a ``txt`` file instead of a ``bp`` file
+
+------
+
+Script Mode
+^^^^^^^^^^^
+
+The ``write`` command internally calls the ``write()`` method of the
+``GData`` class.
+
+.. code-block:: python
+
+  import postgkyl as pg
+  
+  data = pg.data.GData('bgk_neut_0.bp')
+  data.write()

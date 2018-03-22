@@ -10,16 +10,12 @@ access to results and is well suited even for work on remote
 machines.  What is more, almost unlimited chaining of the commands
 makes the later very useful even for more complex diagnostics.
 
-Postgkyl is configured as a standard Python package and can be
-imported with:
 
-.. code-block:: python
-
-   import postgkyl
-
-The command line mode is invoked with the ``pgkyl`` executable, which is
-a wrapper over the ``postgkyl.pgkyl``.  The standard ``pgkyl`` usage follows
-the pattern:
+The command line mode is invoked with the ``pgkyl`` executable. When
+Postgkyl is installed using ``conda``, the executable should be
+alerady on the path; otherwise, it needs to be added manually (it is
+tolaced in the top level of the repository).  The standard ``pgkyl``
+usage follows the pattern:
 
 .. code-block:: bash
 
@@ -32,14 +28,19 @@ are chained in a logical sense.  For example, the ``plot`` command
 should be most likely at the end of the chain. See the :ref:`pg_chain`
 section for more details.
 
-Following are details about Postgkyl functions:
+Postgkyl is configured as a standard Python package and can be
+imported with:
+
+.. code-block:: python
+
+   import postgkyl
+
+------
 
 .. toctree::
    :maxdepth: 1
 
    loading
-   output
-   interpolation
-   transformations
-   diagnostics
    chain
+   commands
+   examples

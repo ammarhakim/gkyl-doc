@@ -1,19 +1,9 @@
-Data Transformations: subselections
-+++++++++++++++++++++++++++++++++++
+.. _pg_cmd-select:
 
+select: data subsets and slices
+-------------------------------
 
-
-Select method
--------------
-
-The ``select`` method is very similar to the partial loading of the
-``GData`` but has a few extra features which are unavailable before
-the data are loaded.
-
-Parameters
-^^^^^^^^^^
-
-.. list-table:: Parameters for the ``select`` method
+.. list-table:: Parameters for ``select``
    :widths: 20, 60, 20
    :header-rows: 1
 
@@ -53,12 +43,21 @@ Parameters
        multiple.
      - None
 
-Unlike for the partial load parameters, float point numbers can be
-specified instead of just integers.  In that case, *Postgkyl* treats
+Unlike for the partial load parameters (see :ref:), float point numbers can be
+specified instead of just integers.  In that case, Postgkyl treats
 it as a grid value and automatically finds and index of a grid point
 with the closest value.  This works both for the single index and for
 specifying a slice.
 
-The specification by a value (float point number) is meaningless for
-the component index.  On the other hand, ``select`` allows for the
+Gkyl data have often one extra dimension.  This last dimension,
+commonly referred to as *component*, can have many meanings like
+vector components or DG expansion coefficients inside a cell. The
+specification by a value (float point number) is meaningless for the
+component index.  On the other hand, ``select`` allows for the
 selection of multiple coma separated components.
+
+Postgkyl is strictly retaining the number of dimensions and the
+component index. This means that, for example, fixing the second
+coordinate and selecting one component from originally 16 x 16 wit 8
+components will produce data with a shape (16, 1, 1).  Note that
+Postgkyl treats such data as 1D for the plotting purposes.
