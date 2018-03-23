@@ -1,5 +1,7 @@
-plot: data visualization
-------------------------
+.. _pg_cmd-plot:
+
+plot
+----
 
 Plotting -- visualization -- is one of the main purposes of Postgkyl.
 For this, Postgkyl has the ``plot`` command which works with both 1D

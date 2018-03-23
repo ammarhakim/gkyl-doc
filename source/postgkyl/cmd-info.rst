@@ -1,5 +1,7 @@
-info: data overview
-+++++++++++++++++++
+.. _pg_cmd-info:
+
+info
+++++
 
 Command Line Mode
 ^^^^^^^^^^^^^^^^^
