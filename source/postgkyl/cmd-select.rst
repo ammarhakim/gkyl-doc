@@ -1,7 +1,7 @@
 .. _pg_cmd-select:
 
-select: data subsets and slices
--------------------------------
+select
+------
 
 .. list-table:: Parameters for ``select``
    :widths: 20, 60, 20

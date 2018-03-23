@@ -1,5 +1,7 @@
-write: processed data storing
------------------------------
+.. _pg_cmd-write:
+
+write
+-----
 
 Command Line Mode
 ^^^^^^^^^^^^^^^^^
