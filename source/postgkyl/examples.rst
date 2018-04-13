@@ -19,7 +19,7 @@ to get more information
 
 .. code-block:: bash
    
-   $ pgkyl -f two-stream_elc_0.bp info
+   pgkyl -f two-stream_elc_0.bp info
 
    Dataset #0
    - Time: 0.000000e+00
