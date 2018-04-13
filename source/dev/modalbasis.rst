@@ -1,3 +1,5 @@
+.. _dev_modalbasis:
+
 Modal basis functions
 +++++++++++++++++++++
 

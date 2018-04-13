@@ -8,6 +8,14 @@ List of Commands
 
    cmd-info
    cmd-interpolate
+   cmd-integrate
    cmd-plot
    cmd-select
    cmd-write
+   cmd-collect
+   cmd-dataset
+   cmd-euler
+   cmd-fft
+   cmd-pop
+   cmd-runchain
+   cmd-tenmoment
