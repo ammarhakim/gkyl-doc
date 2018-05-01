@@ -10,6 +10,7 @@ List of Commands
    cmd-dataset
    cmd-euler
    cmd-fft
+   cmd-growth
    cmd-info
    cmd-integrate
    cmd-interpolate
