@@ -3,10 +3,44 @@
 plot
 ----
 
-Plotting -- visualization -- is one of the main purposes of Postgkyl.
-For this, Postgkyl has the ``plot`` command which works with both 1D
-and 2D data, supports special type of plots like contour or quiver,
-and deals with the basic formatting.
+Command Line Mode
+^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   $ pgkyl plot --help
+   Usage: pgkyl plot [OPTIONS]
+
+     Plot the data
+
+   Options:
+     -f, --figure TEXT       Specify figure to plot in.
+     -s, --squeeze           Squeeze the components into one panel.
+     -a, --arg TEXT          Additional plotting arguments like '*--'.
+     -c, --contour           Switch to contour mode.
+     -q, --quiver            Switch to quiver mode.
+     -l, --streamline        Switch to streamline mode.
+     -d, --diverging         Switch to diverging colormesh mode.
+     -g, --group [0|1]       Switch to group mode.
+     --style TEXT            Specify Matplotlib style file (default: Postgkyl).
+     --fix-aspect            Enforce the same scaling on both axes.
+     --logx                  Set x-axis to log scale.
+     --logy                  Set y-axis to log scale.
+     --vmax FLOAT            Set maximal value for plots.
+     --vmin FLOAT            Set minimal value for plots.
+     --legend / --no-legend  Show legend.
+     --show / --no-show      Turn showing of the plot ON and OFF (default: ON).
+     -x, --xlabel TEXT       Specify a x-axis label.
+     -y, --ylabel TEXT       Specify a y-axis label.
+     -t, --title TEXT        Specify a title label.
+     --save                  Save figure as PNG.
+     --saveas TEXT           Name to save the plot as.
+     --help                  Show this message and exit.
+
+Visualization is one of the main purposes of Postgkyl.  For this,
+Postgkyl has the ``plot`` command which works with both 1D and 2D
+data, supports special type of plots like contour or quiver, and deals
+with the basic formatting.
 
 A simple example of plotting electron distribution function from a
 two-stream instability simulation:
@@ -20,10 +54,6 @@ two-stream instability simulation:
 
    Electron distribution function from a two-stream
    instability simulation.
-
-
-Multiple Figures and Subplots
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table:: Plot parameters: figures and subplots
    :widths: 10, 30, 60
@@ -73,9 +103,6 @@ clutter the whole desktop with figures.  However, this could be
 overcome with the ``--squeeze`` flag which puts all the components
 into just a single subplot (useful, for example, for comparing different
 components of an electromagnetic field).
-   
-Special Plots
-^^^^^^^^^^^^^
 
 .. list-table:: Plot parameters: special plots
    :widths: 10, 30, 60
@@ -99,9 +126,6 @@ Special Plots
 
    Electron distribution function from a two-stream
    instability simulation with plot in the contour mode (``-c``).
-
-Basic Formatting
-^^^^^^^^^^^^^^^
 
 .. list-table:: Plot parameters: basic formatting
    :widths: 10, 30, 60
@@ -163,8 +187,10 @@ example, in a 1X2V Vlasov simulation *z_0* will be *x*, *z_1* will be
 *v_x*, and *z_2* will be *v_y* even if some dimension gets integrated
 out.
 
-Python Mode Plotting
-^^^^^^^^^^^^^^^^^^^^
+------
+
+Script Mode
+^^^^^^^^^^^
 
 The ``plot`` command internally calls the ``output.plot()`` function.
 

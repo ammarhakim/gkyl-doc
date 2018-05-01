@@ -6,25 +6,23 @@ write
 Command Line Mode
 ^^^^^^^^^^^^^^^^^
 
+.. code-block:: bash
+
+   $ pgkyl write --help
+   Usage: pgkyl write [OPTIONS]
+
+     Write data into a file
+
+   Options:
+     -f, --filename TEXT  Output file name.
+     -t, --txt            Output file as ASCII `txt` instead of `bp`.
+     --help               Show this message and exit.
+
 Postgkyl can store data into a new ADIOS ``bp`` file (default; useful for
 storing partially processed data) or into a ASCII ``txt`` file (useful
 when one wants to open the data in a program that does not support
 ``bp`` or ``h5``).
 
-.. list-table:: Write parameters
-   :widths: 10, 30, 60
-   :header-rows: 1
-
-   * - Abbreviation
-     - Parameter
-     - Description
-   * - ``-f``
-     - ``--filename``
-     - Specify a name of the new file (an automatic name is
-       composed if left blank)
-   * - ``-t``
-     - ``--txt``
-     - Write into a ``txt`` file instead of a ``bp`` file
 
 ------
 

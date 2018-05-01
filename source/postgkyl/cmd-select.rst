@@ -3,6 +3,33 @@
 select
 ------
 
+Command Line Mode
+^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   $ pgkyl select --help
+   Usage: pgkyl select [OPTIONS]
+
+     Subselect data set(s)
+
+   Options:
+     --c0 TEXT        Indices for 0th coord (either int, float, or slice)
+     --c1 TEXT        Indices for 1st coord (either int, float, or slice)
+     --c2 TEXT        Indices for 2nd coord (either int, float, or slice)
+     --c3 TEXT        Indices for 3rd coord (either int, float, or slice)
+     --c4 TEXT        Indices for 4th coord (either int, float, or slice)
+     --c5 TEXT        Indices for 5th coord (either int, float, or slice)
+     -c, --comp TEXT  Indices for components (either int, slice, or coma-
+                      separated)
+     --help           Show this message and exit.
+
+
+-------
+
+Script Mode
+^^^^^^^^^^^
+
 .. list-table:: Parameters for ``select``
    :widths: 20, 60, 20
    :header-rows: 1

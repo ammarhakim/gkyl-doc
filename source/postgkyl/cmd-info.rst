@@ -6,6 +6,17 @@ info
 Command Line Mode
 ^^^^^^^^^^^^^^^^^
 
+.. code-block:: bash
+
+   $ pgkyl info --help
+   Usage: pgkyl info [OPTIONS]
+
+     Print info of the current top of stack
+
+   Options:
+     -a, --allsets  All data sets
+     --help         Show this message and exit.
+
 ``info`` prints an overview of the data. It outputs time (when
 available), number of components, number of dimensions, minimum and
 maximum (plus where they occur), and number of cells and bounds for
