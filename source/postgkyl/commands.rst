@@ -6,16 +6,16 @@ List of Commands
 .. toctree::
    :maxdepth: 1
 
-   cmd-info
-   cmd-interpolate
-   cmd-integrate
-   cmd-plot
-   cmd-select
-   cmd-write
    cmd-collect
    cmd-dataset
    cmd-euler
    cmd-fft
+   cmd-info
+   cmd-integrate
+   cmd-interpolate
+   cmd-plot
    cmd-pop
    cmd-runchain
+   cmd-select
    cmd-tenmoment
+   cmd-write
