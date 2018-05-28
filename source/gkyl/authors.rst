@@ -11,10 +11,10 @@ The institutions involved in Gkyl development are PPPL, Princeton
 University, University of Maryland, Virginia Tech, University of New
 Hampshire, University of Texas at Austin, and Darthmouth College.
 
-The lead developer of the code is Ammar Hakim.
+The Algorithm Alchemist and CEO of the project is Ammar Hakim.
 
-The lead architects of the algorithms and physics are Ammar Hakim and
-`Greg Hammett <http://w3.pppl.gov/~hammett>`_.
+The lead architects of the physics modules are Ammar Hakim and `Greg
+Hammett <http://w3.pppl.gov/~hammett>`_.
 
 The other contributors are (to either Gkeyll 1.0 or Gkyl code) are:
 Eric Shi, James (Jimmy) Juno, Tess Bernard, Jonathan Ng, Petr Cagas,
