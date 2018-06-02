@@ -19,10 +19,7 @@ below. Gkyl depends on the following tools and packages:
 -  LuaJIT
 -  MPI
 -  ADIOS IO library
-
-Optionally, you will need
-
--  Petsc for linear and non-linear solvers.
+-  Eigen
 
 Building dependencies
 ---------------------
@@ -40,10 +37,9 @@ the appropriate compilers to mkdeps.sh as follows::
   ./mkdeps.sh CC=cc CXX=cxx MPICC=mpicc MPICXX=mpicxx ....
 
 You should only build libraries *not* provided by the system. In
-practice, this likely means LuaJIT, ADIOS and, perhaps Petsc. (Many
-supercomputer centers at DOE already offer ADIOS and Petsc builds and
-should be preferred instead of your own builds). A typical command
-will be::
+practice, this likely means LuaJIT, ADIOS and, perhaps Eigen. (Many
+supercomputer centers at DOE already offer ADIOS builds and should be
+preferred instead of your own builds). A typical command will be::
 
   ./mkdeps.sh --build-adios=yes --build-openmpi=yes --build-luajit=yes
 
