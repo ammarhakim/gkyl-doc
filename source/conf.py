@@ -50,7 +50,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Gkyl'
+project = 'Gkeyll'
 copyright = '2016-2018, Ammar Hakim'
 author = 'Ammar Hakim'
 
