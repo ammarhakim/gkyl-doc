@@ -21,7 +21,7 @@ Eigen are needed), yet providing efficient solvers for Gryokinetics,
 Vlasov-Maxwell as well as multi-fluid equations.
 
 Gkeyll Documentation
-------------------
+--------------------
 
 .. toctree::
   :maxdepth: 2
@@ -31,12 +31,13 @@ Gkeyll Documentation
   gkyl/install
   gkyl/applications
 
-..
-   And now for something completely different:
+Gkeyll Publications
+-------------------
 
-   .. image:: postgkyl/anfscd.jpg
-      :width: 30%
-      :align: center
+.. toctree::
+  :maxdepth: 1
+
+  gkyl/pubs	     
 
 Postgkyl Documentation
 ----------------------
