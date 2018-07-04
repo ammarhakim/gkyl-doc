@@ -1,7 +1,7 @@
 License
 +++++++
 
-**Gkyl can be used freely for research at universities, national
+**Gkeyll can be used freely for research at universities, national
 laboratories and other non-profit institutions.**
 
 We follow a *open-source but closed development model*.  Even though
@@ -11,5 +11,5 @@ code. In practice, this means researchers at PPPL and our partner
 institutions. That is, those who have jointly funded projects or
 graduate students with us.
 
-Gkyl, Postgkyl and this documentation is copyrighted 2016-2018 by
+Gkeyll, Postgkyl and this documentation is copyrighted 2016-2018 by
 Ammar Hakim.

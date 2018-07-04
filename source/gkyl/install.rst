@@ -1,7 +1,7 @@
-Installing Gkyl
-+++++++++++++++
+Installing Gkeyll
++++++++++++++++++
 
-Depending on your system, building Gkyl can be easy (Linux, Mac laptops
+Depending on your system, building Gkeyll can be easy (Linux, Mac laptops
 and small clusters) or hard (supercomputing centers). The instructions
 below will help you build the code, but some amount of experimentation
 may be required to get a build.
@@ -12,7 +12,7 @@ pre-built libraries for most dependencies. On these systems, you will
 probably only need to install LuaJIT.
 
 Build instructions for dependencies are provided in the build sections
-below. Gkyl depends on the following tools and packages:
+below. Gkeyll depends on the following tools and packages:
 
 -  A modern C/C++ compiler; Python (for use in waf build system and
    post-processing)
@@ -49,11 +49,11 @@ By default, the mkdeps.sh script will install dependencies in
 $HOME/gkylsoft directory. If you install it elsewhere, you will need
 to modify the instructions below accordingly.
 
-Building Gkyl
--------------
+Building Gkeyll
+---------------
 
-Once you have all dependencies installed, you can build Gkyl itself.
-Gkyl uses the Waf build system. You do NOT need to install waf as it
+Once you have all dependencies installed, you can build Gkeyll itself.
+Gkeyll uses the Waf build system. You do NOT need to install waf as it
 is included with the distribution. However, waf depends on Python
 (included on most systems). Waf takes a number of options. To get a
 list do ::
@@ -126,7 +126,7 @@ to:
 
 .. rubric:: Footnotes
 
-.. [#why] The reason for this is that Gkyl is in reality a LuaJIT
+.. [#why] The reason for this is that Gkeyll is in reality a LuaJIT
     compiler extended with MPI. Hence, for the compiler to find Lua
-    modules (i.e. Gkyl specific code) certain paths need to be set
+    modules (i.e. Gkeyll specific code) certain paths need to be set
     which is done relative to the install location.
