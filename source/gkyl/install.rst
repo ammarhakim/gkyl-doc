@@ -1,10 +1,10 @@
 Installing Gkeyll
 +++++++++++++++++
 
-Depending on your system, building Gkeyll can be easy (Linux, Mac laptops
-and small clusters) or hard (supercomputing centers). The instructions
-below will help you build the code, but some amount of experimentation
-may be required to get a build.
+Depending on your system, installing Gkeyll can be easy (Linux, Mac
+laptops and small clusters) or hard (supercomputing centers). The
+instructions below will help you build the code, but some amount of
+experimentation may be required to get a build.
 
 You must build and install the dependencies yourself, or use existing
 builds for your system. Most supercomputer centers have optimized,
@@ -14,19 +14,31 @@ probably only need to install LuaJIT.
 Build instructions for dependencies are provided in the build sections
 below. Gkeyll depends on the following tools and packages:
 
--  A modern C/C++ compiler; Python (for use in waf build system and
-   post-processing)
--  LuaJIT
--  MPI
--  ADIOS IO library
--  Eigen
+- Mercurial version control system
+- A modern C/C++ compiler; Python (for use in waf build system and
+  post-processing)
+- LuaJIT
+- MPI
+- ADIOS IO library
+- Eigen
+
+Getting the code
+----------------
+
+Once you have Mercurial installed, clone the source repo as follows::
+
+  hg clone https://bitbucket.org/ammarhakim/gkyl
 
 Building dependencies
 ---------------------
 
 Depending on your system, building dependencies can be complicated.
 On a Mac or Linux machine you can simply run the mkdeps.sh script in
-the install-deps directory. First, please check details by running::
+the install-deps directory. To build dependencies cd to::
+
+  cd gkyl/install-deps
+
+First, please check details by running::
 
   ./mkdeps.sh -h
 
@@ -41,7 +53,7 @@ practice, this likely means LuaJIT, ADIOS and, perhaps Eigen. (Many
 supercomputer centers at DOE already offer ADIOS builds and should be
 preferred instead of your own builds). A typical command will be::
 
-  ./mkdeps.sh --build-adios=yes --build-openmpi=yes --build-luajit=yes
+  ./mkdeps.sh --build-adios=yes --build-openmpi=yes --build-luajit=yes --build-eigen=yes
 
 (in addition, you may need to specify compilers also).
 
@@ -51,6 +63,10 @@ to modify the instructions below accordingly.
 
 Building Gkeyll
 ---------------
+
+To build dependencies cd to::
+
+  cd gkyl/install-deps
 
 Once you have all dependencies installed, you can build Gkeyll itself.
 Gkeyll uses the Waf build system. You do NOT need to install waf as it
