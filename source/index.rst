@@ -10,11 +10,11 @@ C++. Gkeyll is developed at `Princeton Plasma Physics Laboratory
 (PPPL) <http://www.pppl.gov>`_. For a full list of contributors see
 :doc:`Authors <gkyl/authors>` list.
 
-Gkeyll 2.0 has been designed from ground up and adds significant
-flexibility and algorithmic improvements to the previous version of
-the code. Gkeyll's innovative design completely blurs the distinction
-between user input and the internal software, allowing for a very
-powerful means of composing complex simulations. All of this is
+Gkeyll 2.0 has been designed from ground up and has significant
+flexibility and algorithmic innovations compared to the previous
+version of the code. Gkeyll's innovative design completely blurs the
+distinction between user input and the internal software, allowing for
+a very powerful means of composing complex simulations. All of this is
 achieved in a very compact code base with minimal external
 dependencies (besides a C++ compiler, only LuaJIT, MPI, ADIOS and
 Eigen are needed), yet providing efficient solvers for Gryokinetics,
