@@ -1,12 +1,13 @@
-Installing Gkeyll
-+++++++++++++++++
+Installing Gkeyll from Source
++++++++++++++++++++++++++++++
 
-Depending on your system, installing Gkeyll can be easy (Linux, Mac
-laptops and small clusters) or hard (supercomputing centers). The
-instructions below will help you build the code, but some amount of
-experimentation may be required to get a build.
+Depending on your system, installing Gkeyll from source can be easy
+(Linux, Mac laptops and small clusters) or hard (supercomputing
+centers). The instructions below will help you build the code, but
+some amount of experimentation may be required to get a build.
 
-You must build and install the dependencies yourself, or use existing
+To build dependencies see the instructions below. However, you may
+want to build and install the dependencies yourself, or use existing
 builds for your system. Most supercomputer centers have optimized,
 pre-built libraries for most dependencies. On these systems, you will
 probably only need to install LuaJIT.
@@ -14,7 +15,7 @@ probably only need to install LuaJIT.
 Build instructions for dependencies are provided in the build sections
 below. Gkeyll depends on the following tools and packages:
 
-- Mercurial version control system
+- `Mercurial <https://www.mercurial-scm.org>`_ version control system
 - A modern C/C++ compiler; Python (for use in waf build system and
   post-processing)
 - LuaJIT
@@ -53,7 +54,7 @@ practice, this likely means LuaJIT, ADIOS and, perhaps Eigen. (Many
 supercomputer centers at DOE already offer ADIOS builds and should be
 preferred instead of your own builds). A typical command will be::
 
-  ./mkdeps.sh --build-adios=yes --build-openmpi=yes --build-luajit=yes --build-eigen=yes
+  ./mkdeps.sh --build-adios=yes --build-luajit=yes --build-eigen=yes
 
 (in addition, you may need to specify compilers also).
 
@@ -64,11 +65,11 @@ to modify the instructions below accordingly.
 Building Gkeyll
 ---------------
 
-To build dependencies cd to::
+Once you have all dependencies installed, you can build Gkeyll itself
+by cd-ing to the top-directory in the source::
 
-  cd gkyl/install-deps
+  cd gkyl
 
-Once you have all dependencies installed, you can build Gkeyll itself.
 Gkeyll uses the Waf build system. You do NOT need to install waf as it
 is included with the distribution. However, waf depends on Python
 (included on most systems). Waf takes a number of options. To get a
