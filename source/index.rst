@@ -16,8 +16,7 @@ version of the code. Gkeyll's innovative design completely blurs the
 distinction between user input and the internal software, allowing for
 a very powerful means of composing complex simulations. All of this is
 achieved in a very compact code base with minimal external
-dependencies (besides a C++ compiler, only LuaJIT, MPI, ADIOS and
-Eigen are needed), yet providing efficient solvers for Gryokinetics,
+dependencies, yet providing efficient solvers for Gryokinetics,
 Vlasov-Maxwell as well as multi-fluid equations.
 
 Gkeyll Documentation
