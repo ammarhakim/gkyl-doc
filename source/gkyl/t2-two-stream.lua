@@ -1,12 +1,12 @@
 -- Gkyl ------------------------------------------------------------------------
-local Vlasov = require "App.VlasovOnCartGrid"
+local Plasma = require "App.PlasmaOnCartGrid"
 
 knumber = 0.5 -- wave-number
 elVTerm = 0.2 -- electron thermal velocity
 vDrift = 1.0 -- drift velocity
 perturbation = 1.0e-6 -- distribution function perturbation
 
-vlasovApp = Vlasov.App {
+vlasovApp = Plasma.App {
    logToFile = true,
 
    tEnd = 50.0, -- end time
@@ -16,7 +16,7 @@ vlasovApp = Vlasov.App {
    cells = {64}, -- configuration space cells
    basis = "serendipity", -- one of "serendipity" or "maximal-order"
    polyOrder = 2, -- polynomial order
-   timeStepper = "rk3s4", -- one of "rk2", "rk3" or "rk3s4"
+   timeStepper = "rk3", -- one of "rk2", "rk3" or "rk3s4"
 
    -- decomposition for configuration space
    decompCuts = {1}, -- cuts in each configuration direction
@@ -26,7 +26,7 @@ vlasovApp = Vlasov.App {
    periodicDirs = {1}, -- periodic directions
 
    -- electrons
-   elc = Vlasov.Species {
+   elc = Plasma.VlasovSpecies {
       nDistFuncFrame = 2,
       
       charge = -1.0, mass = 1.0,
@@ -51,7 +51,7 @@ vlasovApp = Vlasov.App {
    },
 
    -- field solver
-   field = Vlasov.EmField {
+   field = Plasma.MaxwellField {
       epsilon0 = 1.0, mu0 = 1.0,
       init = function (t, xn)
 	 local alpha = perturbation
