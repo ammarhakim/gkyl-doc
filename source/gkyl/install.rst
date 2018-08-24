@@ -87,7 +87,8 @@ can simply run::
     ./waf configure CC=mpicc CXX=mpicxx
 
 where CC and CXX are names of the MPI compilers to use. Note that in
-some cases the full path to the compiler may need to be specified.
+some cases the full path to the compiler may need to be specified. If
+the compilers are already in your path, then you can omit all flags.
 
 If you need to use system supplied builds, you need to specify more
 complex set of paths. Although you can do this by passing options to
