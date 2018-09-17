@@ -4,9 +4,14 @@ Papers and Doctoral Dissertations
 Doctoral Dissertations
 ----------------------
 
+- Cagas, P. (2018, July 30). "Continuum kinetic simulations of plasma
+  sheaths and instabilities". Ph.D. dissertation, Virginia Tech, 2018.
+  https://vtechworks.lib.vt.edu/handle/10919/84979
+
 - Shi, E. L. (2017, August 24). "Gyrokinetic Continuum Simulation of
-  Turbulence in Open-Field-Line Plasmas". Ph.D Thesis, Princeton
-  University 2017 `arXiv:1708.07283 <https://arxiv.org/abs/1708.07283>`_
+  Turbulence in Open-Field-Line Plasmas". Ph.D. dissertation,
+  Princeton University, 2017 `arXiv:1708.07283
+  <https://arxiv.org/abs/1708.07283>`_
 
 Physics and algorithm papers
 ----------------------------
