@@ -14,17 +14,3 @@ graduate students with Princeton University/PPPL.
 
 Gkeyll, Postgkyl and this documentation is copyrighted 2016-2018 by
 Ammar Hakim.
-
-Caveat Emptor
--------------
-
-Parts of Gkeyll have been funded by the United States Department of
-Energy (DOE). The DOE *requires* that users outside of PPPL sign a
-license agreement with PPPL for *all codes* developed here with DOE
-funds.
-
-You, Dear User, are responsible for completing the needed paperwork
-(see `here
-<https://theory.pppl.gov/research/TheoryCodeLicenseReleaseForm.pdf>`_. Use
-"Ammar Hakim" for the "PPPL Researcher's Names" field.). Unpleasant
-consequences may result if this paperwork is not completed.
