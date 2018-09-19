@@ -28,7 +28,7 @@ Getting the code
 
 Once you have Mercurial installed, clone the source repo as follows::
 
-  hg clone https://bitbucket.org/ammarhakim/gkyl
+  hg clone https://bitbucket.org/ammarhakim/gkeyll
 
 Building dependencies
 ---------------------
@@ -37,7 +37,7 @@ Depending on your system, building dependencies can be complicated.
 On a Mac or Linux machine you can simply run the mkdeps.sh script in
 the install-deps directory. To build dependencies cd to::
 
-  cd gkyl/install-deps
+  cd gkeyll/install-deps
 
 First, please check details by running::
 
@@ -68,7 +68,7 @@ Building Gkeyll
 Once you have all dependencies installed, you can build Gkeyll itself
 by cd-ing to the top-directory in the source::
 
-  cd gkyl
+  cd gkeyll
 
 Gkeyll uses the Waf build system. You do NOT need to install waf as it
 is included with the distribution. However, waf depends on Python
