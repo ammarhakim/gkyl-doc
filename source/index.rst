@@ -7,8 +7,10 @@ Mr. Hyde" <https://www.gutenberg.org/files/43/43-h/43-h.htm>`_. Gkeyll
 is written in a combination of LuaJIT and C++. Most of the top-level
 code is written in LuaJIT, while time-critical parts are written in
 C++. Gkeyll is developed at `Princeton Plasma Physics Laboratory
-(PPPL) <http://www.pppl.gov>`_. For a full list of contributors see
-:doc:`Authors <gkyl/authors>` list.
+(PPPL) <http://www.pppl.gov>`_ in collaboration with Princeton
+University, University of Maryland, Virginia Tech, University of New
+Hampshire, University of Texas at Austin, and Darthmouth College. For
+a full list of contributors see :doc:`Authors <gkyl/authors>` list.
 
 Gkeyll 2.0 has been designed from ground up and has significant
 flexibility and algorithmic innovations compared to the previous

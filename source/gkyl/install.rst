@@ -23,6 +23,9 @@ below. Gkeyll depends on the following tools and packages:
 - ADIOS IO library
 - Eigen
 
+Alternatively, a pre-packaged executable can be obtained with the
+`Conda <https://conda.io/miniconda.html>`_ package manager.
+
 Getting the code
 ----------------
 
@@ -141,6 +144,20 @@ to:
 ::
 
     CC= $(DEFAULT_CC) -std=gnu99
+
+
+Installing Gkeyll with Conda
+----------------------------
+
+Once is `Conda <https://conda.io/miniconda.html>`_ installed and
+added to the ``PATH``, Gkeyll can be obtained with::
+
+  conda install -c gkyl gkeyll
+
+Note, that this will also install all the dependencies into the Conda
+directory. This might cause some conflicts, particularly for the MPI
+installation if there is another version of MPI already located in the
+system. Gkeyll should be run using the MPI provided by Conda.
 
 .. rubric:: Footnotes
 
