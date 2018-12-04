@@ -18,7 +18,7 @@ version of the code. Gkeyll's innovative design completely blurs the
 distinction between user input and the internal software, allowing for
 a very powerful means of composing complex simulations. All of this is
 achieved in a very compact code base with minimal external
-dependencies, yet providing efficient solvers for Gryokinetics,
+dependencies, yet providing efficient solvers for Gyrokinetics,
 Vlasov-Maxwell as well as multi-fluid equations.
 
 Gkeyll Documentation
@@ -29,6 +29,7 @@ Gkeyll Documentation
 
   gkyl/about
   license
+  gkyl/conda-install
   gkyl/install
   gkyl/applications
 
