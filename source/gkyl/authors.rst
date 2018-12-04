@@ -17,8 +17,7 @@ The lead architects of the physics modules are Ammar Hakim and `Greg
 Hammett <http://w3.pppl.gov/~hammett>`_.
 
 The other contributors are (to either Gkeyll 1.0 or Gkeyll code) are:
-Eric Shi, James (Jimmy) Juno, Tess Bernard, Jonathan Ng, Petr Cagas,
-Liang Wang, Mana F. Rodriguez, Jason TenBarge, Chuanfei Dong, `Bhuvana
-Srinivasan
-<https://www.aoe.vt.edu/people/faculty/srinivasan/personal-page.html>`_,
-and Noah Mandel.
+Noah Mandel, James (Jimmy) Juno, Eric Shi, Tess Bernard, Jonathan Ng,
+Petr Cagas, Liang Wang, Mana F. Rodriguez, Jason TenBarge, Chuanfei
+Dong, and `Bhuvana Srinivasan
+<https://www.aoe.vt.edu/people/faculty/srinivasan/personal-page.html>`_.

@@ -1,6 +1,9 @@
 Papers and Doctoral Dissertations
 +++++++++++++++++++++++++++++++++
 
+A good source of various benchmarks and other tests is A. Hakim's
+`Simulation Journal <http://ammar-hakim.org/sj/>`_.
+
 Doctoral Dissertations
 ----------------------
 
