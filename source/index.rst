@@ -70,6 +70,7 @@ wishing to understand some of the internal details of Gkeyll.
   dev/modalbasis
   dev/ssp-rk
   dev/vlasov-normalizations
+  dev/vlasov-denorm  
   dev/maxwell-eigensystem
   dev/euler-eigensystem
   dev/tenmom-eigensystem

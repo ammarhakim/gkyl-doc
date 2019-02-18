@@ -1,7 +1,5 @@
-A Set of Normalized Units for the Vlasov-Maxwell System of Equations
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-:Author: Jimmy Juno
+Normalized units for the Vlasov-Maxwell system 
+++++++++++++++++++++++++++++++++++++++++++++++
 
 The Gkyl design philosophy involves the implementation of unit-full systems of equations, i.e., Gkyl simulations can be run with real parameters for direct comparison with experiments, with universal constants specified by using values provided by the National Institute of Standards and Technology. For example, in the absence of collisions, the Vlasov-Maxwell system of equations in S.I. units is as follows,
 

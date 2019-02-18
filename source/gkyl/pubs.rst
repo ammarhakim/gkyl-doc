@@ -7,6 +7,11 @@ A good source of various benchmarks and other tests is A. Hakim's
 Doctoral Dissertations
 ----------------------
 
+- Ng, Jonathan. "Fluid closures for the modeling of reconnection and
+  instabilities in magnetotail current sheets". Ph.D. dissertation,
+  Princeton University, 2018.  `PDF
+  <https://drive.google.com/file/d/1aNnwdSMcFJ8slLyfFtH67p-gHdi-2FRX/view?usp=sharing>`_
+
 - Cagas, P. (2018, July 30). "Continuum kinetic simulations of plasma
   sheaths and instabilities". Ph.D. dissertation, Virginia Tech, 2018.
   https://vtechworks.lib.vt.edu/handle/10919/84979
@@ -18,6 +23,11 @@ Doctoral Dissertations
 
 Physics and algorithm papers
 ----------------------------
+
+- B. Srinivasan and A. Hakim. "Role of electron inertia and
+  electron/ion finite Larmor radius effects in low-beta,
+  magneto-Rayleigh-Taylor instability", *Physics of Plasmas*, **25**,
+  092108, 2018.
 
 - Wang, L., Germaschewski, K., Hakim, A., Dong, C., Raeder, J.,
   Bhattacharjee, A. (2018). "Electron Physics in 3-D Two-Fluid
