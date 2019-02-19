@@ -52,7 +52,7 @@ describing a typical problem setup.
 
     wpe = math.sqrt(n*elcCharge^2/(elcMass*epsilon0)) -- plasma frequency
 	
-What do these numbers mean? For example, in the abover we set :math:`n
+What do these numbers mean? For example, in the above we set :math:`n
 = 0.01`. Obviously, this does not mean that there are :math:`1/100`
 particles per meter! If it did, then if our cell-size was say 1/10 of
 a meter, then we would have hardly any particles in a single cell. In
@@ -113,7 +113,7 @@ physical values are:
 These numbers appear perfectly reasonable. For example, the plasma
 parameter, i.e. the number of particles inside a Debye sphere, is
 computed as :math:`n \lambda_D^3 = 4.7\times 10^{6}`, showing that the
-plasma approximaion is perfectly valid.
+plasma approximation is perfectly valid.
 
 Of course, other choices of the initial plasma-frequency (or another
 choice of a particular physical parameter like the domain size or
