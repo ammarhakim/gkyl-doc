@@ -120,6 +120,6 @@ choice of a particular physical parameter like the domain size or
 number-density) would give a different set of values. However, of
 course, independent of the choice, the physics remains unchanged as
 long as all physical dimensions are scaled consistently. (Which is of
-course the virtue of the non-dimensions units in the first place).
+course the virtue of the non-dimensional units in the first place).
 
 
