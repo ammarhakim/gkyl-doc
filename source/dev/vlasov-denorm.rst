@@ -74,8 +74,8 @@ then use the speed of light to determine the reference time
 (frequency) unit.
 
 In the following fragment, we select our plasma-frequency as
-:math:`\omega_{pe} = 1e10 [1/s]`, and the compute a reference
-frequency and, using speed of light, a length-scale:
+:math:`\omega_{pe} = 10^{10}` :math:`s^{-1}`, and the compute a
+reference frequency and, using speed of light, a length-scale:
 
 .. code-block:: lua
 
