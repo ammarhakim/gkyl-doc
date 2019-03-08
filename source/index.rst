@@ -31,7 +31,7 @@ Gkeyll Documentation
   license
   gkyl/conda-install
   gkyl/install
-  gkyl/applications
+..  gkyl/applications
 
 Gkeyll Publications
 -------------------

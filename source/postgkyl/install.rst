@@ -28,7 +28,7 @@ The big advantage of the installation through Conda is that all the
 dependencies are installed together with Postgkyl.  To update the
 Conda installed version of Postgkyl, do::
 
-  conda update postgkyl
+  conda update -c gkyl postgkyl
 
 In order to use the Conda installation, the user requires to have the
 write permission to the Anaconda directory.  This is not the case when

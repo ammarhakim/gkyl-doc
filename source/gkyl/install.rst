@@ -31,7 +31,7 @@ Getting the code
 
 Once you have Mercurial installed, clone the source repo as follows::
 
-  hg clone https://bitbucket.org/ammarhakim/gkeyll
+  hg clone https://bitbucket.org/ammarhakim/gkyl
 
 Building dependencies
 ---------------------
