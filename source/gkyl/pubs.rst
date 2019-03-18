@@ -30,7 +30,7 @@ Physics and algorithm papers
   15). `arXiv.org:1903.06605. <https://arxiv.org/abs/1903.06605>`_
 
 - E. L. Shi, G. Hammett, T. Stoltzfus-Dueck, &
-  A. Hakim. "Full- fgyrokinetic simulation of turbulence in a helical
+  A. Hakim. "Full-f gyrokinetic simulation of turbulence in a helical
   open-field-line plasma". Physics of Plasmas, 26(1),
   012307–14. (2019) http://doi.org/10.1063/1.5074179
 
@@ -38,6 +38,10 @@ Physics and algorithm papers
   T. Stoltzfus-Dueck, & E. I. Taylor. "Gyrokinetic continuum
   simulations of plasma turbulence in the Texas Helimak". (2019)
   `arXiv.org:1812.05703 <https://arxiv.org/abs/1812.05703>`_
+
+- A. Sundström, J. Juno, J. M. TenBarge & I. Pusztai. "Effect of a
+  weak ion collisionality on the dynamics of kinetic electrostatic
+  shocks". *Journal of Plasma Physics*, **85**, 2019.
 
 - B. Srinivasan and A. Hakim. "Role of electron inertia and
   electron/ion finite Larmor radius effects in low-beta,
