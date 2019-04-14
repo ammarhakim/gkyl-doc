@@ -24,6 +24,12 @@ Doctoral Dissertations
 Physics and algorithm papers
 ----------------------------
 
+- Dong, C., Wang, L., Hakim, A., Bhattacharjee, A., Slavin, J. A.,
+  DiBraccio, G. A., & Germaschewski, K. "A Novel Ten-Moment Multifluid
+  Model for Mercury: From the Planetary Conducting Core to the Dynamic
+  Magnetosphere".  (2019, April 4). `arXiv.org:1904.02695
+  <https://arxiv.org/abs/1904.02695>`_
+
 - J. M. TenBarge, J. Ng, J. Juno, L. Wang, A. Hakim, &
   A. Bhattacharjee. "An extended MHD study of the 16 October 2015 MMS
   diffusion region crossing". (2019, March
