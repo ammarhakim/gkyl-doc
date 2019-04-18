@@ -4,7 +4,7 @@ Installing Gkeyll with Conda
 Once `Conda <https://conda.io/miniconda.html>`_ is installed and added
 to the ``PATH``, Gkeyll can be obtained with::
 
-  conda install gkyl -c gkyl
+  conda install -c gkyl gkeyll
 
 Note, that this will also install all dependencies into the Conda
 install directory. Often this may lead to some conflicts, particularly
