@@ -26,6 +26,7 @@ below. Gkeyll depends on the following tools and packages:
 Alternatively, a pre-packaged executable can be obtained with the
 `Conda <https://conda.io/miniconda.html>`_ package manager.
 
+
 Getting the code
 ----------------
 
@@ -33,6 +34,13 @@ Once you have Mercurial installed, clone the source repo as follows::
 
   hg clone https://bitbucket.org/ammarhakim/gkyl
 
+Note on building on Mac OS X Mojave
+-----------------------------------
+
+To build on Mac OS X Mojave you must set the following env flag::
+
+  export MACOSX_DEPLOYMENT_TARGET=10.9  
+  
 Building dependencies
 ---------------------
 
