@@ -39,3 +39,26 @@ example as::
 
 This will load the code to work with Modal basis functions and the
 serendipity basis sets in 1x1v into your Maxima session/code.
+
+To make plots on Maxima, you can use the excellent draw2d package. To
+get this to work you need to install Gnuplot and set some paths
+properly. On a Mac, the maxima-init.mac file looks like::
+
+  load("draw")$
+  gnuplot_command: "/Applications/Gnuplot.app/Contents/Resources/bin/gnuplot" $
+  set_plot_option([gnuplot_term, "qt"],
+    [gnuplot_preamble, "set object rectangle from screen 0,0 to screen 1,1 behind fillcolor rgb 'white' fillstyle solid noborder"]
+    )$
+
+  set_draw_defaults(terminal=qt,
+    user_preamble="set object rectangle from screen 0,0 to screen 1,1 behind fillcolor rgb 'white' fillstyle solid noborder",
+    nticks=200,
+    line_width=2
+   )$
+
+  file_search_maxima: append(file_search_maxima,
+    ["PATH_TO_YOUR_GKYL/gkyl/cas-scripts/###.{lisp,mac}"]) $
+
+Again, remember "PATH_TO_YOUR_GKYL" is the full path to the location
+where your gkyl source lives. On Linux or Windows you will need to
+experiment with paths and settings to get plots to work.
