@@ -40,9 +40,10 @@ example as::
 This will load the code to work with Modal basis functions and the
 serendipity basis sets in 1x1v into your Maxima session/code.
 
-To make plots on Maxima, you can use the excellent draw2d package. To
-get this to work you need to install Gnuplot and set some paths
-properly. On a Mac, the maxima-init.mac file looks like::
+To make plots on Maxima, you can use the excellent `draw2d
+<http://www.austromath.at/daten/maxima/zusatz/Graphics_with_Maxima.pdf>`_
+package. To get this to work you need to install Gnuplot and set some
+paths properly. On a Mac, the maxima-init.mac file looks like::
 
   load("draw")$
   gnuplot_command: "/Applications/Gnuplot.app/Contents/Resources/bin/gnuplot" $
