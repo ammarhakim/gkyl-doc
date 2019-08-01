@@ -205,21 +205,22 @@ to the collisions table in the input files, as shown here:
 
 Another way to use a specially varying collisionality is to passed a reference
 collisionality normalized to some values of density and temperature. For example
-if the input file specifies the normalized collisionality :math:`\nu_NT_{e0}^{3/2}/n_{e0}` through
+if the input file specifies the normalized collisionality
+:math:`\nu_{srN}\left(T_{s0}/m_s+T_{r0}/m_r\right)^{3/2}/n_{r0}` through
 ``normNu``
 
 .. code-block:: lua
 
   coll = Plasma.LBOCollisions {
      collideWith = { "elc" },
-     normNu      = { nu_ee*T_e0^(3/2)/n_e0 }
+     normNu      = { nu_ee*(2*T_e0/m_e)^(3/2)/n_e0 }
   },
 
 then in each time step the collisions will be applied with the following collisionality
 
 .. math::
 
-  \nu_ee(x) = \nu_N \frac{n_e(x,t)}{T_e(x,t)^{3/2}}.
+  \nu_{sr}(x) = \nu_{srN} \frac{n_r(x,t)}{\left(v_{ts}^2(x,t)+v_{tr}^2(x,t)\right)^{3/2}}.
 
 Currently these options lead to a spatially varying, cell-wise constant collisionality.
 We will be adding support for variation of the collisionality within a cell in the future.
