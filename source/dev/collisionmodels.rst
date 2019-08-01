@@ -39,18 +39,51 @@ primitive moments as
 .. math::
 
   \mathbf{u}_{sr} = \mathbf{u}_s - \frac{\alpha_{E}}{2}
-  \frac{m_s+m_r}{m_sM_{0s}\nu_{sr}}\left(\mathbf{u}_s-\mathbf{u}_r\right) \\
-  v_{tsr}^2 = v_{ts}^2 - \frac{1}{d_v}\frac{\alpha_E}{m_sM_{0s}\nu_{sr}}
+  \frac{m_s+m_r}{m_sn_{s}\nu_{sr}}\left(\mathbf{u}_s-\mathbf{u}_r\right) \\
+  v_{tsr}^2 = v_{ts}^2 - \frac{1}{d_v}\frac{\alpha_E}{m_sn_{s}\nu_{sr}}
   \left[d_v\left(m_sv_{ts}^2-m_rv_{tr}^2\right)-m_r\left(\mathbf{u}_s-\mathbf{u}_r\right)^2
-  +4\frac{\alpha_E}{m_sM_{0s}\nu_{sr}}\left(m_s+m_r\right)^2\left(\mathbf{u}_s-\mathbf{u}_r\right)^2\right]
+  +4\frac{\alpha_E}{m_sn_{s}\nu_{sr}}\left(m_s+m_r\right)^2\left(\mathbf{u}_s-\mathbf{u}_r\right)^2\right]
 
 but contrary to Greene's definition of :math:`\alpha_E`, we currently
 use in Gkeyll the following expression
 
+.. math::
 
+  \alpha_E = m_sn_{s}\nu_{sr}\delta_s\frac{1+\beta}{m_s+m_r}.
+
+Little guidance is provided by Greene as to how to choose :math:`\beta`,
+although it seems clear that :math:`-1<\beta`. In Gkeyll the default
+value is :math:`\beta=0`, but the user can specify it in the input file
+(explained below). We have introduced the additional quantity :math:`\delta_s`
+(which Greene indirectly assumed to equal 1) defined as
+
+.. math::
+
+  \delta_s = \frac{2m_sn_s\nu_{sr}}{m_sn_s\nu_{sr}+m_rn_r\nu_{rs}}
 
 Dougherty collisions
 --------------------
+
+The Doughery (LBO) model for collisions [Dougherty1964]_ in Gkeyll is given by
+
+.. math::
+
+  \left(\frac{\partial f_s}{\partial t}\right)_c = \sum_r\nu_{sr}
+  \frac{\partial}{\partial\mathbf{v}}\cdot\left[\left(\mathbf{v}-\mathbf{u}_{sr}\right)f_s
+  +v_{tsr}^2\frac{\partial f_s}{\partial\mathbf{v}\right].
+ 
+In this case we compute the cross-primitive moments by a process analogous
+to Greene's with the BGK operator, yielding the following formulas for the
+cross flow velocity and thermal speed:
+
+.. math::
+  \mathbf{u}_{sr} = \mathbf{u}_s + \frac{\alpha_{E}}{2}
+  \frac{m_s+m_r}{m_sn_{s}\nu_{sr}}\left(\mathbf{u}_r-\mathbf{u}_s\right) \\
+  v_{tsr}^2 = v_{ts}^2+\frac{\alpha_{E}}{2}\frac{m_s+m_r}{m_sn_{s}\nu_{sr}}
+  \frac{1+\frac{m_s}{m_r}}\left[v_{tr}^2-\frac{m_s}{m_r}v_{ts}^2
+  +\frac{1}{d_v}\left(\mathbf{u}_s-\mathbf{u}_r\right)^2\right]
+
+with :math:`\alpha_E` defined in the BGK section above.
 
 
 References
@@ -61,4 +94,7 @@ References
    *Physical Review*, 102(3), 593–604.
 
 .. [Greene1973] Greene, J. M. (1973). Improved Bhatnagar-Gross-Krook model
-   of electron-ion collisions. Physics of Fluids, 16(11), 2022–2023.
+   of electron-ion collisions. *Physics of Fluids*, 16(11), 2022–2023.
+
+.. [Dougherty1964] Dougherty, J. P. (1964). Model Fokker-Planck Equation for
+   a Plasma and Its Solution. *Physics of Fluids*, 7(11), 1788–1799.
