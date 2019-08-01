@@ -8,6 +8,7 @@ is the Bhatnagar–Gross–Krook (BGK) collision operator and the other
 is the Dougherty operator. We referred to the latter as the LBO for
 the legacy of Lenard-Bernstein.
 
+.. contents::
 
 BGK collisions
 --------------
@@ -38,9 +39,9 @@ primitive moments as
 
 .. math::
 
-  \mathbf{u}_{sr} = \mathbf{u}_s - \frac{\alpha_{E}}{2}
+  \mathbf{u}_{sr} &= \mathbf{u}_s - \frac{\alpha_{E}}{2}
   \frac{m_s+m_r}{m_sn_{s}\nu_{sr}}\left(\mathbf{u}_s-\mathbf{u}_r\right) \\
-  v_{tsr}^2 = v_{ts}^2 - \frac{1}{d_v}\frac{\alpha_E}{m_sn_{s}\nu_{sr}}
+  v_{tsr}^2 &= v_{ts}^2 - \frac{1}{d_v}\frac{\alpha_E}{m_sn_{s}\nu_{sr}}
   \left[d_v\left(m_sv_{ts}^2-m_rv_{tr}^2\right)-m_r\left(\mathbf{u}_s-\mathbf{u}_r\right)^2
   +4\frac{\alpha_E}{m_sn_{s}\nu_{sr}}\left(m_s+m_r\right)^2\left(\mathbf{u}_s-\mathbf{u}_r\right)^2\right]
 
@@ -70,24 +71,96 @@ The Doughery (LBO) model for collisions [Dougherty1964]_ in Gkeyll is given by
 
   \left(\frac{\partial f_s}{\partial t}\right)_c = \sum_r\nu_{sr}
   \frac{\partial}{\partial\mathbf{v}}\cdot\left[\left(\mathbf{v}-\mathbf{u}_{sr}\right)f_s
-  +v_{tsr}^2\frac{\partial f_s}{\partial\mathbf{v}\right].
+  +v_{tsr}^2\frac{\partial f_s}{\partial\mathbf{v}}\right].
  
 In this case we compute the cross-primitive moments by a process analogous
 to Greene's with the BGK operator, yielding the following formulas for the
 cross flow velocity and thermal speed:
 
 .. math::
-  \mathbf{u}_{sr} = \mathbf{u}_s + \frac{\alpha_{E}}{2}
+
+  \mathbf{u}_{sr} &= \mathbf{u}_s + \frac{\alpha_{E}}{2}
   \frac{m_s+m_r}{m_sn_{s}\nu_{sr}}\left(\mathbf{u}_r-\mathbf{u}_s\right) \\
-  v_{tsr}^2 = v_{ts}^2+\frac{\alpha_{E}}{2}\frac{m_s+m_r}{m_sn_{s}\nu_{sr}}
+  v_{tsr}^2 &= v_{ts}^2+\frac{\alpha_{E}}{2}\frac{m_s+m_r}{m_sn_{s}\nu_{sr}}
   \frac{1+\frac{m_s}{m_r}}\left[v_{tr}^2-\frac{m_s}{m_r}v_{ts}^2
   +\frac{1}{d_v}\left(\mathbf{u}_s-\mathbf{u}_r\right)^2\right]
 
 with :math:`\alpha_E` defined in the BGK section above.
 
+Collisions in Gkeyll input files
+--------------------------------
+
+Users can specify collisions in input files with either constant collisionality
+or with spatially varying, time-evolving collisionality. An example of adding
+LBO collisions (for BGK collisions simply replace ``LBOcollisions`` with
+``BGKCollisions``) to a species named 'elc' is
+
+.. code-block:: lua
+
+  elc = Plasma.Species {
+     charge = q_e, mass = m_e,
+     -- Velocity space grid.
+     lower = {-6.0*vt_e},
+     upper = { 6.0*vt_e},
+     cells = {32},
+     -- Initial conditions.
+     init = Plasma.MaxwellianProjection{
+        density = function (t, zn)
+           local x, vpar = zn[1], zn[2]
+           return n_e
+        end,
+        driftSpeed = function (t, zn)
+           local x, vpar = zn[1], zn[2]
+           return {u_e}
+        end,
+        temperature = function (t, zn)
+           local x, vpar = zn[1], zn[2]
+           return m_e*(vt_e^2)
+        end,
+     },
+     evolve = true,
+     -- Collisions.
+     coll = Plasma.LBOCollisions {
+        collideWith = { "elc" },
+        frequencies = { nu_ee },
+     },
+  },
+
+If there were another species, say one named 'ion', this 'elc' species could
+be made to collide with 'ion' by adding 'ion' to the ``collideWidth``
+table:
+
+.. code-block:: lua
+
+  -- Collisions.
+  coll = Plasma.LBOCollisions {
+     collideWith = { "elc", "ion" },
+     frequencies = { nu_ee, nu_ei },
+  },
+
+The constant collision frequencies ``nu_ee`` and ``nu_ei`` need to be previously
+computed/specified in the input file.
+
+It is also possible to specify both LBO and BGK collisions between different
+binary pairs in a single input file. For example, if there are three species
+'elc', 'ion' and 'neut', the 'elc' species could be made collide with both
+'ion' and 'neut' as follows:
+
+.. code-block:: lua
+
+  -- Collisions.
+  cColl = Plasma.LBOCollisions {
+     collideWith = { "elc", "ion" },
+     frequencies = { nu_ee, nu_ei },
+  },
+  nColl = Plasma.BGKCollisions {
+     collideWith = { "neut" },
+     frequencies = { nu_en },
+  },
+
 
 References
----------
+----------
 
 .. [Gross1956] Gross, E. P. & Krook, M. (1956) Model for collision precesses
    in gases: small-amplitude oscillations of charged two-component systems.
