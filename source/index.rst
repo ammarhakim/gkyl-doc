@@ -75,4 +75,5 @@ wishing to understand some of the internal details of Gkeyll.
   dev/euler-eigensystem
   dev/tenmom-eigensystem
   dev/twofluid-sources
+  dev/collisionmodels
 
