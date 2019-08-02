@@ -95,7 +95,7 @@ the gyrokinetic solver is
 
   \left(\frac{\partial f_s}{\partial t}\right)_c = \sum_r\nu_{sr}\left\lbrace
   \frac{\partial}{\partial v_{\parallel}}\left[\left(v_\parallel-u_{\parallel sr}\right)f_s
-  +v_{tsr}^2\pd{f_s}{v_\parallel}\right]+\frac{\partial}{\partial\mu\right)
+  +v_{tsr}^2\frac{\partial f_s}{\partial v_\parallel}\right]+\frac{\partial}{\partial\mu}
   \left[2\mu f_s+2\frac{m_sv_{tsr}^2}{B}\mu\frac{\partial f_s}{\partial\mu}\right]\right\rbrace
   
 
