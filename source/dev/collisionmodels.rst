@@ -264,13 +264,15 @@ and/or densities. For this reason we have taken three precautions:
   1. Calculation of primitive moments :math:`\mathbf{u}_{sr}` and :math:`v_{tsr}^2`
      is carried out using cell-average values if the number density is non-positive at
      one of the corners of that cell.
-  2. The collision term is turned off locally if the flow velocity :math:`mathbf{u}_{sr}`
+  2. The collision term is turned off locally if the flow velocity :math:`\mathbf{u}_{sr}`
      is greater than the velocity limits of the domain, or if :math:`v_{tsr}^2` is
      negative.
   3. The collision frequency :math:`\nu_{sr}` is locally set to zero if the cell-average
      values of :math:`n_r` or :math:`v_{tsr}^2` are negative.
 
-For some discussion of why these precautions are necessary see [Hakim2019]_.
+We track the number of cells in which precaution 2 is used, and for stable simulations
+this is typically small (a few percent or less). Further discussion of why these
+precautions are necessary appears in [Hakim2019]_.
 
 
 References
@@ -287,5 +289,5 @@ References
    a Plasma and Its Solution. *Physics of Fluids*, 7(11), 1788–1799.
 
 .. [Hakim2019] Hakim, A., et. al. (2019). Conservative Discontinuous Galerkin
-   Schemes for Nonlinear Fokker-Planck Collision Operators. *Sumbitted to
-   Journal of Computational Physics*, `arXiv:1903.08062 <https://arxiv.org/abs/1903.08062>`_.
+   Schemes for Nonlinear Fokker-Planck Collision Operators. Submitted to the
+   *Journal of Computational Physics*, `arXiv:1903.08062 <https://arxiv.org/abs/1903.08062>`_.
