@@ -160,6 +160,13 @@ in the above formulas for the cross-species primitive moments (:math:`\mathbf{u}
 and :math:`v_{tsr}^2`) by specifying the variable ``betaGreene`` in the collisions
 table. If the user does not specify it, it is assumeed that ``betaGreene=0.0``.
 
+In some cases the user may be interested in colliding species 'elc' with species 'ion',
+but not collide species 'ion' with species 'elc'. Gkeyll supports this combination, but
+since the formulas for cross-species primitive moments involve both :math:`\nu_{ei}`
+and :math:`\nu_{ie}`, the code will default to assuming :math:`\nu_{ie}=m_e\nu_{ei}/m_i`.
+Note however that this scenario is not energy conserving: for exact energy conservation,
+one must include the effect of binary collisions on both species.
+
 It is also possible to specify both LBO and BGK collisions between different
 binary pairs in a single input file. For example, if there are three species
 'elc', 'ion' and 'neut', the 'elc' species could be made collide with both
