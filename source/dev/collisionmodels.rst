@@ -62,6 +62,9 @@ value is :math:`\beta=0`, but the user can specify it in the input file
 
   \delta_s = \frac{2m_sn_s\nu_{sr}}{m_sn_s\nu_{sr}+m_rn_r\nu_{rs}}
 
+The BGK operator can be used with both the Vlasov-Maxwell solver and
+the gyrokinetic solver.
+
 Dougherty collisions
 --------------------
 
@@ -85,7 +88,16 @@ cross flow velocity and thermal speed:
   \frac{1}{1+\frac{m_s}{m_r}}\left[v_{tr}^2-\frac{m_s}{m_r}v_{ts}^2
   +\frac{1}{d_v}\left(\mathbf{u}_s-\mathbf{u}_r\right)^2\right]
 
-with :math:`\alpha_E` defined in the BGK section above.
+with :math:`\alpha_E` defined in the BGK section above. The LBO used by
+the gyrokinetic solver is
+
+.. math::
+
+  \left(\frac{\partial f_s}{\partial t}\right)_c = \sum_r\nu_{sr}\left\lbrace
+  \frac{\partial}{\partial v_{\parallel}}\left[\left(v_\parallel-u_{\parallel sr}\right)f_s
+  +v_{tsr}^2\pd{f_s}{v_\parallel}\right]+\frac{\partial}{\partial\mu\right)
+  \left[2\mu f_s+2\frac{m_sv_{tsr}^2}{B}\mu\frac{\partial f_s}{\partial\mu}\right]\right\rbrace
+  
 
 Collisions in Gkeyll input files
 --------------------------------
@@ -174,11 +186,12 @@ according to
 
 .. math::
 
-  \nu_{sr} = \frac{n_r}{m_s}\left(\frac{1}{m_s}+\frac{1}{m_r}\right)
+  \nu_{sr} = \nu_{\mathrm{frac}}\frac{n_r}{m_s}\left(\frac{1}{m_s}+\frac{1}{m_r}\right)
   \frac{q_s^2q_r^2\log\Lambda_{sr}}{3(2\pi)^{3/2}\epsilon_0^2}
   \frac{1}{\left(v_{ts}^2+v_{tr}^2\right)^{3/2}}
 
-where the Coulomb logarithm is defined as
+where :math:`\nu_{\mathrm{frac}}` is a scaling factor, the Coulomb logarithm is
+defined as
 
 .. math::
 
@@ -206,6 +219,9 @@ to the collisions table in the input files, as shown here:
      hBar        = 1.0,    -- Planck's constant h/2pi.
   },
 
+Additionally the user can pass the scaling factor :math:`\nu_{\mathrm{frac}}` by
+specifying ``nuFrac`` in the collisions table.
+
 Another way to use a specially varying collisionality is to passed a reference
 collisionality normalized to some values of density and temperature. For example
 if the input file specifies the normalized collisionality
@@ -223,7 +239,7 @@ then in each time step the collisions will be applied with the following collisi
 
 .. math::
 
-  \nu_{sr}(x) = \nu_{srN} \frac{n_r(x,t)}{\left(v_{ts}^2(x,t)+v_{tr}^2(x,t)\right)^{3/2}}.
+  \nu_{sr}(x) = \nu_{\mathrm{frac}}\nu_{srN} \frac{n_r(x,t)}{\left(v_{ts}^2(x,t)+v_{tr}^2(x,t)\right)^{3/2}}.
 
 Currently these options lead to a spatially varying, cell-wise constant collisionality.
 We will be adding support for variation of the collisionality within a cell in the future.
