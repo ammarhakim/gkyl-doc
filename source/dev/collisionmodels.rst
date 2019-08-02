@@ -155,7 +155,10 @@ table:
   },
 
 The constant collision frequencies ``nu_ee`` and ``nu_ei`` need to be previously
-computed/specified in the input file.
+computed/specified in the input file. The user can specify the value of :math:`\beta`
+in the above formulas for the cross-species primitive moments (:math:`\mathbf{u}_{sr}`
+and :math:`v_{tsr}^2`) by specifying the variable ``betaGreene`` in the collisions
+table. If the user does not specify it, it is assumeed that ``betaGreene=0.0``.
 
 It is also possible to specify both LBO and BGK collisions between different
 binary pairs in a single input file. For example, if there are three species
