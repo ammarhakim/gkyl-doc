@@ -232,7 +232,7 @@ to the collisions table in the input files, as shown here:
 Additionally the user can pass the scaling factor :math:`\nu_{\mathrm{frac}}` by
 specifying ``nuFrac`` in the collisions table.
 
-Another way to use a specially varying collisionality is to passed a reference
+Another way to use a spatially varying collisionality is to pass a reference
 collisionality normalized to some values of density and temperature. For example
 if the input file specifies the normalized collisionality
 :math:`\nu_{srN}=\nu_{sr0}\left(T_{s0}/m_s+T_{r0}/m_r\right)^{3/2}/n_{r0}` through
