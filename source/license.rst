@@ -15,7 +15,10 @@ graduate students with Princeton University/PPPL.
 In general, we allow users to "fork" the code to make their own
 modifications. However, we would appreciate if you would work with us
 to merge your features back into the main-line (if those features are
-useful to the larger Gkeyll team).
+useful to the larger Gkeyll team). You can submit a "pull request" and
+we will try our best to merge your changes into the
+mainline. Contributed code should compile and have sufficient
+unit/regression tests.
 
 Gkeyll, Postgkyl and this documentation is copyrighted 2016-2019 by
 Ammar Hakim.
