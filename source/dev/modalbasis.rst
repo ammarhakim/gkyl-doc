@@ -58,9 +58,10 @@ Consider some function that is expanded in the basis:
 
 .. math::
 
-   f(\mathbf{x}) = \sum_k f_k \psi_k(\mathbf{x})
+   f(\mathbf{x}) = \sum_k f_k \psi_k\big(\boldsymbol{\eta}(\mathbf{x})\big)
 
-Then, the cell-average is defined as
+where :math:`\boldsymbol{\eta}(\mathbf{x})` maps the physical space to
+logical space. Then, the cell-average is defined as
 
 .. math::
 
