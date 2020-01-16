@@ -37,8 +37,8 @@ supercomputers, one can either create a Conda
 `environment <https://conda.io/docs/user-guide/tasks/manage-environments.html>`_
 or install the Anaconda into ``$HOME`` directory.
 
-Install from Bitbucket
-----------------------
+Install from Github
+-------------------
   
 Unless you are planning develop postgkyl itself, you should install
 using Anaconda's conda installer. Even if you plan to develop the
@@ -56,7 +56,7 @@ The postgkyl repository is private and access is only available to our close
 collaborators. This means, in practice, those who have funded projects
 or joint student projects with Princeton.
 
-Once you have access to the Bitbucket repository, clone postgkyl into a new
-directory and add the path of the directory to your ``PYTHONPATH`` env
-variable. You will also need to add the ``pgkyl`` executable to your
-``PATH``.
+Once you have access to the Github repository, clone postgkyl into a
+new directory and add the path of the directory to your ``PYTHONPATH``
+env variable. You will also need to add the ``pgkyl`` executable to
+your ``PATH``.
