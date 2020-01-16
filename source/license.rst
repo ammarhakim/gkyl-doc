@@ -2,7 +2,10 @@ License
 +++++++
 
 **Gkeyll can be used freely for research at universities, national
-laboratories and other institutions.**
+laboratories and other institutions. In general, use in commerical
+(for-profit) companies is not permitted, even if used for research. If
+you want to use Gkeyll in a commerical enviornment, please ask us
+first.**
 
 We follow a *open-source but closed development model*.  Even though
 read access to the code is available to everyone, write access to the

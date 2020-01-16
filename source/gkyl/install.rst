@@ -15,7 +15,7 @@ probably only need to install LuaJIT.
 Build instructions for dependencies are provided in the build sections
 below. Gkeyll depends on the following tools and packages:
 
-- `Mercurial <https://www.mercurial-scm.org>`_ version control system
+- Git version control system
 - A modern C/C++ compiler; Python (for use in waf build system and
   post-processing)
 - LuaJIT
@@ -30,9 +30,9 @@ Alternatively, a pre-packaged executable can be obtained with the
 Getting the code
 ----------------
 
-Once you have Mercurial installed, clone the source repo as follows::
+Using Git clone the source repo as follows::
 
-  hg clone https://bitbucket.org/ammarhakim/gkyl
+  git clone https://github.com/ammarhakim/gkyl.git
 
 Note on building on Mac OS X Mojave
 -----------------------------------
