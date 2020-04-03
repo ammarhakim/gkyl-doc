@@ -2,14 +2,16 @@ Papers and Doctoral Dissertations
 +++++++++++++++++++++++++++++++++
 
 A good source of various benchmarks and other tests is A. Hakim's
-`Simulation Journal <http://ammar-hakim.org/sj/>`_.
+`Simulation Journal <http://ammar-hakim.org/sj/>`_, and the `github
+webpage <https://github.com/ammarhakim/ammar-simjournal>`_.
 
 Doctoral Dissertations
 ----------------------
 
 - Bernard, T. N. "Discontinuous Galerkin Modeling of Plasma Turbulence
-in a Simple Magnetized Torus". Ph. D. dissertation, The University of
-Texas at Austin, 2019. `PDF <https://repositories.lib.utexas.edu/bitstream/handle/2152/75831/BERNARD-DISSERTATION-2019.pdf?sequence=1>`_
+  in a Simple Magnetized Torus". Ph. D. dissertation, The University
+  of Texas at Austin, 2019. `PDF
+  <https://repositories.lib.utexas.edu/bitstream/handle/2152/75831/BERNARD-DISSERTATION-2019.pdf?sequence=1>`_
 
 - Ng, J. "Fluid closures for the modeling of reconnection and
   instabilities in magnetotail current sheets". Ph.D. dissertation,
@@ -60,6 +62,12 @@ Algorithms papers
 Physics papers
 ----------------------------
 
+- Ammar Hakim,
+  Noah R. Mandell, T. N. Bernard, M. Francisquez, G. W. Hammett, E. L. Shi. "Continuum
+  Electromagnetic Gyrokinetic Simulations of Turbulence in the Tokamak
+  Scrape-Off Layer and Laboratory Devices", *Physics of Plasmas*,
+  April 2020
+
 - Ng, J., Hakim, A., Wang, L., & Bhattacharjee, A. (2020). "Diffusion
   based closures for two-fluid reconnection and instabilities", *In
   preparation*.
@@ -99,15 +107,16 @@ Physics papers
   Magnetosphere",  *Geophysical Review Letters*, 46,
   11584-11596. https://doi.org/10.1029/2019GL083180
 
-- Shi, E. L., Hammett, G. W., Stoltzfus-Dueck, T., & Hakim, A.
-   (2019). "Full-f gyrokinetic simulation of turbulence in a helical
-   open-field-line plasma", *Physics of Plasmas*, **26**,
-   012307. https://doi.org/10.1063/1.5074179
+- Shi, E. L., Hammett, G. W., Stoltzfus-Dueck, T., & Hakim,
+  A. (2019). "Full-f gyrokinetic simulation of turbulence in a helical
+  open-field-line plasma", *Physics of Plasmas*, **26**,
+  012307. https://doi.org/10.1063/1.5074179
 
-- Bernard, T. N., Shi, E. L., Gentle, K. W., Hakim, A., Hammett, G. W.,
-   Stoltzfus-Dueck, T., & Taylor, E. I. (2019). "Gyrokinetic continuum
-  simulations of plasma turbulence in the Texas Helimak", *Physics of
-   Plasmas*, **26**, 042301. https://doi.org/10.1063/1.5085457
+- Bernard, T. N., Shi, E. L., Gentle, K. W., Hakim, A.,
+  Hammett, G. W., Stoltzfus-Dueck, T., &
+  Taylor, E. I. (2019). "Gyrokinetic continuum simulations of plasma
+  turbulence in the Texas Helimak", *Physics of Plasmas*,
+  **26**, 042301. https://doi.org/10.1063/1.5085457
 
 - Skoutnev, V., Hakim, A., Juno, J., & TenBarge,
   J. M. (2019). "Temperature-Dependent Saturation of Weibel-Type
