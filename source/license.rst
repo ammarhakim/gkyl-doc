@@ -23,5 +23,5 @@ we will try our best to merge your changes into the
 mainline. Contributed code should compile and have sufficient
 unit/regression tests.
 
-Gkeyll, Postgkyl and this documentation is copyrighted 2016-2019 by
-Ammar Hakim.
+Gkeyll, Postgkyl and this documentation is copyrighted 2016-2020 by
+Ammar Hakim and the Gkeyll Authors.

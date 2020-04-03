@@ -1,8 +1,8 @@
 Authors
 +++++++
 
-Gkeyll is developed at the Princeton Plasma Physics Laboratory (PPPL), a
-Department of Energy (DOE) national lab, managed by Princeton
+Gkeyll is developed at the Princeton Plasma Physics Laboratory (PPPL),
+a Department of Energy (DOE) national lab, managed by Princeton
 University. Funding for the code comes from Department of Energy (FES
 and SciDAC programs), Airforce Office of Scientific Research, National
 Science Foundation and NASA.
@@ -17,7 +17,7 @@ The lead architects of the physics modules are Ammar Hakim and `Greg
 Hammett <http://w3.pppl.gov/~hammett>`_.
 
 The other contributors are (to either Gkeyll 1.0 or Gkeyll code) are:
-Noah Mandell, James (Jimmy) Juno, Eric Shi, Tess Bernard, Jonathan Ng,
-Petr Cagas, Liang Wang, Mana F. Rodriguez, Jason TenBarge, Chuanfei
-Dong, and `Bhuvana Srinivasan
+Noah Mandell, James (Jimmy) Juno, Tess Bernard, Jonathan Ng, Petr
+Cagas, Liang Wang, Mana F. Rodriguez, Jason TenBarge, Chuanfei Dong,
+Eric Shi, and `Bhuvana Srinivasan
 <https://www.aoe.vt.edu/people/faculty/srinivasan/personal-page.html>`_.
