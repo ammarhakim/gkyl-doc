@@ -9,7 +9,7 @@ Doctoral Dissertations
 
 - Bernard, T. N. "Discontinuous Galerkin Modeling of Plasma Turbulence
 in a Simple Magnetized Torus". Ph. D. dissertation, The University of
-Texas at Austin, 2019. `<https://repositories.lib.utexas.edu/bitstream/handle/2152/75831/BERNARD-DISSERTATION-2019.pdf?sequence=1>`_
+Texas at Austin, 2019. `PDF <https://repositories.lib.utexas.edu/bitstream/handle/2152/75831/BERNARD-DISSERTATION-2019.pdf?sequence=1>`_
 
 - Ng, J. "Fluid closures for the modeling of reconnection and
   instabilities in magnetotail current sheets". Ph.D. dissertation,
@@ -28,7 +28,7 @@ Algorithms papers
 ----------------------------
 
 - Juno, J. and Hakim, A. "A modal, alias-free discontinuous Galerkin
-algorithm for (plasma) kinetic equations", *In preparation*.
+  algorithm for (plasma) kinetic equations", *In preparation*.
 
 - Cagas, P., Hakim, A., & Srinivasan, B. (2020). "Plasma-material
   boundary conditions for discontinuous Galerkin continuum-kinetic
@@ -60,8 +60,17 @@ algorithm for (plasma) kinetic equations", *In preparation*.
 Physics papers
 ----------------------------
 
+- Ng, J., Hakim, A., Wang, L., & Bhattacharjee, A. (2020). "Diffusion
+  based closures for two-fluid reconnection and instabilities", *In
+  preparation*.
+
+- Ng, J., Chen, L.-J., Hakim, A., & Bhattacharjee,
+  A. (2020). "Reconstruction of electron and ion distribution
+  functions in a magnetotail reconnection diffusion region",
+  *Submitted to Journal of Geophysics Research: Space Physics*.
+
 - Francisquez, M., Bernard, T. N., Zhu, B., Hakim, A., Rogers, B. N.,
-  & Hammett, G. W. (2020) "Fluid & Gyrokinetic turbulence in open
+  & Hammett, G. W. (2020). "Fluid & Gyrokinetic turbulence in open
   field-line, helical plasmas". `arXiv:2002.11136 <https://arxiv.org/abs/2002.11136>`_
 
 - Bernard, T. N., Stoltzfus-Dueck, T., Gentle, K. W., Hakim, A.,
