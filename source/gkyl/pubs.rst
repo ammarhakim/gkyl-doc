@@ -29,8 +29,9 @@ Doctoral Dissertations
 Algorithms papers
 ----------------------------
 
-- Juno, J. and Hakim, A. "A modal, alias-free discontinuous Galerkin
-  algorithm for (plasma) kinetic equations", *In preparation*.
+- Hakim, A and Juno, J. "Alias-free, matrix-free, and quadrature-free
+  discontinuous Galerkin algorithms for (plasma) kinetic
+  equations". `arXiv:2004.09019 <https://arxiv.org/abs/2004.09019>`_
 
 - Cagas, P., Hakim, A., & Srinivasan, B. (2020). "Plasma-material
   boundary conditions for discontinuous Galerkin continuum-kinetic
@@ -76,6 +77,10 @@ Physics papers
   A. (2020). "Reconstruction of electron and ion distribution
   functions in a magnetotail reconnection diffusion region",
   *Submitted to Journal of Geophysics Research: Space Physics*.
+
+-Juno, J., Swisdak, M., TenBarge, J. M., Skoutnev, V., & Hakim,
+ A. (2020). "Noise-Induced Magnetic Field Saturation in Kinetic
+ Simulations". `arXiv:2004.07255 <https://arxiv.org/abs/2004.07255>`_
 
 - Francisquez, M., Bernard, T. N., Zhu, B., Hakim, A., Rogers, B. N.,
   & Hammett, G. W. (2020). "Fluid & Gyrokinetic turbulence in open
