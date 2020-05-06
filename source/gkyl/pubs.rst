@@ -78,9 +78,9 @@ Physics papers
   functions in a magnetotail reconnection diffusion region",
   *Submitted to Journal of Geophysics Research: Space Physics*.
 
--Juno, J., Swisdak, M., TenBarge, J. M., Skoutnev, V., & Hakim,
- A. (2020). "Noise-Induced Magnetic Field Saturation in Kinetic
- Simulations". `arXiv:2004.07255 <https://arxiv.org/abs/2004.07255>`_
+- Juno, J., Swisdak, M., TenBarge, J. M., Skoutnev, V., & Hakim,
+  A. (2020). "Noise-Induced Magnetic Field Saturation in Kinetic
+  Simulations". `arXiv:2004.07255 <https://arxiv.org/abs/2004.07255>`_
 
 - Francisquez, M., Bernard, T. N., Zhu, B., Hakim, A., Rogers, B. N.,
   & Hammett, G. W. (2020). "Fluid & Gyrokinetic turbulence in open
