@@ -5,3 +5,4 @@ Presentations
 - "Continuum Electromagnetic Gyrokinetic Simulations of Turbulence in the Tokamak Scrape-Off Layer and Laboratory Devices", Ammar Hakim, APS Division of Plasma Physics, Fort Lauderdale, 2019.
 - "Gyrokinetic continuum simulations of plasma turbulence in the Texas Helimak", Tess Bernard, Sherwood Fusion Theory Conference, Princeton, April 2019.
 - "Gyrokinetic continuum simulations of plasma turbulence in the Texas Helimak", Tess Bernard, 24th Joint US-EU Transport Task Force Meeting, Austin, March 2019.
+- more to be added...
