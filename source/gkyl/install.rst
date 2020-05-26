@@ -153,6 +153,13 @@ to:
 
     CC= $(DEFAULT_CC) -std=gnu99
 
+Build troubleshooting
+--------------------
+
+Having trouble building? We will try to continuously compile a list of
+suggestions and common error messages in
+:doc:`this troubleshooting site <gkyl/troubleshooting>`.
+
 .. rubric:: Footnotes
 
 .. [#why] The reason for this is that Gkeyll is in reality a LuaJIT
