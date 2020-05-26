@@ -1,8 +1,8 @@
 Troubleshooting
 ++++++++++++++
 
-In building or running the code you may encounter some natural
-difficulties with pushing the code into new places, or using
+As you build or run Gkeyll you may encounter some difficulties. 
+This is natural when pushing the code in new directions, or using
 it in new machines. In such cases you may find it helpful to
 consider some of the following suggestions and lessons from past
 experiences.

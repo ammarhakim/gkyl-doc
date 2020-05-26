@@ -156,7 +156,7 @@ to:
 Troubleshooting
 ---------------
 
-Having trouble building? We will try to continuously compile a list of
+Having trouble building? We will try to compile a list of
 suggestions and common error messages in
 :doc:`this troubleshooting site <./trouble>`.
 
