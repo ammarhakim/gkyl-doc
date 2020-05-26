@@ -14,4 +14,4 @@ Build troubleshooting
 - The ``./waf build install`` command fails on some systems
   due to a combination of the size of certain kernels, and the
   default parallel compilation.
-  **suggestion:** try building with ``./waf build install -j 1``
+  **Suggestion:** try building with ``./waf build install -j 1``
