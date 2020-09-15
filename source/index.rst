@@ -25,13 +25,13 @@ Gkeyll Documentation
 --------------------
 
 .. toctree::
-  :maxdepth: 2
+  :maxdepth: 3
 
   gkyl/about
   license
   gkyl/conda-install
   gkyl/install
-..  gkyl/applications
+  gkyl/applications
 
 Gkeyll Publications
 -------------------

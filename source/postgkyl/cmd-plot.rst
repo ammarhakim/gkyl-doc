@@ -3,6 +3,8 @@
 plot
 ----
 
+.. contents::
+
 Command Line Mode
 ^^^^^^^^^^^^^^^^^
 
