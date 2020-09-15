@@ -1,5 +1,5 @@
-Using Postgkyl
-++++++++++++++
+Postgkyl Commands
++++++++++++++++++
 
 Starting with the Postgkyl 1.0, the command line commands are only
 wrappers over the Python functions and methods.  Therefore, the both
@@ -43,4 +43,3 @@ imported with:
    loading
    chain
    commands
-   examples

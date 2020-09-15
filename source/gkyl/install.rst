@@ -1,5 +1,30 @@
-Installing Gkeyll from Source
-+++++++++++++++++++++++++++++
+Installing Gkeyll
++++++++++++++++++
+
+.. contents::
+
+Installing with Conda
+---------------------
+
+Once `Conda <https://conda.io/miniconda.html>`_ is installed and added
+to the ``PATH``, Gkeyll can be obtained with::
+
+  conda install -c gkyl gkeyll
+
+Note, that this will also install all dependencies into the Conda
+install directory. Often this may lead to some conflicts, particularly
+for the MPI installation, specially if there is another version of MPI
+already located in the system. Gkeyll should be run using the MPI
+provided by Conda.
+
+In general, having Conda and source-built Gkeyll on the same machine
+can cause confusion. In that case please use explicit paths to the
+mpiexec and Gkeyll executable you wish to use when running
+simulations.
+
+
+Installing from source
+----------------------
 
 Depending on your system, installing Gkeyll from source can be easy
 (Linux, Mac laptops and small clusters) or hard (supercomputing
@@ -28,21 +53,21 @@ Alternatively, a pre-packaged executable can be obtained with the
 
 
 Getting the code
-----------------
+^^^^^^^^^^^^^^^^
 
 Using Git clone the source repo as follows::
 
   git clone https://github.com/ammarhakim/gkyl.git
 
-Note on building on Mac OS X Mojave
------------------------------------
+Note on building on Mac OS X
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To build on Mac OS X Mojave you must set the following env flag::
+To build on Mac OS X Mojave and beyond you must set the following env flag::
 
   export MACOSX_DEPLOYMENT_TARGET=10.9  
   
 Building dependencies
----------------------
+^^^^^^^^^^^^^^^^^^^^^
 
 Depending on your system, building dependencies can be complicated.
 On a Mac or Linux machine you can simply run the mkdeps.sh script in
@@ -74,7 +99,7 @@ $HOME/gkylsoft directory. If you install it elsewhere, you will need
 to modify the instructions below accordingly.
 
 Building Gkeyll
----------------
+^^^^^^^^^^^^^^^
 
 Once you have all dependencies installed, you can build Gkeyll itself
 by cd-ing to the top-directory in the source::
@@ -137,7 +162,7 @@ If you need to uninstall do:
     ./waf uninstall
 
 Note on building LuaJIT
------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 LuaJIT builds easily on most machines with standard GCC compiler. Often,
 you may run into problems on older gcc as they do not include the log2
@@ -155,7 +180,7 @@ to:
     CC= $(DEFAULT_CC) -std=gnu99
 
 Troubleshooting
----------------
+^^^^^^^^^^^^^^^
 
 Having trouble building? We will try to compile a list of
 suggestions and common error messages in

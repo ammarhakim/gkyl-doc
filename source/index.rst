@@ -21,42 +21,34 @@ achieved in a very compact code base with minimal external
 dependencies, yet providing efficient solvers for Gyrokinetics,
 Vlasov-Maxwell as well as multi-fluid equations.
 
-Gkeyll Documentation
+Quickstart
+----------
+
+.. toctree::
+   :maxdepth: 1
+   
+   quickstart/introduction
+   quickstart/example1
+   quickstart/example2
+   quickstart/example3
+   quickstart/example4
+   
+
+Reference Documentation
 --------------------
-
-.. toctree::
-  :maxdepth: 3
-
-  gkyl/about
-  license
-  gkyl/conda-install
-  gkyl/install
-  gkyl/applications
-
-Gkeyll Publications & Presentations
------------------------------------
-
-.. toctree::
-  :maxdepth: 1
-
-  gkyl/pubs	     
-  gkyl/presentations
-
-Postgkyl Documentation
-----------------------
-
-Postgkyl is a Python post-processing tool for Gkeyll 1.0 and Gkeyll
-data.  It allows the user to read data from HDF5 and ADIOS BP files,
-manipulate the data in many wonderful ways, and then save or plot the
-results.  Postgkyl can be run in two modes: command line mode and
-Python package mode.
-
 
 .. toctree::
   :maxdepth: 2
 
+  gkyl/about
+  license
+  gkyl/install
   postgkyl/install
+  gkyl/applications
   postgkyl/usage
+
+Tools
+-----
 
 Dev Notes
 ---------
@@ -78,3 +70,12 @@ wishing to understand some of the internal details of Gkeyll.
   dev/twofluid-sources
   dev/collisionmodels
 
+  
+Gkeyll Publications & Presentations
+-----------------------------------
+
+.. toctree::
+  :maxdepth: 1
+
+  gkyl/pubs	     
+  gkyl/presentations

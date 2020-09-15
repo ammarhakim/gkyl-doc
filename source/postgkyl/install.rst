@@ -37,8 +37,8 @@ supercomputers, one can either create a Conda
 `environment <https://conda.io/docs/user-guide/tasks/manage-environments.html>`_
 or install the Anaconda into ``$HOME`` directory.
 
-Install from Github
--------------------
+Installing from source
+----------------------
   
 Unless you are planning develop postgkyl itself, you should install
 using Anaconda's conda installer. Even if you plan to develop the
