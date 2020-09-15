@@ -18,6 +18,6 @@ Hammett <http://w3.pppl.gov/~hammett>`_.
 
 The other contributors are (to either Gkeyll 1.0 or Gkeyll code) are:
 Noah Mandell, James (Jimmy) Juno, Tess Bernard, Jonathan Ng, Petr
-Cagas, Liang Wang, Mana F. Rodriguez, Jason TenBarge, Chuanfei Dong,
+Cagas, Liang Wang, Manaure (Mana) Francisquez, Jason TenBarge, Chuanfei Dong,
 Eric Shi, and `Bhuvana Srinivasan
 <https://www.aoe.vt.edu/people/faculty/srinivasan/personal-page.html>`_.

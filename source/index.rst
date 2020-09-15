@@ -33,13 +33,14 @@ Gkeyll Documentation
   gkyl/install
   gkyl/applications
 
-Gkeyll Publications
--------------------
+Gkeyll Publications & Presentations
+-----------------------------------
 
 .. toctree::
   :maxdepth: 1
 
   gkyl/pubs	     
+  gkyl/presentations
 
 Postgkyl Documentation
 ----------------------

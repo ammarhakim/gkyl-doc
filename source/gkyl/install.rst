@@ -114,7 +114,8 @@ the waf build script, it is easiest to follow these steps:
 -  Run the configure-par.sh script
 
 Once the configuration is complete, run the following command to build
-and install::
+and install (note: if you are working on a cluster and using environment
+modules, you may need to load them at this point)::
 
     ./waf build install
 
@@ -152,6 +153,13 @@ to:
 ::
 
     CC= $(DEFAULT_CC) -std=gnu99
+
+Troubleshooting
+---------------
+
+Having trouble building? We will try to compile a list of
+suggestions and common error messages in
+:doc:`this troubleshooting site <./trouble>`.
 
 .. rubric:: Footnotes
 
