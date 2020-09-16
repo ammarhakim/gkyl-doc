@@ -45,7 +45,9 @@ Input file
 
 This simulation is setup using :ref:`vlasovNorm` and the following :doc:`Lua input file <inputFiles/vm-tsw-2x2v>`.
 The input file has the following dependencies:
+
 .. code-block:: lua
+
   --------------------------------------------------------------------------------
   -- App dependencies
   --------------------------------------------------------------------------------
@@ -59,6 +61,7 @@ The input file has the following dependencies:
 The preamble to set up the initial conditions is:
 
 .. code-block:: lua
+
   --------------------------------------------------------------------------------
   -- Preamble
   --------------------------------------------------------------------------------
@@ -132,6 +135,7 @@ Note that because the dimensionality of the simulation is now 2x2v, the normaliz
 The app is similar to the 1x1v Langmuir wave simulation in :ref:`qs_intro`:
 
 .. code-block:: lua
+
   plasmaApp = Plasma.App {
      --------------------------------------------------------------------------------
      -- Common
@@ -215,6 +219,7 @@ Postprocessing
 The input file :code:`vm-tsw-2x2v.lua` can be run using the gkyl executable
 
 .. code-block:: bash
+
   gkyl vm-tsw-2x2v.lua
 
 assuming :code:`gkyl` has been aliased to the location of the executable.
@@ -234,11 +239,11 @@ A complete run of this simulation will output the following text to the terminal
    Step 0 at time 0. Time step 0.0360652. Completed 0%
   0123456789 Step   139 at time 5.01307. Time step 0.0360652. Completed 10%
   0123456789 Step   278 at time 10.0261. Time step 0.0360652. Completed 20%
-  012345678^[[A9 Step   416 at time 15.0031. Time step 0.0360652. Completed 30%
+  0123456789 Step   416 at time 15.0031. Time step 0.0360652. Completed 30%
   0123456789 Step   555 at time 20.0162. Time step 0.0360652. Completed 40%
   0123456789 Step   694 at time 25.0293. Time step 0.0360652. Completed 50%
   0123456789 Step   832 at time 30.0063. Time step 0.0360652. Completed 60%
-  01234^[[A56789 Step   971 at time 35.0193. Time step 0.0360652. Completed 70%
+  0123456789 Step   971 at time 35.0193. Time step 0.0360652. Completed 70%
   0123456789 Step  1110 at time 40.0324. Time step 0.0360652. Completed 80%
   0123456789 Step  1248 at time 45.0094. Time step 0.0360652. Completed 90%
   0123456789 Step  1387 at time 50. Time step 0.0136003. Completed 100%
@@ -267,6 +272,7 @@ This example was run with a single core of a 10th gen Intel i9 (Comet Lake) proc
 Increasing the resolution to :math:`32^2 \times 32^2` and now running the simulation using all 10 cores of the Intel i9 using
 
 .. code-block:: bash
+
   ~/gkylsoft/openmpi/bin/mpirun -n 10 ~/gkylsoft/gkyl/bin/gkyl vm-tsw-2x2v.lua
 
 we obtain the following performance with :code:`useShared=true` and the installed MPI from the Gkeyll build
