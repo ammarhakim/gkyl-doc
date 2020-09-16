@@ -182,7 +182,8 @@ You should see the program printing to screen like this:
 
 Gkeyll prints a number every 1% of the simulation, and a longer message with the total
 number of time steps taken, the simulation time and the latest time step size every 10%
-of of the simulation. As it progresses it writes out diagnostic files.
+of the simulation. This particular simulation ran in 74 seconds on a 2015 MacBookPro. As
+it progressed it wrote out diagnostic files.
 
 Plotting
 --------
@@ -205,22 +206,22 @@ In order to plot the initial distribution function of the electrons we will use
 
   pgkyl -f vm-damp_elc_0.bp interpolate plot
 
-This produces the 2D plot of the initial Maxwellian distribution given below. The
-:ref:`pg_cmd-plot` command also supports additional flags to add labels.
+This produces the 2D plot of the initial Maxwellian distribution given below.
 
 .. figure:: figures/vm-damp_elc_0.png
    :scale: 40 %
    :align: center
 
-   Initial distribution function, :math:`f_e(x,v,t=0)`.
+   Initial electron distribution function, :math:`f_e(x,v,t=0)`.
 
 We can also examine the electrostatic energy in the simulation. This most clearly
-exhibits the wave energy decaying as the collisionless damping takes effect. For this
-purpose we use the following ``postgkyl`` command:
+exhibits the wave energy decaying as the collisionless damping takes effect. For
+this purpose we use the following ``postgkyl`` command (we :code:`select` the
+x-component, and :ref:`pg_cmd-plot` can use a log scale, as well as add labels):
 
 .. code-block:: bash
 
-  pgkyl -f vm-damp_fieldEnergy.bp select -c0 plot --logy
+  pgkyl -f vm-damp_fieldEnergy.bp select -c0 plot --logy -x 'time' -y '$|E_x|^2$'
 
 resulting in the following figure of the (normalized) electrostatic energy as a
 function of time
@@ -229,7 +230,8 @@ function of time
    :scale: 40 %
    :align: center
 
-   Normalized electrostatic energy as a function of time.
+   Normalized electrostatic field energy :math:`\propto |E_x|^2` as a
+   function of time (normalized to :math:`\omega_{pe}`).
 
 Additional quick-start examples
 -------------------------------
