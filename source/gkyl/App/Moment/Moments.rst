@@ -28,10 +28,8 @@ This App solves the hyperbolic and source parts parts of the coupled system sepa
 
 .. contents::
 
-Overall structure of app
+Overall structure of the Moments app
 ------------------------
-
-The overall structure of the app is as follows
 
 .. code-block:: lua
 
@@ -74,6 +72,76 @@ The overall structure of the app is as follows
 
   -- run the app
   momentApp:run()
+
+
+Basic parameters
+------------------
+
+.. list-table:: Basic Parameters for the Moments app
+   :widths: 20, 60, 20
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+     - Default
+   * - ``logToFile``
+     - If set to true, log messages are written to log file
+     - ``true``
+   * - ``tEnd``
+     - End time of simulation
+     -
+   * - ``suggestedDt``
+     - Initial suggested time-step. Adjusted as simulation progresses.
+     - ``tEnd/nFrame``
+   * - ``nFrame``
+     - Number of frames of data to write. Initial conditions are
+       always written. For more fine-grained control over species and
+       field output, see below.
+     -
+   * - ``lower``
+     - CDIM length table with lower-left configuration space coordinates
+     -
+   * - ``upper``
+     - CDIM length table with upper-right configuration space coordinates
+     -
+   * - ``cells``
+     - CDIM length table with number of configuration space cells
+     -
+   * - ``cfl``
+     - CFL number to use. **This parameter should be avoided and
+       ``cflFrac`` used instead.**
+     - Determined from ``cflFrac``
+   * - ``cflFrac``
+     - Fraction (usually 1.0) to multiply CFL determined time-step. 
+     - Determined from ``timeStepper``
+   * - ``maximumDt``
+     - Hard limit of time step size.
+     - ``tEnd-tStart``
+   * - ``timeStepper``
+     - The multifluid-Maxwell model currently only supports the dimensional-
+       splitting finite-volume method, i.e., ``"fvDimSplit"``.
+     - ``"fvDimSplit"``
+   * - ``decompCuts``
+     - CDIM length table with number of processors to use in each
+       configuration space direction.
+     - ``{ }``
+   * - ``useShared``
+     - Set to ``true`` to use shared memory.
+     - false
+   * - ``periodicDirs``
+     - Periodic directions. Note: X is 1, Y is 2 and Z is 3. E.g., ``{2}`` sets
+       the Y direction to be periodic.
+     - ``{ }``
+
+.. note::
+
+   - In general, you should not specify ``cfl`` or ``cflFrac``,
+     unless either doing tests or explicitly controlling the
+     time-step. The app will determine the time-step automatically.
+   - When ``useShared=true`` the ``decompCuts`` must specify the
+     *number of nodes* and not number of processors. That is, the total
+     number of processors will be determined from ``decompCuts`` and
+     the number of threads per node.
 
 
 References
