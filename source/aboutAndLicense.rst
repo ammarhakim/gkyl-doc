@@ -26,18 +26,17 @@ License
 -------
 
 **Gkeyll can be used freely for research at universities, national
-laboratories and other institutions. In general, use in commerical
-(for-profit) companies is not permitted, even if used for research. If
-you want to use Gkeyll in a commerical enviornment, please ask us
-first.**
+laboratories and other research institutions. 
+If you want to use Gkeyll in a commercial environment,
+please ask us first.**
 
-We follow a *open-source but closed development model*.  Even though
+We follow an *open-source but closed development model*. Even though
 read access to the code is available to everyone, write access to the
 source-code repository is restricted to those who need to modify the
 code. In practice, this means researchers at PPPL and our partner
 institutions. In particular, this means that for write access you
 either need to have jointly funded projects or jointly supervised
-graduate students with Princeton University/PPPL.
+graduate students or postdocs with Princeton University/PPPL.
 
 In general, we allow users to "fork" the code to make their own
 modifications. However, we would appreciate if you would work with us
@@ -48,4 +47,25 @@ mainline. Contributed code should compile and have sufficient
 unit/regression tests.
 
 Gkeyll, Postgkyl and this documentation is copyrighted 2016-2020 by
-Ammar Hakim and the Gkeyll Authors.
+the Gkeyll Authors.
+
+Authors
++++++++
+
+Gkeyll is developed at the Princeton Plasma Physics Laboratory (PPPL),
+a Department of Energy (DOE) national lab, managed by Princeton
+University. Funding for the code comes from Department of Energy,
+Airforce Office of Scientific Research, Advanced Projects Agency -
+Energy, National Science Foundation and NASA.
+
+The institutions involved in Gkeyll development are PPPL, Princeton
+University, Virginia Tech, University of Maryland and MIT.
+
+The CEO and Algorithm Alchemist of the project is Ammar Hakim.
+
+The lead physicists for the project are Greg Hammett, Jason TenBarge
+and Ammar Hakim.
+
+The major contributors to the code are: Noah Mandell, Manaure (Mana)
+Francisquez, Petr Cagas, James (Jimmy) Juno, Liang Wang and Tess
+Bernard.

@@ -21,8 +21,7 @@ achieved in a very compact code base with minimal external
 dependencies, yet providing efficient solvers for Gyrokinetics,
 Vlasov-Maxwell as well as multi-fluid equations.
 
-:doc:`About & license <aboutAndLicense>`
----------------------------------------------
+For license see :doc:`License <aboutAndLicense>`.
 
 Quickstart
 ----------
