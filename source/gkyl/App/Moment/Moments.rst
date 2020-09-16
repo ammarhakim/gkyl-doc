@@ -5,7 +5,7 @@
 .. contents::
 
 Moments: Multifluid-moment-Maxwell model
-+++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++
 
 Summary of model equations
 --------------------------
@@ -34,7 +34,7 @@ This App solves the hyperbolic and source parts parts of the coupled system sepa
   Here, we represent the homogeneous update schematically as the operator :math:`\exp\left(\mathcal{L}_{H}\Delta t\right)` and the source update as :math:`\exp\left(\mathcal{L}_{S}\Delta t\right)`.
 
 Overall structure of the Moments app
-------------------------
+------------------------------------
 
 .. code-block:: lua
 
@@ -82,9 +82,11 @@ Overall structure of the Moments app
 Examples
 --------
 
+- :doc:`Five-moment modeling of the GEM challenge magnetic reconnection problem.<rt-5m-gem>`
+- :doc:`Ten-moment modeling of the GEM challenge magnetic reconnection problem.<rt-5m-gem>` This simulation uses a simplified closure appropriate for this problem.
 
 Basic parameters
-------------------
+----------------
 
 .. list-table:: Basic Parameters for ``PlasmaOnCartGrid.Moments``
    :widths: 20, 60, 20
