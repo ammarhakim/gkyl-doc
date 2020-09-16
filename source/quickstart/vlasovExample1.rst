@@ -1,5 +1,5 @@
-Example 2
-+++++++++
+Vlasov example
+++++++++++++++
 
 .. contents::
 

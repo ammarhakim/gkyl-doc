@@ -1,9 +1,9 @@
 .. highlight:: lua
 
-VlasovOnCartGrid: Gyrokinetic equations in (cylindrical) slabs
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Gyrokinetic model for magnetized plasmas
+++++++++++++++++++++++++++++++++++++++++
 
-The ``VlasovOnCartGrid`` app solves the gyrokinetic equation on a
+The ``Gyrokinetic`` app solves the gyrokinetic equation on a
 Cartesian grid.
 
 (**MORE TO COME**)

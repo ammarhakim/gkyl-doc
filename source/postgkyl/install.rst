@@ -1,4 +1,4 @@
-Installing Postgkyl
+Installing postgkyl
 +++++++++++++++++++
 
 Installing Postgkyl is even easier than installing Gkyl.  One option

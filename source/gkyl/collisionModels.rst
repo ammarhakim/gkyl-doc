@@ -1,4 +1,4 @@
-.. _dev_collisionmodels:
+.. _collisionModels:
 
 Collision models in Gkeyll
 ++++++++++++++++++++++++++

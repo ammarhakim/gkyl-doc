@@ -1,5 +1,5 @@
-Installing Gkeyll
-+++++++++++++++++
+Installing gkyl
++++++++++++++++
 
 .. contents::
 

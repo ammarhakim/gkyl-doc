@@ -21,6 +21,9 @@ achieved in a very compact code base with minimal external
 dependencies, yet providing efficient solvers for Gyrokinetics,
 Vlasov-Maxwell as well as multi-fluid equations.
 
+:doc:`About & license <aboutAndLicense>`
+---------------------------------------------
+
 Quickstart
 ----------
 
@@ -28,14 +31,12 @@ Quickstart
    :maxdepth: 1
    
    quickstart/introduction
-   quickstart/example1
-   quickstart/example2
-   quickstart/example3
-   quickstart/example4
-   
+   quickstart/vlasovExample1
+   quickstart/gkExample1
+   quickstart/fluidExample1
 
-Reference Documentation
---------------------
+gkyl reference
+--------------
 
 .. toctree::
   :maxdepth: 2
@@ -43,12 +44,18 @@ Reference Documentation
   gkyl/about
   license
   gkyl/install
-  postgkyl/install
   gkyl/applications
-  postgkyl/usage
+  gkyl/appPlugins
+  gkyl/tools
 
-Tools
------
+postgkyl reference
+--------------
+
+.. toctree::
+  :maxdepth: 2
+
+  postgkyl/install
+  postgkyl/usage
 
 Dev Notes
 ---------
@@ -68,7 +75,6 @@ wishing to understand some of the internal details of Gkeyll.
   dev/euler-eigensystem
   dev/tenmom-eigensystem
   dev/twofluid-sources
-  dev/collisionmodels
 
   
 Gkeyll Publications & Presentations

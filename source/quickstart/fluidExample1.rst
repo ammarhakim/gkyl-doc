@@ -1,5 +1,5 @@
-Example 3
-+++++++++
+Fluid example
++++++++++++++
 
 .. contents::
 

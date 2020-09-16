@@ -1,5 +1,5 @@
-Gkeyll Apps
-+++++++++++
+gkyl Apps
++++++++++
 
 Gkeyll Apps are top-level objects that solve a class of problems. Apps
 make it easy to setup a problem as the steps in the algorithm are
@@ -15,8 +15,12 @@ The following apps are available in Gkeyll.
 .. toctree::
   :maxdepth: 1
 
-  VlasovOnCartGrid
-  GyroOnCartGrid
+  appGeneral
+  VlasovMaxwell
+  ..
+    GyroOnCartGrid
+  Gyrokinetics
+  Moments
 
 .. rubric:: Footnotes
 

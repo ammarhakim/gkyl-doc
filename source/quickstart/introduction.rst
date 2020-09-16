@@ -1,18 +1,13 @@
-Introduction
-+++++++++++
+.. highlight:: lua
 
-.. contents::
+Introduction: A first Gkeyll simulation
++++++++++++++++++++++++++++++++++++++++
 
-A first Gkeyll simulation
--------------------------
+Gkeyll supports several models and numerous capabilities. Before diving into those,
+here's a short overview of an input file, how to run it and plot its results.
 
-Gkeyll supports several models and numerous capabilities. Before diving into those
-we provide a simple overview of the structure of input files, how to run them and
-plot some results.
-
-A simple simulation one can run is that of collisionless Landau damping of an
-electrostatic wave in a plasma. We simulate this phenomenon with with the
-Vlasov-Maxwell model:
+Consider the collisionless Landau damping of an electrostatic wave in a plasma.
+We simulate it with the Vlasov-Maxwell model:
 
 .. math::
 
@@ -179,15 +174,21 @@ default ones: distribution functions, electro magnetic fields and field energy.
 Vlasov example
 --------------
 
+Link to quickstart/vlasovExample1.rst
+
 The same or a different example than the one provided above goes here, with more
 in-depth explanation of some of the inputs etc.
 
 Gyrokinetic example
 -------------------
 
+Link to quickstart/gkExample1.rst
+
 A gyrokinetic example goes here (maybe at least 1x2v?)
 
 Fluid example
 -------------
+
+Link to quickstart/fluidExample1.rst
 
 Fluid example here

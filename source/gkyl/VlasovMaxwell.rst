@@ -1,9 +1,9 @@
 .. highlight:: lua
 
-VlasovOnCartGrid: Vlasov equations on a Cartesian grid
-++++++++++++++++++++++++++++++++++++++++++++++++++++++
+VlasovMaxwell: Vlasov-Maxwell equations on a Cartesian grid
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-The ``VlasovOnCartGrid`` app solves the Vlasov equation on a Cartesian
+The ``VlasovMaxwell`` app solves the Vlasov equation on a Cartesian
 grid.
 
 .. math::

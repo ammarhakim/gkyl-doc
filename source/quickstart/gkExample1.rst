@@ -1,5 +1,5 @@
-Example 4
-+++++++++
+Gyrokinetic example
++++++++++++++++++++
 
 .. contents::
 
