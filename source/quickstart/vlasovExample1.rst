@@ -1,4 +1,4 @@
-.. _qsVlasov1:
+.. _qs_vlasov1:
 
 Vlasov example
 ++++++++++++++

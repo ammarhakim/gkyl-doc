@@ -5,132 +5,100 @@
 Gyrokinetic model for magnetized plasmas
 ++++++++++++++++++++++++++++++++++++++++
 
-The ``Gyrokinetic`` app solves the gyrokinetic equation on a
+The ``Gyrokinetic`` App solves the gyrokinetic system on a
 Cartesian grid.
-
-(**MORE TO COME**)
 
 .. contents::
 
 Overall structure of app
 ------------------------
 
-By CDIM we mean configuration space dimension and by VDIM we mean
-velocity space dimension. This app works in 1X1V, 1X2V and 3X2V. The
-velocity coordinates are :math:`v_\parallel, \mu`. See [Shi2017]_ for
-details.
-
-The overall structure of the app is as follows
+To set up a gyrokinetic simulation, we first need to load the ``Gyrokinetic`` App package.
+This should be done at the top of the input file, via
 
 .. code-block:: lua
 
-  local Vlasov = require "App.VlasovOnCartGrid"
+  local Plasma = (require "App.PlasmaOnCartGrid").Gyrokinetic()
 
-  vlasovApp = Vlasov.App {  
-    -- basic parameters
+This creates a table ``Plasma`` that loads the gyrokinetic species, fields, etc. packages.
 
-    -- description of each species: names are arbitrary
-    elc = Vlasov.GkSpecies {
-      -- species parameters
+The input file should then contain one or more ``Plasma.Species`` tables,
+a ``Plasma.Field`` table, and a ``Plasma.Geometry`` table, which are used to specify
+simulation parameters as shown below.
+
+The general structure of the input file is then
+
+.. code-block:: lua
+
+  local Plasma = (require "App.PlasmaOnCartGrid").Gyrokinetic()
+
+  plasmaApp = Plasma.App {  
+    -- basic parameters, see [topLevelApp]
+
+    -- description of each species (names, e.g. electron, are arbitrary but used for diagnostics)
+    electron = Plasma.Species {
+      -- GkSpecies parameters
     },
 
-    -- fields (optional, can be omitted for neutral particles)
-    field = Vlasov.GkEsField {  -- or GkEmField
-      -- field parameters
+    -- other species, e.g. ions
+
+    -- fields 
+    field = Plasma.Field {  
+      -- GkField parameters
+    },
+
+    funcField = Plasma.Geometry {
+      -- GkGeometry parameters
     },
   }
   -- run application
-  vlasovApp:run()
+  plasmaApp:run()
 
 Note that if the app's ``run`` method is not called, the simulation
 will not be run, but the simulation will be initialized and the
 initial conditions will be written out to file.
+
+By CDIM we mean configuration space dimension and by VDIM we mean
+velocity space dimension. This app works in 1X1V, 1X2V and 3X2V. The
+velocity coordinates are :math:`v_\parallel, \mu`. See [Shi2017]_ for
+details.
   
-Basic parameters
+Species parameters
 ----------------
   
-The app takes the following basic parameters. Parameters that have
-default values can be omitted.
+The following parameters are used to specify species parameters for the gyrokinetic system. 
+Parameters that have default values can be omitted. Units are arbitrary, but typically SI units are used.
 
-.. list-table:: Basic Parameters for ``VlasovOnCartGrid``
+.. list-table:: GkSpecies Parameters
    :widths: 20, 60, 20
    :header-rows: 1
 
    * - Parameter
      - Description
      - Default
-   * - logToFile
-     - If set to true, log messages are written to log file
-     - true
-   * - tEnd
-     - End time of simulation
-     -
-   * - suggestedDt
-     - Initial suggested time-step. Adjusted as simulation progresses.
-     - tEnd/nFrame
-   * - nFrame
-     - Number of frames of data to write. Initial conditions are
-       always written. For more fine-grained control over species and
-       field output, see below.
-     -
+   * - charge
+     - Species charge
+     - 1.0
+   * - mass
+     - Species mass
+     - 1.0
    * - lower
-     - CDIM length table with lower-left configuration space coordinates
+     - VDIM length table with lower-left velocity space coordinates
      -
    * - upper
-     - CDIM length table with upper-right configuration space coordinates
+     - VDIM length table with upper-right velocity space coordinates
      -
    * - cells
-     - CDIM length table with number of configuration space cells
+     - VDIM length table with number of velocity space cells
      -
-   * - basis
-     - Basis functions to use. One of "serendipity" or "maximal-order"
-     -
-   * - polyOrder
-     - Basis function polynomial order
-     -
-   * - cfl
-     - CFL number to use. **This parameter should be avoided and
-       cflFrac used instead.**
-     - Determined from cflFrac
-   * - cflFrac
-     - Fraction (usually 1.0) to multiply CFL determined time-step. 
-     - Determined from timeStepper
-   * - timeStepper
-     - One of "rk2" (SSP-RK2), "rk3" (SSP-RK3) or "rk3s4" (SSP-RK3
-       with 4 stages). For the last, cflFrac is 2.0
-     - "rk3"
-   * - ioMethod
-     - Method to use for file output. One of "MPI" or "POSIX". When
-       "POSIX" is selected, each node writes to its own file in a
-       sub-directory.
-     - "MPI"
    * - decompCuts
-     - CDIM length table with number of processors to use in each
-       configuration space direction.
-     - { }
-   * - useShared
-     - Set to ``true`` to use shared memory.
-     - false
-   * - periodicDirs
-     - Periodic directions. Note: X is 1, Y is 2 and Z is 3.
-     - { }
-   * - bcx
-     - Length two table with BCs in X direction. See details on BCs below.
-     - { }
-   * - bcy
-     - Length two table with BCs in Y direction. Only needed if CDIM>1
-     - { }
-   * - bcz
-     - Length two table with BCs in Z direction. Only needed if CDIM>2
-     - { }
-   * - field
-     - Type of field solver to use. See details below. This is
-       optional and if not specified no force terms will be evolved,
-       i.e. the particles will be assumed to be neutral.
-     - nil
-   * - *species-name*
-     - Species objects. There can be more than one of these. See
-       details below.
+     - **NOT CURRENTLY SUPPORTED**, no processor decomposition in velocity space allowed
+     - 
+   * - init
+     - Function with signature ``function(t,xn)`` that initializes the
+       species distribution function. This function must return a
+       single value, :math:`f(x,v,t=0)` at ``xn``, which is a NDIM
+       vector.
      - 
 
 .. note::
