@@ -43,3 +43,6 @@ imported with:
    loading
    chain
    commands
+   examplesCommandline
+   examplesScript
+   

@@ -1,7 +1,7 @@
 .. _pg_examples:
 
-Examples
-++++++++
+Command line examples
++++++++++++++++++++++
 
 This section provides an example of typical simulation postprocessing
 routine and some advanced chaining patterns (see :ref:`pg_chain` for

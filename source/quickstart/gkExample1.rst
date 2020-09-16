@@ -1,3 +1,5 @@
+.. _qsGyrokinetic1:
+
 Gyrokinetic example
 +++++++++++++++++++
 

@@ -1,5 +1,7 @@
 .. highlight:: lua
 
+.. _qsIntro:
+
 Introduction: A first Gkeyll simulation
 +++++++++++++++++++++++++++++++++++++++
 
@@ -43,7 +45,7 @@ Input file
 ---------------
 
 This simulation is setup using :ref:`vlasovNorm` in
-:download:`a short Lua input file <vm-langmuirLandauDamping-p1.lua>`, which begins with:
+:download:`a short Lua input file <inputFiles/vm-damp.lua>`, which begins with:
 
 .. code-block:: lua
 
@@ -149,18 +151,18 @@ to specify the geometry.
 Running your first simulation
 -----------------------------
 
-Now that we have a Gkeyll input file (named :code:`vm-langmuirLandauDamping-p1.lua`),
+Now that we have a Gkeyll input file (named :code:`vm-damp.lua`),
 simply run the simulation by typing
 
 .. code-block:: lua
 
-  gkyl vm-langmuirLandauDamping-p1.lua
+  gkyl vm-damp.lua
 
 You should see the program printing to screen like this:
 
 .. code-block:: bash
 
-  wsName:gkyldir gabriel$ gkyl vm-langmuirLandauDamping-p1.lua
+  wsName:gkyldir gabriel$ gkyl vm-damp.lua
   Tue Sep 15 2020 16:16:44.000000000
   Gkyl built with b0b8203670c7+
   Gkyl built on Sep 14 2020 16:29:40
@@ -178,13 +180,46 @@ You should see the program printing to screen like this:
 
 Gkeyll prints a number every 1% of the simulation, and a longer message with the total
 number of time steps taken, the simulation time and the latest time step size every 10%
-of of the simulation. As it progresses it prints out :doc:`diagnostics <diagnostics>`.
-In this case we did not request additional diagnostics, so the only ones provided are
-default ones: distribution functions, electro magnetic fields and field energy.
+of of the simulation. As it progresses it writes out diagnostic files.
 
 Plotting
 --------
 
+In this case we did not request additional diagnostics, so the only ones provided are
+default ones: 
+
+- Distribution functions: ``vm-damp_elc_#.bp`` and ``vm-damp_ion_#.bp``.
+- Electromagnetic fields: ``vm-damp_field_#.bp``.
+- Field energy: ``vm-damp_fieldEnergy.bp``.
+
+Fields that are larger (in memory) like the distribution function, get written out
+periodically, not every time step. These snapshots (frames) are labeled by the number
+``#`` at the end of the file name.
+
+In order to plot the initial distribution function of the electrons use
+
+.. code-block:: bash
+
+  pgkyl -f vm-damp_elc_0.bp interpolate plot
+
+which would produce the following 2D plot of the initial Maxwellian distribution.
+
+.. figure:: figures/vm-damp_elc_0.png
+   :scale: 40 %
+
+We can also examine the electrostatic energy in the simulation. This most clearly
+exhibits the wave energy decaying as the collisionless damping takes effect. For this
+purpose we use the following ``postgkyl`` command:
+
+.. code-block:: bash
+
+  pgkyl -f vm-damp_fieldEnergy.bp select -c0 plot --logy
+
+resulting in the following figure of the (normalized) electrostatic energy as a
+function of time
+
+.. figure:: figures/vm-damp_fieldEnergy.png
+   :scale: 40 %
 
 Additional quick-start examples
 ------------------------------
@@ -195,8 +230,8 @@ are also Gyrokinetic and (fluid) Moment models. Each of these have slightly
 different features and ways of using them. Quick examples for each of these
 are found below:
 
-:doc:`Vlasov-Maxwell example <vlasovExample1>`
+:ref:`qsVlasov1`
 
-:doc:`Gyrokinetic example <gkExample1>`
+:ref:`qsGyrokinetic1`
 
-:doc:`Fluid example <fluidExample1>`
+:ref:`qsFluid1`
