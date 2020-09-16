@@ -27,24 +27,27 @@ The full Lua input file (found :doc:`here <inputFiles/gk-sheath>`) for this simu
 is a bit longer than the first Vlasov :ref:`example <qs_intro>` from the introduction, 
 but not to worry, we will go through each part of the input file carefully.
 
-To set up a gyrokinetic simulation, we first need to load the ``Gyrokinetic`` App package.
-This should be done at the top of the input file, via
+To set up a gyrokinetic simulation, we first need to load the ``Gyrokinetic`` App package and other
+dependencies. This should be done at the top of the input file, via
 
 .. code-block:: lua
 
+  --------------------------------------------------------------------------------
+  -- App dependencies
+  --------------------------------------------------------------------------------
   local Plasma = (require "App.PlasmaOnCartGrid").Gyrokinetic()  -- load the Gyrokinetic App
-
-We can also load other useful packages; here we load the ``Constants`` library, which
-contains various physical constants that we will use later.
-
-.. code-block:: lua
-
   local Constants = require "Lib.Constants"                      -- load some Constants
 
-The next block of the input file contains input paramters and simple derived quantities:
+Here we have also loaded the ``Constants`` library, which
+contains various physical constants that we will use later.
+
+The next block is the **Preamble**, containing input paramters and simple derived quantities:
 
 .. code-block:: lua
 
+  --------------------------------------------------------------------------------
+  -- Preamble
+  --------------------------------------------------------------------------------
   -- Universal constant parameters.
   eps0 = Constants.EPSILON0
   eV = Constants.ELEMENTARY_CHARGE
@@ -88,7 +91,7 @@ The next block of the input file contains input paramters and simple derived qua
   Lz = 4                               -- z = field-aligned direction
 
 This simulation also requires a source, which models plasma crossing the separatrix. 
-The next block initializes some source parameters, along with some functions 
+The next **Preamble** block initializes some source parameters, along with some functions 
 that will be used later to set up the source density and temperature profiles.
 
 .. code-block:: lua
@@ -120,7 +123,207 @@ that will be used later to set up the source density and temperature profiles.
      end
   end
 
-We now have everything we need to initialize the ``Gyrokinetics`` App.
+This concludes the **Preamble**. We now have everything we need to initialize the ``Gyrokinetic`` App.
+In this input file, the App consists of 4 sections:
+
+.. code-block:: lua
+
+  --------------------------------------------------------------------------------
+  -- App initialization
+  --------------------------------------------------------------------------------
+  plasmaApp = Plasma.App {
+     -----------------------------------------------------------------------------
+     -- Common
+     -----------------------------------------------------------------------------
+     ...
+
+     -----------------------------------------------------------------------------
+     -- Species
+     -----------------------------------------------------------------------------
+     ...
+
+     -----------------------------------------------------------------------------
+     -- Fields
+     -----------------------------------------------------------------------------
+     ...
+
+     -----------------------------------------------------------------------------
+     -- Geometry
+     -----------------------------------------------------------------------------
+     ...
+  }
+  
+The **Common** section includes a declaration of parameters that control the (configuration space)
+discretization, and time advancement. This first block of code in :code:`Plasma.App`
+may specify the periodic directions, the MPI decomposition, and the frequency with
+which to output certain diagnostics.
+
+.. code-block:: lua
+
+     -----------------------------------------------------------------------------
+     -- Common
+     -----------------------------------------------------------------------------
+     logToFile = true,                    -- will write simulation output log to gk-sheath_0.log
+     tEnd = .5e-6,                        -- simulation end time [s]
+     nFrame = 1,                          -- number of output frames for diagnostics
+     lower = {R - Lx/2, -Ly/2, -Lz/2},    -- configuration space domain lower bounds, {x_min, y_min, z_min} 
+     upper = {R + Lx/2, Ly/2, Lz/2},      -- configuration space domain upper bounds, {x_max, y_max, z_max}
+     cells = {4, 1, 8},                   -- number of configuration space cells, {nx, ny, nz}
+     basis = "serendipity",               -- basis type (only "serendipity" is supported for gyrokinetics)
+     polyOrder = 1,                       -- polynomial order of basis set (polyOrder = 1 fully supported for gyrokinetics, polyOrder = 2 marginally supported)
+     timeStepper = "rk3",                 -- timestepping algorithm 
+     cflFrac = 0.4,                       -- fractional modifier for timestep calculation via CFL condition
+     restartFrameEvery = .2,              -- restart files will be written after every 20% of simulation
+
+     -- Specification of periodic directions 
+     -- (1-based indexing, so x-periodic = 1, y-periodic = 2, etc)
+     periodicDirs = {2},     -- Periodic in y only (y = 2nd dimension)
+
+The **Species** section sets up the species to be considered in the simulation. Each species
+gets its own Lua table, in which one provides the velocity-space domain and
+discretization of that species (for kinetic models), initial condition, diagnostics,
+boundary conditions, and whether to evolve it or not (:code:`evolve`).
+
+In this input file, we initialize an electron species and an ion species. Since this
+section is the most involved part of the input file, we will discuss various parts in detail below.
+
+.. code-block:: lua
+
+   -----------------------------------------------------------------------------
+   -- Species
+   -----------------------------------------------------------------------------
+   -- Gyrokinetic electrons
+   electron = Plasma.Species {
+      evolve = true,     -- evolve species?
+      charge = qe,       -- species charge
+      mass = me,         -- species mass
+
+      -- Species-specific velocity domain
+      lower = {-4*vte, 0},                    -- velocity space domain lower bounds, {vpar_min, mu_min}
+      upper = {4*vte, 12*me*vte^2/(2*B0)},    -- velocity space domain upper bounds, {vpar_max, mu_max}
+      cells = {8, 4},                         -- number of velocity space cells, {nvpar, nmu}
+
+      -- Initial conditions
+      init = Plasma.MaxwellianProjection {    -- initialize a Maxwellian with the specified density and temperature profiles
+              -- density profile
+              density = function (t, xn)
+                 -- The particular functional form of the initial density profile 
+                 -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
+                 -- quasi-steady-state profiles from the source parameters.
+                 local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
+                 local Ls = Lz/4
+                 local floor = 0.1
+                 local effectiveSource = math.max(sourceDensity(t,{x,y,0}), floor)
+                 local c_ss = math.sqrt(5/3*sourceTemperature(t,{x,y,0})/mi)
+                 local nPeak = 4*math.sqrt(5)/3/c_ss*Ls*effectiveSource/2
+                 local perturb = 0 
+                 if math.abs(z) <= Ls then
+                    return nPeak*(1+math.sqrt(1-(z/Ls)^2))/2*(1+perturb)
+                 else
+                    return nPeak/2*(1+perturb)
+                 end
+              end,
+              -- temperature profile
+              temperature = function (t, xn)
+                 local x = xn[1]
+                 if math.abs(x-xSource) < 3*lambdaSource then
+                    return 50*eV
+                 else 
+                    return 20*eV
+                 end
+              end,
+              scaleWithSourcePower = true,     -- when source is scaled to achieve desired power, scale initial density by same factor
+      },
+
+      -- Collisions parameters
+      coll = Plasma.LBOCollisions {
+         collideWith = {'electron'},
+         frequencies = {nuElc},
+      },
+
+      -- Source parameters
+      source = Plasma.MaxwellianProjection {       -- source is a Maxwellian with the specified density and temperature profiles
+                isSource = true,                   -- designate as source
+                density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
+                temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
+                power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
+      },
+
+      -- Non-periodic boundary condition specification
+      bcx = {Plasma.Species.bcZeroFlux, Plasma.Species.bcZeroFlux},   -- use zero-flux boundary condition in x direction
+      bcz = {Plasma.Species.bcSheath, Plasma.Species.bcSheath},       -- use sheath-model boundary condition in z direction
+
+      -- Diagnostics
+      diagnosticMoments = {"GkM0", "GkUpar", "GkTemp"},     
+      diagnosticIntegratedMoments = {"intM0", "intM1", "intKE", "intHE", "intSrcKE"},
+      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkHamilEnergy"},
+      diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
+   },
+
+   -- Gyrokinetic ions
+   ion = Plasma.Species {
+      evolve = true,     -- evolve species?
+      charge = qi,       -- species charge
+      mass = mi,         -- species mass
+
+      -- Species-specific velocity domain
+      lower = {-4*vti, 0},                    -- velocity space domain lower bounds, {vpar_min, mu_min}
+      upper = {4*vti, 12*mi*vti^2/(2*B0)},    -- velocity space domain upper bounds, {vpar_max, mu_max}
+      cells = {8, 4},                         -- number of velocity space cells, {nvpar, nmu}
+
+      -- Initial conditions
+      init = Plasma.MaxwellianProjection {    -- initialize a Maxwellian with the specified density and temperature profiles
+              -- density profile
+              density = function (t, xn)
+                 local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
+                 local Ls = Lz/4
+                 local floor = 0.1
+                 local effectiveSource = math.max(sourceDensity(t,{x,y,0}), floor)
+                 local c_ss = math.sqrt(5/3*sourceTemperature(t,{x,y,0})/mi)
+                 local nPeak = 4*math.sqrt(5)/3/c_ss*Ls*effectiveSource/2
+                 local perturb = 0 
+                 if math.abs(z) <= Ls then
+                    return nPeak*(1+math.sqrt(1-(z/Ls)^2))/2*(1+perturb)
+                 else
+                    return nPeak/2*(1+perturb)
+                 end
+              end,
+              -- temperature profile
+              temperature = function (t, xn)
+                 local x = xn[1]
+                 if math.abs(x-xSource) < 3*lambdaSource then
+                    return 50*eV
+                 else 
+                    return 20*eV
+                 end
+              end,
+              scaleWithSourcePower = true,     -- when source is scaled to achieve desired power, scale initial density by same factor
+      },
+
+      -- Collisions parameters
+      coll = Plasma.LBOCollisions {
+         collideWith = {'ion'},
+         frequencies = {nuIon},
+      },
+
+      -- Source parameters
+      source = Plasma.MaxwellianProjection {       -- source is a Maxwellian with the specified density and temperature profiles
+                isSource = true,                   -- designate as source
+                density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
+                temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
+                power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
+      },
+
+      -- Non-periodic boundary condition specification
+      bcx = {Plasma.Species.bcZeroFlux, Plasma.Species.bcZeroFlux},   -- use zero-flux boundary condition in x direction
+      bcz = {Plasma.Species.bcSheath, Plasma.Species.bcSheath},       -- use sheath-model boundary condition in z direction
+
+      -- Diagnostics
+      diagnosticMoments = {"GkM0", "GkUpar", "GkTemp"},     
+      diagnosticIntegratedMoments = {"intM0", "intM1", "intKE", "intHE", "intSrcKE"},
+      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkHamilEnergy"},
+      diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
+   },
 
 Postprocessing
 --------------

@@ -4,9 +4,14 @@
 -- The boundary condition along the background field models the sheath interaction of
 -- the plasma with conducting end plates, allowing the sheath potential to form self-consistently.
 --------------------------------------------------------------------------------
+-- App dependencies
+--------------------------------------------------------------------------------
 local Plasma = (require "App.PlasmaOnCartGrid").Gyrokinetic()  -- load the Gyrokinetic App
 local Constants = require "Lib.Constants"                      -- load some Constants
 
+--------------------------------------------------------------------------------
+-- Preamble
+--------------------------------------------------------------------------------
 -- Universal constant parameters.
 eps0 = Constants.EPSILON0
 eV = Constants.ELEMENTARY_CHARGE
@@ -76,8 +81,13 @@ sourceTemperature = function (t, xn)
    end
 end
 
--- Initialize Gyrokinetic Plasma App
+--------------------------------------------------------------------------------
+-- App initialization
+--------------------------------------------------------------------------------
 plasmaApp = Plasma.App {
+   --------------------------------------------------------------------------------
+   -- Common
+   --------------------------------------------------------------------------------
    logToFile = true,                    -- will write simulation output log to gk-sheath_0.log
    tEnd = .5e-6,                        -- simulation end time [s]
    nFrame = 1,                          -- number of output frames for diagnostics
@@ -88,12 +98,15 @@ plasmaApp = Plasma.App {
    polyOrder = 1,                       -- polynomial order of basis set (polyOrder = 1 fully supported for gyrokinetics, polyOrder = 2 marginally supported)
    timeStepper = "rk3",                 -- timestepping algorithm 
    cflFrac = 0.4,                       -- fractional modifier for timestep calculation via CFL condition
-   restartFrameEvery = .5,              -- restart files will be written after every 50% of simulation
+   restartFrameEvery = .2,              -- restart files will be written after every 20% of simulation
 
    -- Specification of periodic directions 
    -- (1-based indexing, so x-periodic = 1, y-periodic = 2, etc)
    periodicDirs = {2},     -- Periodic in y only (y = 2nd dimension)
 
+   --------------------------------------------------------------------------------
+   -- Species
+   --------------------------------------------------------------------------------
    -- Gyrokinetic electrons
    electron = Plasma.Species {
       evolve = true,     -- evolve species?
@@ -109,6 +122,9 @@ plasmaApp = Plasma.App {
       init = Plasma.MaxwellianProjection {    -- initialize a Maxwellian with the specified density and temperature profiles
               -- density profile
               density = function (t, xn)
+                 -- The particular functional form of the initial density profile 
+                 -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
+                 -- quasi-steady-state profiles from the source parameters.
                  local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
                  local Ls = Lz/4
                  local floor = 0.1
@@ -143,8 +159,8 @@ plasmaApp = Plasma.App {
       -- Source parameters
       source = Plasma.MaxwellianProjection {       -- source is a Maxwellian with the specified density and temperature profiles
                 isSource = true,                   -- designate as source
-                density = sourceDensity,           -- use sourceDensity function (defined above) for density profile
-                temperature = sourceTemperature,   -- use sourceTemperature function (defined above) for temperature profile
+                density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
+                temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
                 power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
       },
 
@@ -174,6 +190,9 @@ plasmaApp = Plasma.App {
       init = Plasma.MaxwellianProjection {    -- initialize a Maxwellian with the specified density and temperature profiles
               -- density profile
               density = function (t, xn)
+                 -- The particular functional form of the initial density profile 
+                 -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
+                 -- quasi-steady-state profiles from the source parameters.
                  local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
                  local Ls = Lz/4
                  local floor = 0.1
@@ -208,8 +227,8 @@ plasmaApp = Plasma.App {
       -- Source parameters
       source = Plasma.MaxwellianProjection {       -- source is a Maxwellian with the specified density and temperature profiles
                 isSource = true,                   -- designate as source
-                density = sourceDensity,           -- use sourceDensity function (defined above) for density profile
-                temperature = sourceTemperature,   -- use sourceTemperature function (defined above) for temperature profile
+                density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
+                temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
                 power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
       },
 
@@ -224,6 +243,9 @@ plasmaApp = Plasma.App {
       diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
    },
 
+   --------------------------------------------------------------------------------
+   -- Fields
+   --------------------------------------------------------------------------------
    -- Gyrokinetic field(s)
    field = Plasma.Field {
       evolve = true, -- Evolve fields?
@@ -237,6 +259,9 @@ plasmaApp = Plasma.App {
       -- No BC required in z (Poisson solve is only in perpendicular x,y directions)
    },
 
+   --------------------------------------------------------------------------------
+   -- Geometry
+   --------------------------------------------------------------------------------
    -- Magnetic geometry
    funcField = Plasma.Geometry {
       -- Background magnetic field profile
@@ -250,5 +275,5 @@ plasmaApp = Plasma.App {
       evolve = false,
    },
 }
--- Run application
+-- Run the App
 plasmaApp:run()
