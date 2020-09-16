@@ -1,4 +1,4 @@
-.. _qsFluid1:
+.. _qs_fluid1:
 
 Fluid example
 +++++++++++++

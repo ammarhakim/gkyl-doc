@@ -1,6 +1,6 @@
 .. highlight:: lua
 
-.. _qsIntro:
+.. _qs_intro:
 
 Introduction: A first Gkeyll simulation
 +++++++++++++++++++++++++++++++++++++++
@@ -25,8 +25,9 @@ We simulate it with the Vlasov-Maxwell model:
 
 More information about the model can be found in the :doc:`Vlasov-Maxwell
 documentation <../gkyl/App/Vlasov/VlasovMaxwell>`. In this case we consider an electrostatic
-wave, so we initialize the electron density as having a small sinusoidal
-perturbation:
+wave, and there are `subtleties regarding electrostatic simulation using Maxwell's induction
+equations <http://ammar-hakim.org/sj/je/je33/je33-buneman.html>`_. So we initialize the
+electron density as having a small sinusoidal perturbation:
 
 .. math::
 
@@ -45,7 +46,8 @@ Input file
 ----------
 
 This simulation is setup using :ref:`vlasovNorm` in
-:doc:`a short Lua input file <inputFiles/vm-damp>`, which begins with:
+:doc:`a short Lua input file <inputFiles/vm-damp>`, which begins with the
+**Preamble**:
 
 .. code-block:: lua
 
@@ -79,7 +81,7 @@ This simulation is setup using :ref:`vlasovNorm` in
      return (den/math.sqrt(2*math.pi*vtSq))*math.exp(-v2/(2*vtSq))
   end
 
-This preamble typically consists of a declaration of the Gkeyll 'App' to be used
+The Preamble typically consists of a line loading the Gkeyll plasma 'App' to be used
 (in this case VlasovMaxwell), and a specification of a number of user input parameters
 and simple derived quantities. One can also create user-defined functions, like
 :code:`maxwellian1D` in this case, which may be used in the preamble or in the Gkeyll
@@ -131,22 +133,22 @@ App that follows. For this specific simulation the Gkeyll app is created by the 
      },
   }
 
-The Gkeyll App often consists of three sections:
+The Gkeyll App typically consists of three sections:
 
-- Declaration of parameters that control the (configuration space) discretization,
-  and time advancement. This first block of code in :code:`Plasma.App` may specify
-  the periodic directions, the MPI decomposition, and the frequency with which to
-  output certain diagnostics.
-- Definition of the species to be considered in the simulation. Each species
+- **Common**: a declaration of parameters that control the (configuration space)
+  discretization, and time advancement. This first block of code in :code:`Plasma.App`
+  may specify the periodic directions, the MPI decomposition, and the frequency with
+  which to output certain diagnostics.
+- **Species**: Definition of the species to be considered in the simulation. Each species
   gets its own Lua table, in which one provides the velocity-space domain and
-  discretization of that species, initial condition, diagnostics, boundary conditions,
-  and whether to evolve it or not (:code:`evolve`).
-- A field table, which tells the App whether to evolve the electric and/or
+  discretization of that species (for kinetic models), initial condition, diagnostics,
+  boundary conditions, and whether to evolve it or not (:code:`evolve`).
+- **Fields**: A field table, which tells the App whether to evolve the electric and/or
   magnetic fields according to the field equations of the model. In this table we also
   specify the initial condition of the fields.
 
 In some applications other sections of the Plasma.App may be necessary, for example,
-to specify the geometry. 
+to specify the **geometry**. 
 
 Running your first simulation
 -----------------------------
@@ -180,7 +182,8 @@ You should see the program printing to screen like this:
 
 Gkeyll prints a number every 1% of the simulation, and a longer message with the total
 number of time steps taken, the simulation time and the latest time step size every 10%
-of of the simulation. As it progresses it writes out diagnostic files.
+of the simulation. This particular simulation ran in 74 seconds on a 2015 MacBookPro. As
+it progressed it wrote out diagnostic files.
 
 Plotting
 --------
@@ -207,23 +210,31 @@ This produces the 2D plot of the initial Maxwellian distribution given below.
 
 .. figure:: figures/vm-damp_elc_0.png
    :scale: 40 %
+   :align: center
+
+   Initial electron distribution function, :math:`f_e(x,v,t=0)`.
 
 We can also examine the electrostatic energy in the simulation. This most clearly
-exhibits the wave energy decaying as the collisionless damping takes effect. For this
-purpose we use the following ``postgkyl`` command:
+exhibits the wave energy decaying as the collisionless damping takes effect. For
+this purpose we use the following ``postgkyl`` command (we :code:`select` the
+x-component, and :ref:`pg_cmd-plot` can use a log scale, as well as add labels):
 
 .. code-block:: bash
 
-  pgkyl -f vm-damp_fieldEnergy.bp select -c0 plot --logy
+  pgkyl -f vm-damp_fieldEnergy.bp select -c0 plot --logy -x 'time' -y '$|E_x|^2$'
 
 resulting in the following figure of the (normalized) electrostatic energy as a
 function of time
 
 .. figure:: figures/vm-damp_fieldEnergy.png
    :scale: 40 %
+   :align: center
+
+   Normalized electrostatic field energy :math:`\propto |E_x|^2` as a
+   function of time (normalized to :math:`\omega_{pe}`).
 
 Additional quick-start examples
-------------------------------
+-------------------------------
 
 The above example used a Vlasov-Maxwell simulation to showcase how to setup,
 run and postprocess a Gkeyll simulation. In addition to Vlasov-Maxwell there
@@ -231,8 +242,8 @@ are also Gyrokinetic and (fluid) Moment models. Each of these have slightly
 different features and ways of using them. Quick examples for each of these
 are found below:
 
-:ref:`qsVlasov1`
+:ref:`qs_vlasov1`
 
-:ref:`qsGyrokinetic1`
+:ref:`qs_gk1`
 
-:ref:`qsFluid1`
+:ref:`qs_fluid1`

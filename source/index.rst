@@ -48,7 +48,7 @@ gkyl reference
   gkyl/tools
 
 postgkyl reference
---------------
+------------------
 
 .. toctree::
   :maxdepth: 2
