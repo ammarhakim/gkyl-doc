@@ -7,15 +7,11 @@ Moments: Multifluid-moment-Maxwell model
 
 The ``Moment`` app solves high-moment multifluid equations on a Cartesian grid, coupled to Maxwell's equations through the Lorentz force.
 
-* Currently, two types of fluid moment models are frequently used:
+* Each fluid could be either five-moment, where the plasma pressure is assumed to a scalar (see [Hakim+2006]_), or ten-moment, where the full anisotropic and nongyrotropic plasma pressure tensors (see [Hakim2008]_) are evolved.
 
-  * the five-moment model, where the plasma pressure is assumed to a scalar (see [Hakim+2006]_), and
+* The hyperbolic system is solved in converative forms of :ref:`the five-moment (Euler) equations<devEigenSysEuler>`, and/or :ref:`the ten-moment equations<devEigenSys10M>`, and :ref:`the perfectly hyperbolic Maxwell's equations<devEigenSysMaxwell>`.
 
-  * the ten-moment model, where the full anisotropic and nongyrotropic plasma pressure tensors (see [Hakim2008]_) are evolved.
-
-* Consevation forms and eigenstructures of the separate hyperbolic systems: :ref:`five-moment (Euler) equations<devEigenSysEuler>`, and :ref:`the ten-moment equations<devEigenSys10M>`, and :ref:`the perfectly hyperbolic Maxwell's equations<devEigenSysMaxwell>`.
-
-* The sources that couples the plasma species momenta and electromagnetic fields are described in :ref:`here<devFluidSrc>` and more comprehensively in [Wang+2020]_.
+* The sources that couples the plasma species momenta and electromagnetic fields are described :ref:`here<devFluidSrc>` and more comprehensively in [Wang+2020]_.
 
 
 This App solves the hyperbolic and source parts parts of the coupled system separately and apply high accuracy schemes on both.
