@@ -124,7 +124,7 @@ plasmaApp = Plasma.App {
               density = function (t, xn)
                  -- The particular functional form of the initial density profile 
                  -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
-                 -- quasi-steady-state profiles from the source parameters.
+                 -- quasi-steady-state initial profiles from the source parameters.
                  local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
                  local Ls = Lz/4
                  local floor = 0.1
@@ -151,9 +151,9 @@ plasmaApp = Plasma.App {
       },
 
       -- Collisions parameters
-      coll = Plasma.LBOCollisions {
-         collideWith = {'electron'},
-         frequencies = {nuElc},
+      coll = Plasma.LBOCollisions {          -- Lenard-Bernstein model collision operator
+         collideWith = {'electron'},         -- only include self-collisions with electrons
+         frequencies = {nuElc},              -- use a constant (in space and time) collision freq. (calculated in Preamble)
       },
 
       -- Source parameters
@@ -192,7 +192,7 @@ plasmaApp = Plasma.App {
               density = function (t, xn)
                  -- The particular functional form of the initial density profile 
                  -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
-                 -- quasi-steady-state profiles from the source parameters.
+                 -- quasi-steady-state initial profiles from the source parameters.
                  local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
                  local Ls = Lz/4
                  local floor = 0.1
@@ -219,9 +219,9 @@ plasmaApp = Plasma.App {
       },
 
       -- Collisions parameters
-      coll = Plasma.LBOCollisions {
-         collideWith = {'ion'},
-         frequencies = {nuIon},
+      coll = Plasma.LBOCollisions {     -- Lenard-Bernstein model collision operator
+         collideWith = {'ion'},         -- only include self-collisions with ions
+         frequencies = {nuIon},         -- use a constant (in space and time) collision freq. (calculated in Preamble)
       },
 
       -- Source parameters

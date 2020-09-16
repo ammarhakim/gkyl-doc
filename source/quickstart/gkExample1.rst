@@ -153,10 +153,7 @@ In this input file, the App consists of 4 sections:
      ...
   }
   
-The **Common** section includes a declaration of parameters that control the (configuration space)
-discretization, and time advancement. This first block of code in :code:`Plasma.App`
-may specify the periodic directions, the MPI decomposition, and the frequency with
-which to output certain diagnostics.
+- The **Common** section includes a declaration of parameters that control the (configuration space) discretization, and time advancement. This first block of code in :code:`Plasma.App` may specify the periodic directions, the MPI decomposition, and the frequency with which to output certain diagnostics.
 
 .. code-block:: lua
 
@@ -179,19 +176,16 @@ which to output certain diagnostics.
      -- (1-based indexing, so x-periodic = 1, y-periodic = 2, etc)
      periodicDirs = {2},     -- Periodic in y only (y = 2nd dimension)
 
-The **Species** section sets up the species to be considered in the simulation. Each species
-gets its own Lua table, in which one provides the velocity-space domain and
-discretization of that species (for kinetic models), initial condition, diagnostics,
-boundary conditions, and whether to evolve it or not (:code:`evolve`).
+- The **Species** section sets up the species to be considered in the simulation. Each species gets its own Lua table, in which one provides the velocity-space domain and discretization of the species, initial conditions, sources, collisions, boundary conditions, and diagnostics.
 
-In this input file, we initialize an electron species and an ion species. Since this
+In this input file, we initialize gyrokinetic electron and ion species. Since this
 section is the most involved part of the input file, we will discuss various parts in detail below.
 
 .. code-block:: lua
 
-   -----------------------------------------------------------------------------
+   --------------------------------------------------------------------------------
    -- Species
-   -----------------------------------------------------------------------------
+   --------------------------------------------------------------------------------
    -- Gyrokinetic electrons
    electron = Plasma.Species {
       evolve = true,     -- evolve species?
@@ -209,7 +203,7 @@ section is the most involved part of the input file, we will discuss various par
               density = function (t, xn)
                  -- The particular functional form of the initial density profile 
                  -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
-                 -- quasi-steady-state profiles from the source parameters.
+                 -- quasi-steady-state initial profiles from the source parameters.
                  local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
                  local Ls = Lz/4
                  local floor = 0.1
@@ -236,9 +230,9 @@ section is the most involved part of the input file, we will discuss various par
       },
 
       -- Collisions parameters
-      coll = Plasma.LBOCollisions {
-         collideWith = {'electron'},
-         frequencies = {nuElc},
+      coll = Plasma.LBOCollisions {          -- Lenard-Bernstein model collision operator
+         collideWith = {'electron'},         -- only include self-collisions with electrons
+         frequencies = {nuElc},              -- use a constant (in space and time) collision freq. (calculated in Preamble)
       },
 
       -- Source parameters
@@ -275,6 +269,9 @@ section is the most involved part of the input file, we will discuss various par
       init = Plasma.MaxwellianProjection {    -- initialize a Maxwellian with the specified density and temperature profiles
               -- density profile
               density = function (t, xn)
+                 -- The particular functional form of the initial density profile 
+                 -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
+                 -- quasi-steady-state initial profiles from the source parameters.
                  local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
                  local Ls = Lz/4
                  local floor = 0.1
@@ -301,9 +298,9 @@ section is the most involved part of the input file, we will discuss various par
       },
 
       -- Collisions parameters
-      coll = Plasma.LBOCollisions {
-         collideWith = {'ion'},
-         frequencies = {nuIon},
+      coll = Plasma.LBOCollisions {     -- Lenard-Bernstein model collision operator
+         collideWith = {'ion'},         -- only include self-collisions with ions
+         frequencies = {nuIon},         -- use a constant (in space and time) collision freq. (calculated in Preamble)
       },
 
       -- Source parameters
@@ -325,5 +322,85 @@ section is the most involved part of the input file, we will discuss various par
       diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
    },
 
+The initial condition for this problem is given by a Maxwellian. This is specified using ``init = Plasma.MaxwellianProjection { ... }``,
+which is a table with entries for the density and temperature profile functions (we could also specify the driftSpeed profile) to be
+used to initialze the Maxwellian. In this simulation, the initial density profile takes a particular form that 
+comes from a 1D single-fluid analysis (see [Shi2019]_), which derives quasi-steady-state initial profiles from the source parameters.
+
+The sources also take the form of Maxwellians, specified via ``source = Plasma.MaxwellianProjection { isSource = true, ... }``. 
+For the density and temperature profile functions,
+we use the sourceDensity and sourceTemperature functions defined in the Preamble. We also specify
+the desired source power. The source density is then scaled so that the integrated power in the source
+matches the desired power. Therefore, sourceDensity only controls the shape of the source density profile,
+not the amplitude. Since the initial conditions are related to the source, we also scale the initial
+species density by the same factor as the source via the ``scaleWithSourcePower = true`` flag in the initial conditions.
+
+Self-species collisions are included using a Lenard-Bernstein model collision operator via the ``coll = Plasma.LBOCollisions { ... }`` table.
+For more details about collision models and options, see :ref:`Collisions <collisionModels>`.
+
+Non-periodic boundary conditions are specified via the ``bcx`` and ``bcz`` tables.
+For this simulation, we use zero-flux boundary conditions in the x (radial) direction, 
+and sheath-model boundary conditions in the z (field-aligned) direction.
+
+Finally, we specify the diagnostics that should be outputted for each species. These consist of various moments
+and integrated quantities. For more details about available diagnostics, see the Gyrokinetic app reference :ref:`page <gk_app>`.
+
+- The **Fields** section specifies parameters and options related to the field solvers for the gyrokinetic potential(s). 
+
+.. code-block:: lua
+
+   --------------------------------------------------------------------------------
+   -- Fields
+   --------------------------------------------------------------------------------
+   -- Gyrokinetic field(s)
+   field = Plasma.Field {
+      evolve = true, -- Evolve fields?
+      isElectromagnetic = false,  -- use electromagnetic GK by including magnetic vector potential A_parallel? 
+
+      -- Non-periodic boundary condition specification for electrostatic potential phi
+      -- Dirichlet in x.
+      phiBcLeft = { T ="D", V = 0.0},
+      phiBcRight = { T ="D", V = 0.0},
+      -- Periodic in y. --
+      -- No BC required in z (Poisson solve is only in perpendicular x,y directions)
+   },
+
+- The **Geometry** section specifies parameters related to the background magnetic field and other geometry parameters.
+
+.. code-block:: lua
+
+   --------------------------------------------------------------------------------
+   -- Geometry
+   --------------------------------------------------------------------------------
+   -- Magnetic geometry
+   funcField = Plasma.Geometry {
+      -- Background magnetic field profile
+      -- Simple helical (i.e. cylindrical slab) geometry is assumed
+      bmag = function (t, xn)
+         local x = xn[1]
+         return B0*R/x
+      end,
+
+      -- Geometry is not time-dependent.
+      evolve = false,
+   },
+
+This concludes the App initialization section. The final thing to do is tell the simulation to run:
+
+.. code-block:: lua
+
+  --------------------------------------------------------------------------------
+  -- Run the App
+  --------------------------------------------------------------------------------
+  plasmaApp:run()
+
 Postprocessing
 --------------
+
+References
+----------
+
+.. [Shi2019] Shi, E. L., Hammett, G. W., Stoltzfus-Dueck, T., & Hakim,
+  A. (2019). "Full-f gyrokinetic simulation of turbulence in a helical
+  open-field-line plasma", *Physics of Plasmas*, **26**,
+  012307. https://doi.org/10.1063/1.5074179
