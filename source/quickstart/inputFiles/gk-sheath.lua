@@ -40,14 +40,14 @@ nuIon = nuFrac*logLambdaIon*eV^4*n0/(12*math.pi^(3/2)*eps0^2*math.sqrt(mi)*(Ti0)
 -- Derived parameters
 vti = math.sqrt(Ti0/mi)              -- ion thermal speed
 vte = math.sqrt(Te0/me)              -- electron thermal speed
-c_s = math.sqrt(Te0/mi)              -- sound speed
+c_s = math.sqrt(Te0/mi)              -- ion sound speed
 omega_ci = math.abs(qi*B0/mi)        -- ion gyrofrequency
-rho_s = c_s/omega_ci                 -- sound gyroradius
+rho_s = c_s/omega_ci                 -- ion sound gyroradius
 
 -- Simulation box size
 Lx = 50*rho_s                        -- x = radial direction
 Ly = 100*rho_s                       -- y = binormal direction
-Lz = 4 -- [m]                        -- z = field-aligned direction
+Lz = 4                               -- z = field-aligned direction
 
 -- Source parameters
 P_SOL = 3.4e6                          -- total SOL power, from experimental heating power [W]
@@ -55,7 +55,8 @@ P_src = P_SOL*Ly*Lz/(2*math.pi*R*Lpol) -- fraction of total SOL power into flux 
 xSource = R                            -- source peak radial location [m]
 lambdaSource = 0.005                   -- source radial width [m]
 
--- Source density and temperature profiles. Note that source density will be scaled to achieve desired source power.
+-- Source density and temperature profiles. 
+-- Note that source density will be scaled to achieve desired source power.
 sourceDensity = function (t, xn)
    local x, y, z = xn[1], xn[2], xn[3]
    local sourceFloor = 1e-10
