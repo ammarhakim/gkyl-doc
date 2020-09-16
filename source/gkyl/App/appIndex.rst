@@ -16,11 +16,11 @@ The following apps are available in Gkeyll.
   :maxdepth: 1
 
   appGeneral
-  VlasovMaxwell
+  Vlasov/VlasovMaxwell
   ..
     GyroOnCartGrid
-  Gyrokinetics
-  Moments
+  Gk/Gyrokinetics
+  Moment/Moments
 
 .. rubric:: Footnotes
 

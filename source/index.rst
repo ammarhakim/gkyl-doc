@@ -44,8 +44,8 @@ gkyl reference
   gkyl/about
   license
   gkyl/install
-  gkyl/applications
-  gkyl/appPlugins
+  gkyl/App/appIndex
+  gkyl/App/appPlugins
   gkyl/tools
 
 postgkyl reference

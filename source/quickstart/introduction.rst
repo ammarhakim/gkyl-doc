@@ -24,7 +24,7 @@ We simulate it with the Vlasov-Maxwell model:
   \epsilon_0\mu_0\frac{\partial\mathbf{E}}{\partial t} &- \nabla\times\mathbf{B} = -\mu_0\mathbf{J}.
 
 More information about the model can be found in the :doc:`Vlasov-Maxwell
-documentation <vlasov-doc>`. In this case we consider an electrostatic
+documentation <../gkyl/App/Vlasov/VlasovMaxwell>`. In this case we consider an electrostatic
 wave, so we initialize the electron density as having a small sinusoidal
 perturbation:
 
@@ -45,7 +45,7 @@ Input file
 ----------
 
 This simulation is setup using :ref:`vlasovNorm` in
-:download:`a short Lua input file <inputFiles/vm-damp.lua>`, which begins with:
+:doc:`a short Lua input file <inputFiles/vm-damp>`, which begins with:
 
 .. code-block:: lua
 

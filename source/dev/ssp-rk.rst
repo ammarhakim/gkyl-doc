@@ -1,3 +1,5 @@
+.. _sspRK:
+
 Strong-Stability preserving Runge-Kutta time-steppers
 +++++++++++++++++++++++++++++++++++++++++++++++++++++
 
