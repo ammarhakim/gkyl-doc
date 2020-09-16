@@ -9,7 +9,7 @@ code is written in LuaJIT, while time-critical parts are written in
 C++. Gkeyll is developed at `Princeton Plasma Physics Laboratory
 (PPPL) <http://www.pppl.gov>`_ in collaboration with Princeton
 University, University of Maryland, Virginia Tech, University of New
-Hampshire, University of Texas at Austin, and Darthmouth College. For
+Hampshire, University of Texas at Austin, and Dartmouth College. For
 a full list of contributors see :doc:`Authors <gkyl/authors>` list.
 
 Gkeyll 2.0 has been designed from ground up and has significant

@@ -6,6 +6,11 @@ Introduction: A first Gkeyll simulation
 Gkeyll supports several models and numerous capabilities. Before diving into those,
 here's a short overview of an input file, how to run it and plot its results.
 
+.. contents::
+
+Physics model
+-------------
+
 Consider the collisionless Landau damping of an electrostatic wave in a plasma.
 We simulate it with the Vlasov-Maxwell model:
 
@@ -33,8 +38,12 @@ equation (using quasineutrality of the equilibrium electron and ion densities,
 
   E_x(x,t=0) = -\frac{A}{k}\sin(kx)
 
-This simulation is setup using :doc:`normalized units <vlasov-normalizations>`
-in :download:`a short Lua input file <vm-langmuirLandauDamping-p1.lua>`, which begins with:
+
+Input file
+---------------
+
+This simulation is setup using :ref:`vlasovNorm` in
+:download:`a short Lua input file <vm-langmuirLandauDamping-p1.lua>`, which begins with:
 
 .. code-block:: lua
 
@@ -137,6 +146,9 @@ The Gkeyll App often consists of three sections:
 In some applications other sections of the Plasma.App may be necessary, for example,
 to specify the geometry. 
 
+Running your first simulation
+-----------------------------
+
 Now that we have a Gkeyll input file (named :code:`vm-langmuirLandauDamping-p1.lua`),
 simply run the simulation by typing
 
@@ -170,25 +182,21 @@ of of the simulation. As it progresses it prints out :doc:`diagnostics <diagnost
 In this case we did not request additional diagnostics, so the only ones provided are
 default ones: distribution functions, electro magnetic fields and field energy.
 
+Plotting
+--------
 
-Vlasov example
---------------
 
-Link to quickstart/vlasovExample1.rst
+Additional quick-start examples
+------------------------------
 
-The same or a different example than the one provided above goes here, with more
-in-depth explanation of some of the inputs etc.
+The above example used a Vlasov-Maxwell simulation to showcase how to setup,
+run and postprocess a Gkeyll simulation. In addition to Vlasov-Maxwell there
+are also Gyrokinetic and (fluid) Moment models. Each of these have slightly
+different features and ways of using them. Quick examples for each of these
+are found below:
 
-Gyrokinetic example
--------------------
+:doc:`Vlasov-Maxwell example <vlasovExample1>`
 
-Link to quickstart/gkExample1.rst
+:doc:`Gyrokinetic example <gkExample1>`
 
-A gyrokinetic example goes here (maybe at least 1x2v?)
-
-Fluid example
--------------
-
-Link to quickstart/fluidExample1.rst
-
-Fluid example here
+:doc:`Fluid example <fluidExample1>`

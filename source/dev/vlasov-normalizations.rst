@@ -1,3 +1,5 @@
+.. _vlasovNorm:
+
 Normalized units for the Vlasov-Maxwell system 
 ++++++++++++++++++++++++++++++++++++++++++++++
 
