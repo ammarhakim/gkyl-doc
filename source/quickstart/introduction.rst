@@ -150,6 +150,13 @@ The Gkeyll App typically consists of three sections:
 In some applications other sections of the Plasma.App may be necessary, for example,
 to specify the **geometry**. 
 
+Finally, an input file concludes with an invocation of the App's run method:
+
+.. code-block:: lua
+
+  plasmaApp:run()
+
+
 Running your first simulation
 -----------------------------
 
