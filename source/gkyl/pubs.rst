@@ -8,6 +8,11 @@ webpage <https://github.com/ammarhakim/ammar-simjournal>`_.
 Doctoral Dissertations
 ----------------------
 
+- Juno, J. (2020, March 27) "A Deep Dive into the Distribution Function: Understanding
+  Phase Space Dynamics Using Continuum Vlasov-Maxwell Simulations". Ph. D. 
+  dissertation, University of Maryland, College Park, 2020. `arXiv:2005.13539 
+  <https://arxiv.org/abs/2005.13539>`_
+
 - Bernard, T. N. "Discontinuous Galerkin Modeling of Plasma Turbulence
   in a Simple Magnetized Torus". Ph. D. dissertation, The University
   of Texas at Austin, 2019. `PDF
@@ -31,7 +36,19 @@ Algorithms papers
 
 - Hakim, A and Juno, J. "Alias-free, matrix-free, and quadrature-free
   discontinuous Galerkin algorithms for (plasma) kinetic
-  equations". `arXiv:2004.09019 <https://arxiv.org/abs/2004.09019>`_
+  equations". *Accepted to Supercomputing* `arXiv:2004.09019 <https://arxiv.org/abs/2004.09019>`_
+
+- Francisquez, M., Bernard, T. N., Mandell, N. R., Hammett, G. W., Hakim, A. (2020).
+  "Conservative discontinuous Galerkin scheme of a gyro-averaged Dougherty collision operator",
+  *Nuclear Fusion*, **60**, (9). https://doi.org/10.1088%2F1741-4326%2Faba0c9 
+
+- Hakim, A., Francisquez, M., Juno, J., & Hammett, G. W. (2020). 
+  "Conservative discontinuous Galerkin schemes for nonlinear Dougherty–Fokker–Planck collision operators",
+  *Journal of Plasma Physics*, **86**, (4). https://doi.org/10.1017/S0022377820000586
+
+- Wang, L., Hakim, A., Ng, J., Dong, C., & Germaschewski, K. (2020). 
+  "Exact and locally implicit source term solvers for multifluid-Maxwell systems", 
+  *Journal of Computational Physics*, **415**, 109510. https://doi.org/10.1016/j.jcp.2020.109510
 
 - Cagas, P., Hakim, A., & Srinivasan, B. (2020). "Plasma-material
   boundary conditions for discontinuous Galerkin continuum-kinetic
@@ -42,14 +59,6 @@ Algorithms papers
   M. (2020). "Electromagnetic full-f  gyrokinetics in the tokamak edge
   with discontinuous Galerkin methods", *Journal of Plasma Physics*,
   **86**. https://doi.org/10.1017/S0022377820000070
-
-- Wang, L., Hakim, A., Ng, J., Dong, C., & Germaschewski,
-  K. (2019). "Exact and Locally Implicit Source Term Solvers for
-  Multifluid-Maxwell Systems". `arXiv:1909.04125 <https://arxiv.org/abs/1909.04125>`_
-
-- Hakim, A., Francisquez, M., Juno, J., & Hammett,
-  G. W. (2019). "Conservative Discontinuous Galerkin Schemes for
-  Nonlinear Fokker-Planck Collision Operators". `arXiv:1903.08062 <https://arxiv.org.abs/1903.08062>`_
 
 - Juno, J., Hakim, A., TenBarge, J., Shi, E., &
   Dorland, W. (2018). "Discontinuous Galerkin algorithms for fully
@@ -62,39 +71,34 @@ Algorithms papers
 
 Physics papers
 ----------------------------
+- Ng, J., Hakim, A., Wang, L., & Bhattacharjee, A. (2020). "An improved ten-moment closure for 
+  reconnection and instabilities", *Physics of Plasmas*, **27**, 082106. https://doi.org/10.1063/5.0012067
 
-- Ammar Hakim,
-  Noah R. Mandell, T. N. Bernard, M. Francisquez, G. W. Hammett, E. L. Shi. "Continuum
-  Electromagnetic Gyrokinetic Simulations of Turbulence in the Tokamak
-  Scrape-Off Layer and Laboratory Devices", *Physics of Plasmas*,
-  April 2020
+- Juno, J., Swisdak, M. M., TenBarge. J. M., Skoutnev, V., & Hakim, A. (2020).
+  "Noise-induced magnetic field saturation in kinetic simulations", *Journal of Plasma Physics*,
+  **86**, (4). https://doi.org/10.1017/S0022377820000707
 
-- Ng, J., Hakim, A., Wang, L., & Bhattacharjee, A. (2020). "Diffusion
-  based closures for two-fluid reconnection and instabilities", *In
-  preparation*.
-
-- Ng, J., Chen, L.-J., Hakim, A., & Bhattacharjee,
-  A. (2020). "Reconstruction of electron and ion distribution
-  functions in a magnetotail reconnection diffusion region",
-  *Submitted to Journal of Geophysics Research: Space Physics*.
-
-- Juno, J., Swisdak, M., TenBarge, J. M., Skoutnev, V., & Hakim,
-  A. (2020). "Noise-Induced Magnetic Field Saturation in Kinetic
-  Simulations". `arXiv:2004.07255 <https://arxiv.org/abs/2004.07255>`_
+- Ng, J., Chen, L.‐J., Hakim, A., & Bhattacharjee, A. (2020). "Reconstruction 
+  of electron and ion distribution functions in a magnetotail reconnection diffusion region",
+  *Journal of Geophysical Research: Space Physics*, **125**, e2020JA027879. https://doi.org/10.1029/2020JA027879
 
 - Francisquez, M., Bernard, T. N., Zhu, B., Hakim, A., Rogers, B. N.,
-  & Hammett, G. W. (2020). "Fluid & Gyrokinetic turbulence in open
-  field-line, helical plasmas". `arXiv:2002.11136 <https://arxiv.org/abs/2002.11136>`_
+  & Hammett, G. W. (2020). "Fluid and gyrokinetic turbulence in open field-line, 
+  helical plasmas", *Physics of Plasmas*, **27**, 082301. https://doi.org/10.1063/5.0005333
 
 - Bernard, T. N., Stoltzfus-Dueck, T., Gentle, K. W., Hakim, A.,
-  Hammett, G. W., & Shi, E. L. (2020). "Investigating shear flow
-  through continuum gyrokinetic simulations of limiter biasing in the
-  Texas Helimak". `arXiv:2002.02114 <https://arxiv.org/abs/2002.02114>`_
+  Hammett, G. W., & Shi, E. L. (2020). "Investigating shear flow through 
+  continuum gyrokinetic simulations of limiter biasing in the Texas Helimak",
+  *Physics of Plasmas*, **27**, 062304. https://doi.org/10.1063/5.0003904 
 
-- Pusztai, I., Juno, J., Brandenburg, A., Tenbarge, J. M., Hakim,
-  A., Francisquez, M., & Sundström, A. (2020). "Dynamo in weakly
-  collisional non-magnetized plasmas impeded by Landau damping of
-  magnetic fields". `arXiv:2001.11929 <https://arxiv.org/abs/2001.11929>`_
+- Hakim, A. H., Mandell, N. R., Bernard, T. N., Francisquez, M., Hammett, G. W., & Shi, E. L.
+  "Continuum electromagnetic gyrokinetic simulations of turbulence in the tokamak scrape-off layer and 
+  laboratory devices", *Physics of Plasmas*, **27**, 042304. https://doi.org/10.1063/1.5141157
+
+- Pusztai, I., Juno, J., Brandenburg, A., Tenbarge, J. M., Hakim, A., 
+  Francisquez, M., & Sundström, A. (2020). "Dynamo in Weakly Collisional 
+  Nonmagnetized Plasmas Impeded by Landau Damping of Magnetic Fields", 
+  *Physical Review Letters*, **124**, 255102. https://link.aps.org/doi/10.1103/PhysRevLett.124.255102
 
 - TenBarge, J. M., Ng, J., Juno, J., Wang, L., Hakim, A. &
   Bhattacharjee, A. (2019). "An extended MHD study of the 16 October 2015 MMS
