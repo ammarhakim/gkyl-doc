@@ -1,6 +1,6 @@
 .. highlight:: lua
 
-.. _qsIntro:
+.. _qs_intro:
 
 Introduction: A first Gkeyll simulation
 +++++++++++++++++++++++++++++++++++++++
@@ -239,8 +239,8 @@ are also Gyrokinetic and (fluid) Moment models. Each of these have slightly
 different features and ways of using them. Quick examples for each of these
 are found below:
 
-:ref:`qsVlasov1`
+:ref:`qs_vlasov1`
 
-:ref:`qsGyrokinetic1`
+:ref:`qs_gk1`
 
-:ref:`qsFluid1`
+:ref:`qs_fluid1`
