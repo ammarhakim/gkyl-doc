@@ -1,54 +1,12 @@
-.. _pg_cmd-interpolate:
+.. _pg_cmd_interpolate:
 
 interpolate
 +++++++++++
 
-Command Line Mode
-^^^^^^^^^^^^^^^^^
+.. contents::
 
-.. code-block:: bash
-
-   $ pgkyl interpolate --help
-   Usage: pgkyl interpolate [OPTIONS]
-
-     Interpolate DG data on a uniform mesh
-
-   Options:
-     -b, --basis [ns|ms|mo]   Specify DG basis
-     -p, --polyorder INTEGER  Specify polynomial order
-     -i, --interp INTEGER     Interpolation onto a general mesh of specified
-		              amount
-     -r, --read BOOLEAN       Read from general interpolation file
-     --help                   Show this message and exit.
-
-
-``interpolate`` evaluates the `Gkyl` modal or nodal data on a uniform
-mesh with higher resolution, which is important for plotting. For
-example, applying ``interpolate`` on 2D data with the polynomial order
-2 will poduce finer results with rippled resoluion (3x3 mesh inside
-each cell).
-
-The inputs for interpolation are the polynomial order ``-p`` and basis
-``-b`` (must be one of nodal serendipity ``ns``, modal serendipity
-``ms``, or maximal order ``mo``).
-
-Following is the example comparison of the value proportional to the
-cell average (component 0) and the interpolated data.
-
-.. figure:: fig/cmd-interpolate_1.png
-   :scale: 50 %
-
-   Chain: ``pgkyl -f two-stream_elc_0.bp select --component 0 plot``
-
-.. figure:: fig/cmd-interpolate_2.png
-   :scale: 50 %
-
-   Chain: ``pgkyl -f two-stream_elc_0.bp interpolate -p2 -b ms plot``
-
-------
-
-Script Mode
-^^^^^^^^^^^
+Function description
+^^^^^^^^^^^^^^^^^^^^
 
 ``interpolate`` uses the  ``GInterpModal`` and ``GInterpNodal``
 classes based on the DG mode.
@@ -102,3 +60,46 @@ An example of the usage:
    data = pg.data.GData('bgk_neut_0.bp')
    interp = pg.data.GInterpModal(data, 2, 'ms')
    iGrid, iValues = interp.interpolate()
+
+
+Command line usage
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   $ pgkyl interpolate --help
+   Usage: pgkyl interpolate [OPTIONS]
+
+     Interpolate DG data on a uniform mesh
+
+   Options:
+     -b, --basis [ns|ms|mo]   Specify DG basis
+     -p, --polyorder INTEGER  Specify polynomial order
+     -i, --interp INTEGER     Interpolation onto a general mesh of specified
+		              amount
+     -r, --read BOOLEAN       Read from general interpolation file
+     --help                   Show this message and exit.
+
+
+``interpolate`` evaluates the `Gkyl` modal or nodal data on a uniform
+mesh with higher resolution, which is important for plotting. For
+example, applying ``interpolate`` on 2D data with the polynomial order
+2 will poduce finer results with rippled resoluion (3x3 mesh inside
+each cell).
+
+The inputs for interpolation are the polynomial order ``-p`` and basis
+``-b`` (must be one of nodal serendipity ``ns``, modal serendipity
+``ms``, or maximal order ``mo``).
+
+Following is the example comparison of the value proportional to the
+cell average (component 0) and the interpolated data.
+
+.. figure:: fig/cmd-interpolate_1.png
+   :scale: 50 %
+
+   Chain: ``pgkyl -f two-stream_elc_0.bp select --component 0 plot``
+
+.. figure:: fig/cmd-interpolate_2.png
+   :scale: 50 %
+
+   Chain: ``pgkyl -f two-stream_elc_0.bp interpolate -p2 -b ms plot``

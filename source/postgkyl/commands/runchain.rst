@@ -1,10 +1,10 @@
-.. _pg_cmd-runchain:
+.. _pg_cmd_runchain:
 
 runchain
 --------
 
-Command Line Mode
-^^^^^^^^^^^^^^^^^
+Command line usage
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 

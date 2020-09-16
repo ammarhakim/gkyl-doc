@@ -1,10 +1,15 @@
-.. _pg_cmd-growth:
+.. _pg_cmd_growth:
 
 growth
 ------
 
-Command Line Mode
-^^^^^^^^^^^^^^^^^
+.. contents::
+
+Function description
+^^^^^^^^^^^^^^^^^^^^
+
+Command line usage
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -19,9 +24,3 @@ Command Line Mode
      --minn INTEGER                Set minimal number of points to fit
      --maxn INTEGER                Set maximal number of points to fit
      --help                        Show this message and exit.
-
-
-------
-
-Script Mode
-^^^^^^^^^^^

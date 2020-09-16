@@ -3,8 +3,11 @@
 fft
 ---
 
-Command Line Mode
-^^^^^^^^^^^^^^^^^
+Function description
+^^^^^^^^^^^^^^^^^^^^
+
+Command line usage
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -18,8 +21,3 @@ Command Line Mode
 		spectral density |FT|^2.
      --help     Show this message and exit.
 
-
--------
-
-Script Mode
-^^^^^^^^^^^

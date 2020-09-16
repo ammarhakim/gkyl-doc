@@ -1,10 +1,13 @@
-.. _pg_cmd-tenmoment:
+.. _pg_cmd_tenmoment:
 
 tenmoment
 ---------
 
-Command Line Mode
-^^^^^^^^^^^^^^^^^
+Function description
+^^^^^^^^^^^^^^^^^^^^
+
+Command line usage
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -18,9 +21,3 @@ Command Line Mode
                                        Variable to plot
        --help                          Show this message and exit.
 
-
-
--------
-
-Script Mode
-^^^^^^^^^^^

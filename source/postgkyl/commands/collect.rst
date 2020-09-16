@@ -1,10 +1,12 @@
-.. _pg_cmd-collect:
+.. _pg_cmd_collect:
 
 collect
 -------
 
-Command Line Mode
-^^^^^^^^^^^^^^^^^
+.. contents::
+
+Command line usage
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 

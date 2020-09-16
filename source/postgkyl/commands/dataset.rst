@@ -1,10 +1,12 @@
-.. _pg_cmd-dataset:
+.. _pg_cmd_dataset:
 
 dataset
 -------
 
-Command Line Mode
-^^^^^^^^^^^^^^^^^
+.. contents::
+
+Command line usage
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 

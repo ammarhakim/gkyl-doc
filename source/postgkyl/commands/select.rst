@@ -1,34 +1,12 @@
-.. _pg_cmd-select:
+.. _pg_cmd_select:
 
 select
 ------
 
-Command Line Mode
-^^^^^^^^^^^^^^^^^
+.. contents::
 
-.. code-block:: bash
-
-   $ pgkyl select --help
-   Usage: pgkyl select [OPTIONS]
-
-     Subselect data set(s)
-
-   Options:
-     --c0 TEXT        Indices for 0th coord (either int, float, or slice)
-     --c1 TEXT        Indices for 1st coord (either int, float, or slice)
-     --c2 TEXT        Indices for 2nd coord (either int, float, or slice)
-     --c3 TEXT        Indices for 3rd coord (either int, float, or slice)
-     --c4 TEXT        Indices for 4th coord (either int, float, or slice)
-     --c5 TEXT        Indices for 5th coord (either int, float, or slice)
-     -c, --comp TEXT  Indices for components (either int, slice, or coma-
-                      separated)
-     --help           Show this message and exit.
-
-
--------
-
-Script Mode
-^^^^^^^^^^^
+Function description
+^^^^^^^^^^^^^^^^^^^^
 
 .. list-table:: Parameters for ``select``
    :widths: 20, 60, 20
@@ -88,3 +66,28 @@ component index. This means that, for example, fixing the second
 coordinate and selecting one component from originally 16 x 16 wit 8
 components will produce data with a shape (16, 1, 1).  Note that
 Postgkyl treats such data as 1D for the plotting purposes.
+
+
+Command line usage
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   $ pgkyl select --help
+   Usage: pgkyl select [OPTIONS]
+
+     Subselect data set(s)
+
+   Options:
+     --c0 TEXT        Indices for 0th coord (either int, float, or slice)
+     --c1 TEXT        Indices for 1st coord (either int, float, or slice)
+     --c2 TEXT        Indices for 2nd coord (either int, float, or slice)
+     --c3 TEXT        Indices for 3rd coord (either int, float, or slice)
+     --c4 TEXT        Indices for 4th coord (either int, float, or slice)
+     --c5 TEXT        Indices for 5th coord (either int, float, or slice)
+     -c, --comp TEXT  Indices for components (either int, slice, or coma-
+                      separated)
+     --help           Show this message and exit.
+
+
+

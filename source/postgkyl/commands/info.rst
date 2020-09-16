@@ -1,10 +1,29 @@
-.. _pg_cmd-info:
+.. _pg_cmd_info:
 
 info
 ++++
 
-Command Line Mode
-^^^^^^^^^^^^^^^^^
+.. contents::
+
+Function description
+--------------------
+
+The ``info`` command internally calls the ``info()`` method of the
+``GData`` class.
+
+.. code-block:: python
+
+  import postgkyl as pg
+  
+  data = pg.data.GData('bgk_neut_0.bp')
+  print(data.info())
+
+Note that ``info()`` produces a single string output. Therefore, it is
+recommended to use the ``print()`` function for readable output.
+
+
+Command line usage
+------------------
 
 .. code-block:: bash
 
@@ -32,21 +51,3 @@ each dimension.
      - Dim 1: Num. cells: 32; Lower: -6.000000e+00; Upper: 6.000000e+00
    - Maximum: 7.795721e-01 at (0, 15) component 0
    - Minimum: -5.179175e-02 at (0, 18) component 2
-
-------
-
-Script Mode
-^^^^^^^^^^^
-
-The ``info`` command internally calls the ``info()`` method of the
-``GData`` class.
-
-.. code-block:: python
-
-  import postgkyl as pg
-  
-  data = pg.data.GData('bgk_neut_0.bp')
-  print(data.info())
-
-Note that ``info()`` produces a single string output. Therefore, it is
-recommended to use the ``print()`` function for readable output.

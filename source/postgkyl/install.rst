@@ -1,4 +1,6 @@
-Installing postgkyl
+.. _pg_installing:
+
+Installing Postgkyl
 +++++++++++++++++++
 
 Installing Postgkyl is even easier than installing Gkyl.  One option

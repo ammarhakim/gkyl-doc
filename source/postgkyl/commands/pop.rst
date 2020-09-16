@@ -1,10 +1,15 @@
-.. _pg_cmd-pop:
+.. _pg_cmd_pop:
 
 pop
 ---
 
-Command Line Mode
-^^^^^^^^^^^^^^^^^
+.. contents::
+
+Function definition
+^^^^^^^^^^^^^^^^^^^
+
+Command line usage
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 

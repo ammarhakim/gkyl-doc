@@ -3,8 +3,13 @@
 integrate
 ---------
 
-Command Line Mode
-^^^^^^^^^^^^^^^^^
+.. contents::
+
+Function description
+^^^^^^^^^^^^^^^^^^^^
+
+Command line usage
+^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -16,8 +21,3 @@ Command Line Mode
    Options:
      --help  Show this message and exit.
 
-
--------
-
-Script Mode
-^^^^^^^^^^^

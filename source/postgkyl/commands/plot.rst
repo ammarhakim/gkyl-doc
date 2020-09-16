@@ -1,4 +1,4 @@
-.. _pg_cmd-plot:
+.. _pg_cmd_plot:
 
 plot
 ----
@@ -184,7 +184,7 @@ Custom axis labels can be added with ``--xlabel`` and ``--ylabel``. If
 they are not specified, neutral *z_i* labels are added (*z* is
 customary for a general phase-space coordinate).  Note that the
 *z*-labels are retained through the postprocessing chain (see
-:ref:`pg_chain` for more information on chaining the commands).  For
+:ref:`pg_usage` for more information on chaining the commands).  For
 example, in a 1X2V Vlasov simulation *z_0* will be *x*, *z_1* will be
 *v_x*, and *z_2* will be *v_y* even if some dimension gets integrated
 out.

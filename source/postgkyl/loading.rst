@@ -1,5 +1,120 @@
+.. _pg_loading:
+
 Data Loading
 ++++++++++++
+
+.. contents::
+
+Script Mode
+-----------
+
+All the data loading is done through the ``GData`` class.  It is a
+unified class used for manipulation with all Gkeyll/Gkyl data.
+Similarly to the operation in the command line mode, it does not
+distinguish between ADIOS/HDF5 data nor between output frames and
+history sequence data. The data loading is performed with:
+
+.. code-block:: python
+
+  import postgkyl as pg
+  data = pg.data.GData('file.bp')
+
+
+Init parameters and partial loading
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Apart from the file name, ``GData`` initialization has optional
+parameters for partial loading (see above; currently, works only for
+ADIOS ``.bp`` files) and for the control of the internal stack.
+
+.. list-table:: Initialization parameters for ``GData``
+   :widths: 20, 60, 20
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+     - Default
+   * - fileName (str)
+     - Name of the file to be loaded or a name root for the history
+       sequence load.
+     - 
+   * - coord0 (int or slice)
+     - Index corresponding to the first coordinate for the partial
+       load. Either integer or Python slice (e.g., '2:5').
+     - None
+   * - coord1 (int or slice)
+     - Index corresponding to the second coordinate for the partial
+       load. Either integer or Python slice (e.g., '2:5').
+     - None
+   * - coord2 (int or slice)
+     - Index corresponding to the third coordinate for the partial
+       load. Either integer or Python slice (e.g., '2:5').
+     - None
+   * - coord3 (int or slice)
+     - Index corresponding to the fourth coordinate for the partial
+       load. Either integer or Python slice (e.g., '2:5').
+     - None
+   * - coord4 (int or slice)
+     - Index corresponding to the fifth coordinate for the partial
+       load. Either integer or Python slice (e.g., '2:5').
+     - None
+   * - coord5 (int or slice)
+     - Index corresponding to the sixth coordinate for the partial
+       load. Either integer or Python slice (e.g., '2:5').
+     - None
+   * - comp (int or slice)
+     - Index corresponding to the component for the partial
+       load. Either integer or Python slice (e.g., '2:5').
+     - None
+   * - stack (bool)
+     - Turns the internal data stack on and off.
+     - True
+
+Members and the internal stack
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``GData`` includes an internal stack for storing the history of data
+manipulations (mainly useful in the command line mode).  For this
+reason, the internal variables should not be accessed directly but
+rather through helper functions.
+
+.. list-table:: Members of the ``GData`` class
+   :widths: 30, 70
+   :header-rows: 1
+
+   * - Member
+     - Description
+   * - getBounds() -> narray, narray
+     - Returns the upper and lower bounds for the current top of the
+       stack.
+   * - getNumCells() -> narray
+     - Returns a narray with numbers of cells.
+   * - getNumComps() -> int
+     - Returns the number of components (i.e., the last data index).
+   * - getNumDims() -> int
+     - Returns the number of dimensions. Note that this includes the
+       squeezed dimensions as well.
+   * - peakGrid() -> [narray, ...]
+     - Returns a list of 1D narray slices of the grid.
+   * - peakValues() -> narray
+     - Returns a narray of values with (N+1) dimensions.
+   * - popGrid() -> narray
+     - Returns a list of 1D narray slices of the grid and removes it
+       from the stack (disabled when the stack is off).
+   * - popValues() -> narray
+     - Returns a narray of values with (N+1) dimensions and removes it
+       from the stack (disabled when the stack is off).
+   * - pushGrid(list grid, narray lo, narray up) -> None
+     - Pushes the specified grid and bounds to the stack. Bounds are
+       optional and when not specified, the previous values are used.
+   * - pushValues(narray values) -> None
+     - Pushes the specified values to the stack.
+   * - info() -> str
+     - Returns a string with information about the data
+   * - write() -> None
+     - Writes data into ADIOS ``bp`` file or ASCII ``txt`` file
+
+
 
 Command Line Mode
 -----------------
@@ -143,116 +258,3 @@ is done with:
 .. code-block:: bash
 
    pgkyl -f sim_elc_0.bp --c1 8
-
-------
-
-Script Mode
------------
-
-All the data loading is done through the ``GData`` class.  It is a
-unified class used for manipulation with all Gkeyll/Gkyl data.
-Similarly to the operation in the command line mode, it does not
-distinguish between ADIOS/HDF5 data nor between output frames and
-history sequence data. The data loading is performed with:
-
-.. code-block:: python
-
-  import postgkyl as pg
-  data = pg.data.GData('file.bp')
-
-
-Init parameters and partial loading
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Apart from the file name, ``GData`` initialization has optional
-parameters for partial loading (see above; currently, works only for
-ADIOS ``.bp`` files) and for the control of the internal stack.
-
-.. list-table:: Initialization parameters for ``GData``
-   :widths: 20, 60, 20
-   :header-rows: 1
-
-   * - Parameter
-     - Description
-     - Default
-   * - fileName (str)
-     - Name of the file to be loaded or a name root for the history
-       sequence load.
-     - 
-   * - coord0 (int or slice)
-     - Index corresponding to the first coordinate for the partial
-       load. Either integer or Python slice (e.g., '2:5').
-     - None
-   * - coord1 (int or slice)
-     - Index corresponding to the second coordinate for the partial
-       load. Either integer or Python slice (e.g., '2:5').
-     - None
-   * - coord2 (int or slice)
-     - Index corresponding to the third coordinate for the partial
-       load. Either integer or Python slice (e.g., '2:5').
-     - None
-   * - coord3 (int or slice)
-     - Index corresponding to the fourth coordinate for the partial
-       load. Either integer or Python slice (e.g., '2:5').
-     - None
-   * - coord4 (int or slice)
-     - Index corresponding to the fifth coordinate for the partial
-       load. Either integer or Python slice (e.g., '2:5').
-     - None
-   * - coord5 (int or slice)
-     - Index corresponding to the sixth coordinate for the partial
-       load. Either integer or Python slice (e.g., '2:5').
-     - None
-   * - comp (int or slice)
-     - Index corresponding to the component for the partial
-       load. Either integer or Python slice (e.g., '2:5').
-     - None
-   * - stack (bool)
-     - Turns the internal data stack on and off.
-     - True
-
-Members and the internal stack
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-``GData`` includes an internal stack for storing the history of data
-manipulations (mainly useful in the command line mode).  For this
-reason, the internal variables should not be accessed directly but
-rather through helper functions.
-
-.. list-table:: Members of the ``GData`` class
-   :widths: 30, 70
-   :header-rows: 1
-
-   * - Member
-     - Description
-   * - getBounds() -> narray, narray
-     - Returns the upper and lower bounds for the current top of the
-       stack.
-   * - getNumCells() -> narray
-     - Returns a narray with numbers of cells.
-   * - getNumComps() -> int
-     - Returns the number of components (i.e., the last data index).
-   * - getNumDims() -> int
-     - Returns the number of dimensions. Note that this includes the
-       squeezed dimensions as well.
-   * - peakGrid() -> [narray, ...]
-     - Returns a list of 1D narray slices of the grid.
-   * - peakValues() -> narray
-     - Returns a narray of values with (N+1) dimensions.
-   * - popGrid() -> narray
-     - Returns a list of 1D narray slices of the grid and removes it
-       from the stack (disabled when the stack is off).
-   * - popValues() -> narray
-     - Returns a narray of values with (N+1) dimensions and removes it
-       from the stack (disabled when the stack is off).
-   * - pushGrid(list grid, narray lo, narray up) -> None
-     - Pushes the specified grid and bounds to the stack. Bounds are
-       optional and when not specified, the previous values are used.
-   * - pushValues(narray values) -> None
-     - Pushes the specified values to the stack.
-   * - info() -> str
-     - Returns a string with information about the data
-   * - write() -> None
-     - Writes data into ADIOS ``bp`` file or ASCII ``txt`` file
-
-
