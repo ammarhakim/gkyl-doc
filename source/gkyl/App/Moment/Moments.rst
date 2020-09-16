@@ -25,6 +25,8 @@ This App solves the hyperbolic and source parts parts of the coupled system sepa
 
 * The sources are evolved using a locally implicit, time-centered solver to step over the constraining scales like the Debye length and plasma frequency, etc. See :ref:`devFluidSrc` or [Wang+2020]_ for more details.
 
+* Additonial sources can be added if needed, for example, for the ten-moment model, we may apply the closure to relax the pressure tensor towards a scalar pressure (see [Wang+2015]_).
+
 * We then apply an Strang-type operator-splitting sequence to combine the hyperbolic and source parts to achive second-order accuracy in time:
 
   .. math:: \exp\left(\mathcal{L}_{S}\Delta t/2\right)\exp\left(\mathcal{L}_{H}\Delta t\right)\exp\left(\mathcal{L}_{S}\Delta t/2\right).
@@ -75,6 +77,10 @@ Overall structure of the Moments app
 
   -- run the app
   momentApp:run()
+
+
+Examples
+--------
 
 
 Basic parameters
@@ -252,6 +258,44 @@ Electromagnetic field parameters
      - If set to ``true`` the moments are written to file even if ``evolve`` is
        set to ``false``.
      - ``false``
+
+     
+App output
+----------
+
+The app will write snapshots of moments for each species and the EM
+fields at specified time intervals. Diagnostics like integrated fluid
+moments and field energy are recorded for each time-step and written
+in one file for each species/field object.
+
+The output format is `ADIOS BP
+<https://www.olcf.ornl.gov/center-projects/adios/>`_ files. Say your
+input file is called "5m.lua" and your species are called "elc"
+and "ion". Then, over specified time invertals the app will write out
+the following files:
+
+- ``5m_elc_N.bp``
+- ``5m_ion_N.bp``
+- ``5m_field_N.bp``
+
+Where ``N`` is the frame number (frame 0 is the initial
+conditions). Note that if a species or the field is not evolved, then
+only initial conditions will be written unless the ``forceWrite`` option
+is set to ``true``.
+
+In addition, integrated moments for each species are
+written:
+
+- ``vlasov_elc_intMom_N.bp``
+
+For the field, the electromagnetic energy components :math:`E_x^2`,
+:math:`E_y^2`, :math:`E_z^2`, :math:`B_x^2`, :math:`B_y^2`, and
+:math:`B_z^2` (integrated over configuration space) are stored in the
+file:
+
+- ``vlasov_fieldEnergy_N.bp``
+
+These can be plotted using postgkyl in the usual way.
 
 References
 ----------
