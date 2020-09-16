@@ -81,7 +81,7 @@ This simulation is setup using :ref:`vlasovNorm` in
      return (den/math.sqrt(2*math.pi*vtSq))*math.exp(-v2/(2*vtSq))
   end
 
-This Preamble typically consists of a declaration of the Gkeyll 'App' to be used
+The Preamble typically consists of a line loading the Gkeyll plasma 'App' to be used
 (in this case VlasovMaxwell), and a specification of a number of user input parameters
 and simple derived quantities. One can also create user-defined functions, like
 :code:`maxwellian1D` in this case, which may be used in the preamble or in the Gkeyll
