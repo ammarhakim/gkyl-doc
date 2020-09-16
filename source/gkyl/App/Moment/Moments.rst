@@ -38,37 +38,43 @@ Overall structure of the Moments app
 
 .. code-block:: lua
 
-  -- the Moments app wraps fluid and field objects, and tells the
+  --------------
+  -- Preamble --
+  --------------
+  -- The Moments app wraps fluid and field objects, and tells the
   -- the program how to evolve and couple them
   local Moments = require("App.PlasmaOnCartGrid").Moments()
   local TenMoment = require "Eq.TenMoment" -- TenMoment or Euler
 
-  -- create the app
+  -- Create the app
   momentApp = Moments.App {
+    ------------
+    -- COMMON --
+    ------------
     -- basic parameters, e.g., time step, grid, domain decomposition
 
-    -- description of each species: names are arbitrary
+    -- Description of each species: names are arbitrary
     electron = Moments.Species {
       -- species parameters, equations, and boundary conditions
     },
 
-    -- repeat to add more species
-    -- hydrogen = Moments.Species { ... },
-    -- oxygen = Moments.Species { ... },
+    -- Repeat to add more species
+    hydrogen = Moments.Species { ... },
+    oxygen = Moments.Species { ... },
 
     -- EM fields (optional, can be omitted for neutral fluids)
     field = Moments.Field {
       -- EM field parameters, equations, and boundary conditions
     },
 
-    -- basic source that couple the fluids and EM fields
+    -- Basic source that couple the fluids and EM fields
     emSource = Moments.CollisionlessEmSource {
        -- names of the species to be coupled
        species = {"electron", "hydorgen", "oxygen"},
        -- other specifications
     },
 
-    -- additional sources if needed
+    -- Additional sources if needed
     elc10mSource = Moments.TenMomentRelaxSource {
        species = {"elctron"},
        -- other specifications
