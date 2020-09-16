@@ -3,23 +3,23 @@
 Collision models in Gkeyll
 ++++++++++++++++++++++++++
 
-In Gkeyll we currently have two different collision operators, one
-is the Bhatnagar–Gross–Krook (BGK) collision operator and the other
-is the Dougherty operator. We referred to the latter as the LBO for
-the legacy of Lenard-Bernstein.
+In Gkeyll we currently have two different collision operators for use
+in kinetic models: the Bhatnagar–Gross–Krook (BGK) and the Dougherty
+operators. We referred to the latter as the LBO for the legacy
+of Lenard-Bernstein.
 
 .. contents::
 
 BGK collisions
 --------------
 
-The BGK operator [Gross1956]_ is for the effect of collisions on
-species :math:`f_s` is
+The BGK operator [Gross1956]_ for the effect of collisions on the
+distribution of species :math:`f_s` is
 
 .. math::
 
   \left(\frac{\partial f_s}{\partial t}\right)_c = \sum_r\nu_{sr}
-  \left(f_s - f_{Msr}\right)
+  \left(f_{Msr} - f_s\right)
 
 where the sum is over all the species. The distribution functon
 :math:`f_{Msr}` is the Maxwellian
@@ -102,13 +102,15 @@ the gyrokinetic solver is
 Collisions in Gkeyll input files
 --------------------------------
 
-Users can specify collisions in input files with either constant collisionality
-or with spatially varying, time-evolving collisionality.
+Users can specify collisions in input files by adding an additional Lua table
+within each species one wishes to add collisions to. The collision frequency
+can be constant, varying in space and time, or it can also have a user-defined
+profile.
 
 Constant collisionality
 ```````````````````````
 
-An example of adding
+An example of adding 
 LBO collisions (for BGK collisions simply replace ``LBOcollisions`` with
 ``BGKCollisions``) to a species named 'elc' is
 
@@ -117,24 +119,9 @@ LBO collisions (for BGK collisions simply replace ``LBOcollisions`` with
   elc = Plasma.Species {
      charge = q_e, mass = m_e,
      -- Velocity space grid.
-     lower = {-6.0*vt_e},
-     upper = { 6.0*vt_e},
-     cells = {32},
+     ...
      -- Initial conditions.
-     init = Plasma.MaxwellianProjection{
-        density = function (t, zn)
-           local x, vpar = zn[1], zn[2]
-           return n_e
-        end,
-        driftSpeed = function (t, zn)
-           local x, vpar = zn[1], zn[2]
-           return {u_e}
-        end,
-        temperature = function (t, zn)
-           local x, vpar = zn[1], zn[2]
-           return m_e*(vt_e^2)
-        end,
-     },
+     ...
      evolve = true,
      -- Collisions.
      coll = Plasma.LBOCollisions {
