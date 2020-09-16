@@ -77,23 +77,176 @@ where :math:`d_v` is the velocity-space dimension. In the gyrokinetic formulatio
    f_{M,gk}(\mathbf{x}, v_\parallel, \mu) = \frac{n}{\left(2\pi v_{th}^2\right)^{3/2}}
    \exp\left[-\frac{\left(v_\parallel- u_\parallel \right)^2}{2v_{th}^2} - \frac{B \mu}{m v^2_{th}}\right],
 
-where we have assumed the gyrokinetic grid is either 1X2V or 3X2V. For more details about VM and GK, see [app_vm] and [app_gk], respectively. Note that in the gyrokinetic formulation, the fluid velocity moment contains only one component, :math:`u_\parallel`, which is along the magnetic field line. However, the neutral fluid velocity contains 3 components. It is assumed that once a neutral particle is ionized, the perpendicular components are immediately "smeared out" by the gyro-motion. Thus, only the :math:`z`-component of the neutral fluid velocity moment is included in the Maxwellian projection on the gyrokinetic grid. Conversely, the ion fluid velocity moment contains only one component. Thus, the ion Maxwellian distribution function on the 3V Vlasov grid contains the fluid moment :math:`\mathbf{u}_i = (u_x = 0, u_y = 0, u_z = u_{\parallel,i})`.
+where we have assumed the gyrokinetic grid is either 1X2V or 3X2V. Note that in the gyrokinetic formulation, the fluid velocity moment contains only one component, :math:`u_\parallel`, which is along the magnetic field line. However, the neutral fluid velocity contains 3 components. It is assumed that once a neutral particle is ionized, the perpendicular components are immediately "smeared out" by the gyro-motion. Thus, only the :math:`z`-component of the neutral fluid velocity moment is included in the Maxwellian projection on the gyrokinetic grid. Conversely, the ion fluid velocity moment contains only one component. Thus, the ion Maxwellian distribution function on the 3V Vlasov grid contains the fluid moment :math:`\mathbf{u}_i = (u_x = 0, u_y = 0, u_z = u_{\parallel,i})`.
 
 The collision terms in this gyrokinetic-Vlasov coupling become
 
 .. math::
 
    \frac{d}{dt}\mathcal{J}f_i(\mathbf{R}, v_\parallel, \mu, t) &= n_e  \langle \sigma_{iz} v_e \rangle \mathcal{J} f_{M,gk}(n_n, u_{z,n}, v_{th,n}^2) + \sigma_{cx} V_{cx}[ n_i \mathcal{J} f_{M,gk}(n_n, u_{z,n}, v_{th,n}^2) - n_n \mathcal{J} f_i], \\
-   \frac{d}{dt}f_n(\mathbf{x}, \mathbf{v}, t) &= n_e f_n \langle \sigma_{iz} v_e \rangle - \frac{m_i}{m_n}\sigma_{cx} V_{cx} [n_i f_n - n_n f_{M,vm}(n_i, u_{\parallel,i}, v_{th,i}^2)].
+   \frac{d}{dt}f_n(\mathbf{x}, \mathbf{v}, t) &= n_e f_n \langle \sigma_{iz} v_e \rangle - \frac{m_i}{m_n}\sigma_{cx} V_{cx} [n_i f_n - n_n f_{M,vm}(n_i, u_{\parallel,i}, v_{th,i}^2)], 
 
+where :math:`\mathcal{J}` is the Jacobian for the gyrokinetic model.
+   
 Neutral interactions in Gkeyll input files
 ------------------------------------------
 
 Electron-impact ionization
 ``````````````````````````
+Below is an example of adding ionization to a Vlasov-Maxwell simulation:
+ 
+.. code-block:: lua
+
+  --------------------------------------------------------------------------------
+  -- App dependencies
+  --------------------------------------------------------------------------------
+  local Plasma = (require "App.PlasmaOnCartGrid").VlasovMaxwell()
+
+  ...
+  
+  plasmaApp = Plasma.App {
+     -----------------------------------------------------------------------------
+     -- Common
+     -----------------------------------------------------------------------------
+     ...
+
+     -----------------------------------------------------------------------------
+     -- Species
+     -----------------------------------------------------------------------------
+     -- Vlasov-Maxwell electrons
+     elc = Plasma.Species {
+       evolve = true,
+       charge = qe,
+       mass = me,
+       ...
+       -- Ionization
+       ionization = Plasma.Ionization {
+         collideWith = {"neut"},        -- species to collide with
+      	 electrons = "elc",             -- define name for electron species
+      	 neutrals = "neut",             -- define name for neutral species
+      	 elemCharge = eV,               -- define elementary charge
+      	 elcMass = me,                  -- electron mass
+         plasma = "H",                  -- neutral gas species
+       },
+       ...
+     },
+     
+     -- Vlasov-Maxwell ions
+     ion = Plasma.Species {
+       evolve = true,
+       charge = qi,
+       mass = mi,
+       ...
+       -- Ionization
+       ionization = Plasma.Ionization {
+         collideWith = {"neut"},        -- species to collide with
+      	 electrons = "elc",             -- define name for electron species
+      	 neutrals = "neut",             -- define name for neutral species
+      	 elemCharge = eV,               -- define elementary charge
+      	 elcMass = me,                  -- electron mass
+         plasma = "H",                  -- ion species element
+       },
+       ...
+     },
+
+     -- Vlasov neutrals
+     neut = Plasma.Species {
+       evolve = true,
+       charge = 0,
+       mass = mi,
+       ...
+       -- Ionization
+       ionization = Plasma.Ionization {
+         collideWith = {"elc"},         -- species to collide with
+      	 electrons = "elc",             -- define name for electron species
+      	 neutrals = "neut",             -- define name for neutral species
+      	 elemCharge = eV,               -- define elementary charge
+      	 elcMass = me,                  -- electron mass
+         plasma = "H",                  -- ion species element
+       },
+       ...
+     },
+  },
+
+In order to add ionization to a gyrokinetic simulation, the ``VlasovMaxwell`` App must be included in the App dependencies.
+
+.. code-block:: lua
+		
+  local Plasma = (require "App.PlasmaOnCartGrid").Gyrokinetic()
+  local Vlasov = (require "App.PlasmaOnCartGrid").VlasovMaxwell()
+
+Then replace the neutral Lua table above with
+
+.. code-block:: lua
+
+     neut = Vlasov.Species {
+       evolve = true,
+       charge = 0,
+       mass = mi,
+       init = Vlasov.MaxwellianProjection { ... }   -- initial conditions (and source) defined using Vlasov app
+       ...
+       -- Ionization
+       ionization = Plasma.Ionization {
+         collideWith = {"elc"},         -- species to collide with
+      	 electrons = "elc",             -- define name for electron species
+      	 neutrals = "neut",             -- define name for neutral species
+      	 elemCharge = eV,               -- define elementary charge
+      	 elcMass = me,                  -- electron mass
+         plasma = "H",                  -- ion species element
+       },
+       ...
+       bcx = {Vlasov.Species.bcReflect, Vlasov.Species.bcReflect}  -- boundary conditions defined using Vlasov app
+     },  
+
+Note that the ionization Lua table remains :code:`ionization = Plasma.Ionization` since the ionization calculation is carried out from within the ``Gyrokinetic`` App but other parameters such as initial conditions, source, and boundary conditions are defined using the ``Vlasov`` App. 
 
 Charge exchange
 ```````````````
+Charge exchange can be added much in the same way as ionization was included above, though the former only affects the ion and neutral species. For the case of gyrokinetic plasma species with Vlasov neutrals, define both the ``Gyrokinetic`` and ``VlasovMaxwell`` Apps in the dependencies as before. Then include the following in the **Species** sectionof the input file.
+
+.. code-block:: lua
+
+   -- Gyrokinetic ions
+   ion = Plasma.Species {
+      evolve = true,
+      charge = qi,
+      mass = mi,
+      ...
+      -- Charge exchange 
+      chargeExchange = Plasma.ChargeExchange {
+         collideWith = {"neut"},              -- species to collide with
+	 ions = "ion",                        -- define ion species name
+      	 neutrals = "neut",                   -- define neutral species name
+	 ionMass = mi,                        -- ion mass
+      	 neutMass = mi,                       -- neutral mass
+      	 plasma = "H",                        -- ion species element       
+   	 charge = qi,                         -- species charge
+      },
+      ...
+   },
+   
+   -- Vlasov neutrals
+   neut = Plasma.Species {
+      evolve = true,
+      charge = 0,
+      mass = mi,
+      ...
+      -- Charge exchange
+      chargeExchange = Plasma.ChargeExchange {
+      	 collideWith = {"ion"},               -- species to collide with
+      	 ions = "ion",                        -- define ion species name
+      	 neutrals = "neut",                   -- define neutral species name
+      	 ionMass = mi,                        -- ion mass
+      	 neutMass = mi,                       -- neutral mass
+      	 plasma = "H",                        -- ion species element
+   	 charge = 0,                          -- species charge
+      },
+      ...
+   },
+
+
+Examples
+--------
 
 
 References
