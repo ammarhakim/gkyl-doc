@@ -46,7 +46,8 @@ Input file
 ----------
 
 This simulation is setup using :ref:`vlasovNorm` in
-:doc:`a short Lua input file <inputFiles/vm-damp>`, which begins with:
+:doc:`a short Lua input file <inputFiles/vm-damp>`, which begins with the
+**Preamble**:
 
 .. code-block:: lua
 
@@ -80,7 +81,7 @@ This simulation is setup using :ref:`vlasovNorm` in
      return (den/math.sqrt(2*math.pi*vtSq))*math.exp(-v2/(2*vtSq))
   end
 
-This preamble typically consists of a declaration of the Gkeyll 'App' to be used
+This Preamble typically consists of a declaration of the Gkeyll 'App' to be used
 (in this case VlasovMaxwell), and a specification of a number of user input parameters
 and simple derived quantities. One can also create user-defined functions, like
 :code:`maxwellian1D` in this case, which may be used in the preamble or in the Gkeyll
@@ -134,14 +135,14 @@ App that follows. For this specific simulation the Gkeyll app is created by the 
 
 The Gkeyll App typically consists of three sections:
 
-- **Preamble**: a declaration of parameters that control the (configuration space)
+- **Common**: a declaration of parameters that control the (configuration space)
   discretization, and time advancement. This first block of code in :code:`Plasma.App`
   may specify the periodic directions, the MPI decomposition, and the frequency with
   which to output certain diagnostics.
 - **Species**: Definition of the species to be considered in the simulation. Each species
   gets its own Lua table, in which one provides the velocity-space domain and
-  discretization of that species, initial condition, diagnostics, boundary conditions,
-  and whether to evolve it or not (:code:`evolve`).
+  discretization of that species (for kinetic models), initial condition, diagnostics,
+  boundary conditions, and whether to evolve it or not (:code:`evolve`).
 - **Fields**: A field table, which tells the App whether to evolve the electric and/or
   magnetic fields according to the field equations of the model. In this table we also
   specify the initial condition of the fields.
