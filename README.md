@@ -1,6 +1,6 @@
 # About
 
 This is the documentation and tutorials for the
-[gkyl](https::bitbucket.org/ammarhakim/gkyl) project
+[gkyl](https://github.com/ammarhakim/gkyl) project
 
 
