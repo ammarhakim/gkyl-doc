@@ -30,6 +30,54 @@ This App solves the hyperbolic and source parts parts of the coupled system sepa
 
   Here, we represent the homogeneous update schematically as the operator :math:`\exp\left(\mathcal{L}_{H}\Delta t\right)` and the source update as :math:`\exp\left(\mathcal{L}_{S}\Delta t\right)`.
 
+.. contents::
+
+Overall structure of app
+------------------------
+
+The overall structure of the app is as follows
+
+.. code-block:: lua
+
+  -- the Moments app wraps fluid and field objects, and tells the
+  -- the program how to evolve and couple them
+  local Moments = require("App.PlasmaOnCartGrid").Moments()
+  local TenMoment = require "Eq.TenMoment" -- TenMoment or Euler
+
+  -- create the app
+  momentApp = Moments.App {
+    -- basic parameters, e.g., time step, grid, domain decomposition
+
+    -- description of each species: names are arbitrary
+    electron = Moments.Species {
+      -- species parameters, equations, and boundary conditions
+    },
+
+    -- repeat to add more species
+    -- hydrogen = Moments.Species { ... },
+    -- oxygen = Moments.Species { ... },
+
+    -- EM fields (optional, can be omitted for neutral fluids)
+    field = Moments.Field {
+      -- EM field parameters, equations, and boundary conditions
+    },
+
+    -- basic source that couple the fluids and EM fields
+    emSource = Moments.CollisionlessEmSource {
+       -- names of the species to be coupled
+       species = {"electron", "hydorgen", "oxygen"},
+       -- other specifications
+    },
+
+    -- additional sources if needed
+    elc10mSource = Moments.TenMomentRelaxSource {
+       species = {"elctron"},
+       -- other specifications
+    },
+  }
+
+  -- run the app
+  momentApp:run()
 
 
 References
