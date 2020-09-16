@@ -2,8 +2,13 @@
 
 .. _momentApp:
 
+.. contents::
+
 Moments: Multifluid-moment-Maxwell model
 +++++++++++++++++++++++++++
+
+Summary of model equations
+--------------------------
 
 The ``Moment`` app solves high-moment multifluid equations on a Cartesian grid, coupled to Maxwell's equations through the Lorentz force.
 
@@ -25,8 +30,6 @@ This App solves the hyperbolic and source parts parts of the coupled system sepa
   .. math:: \exp\left(\mathcal{L}_{S}\Delta t/2\right)\exp\left(\mathcal{L}_{H}\Delta t\right)\exp\left(\mathcal{L}_{S}\Delta t/2\right).
 
   Here, we represent the homogeneous update schematically as the operator :math:`\exp\left(\mathcal{L}_{H}\Delta t\right)` and the source update as :math:`\exp\left(\mathcal{L}_{S}\Delta t\right)`.
-
-.. contents::
 
 Overall structure of the Moments app
 ------------------------
@@ -77,7 +80,7 @@ Overall structure of the Moments app
 Basic parameters
 ------------------
 
-.. list-table:: Basic Parameters for the Moments app
+.. list-table:: Basic Parameters for ``PlasmaOnCartGrid.Moments``
    :widths: 20, 60, 20
    :header-rows: 1
 
@@ -127,7 +130,7 @@ Basic parameters
      - ``{ }``
    * - ``useShared``
      - Set to ``true`` to use shared memory.
-     - false
+     - ``false``
    * - ``periodicDirs``
      - Periodic directions. Note: X is 1, Y is 2 and Z is 3. E.g., ``{2}`` sets
        the Y direction to be periodic.
@@ -143,6 +146,112 @@ Basic parameters
      number of processors will be determined from ``decompCuts`` and
      the number of threads per node.
 
+     
+Species parameters
+------------------
+
+.. list-table:: Parameters for ``Moments.Species``
+   :widths: 20, 60, 20
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+     - Default
+   * - ``charge``
+     - Species charge (ignored for neutral particles)
+     -
+   * - ``mass``
+     - Species mass (ignored for neutral particles)
+     -
+   * - ``equation``
+     - The type of default moment equation for this species, e.g.,
+       ```Euler {gasGamma=5/3}```, ```equation = TenMoment {}```. If domain
+       invariance is violated, i.e., negative density/pressure occurs, the
+       step is retaken using the ```equationInv``` method that is supposed to
+       guarantee positivity but is more diffusive.
+     - 
+   * - ``equationInv``
+     - Backup equation that guarantees positivity in case it is violated when
+       the default ```equation``` is used. Examples are:
+       ```equationInv = Euler { gasGamma = gasGamma, numericalFlux = 'lax' }```,
+       ```equationInv = TenMoment { numericalFlux = "lax" }```.
+     - 
+   * - ``init``
+     - Function with signature ``function(t,xn)`` that initializes the
+       species moments. This function return n values, where n is the number
+       of moments for this species.
+     -
+   * - ``bcx``
+     - Length two table with BCs in X direction. See details on BCs below.
+     - ``{ }``
+   * - ``bcy``
+     - Length two table with BCs in Y direction. Only needed if CDIM>1
+     - ``{ }``
+   * - ``bcz``
+     - Length two table with BCs in Z direction. Only needed if CDIM>2
+     - ``{ }``     
+   * - ``evolve``
+     - If set to ``false`` the moments are not evolved in the hyperbolic part,
+       but could be modified in the source updater. In this case, by default
+       only initial conditions for this species will be written to file. To
+       force writing to file as usual, set the ``forceWrite`` option to true.
+     - ``true``
+   * - ``forceWrite``
+     - If set to ``true`` the moments are written to file even if ``evolve`` is
+       set to ``false``.
+     - ``false``
+
+       
+Electromagnetic field parameters
+--------------------------------
+
+
+.. list-table:: Parameters for ``Moments.Field`` derived from ``App.Field.MaxwellField``
+   :widths: 20, 60, 20
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+     - Default
+   * - ``nFrame``
+     - These many field outputs will be written during simulation. If
+       not specified, top-level ``nFrame`` parameter will be used
+     - ``nFrame`` from top-level
+   * - ``epsilon0``
+     - Vacuum permittivity (:math:`\epsilon_0`)
+     -
+   * - ``mu0``
+     - Vacuum permeability (:math:`\mu_0`)
+     -
+   * - ``mgnErrorSpeedFactor``
+     - Factor specifying speed for magnetic field divergence error correction
+     - ``0.0``
+   * - ``elcErrorSpeedFactor``
+     - Factor specifying speed for electric field divergence error correction
+     - ``0.0``
+   * - ``init``
+     - Function with signature ``function(t,xn)`` that initializes the
+       field. This function must return 6 values arranged as
+       :math:`E_x, E_y, E_z, B_x, B_y, B_z` at :math:`t=0` at ``xn``,
+       which is a CDIM vector.
+     -
+   * - ``bcx``
+     - Length two table with BCs in X direction. See details on BCs below.
+     - ``{ }``
+   * - ``bcy``
+     - Length two table with BCs in Y direction. Only needed if CDIM>1
+     - ``{ }``
+   * - ``bcz``
+     - Length two table with BCs in Z direction. Only needed if CDIM>2
+     - ``{ }``
+   * - ``evolve``
+     - If set to ``false`` the field is not evolved. In this case,
+       only initial conditions will be written to file.
+     - ``true``
+   * - ``forceWrite``
+     - If set to ``true`` the moments are written to file even if ``evolve`` is
+       set to ``false``.
+     - ``false``
 
 References
 ----------
