@@ -1,5 +1,7 @@
 .. highlight:: lua
 
+.. _gkApp:
+
 Gyrokinetic model for magnetized plasmas
 ++++++++++++++++++++++++++++++++++++++++
 

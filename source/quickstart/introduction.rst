@@ -42,7 +42,7 @@ equation (using quasineutrality of the equilibrium electron and ion densities,
 
 
 Input file
----------------
+----------
 
 This simulation is setup using :ref:`vlasovNorm` in
 :download:`a short Lua input file <inputFiles/vm-damp.lua>`, which begins with:
@@ -196,13 +196,14 @@ Fields that are larger (in memory) like the distribution function, get written o
 periodically, not every time step. These snapshots (frames) are labeled by the number
 ``#`` at the end of the file name.
 
-In order to plot the initial distribution function of the electrons use
+In order to plot the initial distribution function of the electrons we will use
+``postgkyl`` in the command line as follows
 
 .. code-block:: bash
 
   pgkyl -f vm-damp_elc_0.bp interpolate plot
 
-which would produce the following 2D plot of the initial Maxwellian distribution.
+This produces the 2D plot of the initial Maxwellian distribution given below.
 
 .. figure:: figures/vm-damp_elc_0.png
    :scale: 40 %

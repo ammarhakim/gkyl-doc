@@ -56,6 +56,7 @@ postgkyl reference
 
   postgkyl/install
   postgkyl/usage
+  postgkyl/examples
 
 Dev Notes
 ---------

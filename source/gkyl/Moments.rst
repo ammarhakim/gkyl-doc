@@ -1,5 +1,7 @@
 .. highlight:: lua
 
+.. _momentApp:
+
 Moments: fluid moment model
 +++++++++++++++++++++++++++
 
