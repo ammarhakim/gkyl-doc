@@ -1,3 +1,5 @@
+.. _devEigenSys10M:
+
 The eigensystem of the ten-moment equations
 ===========================================
 

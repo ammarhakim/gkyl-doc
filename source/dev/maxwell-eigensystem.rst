@@ -1,3 +1,5 @@
+.. _devEigenSysMaxwell:
+
 The eigensystem of the Maxwell equations with extension to perfectly hyperbolic Maxwell equations
 =================================================================================================
 
