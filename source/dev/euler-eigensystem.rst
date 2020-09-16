@@ -1,3 +1,5 @@
+.. _devEigenSysEuler:
+
 The eigensystem of the Euler equations
 ======================================
 

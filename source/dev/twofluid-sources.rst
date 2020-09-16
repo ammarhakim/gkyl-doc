@@ -1,3 +1,5 @@
+.. _devFluidSrc:
+
 Handling two-fluid five-moment and ten-moment source terms
 ==========================================================
 
