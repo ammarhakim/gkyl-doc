@@ -23,12 +23,21 @@ mpiexec and Gkeyll executable you wish to use when running
 simulations.
 
 
-Installing using "machine files"
---------------------------------
+Installing from source
+----------------------
+
+To install Gkeyll from source, first clone the Github repository using::
+
+     git clone https://github.com/ammarhakim/gkyl
+
+Navigate into the ``gkyl`` directory to begin.
 
 Building Gkeyll requires a modern C/C++ compiler and Python 3 (for use
 in the ``waf`` build system and post-processing). The following
 instructions assume that these tools are present.
+
+Installing using "machine files"
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For systems on which Gkeyll has been built before, the code can be
 built in three steps using scripts found in the ``machines/`` directory.
@@ -64,8 +73,8 @@ For systems that do not already have corresponding files in the
 machine. Instructions can be found in ``machines/README.md``.
 
   
-Building manually 
------------------
+Installing from source manually 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The first step in building the code is to build the
 dependencies. Depending on your system, building dependencies can be
@@ -159,7 +168,7 @@ If you need to uninstall do:
     ./waf uninstall
 
 Note on building LuaJIT
-^^^^^^^^^^^^^^^^^^^^^^^
+***********************
 
 LuaJIT builds easily on most machines with standard GCC compiler. Often,
 you may run into problems on older gcc as they do not include the log2
