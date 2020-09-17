@@ -263,12 +263,10 @@ A complete run of this simulation will output the following text to the terminal
   Wed Sep 16 2020 11:38:54.000000000
   Gkyl built with a4430cbb5d93
   Gkyl built on Sep 16 2020 01:25:31
-  Initializing PlasmaOnCartGrid simulation ...
-  Using CFL number 0.4
+  Initializing Vlasov-Maxwell simulation ...
   Initializing completed in 1.39731 sec
 
-  Starting main loop of PlasmaOnCartGrid simulation ...
-
+  Starting main loop of Vlasov-Maxwell simulation ...
   Step 0 at time 0. Time step 0.0360652. Completed 0%
   0123456789 Step   139 at time 5.01307. Time step 0.0360652. Completed 10%
   0123456789 Step   278 at time 10.0261. Time step 0.0360652. Completed 20%
@@ -282,7 +280,6 @@ A complete run of this simulation will output the following text to the terminal
   0123456789 Step  1387 at time 50. Time step 0.0136003. Completed 100%
   0
   Total number of time-steps 1388
-  Number of barriers 116062 barriers (83.6182 barriers/step)
 
   Solver took                           699.52738 sec     (0.503982 s/step)   (76.289%)
   Solver BCs took                       5.13684 sec       (0.003701 s/step)   ( 0.560%)
@@ -299,7 +296,7 @@ A complete run of this simulation will output the following text to the terminal
   Time spent in barrier function        0.48815 sec       (0.000352 s/step)   (     0%)
   [Unaccounted for]                     -5.39741 sec      (-0.003889 s/step)   (-0.589%)
 
-  Main loop completed in      916.94948 sec   (0.660626 s/step)   (   100%)
+  Main loop completed in                916.94948 sec     (0.660626 s/step)   (   100%)
 
 This example was run with a single core of a 10th gen Intel i9 (Comet Lake) processor.
 Increasing the resolution to :math:`32^2 \times 32^2` and now running the simulation using all 10 cores of the Intel i9 using
@@ -315,10 +312,10 @@ we obtain the following performance with :code:`useShared=true` and the installe
   Wed Sep 16 2020 19:14:03.000000000
   Gkyl built with a4430cbb5d93
   Gkyl built on Sep 16 2020 01:25:31
-  Initializing PlasmaOnCartGrid simulation ...
-  Using CFL number 0.4
+  Initializing Vlasov-Maxwell simulation ...
   Initializing completed in 3.50176 sec
-  Starting main loop of PlasmaOnCartGrid simulation ...
+
+  Starting main loop of Vlasov-Maxwell simulation ...
   Step 0 at time 0. Time step 0.0180326. Completed 0%
   0123456789 Step   278 at time 5.01307. Time step 0.0180326. Completed 10%
   0123456789 Step   555 at time 10.0081. Time step 0.0180326. Completed 20%
@@ -332,7 +329,7 @@ we obtain the following performance with :code:`useShared=true` and the installe
   0123456789 Step  2773 at time 50. Time step 0.0136003. Completed 100%
   0
   Total number of time-steps 2774
-  Number of barriers 220012 barriers (79.3122 barriers/step)
+
   Solver took                           3209.08362 sec    (1.156843 s/step)   (54.918%)
   Solver BCs took                       83.27781 sec      (0.030021 s/step)   ( 1.425%)
   Field solver took                     3.61164 sec       (0.001302 s/step)   ( 0.062%)
@@ -347,6 +344,7 @@ we obtain the following performance with :code:`useShared=true` and the installe
   Stepper combine/copy took             1251.96865 sec    (0.451323 s/step)   (21.425%)
   Time spent in barrier function        174.33926 sec     (0.062848 s/step)   (     3%)
   [Unaccounted for]                     902.31721 sec     (0.325277 s/step)   (15.442%)
+  
   Main loop completed in                5843.40363 sec    (2.106490 s/step)   (   100%)
 
 The :math:`32^2 \times 32^2` higher resolution simulation is ~3.2 times more expensive per time-step than the :math:`16^2 \times 16^2`.

@@ -63,7 +63,7 @@ for i=-N,N,1 do
    for j=-N,N,1 do
       P[i][j]={}
       for k=1,6,1 do         
-	      P[i][j][k]=rng:sample()
+         P[i][j][k]=rng:sample()
       end
    end
 end
@@ -120,7 +120,7 @@ plasmaApp = Plasma.App {
          local x, y, vx, vy = xn[1], xn[2], xn[3], xn[4]
          local fv = maxwellian2D(nElc1, vx, vy, uxElc1, uyElc1, vthElc1) +
             maxwellian2D(nElc2, vx, vy, uxElc2, uyElc2, vthElc2)
-	      return fv
+         return fv
       end,
       evolve = true,
       diagnosticMoments = {"M0","M1i","M2ij","M3i"},
@@ -132,16 +132,16 @@ plasmaApp = Plasma.App {
    field = Plasma.Field {
       epsilon0 = permitt, mu0 = permeab,
       init = function (t, xn)
-	      local x, y = xn[1], xn[2]
+         local x, y = xn[1], xn[2]
          local E_x, E_y, B_z = 0.0, 0.0, 0.0
-	      for i=-N,N,1 do
-	         for j=-N,N,1 do
+         for i=-N,N,1 do
+            for j=-N,N,1 do
                if i~=0 or j~=0 then          
                   E_x = E_x + perturb_n*P[i][j][1]*math.sin(i*kx*x+j*ky*y+2*math.pi*P[i][j][2])
-		            E_y = E_y + perturb_n*P[i][j][3]*math.sin(i*kx*x+j*ky*y+2*math.pi*P[i][j][4])
-		            B_z = B_z + perturb_n*P[i][j][5]*math.sin(i*kx*x+j*ky*y+2*math.pi*P[i][j][6])
+                  E_y = E_y + perturb_n*P[i][j][3]*math.sin(i*kx*x+j*ky*y+2*math.pi*P[i][j][4])
+                  B_z = B_z + perturb_n*P[i][j][5]*math.sin(i*kx*x+j*ky*y+2*math.pi*P[i][j][6])
                end
-	         end
+            end
          end
          return E_x, E_y, 0.0, 0.0, 0.0, B_z
       end,
