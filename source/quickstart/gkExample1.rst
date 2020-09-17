@@ -24,7 +24,7 @@ Input file
 ----------
 
 The full Lua input file (:doc:`gk-sheath.lua <inputFiles/gk-sheath>`) for this simulation
-is a bit longer than the first Vlasov :ref:`example <qs_intro>` from the introduction, 
+is a bit longer than the one in :ref:`qs_intro`, 
 but not to worry, we will go through each part of the input file carefully.
 
 To set up a gyrokinetic simulation, we first need to load the ``Gyrokinetic`` App package and other
@@ -91,7 +91,7 @@ The next block is the **Preamble**, containing input paramters and simple derive
   Lz = 4                               -- z = field-aligned direction
 
 This simulation also requires a source, which models plasma crossing the separatrix. 
-The next **Preamble** block initializes some source parameters, along with some functions 
+The next part of the **Preamble** initializes some source parameters, along with some functions 
 that will be used later to set up the source density and temperature profiles.
 
 .. code-block:: lua
@@ -124,7 +124,7 @@ that will be used later to set up the source density and temperature profiles.
   end
 
 This concludes the **Preamble**. We now have everything we need to initialize the ``Gyrokinetic`` App.
-In this input file, the App consists of 4 sections:
+In this input file, the App initialization consists of 4 sections:
 
 .. code-block:: lua
 
