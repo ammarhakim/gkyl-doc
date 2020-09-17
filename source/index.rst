@@ -25,8 +25,8 @@ Quickstart
    quickstart/gkExample1
    quickstart/fluidExample1
 
-gkyl reference
---------------
+Gkeyll Reference
+----------------
 
 .. toctree::
   :maxdepth: 2
@@ -38,7 +38,7 @@ gkyl reference
   gkyl/App/appPlugins
   gkyl/tools
 
-postgkyl reference
+Postgkyl Reference
 ------------------
 
 .. toctree::

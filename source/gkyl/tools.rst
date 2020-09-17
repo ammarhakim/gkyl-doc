@@ -1,6 +1,8 @@
 Gkeyll Tools
 ++++++++++++
 
+.. contents::
+
 Tools are pre-packaged programs that are often useful but not part of
 the main App system. For example, there are tools to run and query the
 the regression test system and its output, solve the exact Reimann
