@@ -206,8 +206,9 @@ Fields that are larger (in memory) like the distribution function, get written o
 periodically, not every time step. These snapshots (frames) are labeled by the number
 ``#`` at the end of the file name.
 
-In order to plot the initial distribution function of the electrons we will use
-``postgkyl`` in the command line as follows
+In order to plot the initial distribution function of the electrons we will use the
+gkyl post-processing tool (:ref:`postgkyl <pg_main>`), invoked by the ``pgkyl``
+command as follows
 
 .. code-block:: bash
 
@@ -223,7 +224,7 @@ This produces the 2D plot of the initial Maxwellian distribution given below.
 
 We can also examine the electrostatic energy in the simulation. This most clearly
 exhibits the wave energy decaying as the collisionless damping takes effect. For
-this purpose we use the following ``postgkyl`` command (we :code:`select` the
+this purpose we use the following postgkyl command (we :code:`select` the
 x-component, and :ref:`pg_cmd-plot` can use a log scale, as well as add labels):
 
 .. code-block:: bash

@@ -24,8 +24,8 @@ For license see :doc:`License <aboutAndLicense>`.
    quickstart/main
    gkyl/main
    postgkyl/main
-   dev/main
    gkyl/pubs	     
    gkyl/presentations
+   dev/main
 
 
