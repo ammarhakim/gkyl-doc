@@ -3,7 +3,7 @@ The  Gkeyll 2.0 Code: Documentation Home
 
 Gkeyll v2.0 (pronounced as in the book `"The Strange Case of
 Dr. Jekyll and Mr. Hyde"
-<https://www.gutenberg.org/files/43/43-h/43-h.htm>`_.) is a
+<https://www.gutenberg.org/files/43/43-h/43-h.htm>`_) is a
 computational plasma physics code mostly written in C/C++ and `LuaJIT
 <http://luajit.org>`_. Gkeyll contains solvers for gyrokinetic
 equations, Vlasov-Maxwell equations, and multi-fluid equations. Gkeyll
