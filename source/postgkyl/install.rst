@@ -14,6 +14,35 @@ command.
 Note that it is not advisable to have both versions present on a
 single machine as it may lead to unexpected behavior.
 
+Installing with Conda (preferred)
+---------------------------------
+
+Postgkyl can be installed with Conda with literally a single command:
+
+.. code-block:: bash
+
+  conda install -c gkyl postgkyl 
+
+Note that the flag for the Gkeyll channel, ``-c gkyl``, is required
+even for updating. However, it can be permanently added.
+
+.. code-block:: bash
+
+  conda config --add channels gkyl
+  conda install postgkyl
+
+Updates can be downloaded with:
+
+.. code-block:: bash
+
+  conda update -c gkyl postgkyl
+
+Note that to install a new package, users need the write permission
+for the Anaconda directory. If this is not the case, one can either
+create a Conda `environment
+<https://conda.io/docs/user-guide/tasks/manage-environments.html>`_ or
+install Conda into the ``$HOME`` directory.
+
 Installing from source
 ----------------------
   
@@ -59,33 +88,4 @@ Alternativelly, all the dependencies can be installed from Conda:
 
   conda install -c gkyl postgkyl --only-deps
 
-
-Installing with Conda
----------------------
-
-Postgkyl can be installed with Conda with literally a single command:
-
-.. code-block:: bash
-
-  conda install -c gkyl postgkyl 
-
-Note that the flag for the Gkeyll channel, ``-c gkyl``, is required
-even for updating. However, it can be permanently added.
-
-.. code-block:: bash
-
-  conda config --add channels gkyl
-  conda install postgkyl
-
-Updates can be downloaded with:
-
-.. code-block:: bash
-
-  conda update -c gkyl postgkyl
-
-Note that to install a new package, users need the write permission
-for the Anaconda directory. If this is not the case, one can either
-create a Conda `environment
-<https://conda.io/docs/user-guide/tasks/manage-environments.html>`_ or
-install Conda into the ``$HOME`` directory.
 
