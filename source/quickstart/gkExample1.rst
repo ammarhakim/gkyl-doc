@@ -336,7 +336,7 @@ not the amplitude. Since the initial conditions are related to the source, we al
 species density by the same factor as the source via the ``scaleWithSourcePower = true`` flag in the initial conditions.
 
 Self-species collisions are included using a Lenard-Bernstein model collision operator via the ``coll = Plasma.LBOCollisions { ... }`` table.
-For more details about collision models and options, see :ref:`Collisions <collisionModels>`.
+For more details about collision models and options, see :ref:`Collisions <app_coll>`.
 
 Non-periodic boundary conditions are specified via the ``bcx`` and ``bcz`` tables.
 For this simulation, we use zero-flux boundary conditions in the x (radial) direction, 
