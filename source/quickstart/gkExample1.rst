@@ -23,7 +23,7 @@ Gyrokinetics intro?
 Input file
 ----------
 
-The full Lua input file (found :doc:`here <inputFiles/gk-sheath>`) for this simulation
+The full Lua input file (:doc:`gk-sheath.lua <inputFiles/gk-sheath>`) for this simulation
 is a bit longer than the first Vlasov :ref:`example <qs_intro>` from the introduction, 
 but not to worry, we will go through each part of the input file carefully.
 
@@ -393,6 +393,37 @@ This concludes the App initialization section. The final thing to do is tell the
   -- Run the App
   --------------------------------------------------------------------------------
   plasmaApp:run()
+
+Running the simulation
+----------------------
+
+The simulation can be run from the command line by navigating to the directory
+where the input file lives, and executing
+
+.. code-block:: bash
+
+  ~/gkylsoft/gkyl/bin/gkyl gk-sheath.lua
+
+You should see the program printing to the screen like this:
+
+.. code-block:: bash
+
+	bash$ ~/gkylsoft/gkyl/bin/gkyl gk-sheath.lua 
+	Thu Sep 17 2020 12:02:01.000000000
+	Gkyl built with 1b66bd4a21e5
+	Gkyl built on Sep 17 2020 11:59:51
+	Initializing Gyrokinetic simulation ...
+	Initializing completed in 2.30621 sec
+	
+	Starting main loop of Gyrokinetic simulation ...
+	
+	 Step 0 at time 0. Time step 5.4405e-09. Completed 0%
+	012345678 Step    13 at time 5.44914e-08. Time step 4.85799e-09. Completed 10%
+	9012345678 Step    24 at time 1.02034e-07. Time step 4.46502e-09. Completed 20%
+	90123
+
+This simulation should run in ~15 seconds. The full output to the screen 
+will look something like :doc:`this <inputFiles/gk-sheath-log>`.
 
 Postprocessing
 --------------
