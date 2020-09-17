@@ -29,3 +29,7 @@ Running on GPUs
 Give some examples of running on GPUs
 
 
+Additional tips
+---------------
+
+- Mention the ``bpls`` and ``bpdump`` tools?
