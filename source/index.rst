@@ -1,26 +1,17 @@
 The  Gkeyll 2.0 Code: Documentation Home
 ++++++++++++++++++++++++++++++++++++++++
 
-This is the documentation home for Version 2.0 of the Gkeyll code. The
-name is pronounced as in the book `"The Strange Case of Dr. Jekyll and
-Mr. Hyde" <https://www.gutenberg.org/files/43/43-h/43-h.htm>`_. Gkeyll
-is written in a combination of LuaJIT and C++. Most of the top-level
-code is written in LuaJIT, while time-critical parts are written in
-C++. Gkeyll is developed at `Princeton Plasma Physics Laboratory
-(PPPL) <http://www.pppl.gov>`_ in collaboration with Princeton
-University, University of Maryland, Virginia Tech, University of New
-Hampshire, University of Texas at Austin, and Dartmouth College. For
-a full list of contributors see :doc:`Authors <gkyl/authors>` list.
+Gkeyll v2.0 (pronounced as in the book `"The Strange Case of
+Dr. Jekyll and Mr. Hyde"
+<https://www.gutenberg.org/files/43/43-h/43-h.htm>`_.) is a
+computational plasma physics code mostly written in C/C++ and `LuaJIT
+<http://luajit.org>`_. Gkeyll contains solvers for gyrokinetic
+equations, Vlasov-Maxwell equations, and multi-fluid equations. Gkeyll
+*contains ab-initio and novel implementations* of a number of
+algorithms, and perhaps is unique in using a JIT compiled typeless
+dynamic language for as its main implementation language.
 
-Gkeyll 2.0 has been designed from ground up and has significant
-flexibility and algorithmic innovations compared to the previous
-version of the code. Gkeyll's innovative design completely blurs the
-distinction between user input and the internal software, allowing for
-a very powerful means of composing complex simulations. All of this is
-achieved in a very compact code base with minimal external
-dependencies, yet providing efficient solvers for Gyrokinetics,
-Vlasov-Maxwell as well as multi-fluid equations.
-
+Here you will find documentation for Version 2.0 of the Gkeyll code.
 For license see :doc:`License <aboutAndLicense>`.
 
 Quickstart
@@ -34,8 +25,8 @@ Quickstart
    quickstart/gkExample1
    quickstart/fluidExample1
 
-gkyl reference
---------------
+Gkeyll Reference
+----------------
 
 .. toctree::
   :maxdepth: 2
@@ -47,7 +38,7 @@ gkyl reference
   gkyl/App/appPlugins
   gkyl/tools
 
-postgkyl reference
+Postgkyl Reference
 ------------------
 
 .. toctree::
