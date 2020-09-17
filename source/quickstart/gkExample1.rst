@@ -385,7 +385,7 @@ and integrated quantities. For more details about available diagnostics, see the
       evolve = false,
    },
 
-This concludes the App initialization section. The final thing to do is tell the simulation to run:
+This concludes the App initialization section. The final thing to do in the input file is tell the simulation to run:
 
 .. code-block:: lua
 
