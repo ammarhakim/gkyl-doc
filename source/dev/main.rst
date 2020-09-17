@@ -1,3 +1,6 @@
+Developer notes
++++++++++++++++
+
 .. toctree::
   :maxdepth: 1
   dev/onmaxima
