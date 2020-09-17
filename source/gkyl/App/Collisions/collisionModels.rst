@@ -544,7 +544,7 @@ were run the command
 
   gkyl ionSound.lua
 
-and produced :doc:`this screen output <inputFiles/ionSoundLog.rst>`.
+and produced :doc:`this screen output <inputFiles/ionSoundLog>`.
 
 Note that this is really a linear problem, that is, one can sufficiently model it
 with a linearized version of equation :eq:`ionGK`, using :math:`f_i=f_{i0}+f_{i1}`,
