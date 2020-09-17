@@ -1,3 +1,5 @@
+.. _pg_main:
+
 Postgkyl Reference
 ++++++++++++++++++
 
