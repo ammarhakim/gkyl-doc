@@ -20,7 +20,7 @@ For license see :doc:`License <aboutAndLicense>`.
 .. toctree::
    :maxdepth: 2
 
-   gkyl/install
+   install
    quickstart/main
    gkyl/main
    postgkyl/main

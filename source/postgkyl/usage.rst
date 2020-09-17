@@ -4,7 +4,7 @@ Using Postgkyl
 ++++++++++++++
 
 Postgkyl is, at its core, a Python library. When properly installed
-(see :ref:`pg_installing`), it can be loaded in any Python script or
+(see :ref:`pg_install`), it can be loaded in any Python script or
 interactive environment like `IPython <https://ipython.org/>`_ or
 `JupyterLab <https://jupyter.org/>`_.
    

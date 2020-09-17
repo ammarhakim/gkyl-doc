@@ -1,7 +1,7 @@
-.. _pg_installing:
+.. _pg_install:
 
-Installing Postgkyl
-+++++++++++++++++++
+postgkyl Install
+================
 
 There are two options for getting Postgkyl.  The first option is to
 clone the source code and the second is to get the `Conda
@@ -13,8 +13,6 @@ command.
 
 Note that it is not advisable to have both versions present on a
 single machine as it may lead to unexpected behavior.
-
-.. contents::
 
 Installing from source
 ----------------------

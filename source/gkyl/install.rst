@@ -1,7 +1,10 @@
-Installing gkyl
-+++++++++++++++
+.. _gkyl_install:
 
-.. contents::
+gkyl Install
+============
+
+There are two options for installing gkyl. One can install from Conda
+(the preferred choice), or from the source code.
 
 Installing with Conda (preferred)
 ---------------------------------
@@ -207,3 +210,4 @@ suggestions and common error messages in
     compiler extended with MPI. Hence, for the compiler to find Lua
     modules (i.e. gkyl specific code) certain paths need to be set
     which is done relative to the install location.
+
