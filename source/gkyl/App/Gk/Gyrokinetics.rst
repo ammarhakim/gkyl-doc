@@ -2,10 +2,10 @@
 
 .. _gk_app:
 
-Gyrokinetic model for magnetized plasmas
-++++++++++++++++++++++++++++++++++++++++
+Gyrokinetic App: Electromagnetic gyrokinetic model for magnetized plasmas
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-The ``Gyrokinetic`` App solves the gyrokinetic system on a
+The ``Gyrokinetic`` App solves the (electromagnetic) gyrokinetic system on a
 Cartesian grid.
 
 .. contents::

@@ -336,14 +336,14 @@ not the amplitude. Since the initial conditions are related to the source, we al
 species density by the same factor as the source via the ``scaleWithSourcePower = true`` flag in the initial conditions.
 
 Self-species collisions are included using a Lenard-Bernstein model collision operator via the ``coll = Plasma.LBOCollisions { ... }`` table.
-For more details about collision models and options, see :ref:`Collisions <collisionModels>`.
+For more details about collision models and options, see :ref:`collisionModels`.
 
 Non-periodic boundary conditions are specified via the ``bcx`` and ``bcz`` tables.
 For this simulation, we use zero-flux boundary conditions in the x (radial) direction, 
 and sheath-model boundary conditions in the z (field-aligned) direction.
 
 Finally, we specify the diagnostics that should be outputted for each species. These consist of various moments
-and integrated quantities. For more details about available diagnostics, see the Gyrokinetic app reference :ref:`page <gk_app>`.
+and integrated quantities. For more details about available diagnostics, see :ref:`gk_app`.
 
 - The **Fields** section specifies parameters and options related to the field solvers for the gyrokinetic potential(s). 
 
