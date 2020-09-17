@@ -1,5 +1,7 @@
-Troubleshooting
-++++++++++++++
+.. _gkyl_trouble:
+
+Troubleshooting gkyl install
+++++++++++++++++++++++++++++
 
 As you build or run Gkeyll you may encounter some difficulties. 
 This is natural when pushing the code in new directions, or using

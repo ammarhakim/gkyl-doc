@@ -202,7 +202,7 @@ Troubleshooting
 
 Having trouble building? We will try to compile a list of
 suggestions and common error messages in
-:doc:`this troubleshooting site <./trouble>`.
+:ref:`this troubleshooting site <gkyl_trouble>`.
 
 .. rubric:: Footnotes
 
