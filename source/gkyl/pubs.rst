@@ -1,5 +1,5 @@
-Papers and Doctoral Dissertations
-+++++++++++++++++++++++++++++++++
+Publications and theses
++++++++++++++++++++++++
 
 A good source of various benchmarks and other tests is A. Hakim's
 `Simulation Journal <http://ammar-hakim.org/sj/>`_, and the `github
@@ -32,7 +32,7 @@ Doctoral Dissertations
   Princeton University, 2017 `arXiv:1708.07283 <https://arxiv.org/abs/1708.07283>`_
 
 Algorithms papers
-----------------------------
+-----------------
 
 - Hakim, A and Juno, J. "Alias-free, matrix-free, and quadrature-free
   discontinuous Galerkin algorithms for (plasma) kinetic
@@ -70,7 +70,8 @@ Algorithms papers
   derivatives", `arXiv:1405.5907 <https://arxiv.org/abs/1405.5907>`_
 
 Physics papers
-----------------------------
+--------------
+
 - Ng, J., Hakim, A., Wang, L., & Bhattacharjee, A. (2020). "An improved ten-moment closure for 
   reconnection and instabilities", *Physics of Plasmas*, **27**, 082106. https://doi.org/10.1063/5.0012067
 
