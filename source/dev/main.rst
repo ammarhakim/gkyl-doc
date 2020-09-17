@@ -3,6 +3,7 @@ Developer notes
 
 .. toctree::
   :maxdepth: 1
+             
   onmaxima
   modalbasis
   ssp-rk
