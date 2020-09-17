@@ -439,7 +439,9 @@ of the distribution function as function of time with ``pgkyl``:
 
   pgkyl -f "lboRelax_bump_[0-9]*.bp" interp sel --z0 0. anim -x '$v$' -y '$f(x=0,v,t)$'
 
-This command produces the movie given below. We can see that from the
+(note that :ref:`postgkyl <pg_usage>` allows abbreviations,
+so ``interp`` = :ref:`pg_cmd_interpolate`, ``sel`` = :ref:`pg_cmd_select`,
+``anim`` = :ref:`pg_cmd_animate`) This command produces the movie given below. We can see that from the
 initial, bump-in-tail state the distribution relaxes to a Maxwellian.
 The Maxwellian by the way is the analytic steady state of this operator.
 
