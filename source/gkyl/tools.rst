@@ -1,5 +1,5 @@
-Gkeyll Tools
-++++++++++++
+gkyl Tools
+++++++++++
 
 .. contents::
 
@@ -38,7 +38,6 @@ of hyperbolic equations. The ``exacteulerrp`` solves the Reimann
 problem exactly for the 1D Euler equations
 
 .. math::
-  :label: eq:euler-eqn
 
   \frac{\partial}{\partial{t}}
   \left[

@@ -84,8 +84,7 @@ where :math:`\rho \equiv mn` and
 
 The eigensystem of this matrix needs to be determined. It is easiest
 to use a computer algebra system for this. I prefer the open source
-package `Maxima <http://maxima.sourceforge.net>`_ for this. My script
-can be viewed `here <./_static/files/tenmom-eig.txt>`_.  The
+package `Maxima <http://maxima.sourceforge.net>`_ for this. The
 right-eigenvectors returned by Maxima need to massaged a little bit to
 bring them into a clean form. The results are described below.
 

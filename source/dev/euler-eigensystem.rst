@@ -9,7 +9,7 @@ for a general equation of state. The formulas are taken from
 written in conservative form as
 
 .. math::
-  :label: eq:euler-eqn
+  :label: eq-euler-eqn
 
   \frac{\partial}{\partial{t}}
   \left[
@@ -35,6 +35,7 @@ written in conservative form as
   =
   0
 
+	    
 where
 
 .. math::
@@ -52,7 +53,7 @@ matrix
 
 .. math::
   :label: eq:rev
-
+	  
   R
   =
   \left[
@@ -64,8 +65,8 @@ matrix
       h-uc & v & w & h-c^2/b & h+uc
     \end{matrix}
   \right]
-  \label{eq:rev}
 
+  
 here
 
 .. math::
@@ -92,7 +93,7 @@ rows of the matrix
 
 .. math::
   :label: eq:lev
-
+	  
   L
   =
   \frac{b}{2c^2}
@@ -105,7 +106,7 @@ rows of the matrix
       \theta-uc/b & -u+c/b & -v & -w & 1
     \end{matrix}
   \right]
-
+  
 where
 
 .. math::
@@ -119,8 +120,8 @@ Now consider the problem of splitting a jump vector :math:`\Delta
 \equiv [\delta_0,\delta_1,\delta_2,\delta_3,\delta_4]^T` into
 coefficients neeeded in computing the Riemann problem. The
 coefficients are given by :math:`L\Delta`. For an ideal gas law EOS,
-after some algebra we can `show <./_static/files/euler-rp-a0-a4.pdf>`_
-that an efficient way to compute these are
+after some algebra we can show that an efficient way to compute these
+are
 
 .. math::
   :label: eq:jump-split

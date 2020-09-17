@@ -23,55 +23,52 @@ mpiexec and Gkeyll executable you wish to use when running
 simulations.
 
 
-Installing from source
-----------------------
+Installing using "machine files"
+--------------------------------
 
-Depending on your system, installing Gkeyll from source can be easy
-(Linux, Mac laptops and small clusters) or hard (supercomputing
-centers). The instructions below will help you build the code, but
-some amount of experimentation may be required to get a build.
+Building Gkeyll requires a modern C/C++ compiler and Python 3 (for use
+in the `waf` build system and post-processing). The following
+instructions assume that these tools are present.
 
-To build dependencies see the instructions below. However, you may
-want to build and install the dependencies yourself, or use existing
-builds for your system. Most supercomputer centers have optimized,
-pre-built libraries for most dependencies. On these systems, you will
-probably only need to install LuaJIT.
+For systems on which Gkeyll has been built before, the code can be
+built in three steps using scripts found in the `machines/` directory.
 
-Build instructions for dependencies are provided in the build sections
-below. Gkeyll depends on the following tools and packages:
+1. Install dependencies using a `mkdeps` script from the `machines/` directory::
 
-- Git version control system
-- A modern C/C++ compiler; Python (for use in waf build system and
-  post-processing)
-- LuaJIT
-- MPI
-- ADIOS IO library
-- Eigen
+     ./machines/mkdeps.[SYSTEM].sh
 
-Alternatively, a pre-packaged executable can be obtained with the
-`Conda <https://conda.io/miniconda.html>`_ package manager.
+where `[SYSTEM]` should be replaced by the name of the system you are
+building on, such as `macosx` or `eddy`. By default, installations
+will be made in `~/gkylsoft/`.
 
+2. Configure `waf` using a `configure` script from the `machines/` directory::
+     
 
-Getting the code
-^^^^^^^^^^^^^^^^
+     ./machines/configure.[SYSTEM].sh
 
-Using Git clone the source repo as follows::
+**NOTE**: Steps 1 and 2 should only need to be done on the first
+build, unless one wishes to change the dependencies.
 
-  git clone https://github.com/ammarhakim/gkyl.git
+3. Build the code using::
 
-Note on building on Mac OS X
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     ./waf build install
 
-To build on Mac OS X Mojave and beyond you must set the following env flag::
+Building on non-native systems
+------------------------------
 
-  export MACOSX_DEPLOYMENT_TARGET=10.9  
+For systems that do not already have corresponding files in the
+`machines/` directory, we encourage you to add files for your
+machine. Instructions can be found in `machines/README.md`.
+
   
-Building dependencies
-^^^^^^^^^^^^^^^^^^^^^
+Building manually 
+-----------------
 
-Depending on your system, building dependencies can be complicated.
-On a Mac or Linux machine you can simply run the mkdeps.sh script in
-the install-deps directory. To build dependencies cd to::
+The first step in building the code is to build the
+dependencies. Depending on your system, building dependencies can be
+complicated. On a Mac or Linux machine you can simply run the
+mkdeps.sh script in the install-deps directory. To build dependencies
+cd to::
 
   cd gkyl/install-deps
 
@@ -97,9 +94,6 @@ preferred instead of your own builds). A typical command will be::
 By default, the mkdeps.sh script will install dependencies in
 $HOME/gkylsoft directory. If you install it elsewhere, you will need
 to modify the instructions below accordingly.
-
-Building Gkeyll
-^^^^^^^^^^^^^^^
 
 Once you have all dependencies installed, you can build Gkeyll itself
 by cd-ing to the top-directory in the source::
@@ -179,8 +173,17 @@ to:
 
     CC= $(DEFAULT_CC) -std=gnu99
 
+
+Note on building on Mac OS X
+-----------------------------
+
+To build on Mac OS X Mojave and beyond you must set the following env flag::
+
+  export MACOSX_DEPLOYMENT_TARGET=10.9  
+
+
 Troubleshooting
-^^^^^^^^^^^^^^^
+---------------
 
 Having trouble building? We will try to compile a list of
 suggestions and common error messages in
