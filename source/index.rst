@@ -11,9 +11,9 @@ equations, Vlasov-Maxwell equations, and multi-fluid equations. Gkeyll
 algorithms, and perhaps is unique in using a JIT compiled typeless
 dynamic language for as its main implementation language.
 
-The Gkeyll package contains two major parts: the gkyl simulation
-framework and the the postgkyl post-processing package. Here you will
-find documentation for the full Gkeyll package.
+The Gkeyll package contains two major parts: the :ref:`gkyl <gkyl_main>`
+simulation framework and the the :ref:`postgkyl <pg_main>` post-processing
+package. Here you will find documentation for the full Gkeyll package.
 
 For license see :doc:`License <aboutAndLicense>`.
 

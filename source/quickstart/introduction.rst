@@ -207,7 +207,7 @@ periodically, not every time step. These snapshots (frames) are labeled by the n
 ``#`` at the end of the file name.
 
 In order to plot the initial distribution function of the electrons we will use the
-gkyl post-processing tool (:ref:`postgkyl <pg_main>`), invoked by the ``pgkyl``
+Gkeyll post-processing tool (:ref:`postgkyl <pg_main>`), invoked by the ``pgkyl``
 command as follows
 
 .. code-block:: bash
