@@ -17,18 +17,14 @@ find documentation for the full Gkeyll package.
 
 For license see :doc:`License <aboutAndLicense>`.
 
-Installation
-------------
-
 .. toctree::
+   :caption: Installation 
    :maxdepth: 1
 
    gkyl/install
 
-Quickstart
-----------
-
 .. toctree::
+   :caption: Quickstart
    :maxdepth: 1
    
    quickstart/introduction
@@ -36,10 +32,9 @@ Quickstart
    quickstart/gkExample1
    quickstart/fluidExample1
 
-Gkeyll Reference
-----------------
 
 .. toctree::
+  :caption: Gkeyll Reference
   :maxdepth: 2
 
   gkyl/about
@@ -48,23 +43,16 @@ Gkeyll Reference
   gkyl/App/appPlugins
   gkyl/tools
 
-Postgkyl Reference
-------------------
-
 .. toctree::
+  :caption: Postgkyl Reference
   :maxdepth: 2
 
   postgkyl/install
   postgkyl/usage
   postgkyl/examples
 
-Dev Notes
----------
-
-This is a collection of notes, mainly meant for developers and those
-wishing to understand some of the internal details of Gkeyll.
-
 .. toctree::
+  :caption: Dev Notes
   :maxdepth: 1
 
   dev/onmaxima
@@ -78,10 +66,8 @@ wishing to understand some of the internal details of Gkeyll.
   dev/twofluid-sources
 
   
-Gkeyll Publications & Presentations
------------------------------------
-
 .. toctree::
+  :caption: Gkeyll Publications & Presentations
   :maxdepth: 1
 
   gkyl/pubs	     
