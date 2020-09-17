@@ -1,4 +1,4 @@
-postgkyl examples
+Postgkyl examples
 +++++++++++++++++
 
 The gkeyll workflow typically involves a mixture of command line and

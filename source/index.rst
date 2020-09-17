@@ -18,57 +18,14 @@ find documentation for the full Gkeyll package.
 For license see :doc:`License <aboutAndLicense>`.
 
 .. toctree::
-   :caption: Installation 
-   :maxdepth: 1
+   :maxdepth: 2
 
    gkyl/install
-
-.. toctree::
-   :caption: Quickstart
-   :maxdepth: 1
-   
-   quickstart/introduction
-   quickstart/vlasovExample1
-   quickstart/gkExample1
-   quickstart/fluidExample1
+   quickstart/main
+   gkyl/main
+   postgkyl/main
+   dev/main
+   gkyl/pubs	     
+   gkyl/presentations
 
 
-.. toctree::
-  :caption: Gkeyll Reference
-  :maxdepth: 2
-
-  gkyl/about
-  license
-  gkyl/App/appIndex
-  gkyl/App/appPlugins
-  gkyl/tools
-
-.. toctree::
-  :caption: Postgkyl Reference
-  :maxdepth: 2
-
-  postgkyl/install
-  postgkyl/usage
-  postgkyl/examples
-
-.. toctree::
-  :caption: Dev Notes
-  :maxdepth: 1
-
-  dev/onmaxima
-  dev/modalbasis
-  dev/ssp-rk
-  dev/vlasov-normalizations
-  dev/vlasov-denorm  
-  dev/maxwell-eigensystem
-  dev/euler-eigensystem
-  dev/tenmom-eigensystem
-  dev/twofluid-sources
-
-  
-.. toctree::
-  :caption: Gkeyll Publications & Presentations
-  :maxdepth: 1
-
-  gkyl/pubs	     
-  gkyl/presentations
