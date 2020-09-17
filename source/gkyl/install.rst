@@ -27,21 +27,21 @@ Installing using "machine files"
 --------------------------------
 
 Building Gkeyll requires a modern C/C++ compiler and Python 3 (for use
-in the `waf` build system and post-processing). The following
+in the ``waf`` build system and post-processing). The following
 instructions assume that these tools are present.
 
 For systems on which Gkeyll has been built before, the code can be
-built in three steps using scripts found in the `machines/` directory.
+built in three steps using scripts found in the ``machines/`` directory.
 
-1. Install dependencies using a `mkdeps` script from the `machines/` directory::
+1. Install dependencies using a ``mkdeps`` script from the ``machines/`` directory::
 
      ./machines/mkdeps.[SYSTEM].sh
 
-where `[SYSTEM]` should be replaced by the name of the system you are
-building on, such as `macosx` or `eddy`. By default, installations
-will be made in `~/gkylsoft/`.
+where ``[SYSTEM]`` should be replaced by the name of the system you are
+building on, such as ``macosx`` or ``eddy``. By default, installations
+will be made in ``~/gkylsoft/``.
 
-2. Configure `waf` using a `configure` script from the `machines/` directory::
+2. Configure ``waf`` using a ``configure`` script from the ``machines/`` directory::
      
 
      ./machines/configure.[SYSTEM].sh
@@ -53,12 +53,15 @@ build, unless one wishes to change the dependencies.
 
      ./waf build install
 
-Building on non-native systems
-------------------------------
+The final result will be a ``gkyl`` executable located in the ``~/gkylsoft/gkyl/bin/`` directory.
+Feel free to add this directory to your ``PATH`` environment variable.
+
+Machine files for non-native systems
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For systems that do not already have corresponding files in the
-`machines/` directory, we encourage you to add files for your
-machine. Instructions can be found in `machines/README.md`.
+``machines/`` directory, we encourage you to add files for your
+machine. Instructions can be found in ``machines/README.md``.
 
   
 Building manually 
