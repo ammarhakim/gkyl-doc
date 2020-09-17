@@ -32,7 +32,7 @@ To install gkyl from source, first clone the Github repository using::
 
 Navigate into the ``gkyl`` directory to begin.
 
-Building gkyl requires a modern C/C++ compiler and Python 3 (for use
+Building gkyl requires a modern C/C++ compiler (**But NOT Clang >= 12.0**) and Python 3 (for use
 in the ``waf`` build system and post-processing). The following
 instructions assume that these tools are present.
 

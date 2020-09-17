@@ -2,8 +2,8 @@
 
 .. _app_vlasov:
 
-VlasovMaxwell: Vlasov-Maxwell equations on a Cartesian grid
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+VlasovMaxwell App: Vlasov-Maxwell equations on a Cartesian grid
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 The ``VlasovMaxwell`` app solves the Vlasov equation on a Cartesian
 grid.
