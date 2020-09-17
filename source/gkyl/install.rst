@@ -3,8 +3,8 @@ Installing gkyl
 
 .. contents::
 
-Installing with Conda
----------------------
+Installing with Conda (preferred)
+---------------------------------
 
 Once `Conda <https://conda.io/miniconda.html>`_ is installed and added
 to the ``PATH``, gkyl can be obtained with::
@@ -26,7 +26,7 @@ simulations.
 Installing from source
 ----------------------
 
-To install gkyl from source, first clone the Github repository using::
+To install gkyl from source, first clone the `GitHub <https://github.com/ammarhakim/gkyl>`_ repository using::
 
      git clone https://github.com/ammarhakim/gkyl
 
