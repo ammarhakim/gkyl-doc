@@ -6,7 +6,7 @@ Collision models in Gkeyll
 In Gkeyll we currently have two different collision operators for use
 in kinetic models: the Bhatnagar–Gross–Krook (BGK) and the Dougherty
 operators. We referred to the latter as the LBO for the legacy
-of Lenard-Bernstein. It implementation in Gkeyll is detailed
+of Lenard-Bernstein. Its implementation in Gkeyll is detailed
 in [Hakim2020]_ [Francisquez2020]_. 
 
 .. contents::
@@ -72,6 +72,7 @@ Dougherty collisions
 The Doughery (LBO) model for collisions [Dougherty1964]_ in Gkeyll is given by
 
 .. math::
+  :label: doughertyOp
 
   \left(\frac{\partial f_s}{\partial t}\right)_c = \sum_r\nu_{sr}
   \frac{\partial}{\partial\mathbf{v}}\cdot\left[\left(\mathbf{v}-\mathbf{u}_{sr}\right)f_s
@@ -347,6 +348,165 @@ precautions are necessary appears in [Hakim2020]_.
 
 Examples
 --------
+
+We offer two full examples of the use of collisions. One in Vlasov-Maxwell and
+one in Gyrokinetics.
+
+Example 1: 1x1x collisional relaxation
+``````````````````````````````````````
+
+Consider an initial distribution function in 1x1v phase space given by a Maxwellian
+and a large bump in its tail
+
+.. math::
+  :label: bumpDist
+
+  f(x,v,t=0) = \frac{n_0}{\left(2\pi v_{t0}^2\right)^{1/2}}
+  \exp\left[-\frac{\left(v-u_0\right)^2}{2v_{t0}^2}\right]
+  +\frac{n_b}{\left(2\pi v_{tb}^2\right)^{1/2}}
+  \exp\left[-\frac{\left(v-u_b\right)^2}{2v_{tb}^2}\right]
+  \frac{1}{\left(v-u_l\right)^2+s_b^2}
+
+Suppose we wish to collisionally relax this initial state, without the influence of
+collisionless terms. That is, we wish to evolve this distribution function according
+to equation :eq:`doughertyOp`. In this case our :doc:`input file <inputFiles/lboRelax>`
+will use the VlasovMaxwell App (for 1x1v it would be equivalent to use the Gyrokinetic
+App), and we define the distribution in equation :eq:`bumpDist` in the Preamble via the
+function
+
+.. code-block:: lua
+
+   -- Maxwellian with a Maxwellian bump in the tail.
+   local function bumpMaxwell(x,vx,n,u,vth,bN,bU,bVth,bL,bS)
+      local vSq  = ((vx-u)/(math.sqrt(2.0)*vth))^2
+      local vbSq = ((vx-bU)/(math.sqrt(2.0)*bVth))^2
+      return (n/math.sqrt(2.0*math.pi*vth))*math.exp(-vSq)
+            +(bN/math.sqrt(2.0*math.pi*bVth))*math.exp(-vbSq)/((vx-bL)^2+bS^2)
+   end
+
+In this case we chose constants for all densities, flow speed and temperatures. We
+also set the charge to 0. Under these conditions the collisionless terms have no effect,
+but we can explicitly turn them off with the ``evolveCollisionless`` flag. We will also
+request the total integrated bulk flow energy (``intM2Flow``) and the total thermal
+energy (``intM2Thermal``) as diagnostics.
+
+
+.. code-block:: lua
+
+  plasmaApp = Plasma.App {
+     tEnd         = 80,      -- End time.
+     nFrame       = 80,      -- Number of frames to write.
+     lower        = {0.0},   -- Configuration space lower coordinate.
+     upper        = {1.0},   -- Configuration space upper coordinate.
+     cells        = {8},     -- Configuration space cells.
+     polyOrder    = 2,       -- Polynomial order.
+     periodicDirs = {1},     -- Periodic directions.
+     -- Neutral species with a bump in the tail.
+     bump = Plasma.Species {
+        charge = 0.0, mass = 1.0,
+        -- Velocity space grid.
+        lower = {-8.0*vt0}, upper = { 8.0*vt0},
+        cells = {32},
+        -- Initial conditions.
+        init = function (t, xn)
+           local x, v = xn[1], xn[2]
+           return bumpMaxwell(x,v,n0,u0,vt0,nb,ub,vtb,uL,sb)
+        end,
+        evolve = true,                 -- Evolve species?
+        evolveCollisionless = false,   -- Evolve collisionless terms?
+        diagnosticIntegratedMoments = { "intM2Flow", "intM2Thermal" },
+        -- Collisions.
+        coll = Plasma.LBOCollisions {
+           collideWith = {'bump'},
+           frequencies = {nu},
+        },
+     },
+  }
+
+We run this :doc:`input file <inputFiles/lboRelax>` with the call
+
+.. code-block:: lua
+
+  gkyl lboRelax.lua
+
+On a 2015 MacBookPro this ran in 1.5 seconds and produced
+:doc:`a screen output like this one <inputFiles/lboRelaxLog>`.
+
+We can start looking at the data by first, for example, making a movie
+of the distribution function as function of time with ``pgkyl``:
+
+.. code-block:: bash
+
+  pgkyl -f "lboRelax_bump_[0-9]*.bp" interp sel --z0 0. anim -x '$v$' -y '$f(x=0,v,t)$'
+
+This command produces the movie given below. We can see that from the
+initial, bump-in-tail state the distribution relaxes to a Maxwellian.
+The Maxwellian by the way is the analytic steady state of this operator.
+
+.. raw:: html
+
+  <center>
+  <video controls height="300" width="450">
+    <source src="../../../_static/lboRelax.mp4" type="video/mp4">
+  </video>
+  </center>
+
+Such relaxation should also take place without breaking momentum or
+energy conservation. We can examine the evolution of the total energy
+in the system by adding ``intM2Flow`` and ``intM2Thermal`` and plotting
+it as a function of time. This is achieved in ``pgkyl`` via:
+
+.. code-block:: bash
+
+  pgkyl -f lboRelax_bump_intM2Flow.bp -f lboRelax_bump_intM2Thermal.bp ev 'f0 f1 +' pl -x 'time' -y 'energy'
+
+As we can see in the figure below, and in particular in the :math:`10^{-14}`
+scale of it, the total particle energy is conserved very well. The changes
+in energy over a collisional period are of the order of machine precision.
+
+.. figure:: figures/lboRelax_bump_intM2.png
+  :scale: 40 %
+  :align: center
+
+  Normalized particle energy vs. time as an initial bump-in-tail distribution
+  is relaxed to a Maxwellian by the Dougherty collision operator.
+
+Example 2: 1x2x collisional Landau damping
+``````````````````````````````````````````
+
+We now explore the modification of Landau damping by inclusion of Dougherty
+collisions. Specifically, we will consider ion acoustic waves with adiabatic
+electrons. This means that the electron number density simply follows
+
+.. math::
+
+  n_e(x,t) = n_0\left(1+\frac{e\phi}{T_{e0}}\right)
+
+and our gyrokinetic Poisson equation is simply replaced by the quasineutrality
+
+.. math::
+  
+  n_0\left(1+\frac{e\phi}{T_{e0}}\right) = n_i(x,t)
+  = 2\pi B\int\mathrm{d}v_{\parallel}\,\mathrm{d}\mu~f_{i}(x,v_{\parallel},\mu,t).
+
+So there is no need to evolve the electron distribution function, and we only
+solve the electrostatic gyrokinetic equations for ions:
+
+.. math::
+  \frac{\partial Bf_i}{\partial t} + \nabla\cdot\left(Bf_i\mathbf{\dot{R}}\right)
+  +\frac{\partial}{\partial v_{\parallel}}\left(Bf_i\dot{v_{\parallel}}\right)
+  = \left(\frac{\partial B f_i}{\partial t}\right)_c
+
+If the right side of this equation were zero, this ion acoustic wave would damp
+at the collisionless rate calculated by Landau (well he did electron Langmuir
+waves). But collisions will change the picture and we wish to numerically find
+out how.
+
+This simulation is setup in the :doc:`ionSound.lua input file <inputFiles/ionSound>`.
+
+
+
+
 
 References
 ----------
