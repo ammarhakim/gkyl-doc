@@ -4,6 +4,9 @@ Vlasov example
 ++++++++++++++
 
 In this example, we extend the Vlasov-Maxwell input file shown in :ref:`qs_intro` to simulate a more general kinetic plasma.
+Because the Vlasov-Maxwell system of equations is widely applicable in plasma physics, this example is intended to illustrate some of the functionality of the Vlasov-Maxwell solver a user may desire for production science.
+For more extensive documentation on all of the available options for Vlasov-Maxwell simulations, we refer the reader to :ref:`app_vlasov`.
+
 This simulation is based on the studies of [Skoutnev2019]_ and [Juno2020]_ and concerns the evolution of instabilities driven by counter-streaming beams of plasma.
 This example demonstrates the flexibility of the Vlasov-Maxwell solver by showing how one extends Vlasov-Maxwell simulations to higher dimensionality, in this case 2x2v.
 The input file for this example is also a standard performance benchmark for Gkeyll and timings for this input file with varying grid resolution can be found in the gkyl repo in the Benchmarks/ folder.
@@ -43,8 +46,8 @@ Note that the sum goes from :math:`-N` to :math:`N` so as to initialize phases f
 Input file
 ----------
 
-This simulation is setup using :ref:`vlasovNorm` and the following :doc:`Lua input file <inputFiles/vm-tsw-2x2v>`.
-The input file has the following dependencies:
+The full Lua input file (found :doc:`here <inputFiles/vm-tsw-2x2v>`) has three components: the **App dependencies**, the **Preamble**, and the **App**.
+In the **App dependencies** section, we load the necessary components of Gkeyll to perform a Vlasov-Maxwell simulation, as well as any additional functionality we require:
 
 .. code-block:: lua
 
@@ -58,7 +61,7 @@ The input file has the following dependencies:
   local prng = require "sci.prng"
   local rng = prng.mrg32k3a()
 
-The preamble to set up the initial conditions is:
+The **Preamble** to set up the initial conditions is:
 
 .. code-block:: lua
 
@@ -130,88 +133,118 @@ The preamble to set up the initial conditions is:
      return n/(2*math.pi*vth^2)*math.exp(-v2/(2*vth^2))
   end
 
-This preamble defines the constants in the normalization standard outlined in :ref:`vlasovNorm` and sets the parameters and perturbations to the wave modes of interest for the study.
-Note that because the dimensionality of the simulation is now 2x2v, the normalization of the Maxwellian has correspondingly changed.
-The app is similar to the 1x1v Langmuir wave simulation in :ref:`qs_intro`:
+The **Preamble** defines the constants in the normalization standard outlined in :ref:`vlasovNorm` and sets the parameters and perturbations to the wave modes of interest for the study.
+Note that because the dimensionality of the simulation is now 2x2v, the normalization of the Maxwellian has correspondingly changed from the 1x1v Langmuir wave simulation described in :ref:`qs_intro`.
+
+The **App** can be further subdivided into a number of sections
 
 .. code-block:: lua
 
   plasmaApp = Plasma.App {
-     --------------------------------------------------------------------------------
+     -----------------------------------------------------------------------------
      -- Common
-     --------------------------------------------------------------------------------
-     logToFile = true,
+     -----------------------------------------------------------------------------
+     ...
 
-     tEnd = 50.0,                             -- End time
-     nFrame = 1,                              -- Number of output frames
-     lower = {0.0,0.0},                       -- Lower boundary of configuration space
-     upper = {Lx,Ly},                         -- Upper boundary of configuration space
-     cells = {Nx,Ny},                         -- Configuration space cells
-     basis = "serendipity",                   -- One of "serendipity", "maximal-order", or "tensor"
-     polyOrder = 2,                           -- Polynomial order
-     timeStepper = "rk3s4",                   -- One of "rk2", "rk3", or "rk3s4"
+     -----------------------------------------------------------------------------
+     -- Species
+     -----------------------------------------------------------------------------
+     ...
 
-     -- MPI decomposition for configuration space
-     decompCuts = {1,1},                      -- Cuts in each configuration direction
-     useShared = true,                        -- If using shared memory
-
-     -- Boundary conditions for configuration space
-     periodicDirs = {1,2},                    -- periodic directions (both x and y)
-
-     -- Integrated moment flag, compute integrated quantities 1000 times in simulation
-     calcIntQuantEvery = 0.001,
-     --------------------------------------------------------------------------------
-     -- Electrons
-     --------------------------------------------------------------------------------
-     elc = Plasma.Species {
-        charge = chargeElc, mass = massElc,
-        -- Velocity space grid
-        lower = {-vLimElc, -vLimElc},
-        upper = {vLimElc, vLimElc},
-        cells = {NvElc, NvElc},
-        -- Initial conditions
-        init = function (t, xn)
-           local x, y, vx, vy = xn[1], xn[2], xn[3], xn[4]
-           local fv = maxwellian2D(nElc1, vx, vy, uxElc1, uyElc1, vthElc1) +
-              maxwellian2D(nElc2, vx, vy, uxElc2, uyElc2, vthElc2)
-          return fv
-        end,
-        evolve = true,
-        diagnosticMoments = {"M0","M1i","M2ij","M3i"},
-        diagnosticIntegratedMoments = {"intM0","intM1i","intM2Flow","intM2Thermal"},
-     },
-     --------------------------------------------------------------------------------
-     -- Field solver
-     --------------------------------------------------------------------------------
-     field = Plasma.Field {
-        epsilon0 = permitt, mu0 = permeab,
-        init = function (t, xn)
-          local x, y = xn[1], xn[2]
-           local E_x, E_y, B_z = 0.0, 0.0, 0.0
-          for i=-N,N,1 do
-             for j=-N,N,1 do
-                 if i~=0 or j~=0 then          
-                    E_x = E_x + perturb_n*P[i][j][1]*math.sin(i*kx*x+j*ky*y+2*math.pi*P[i][j][2])
-                  E_y = E_y + perturb_n*P[i][j][3]*math.sin(i*kx*x+j*ky*y+2*math.pi*P[i][j][4])
-                  B_z = B_z + perturb_n*P[i][j][5]*math.sin(i*kx*x+j*ky*y+2*math.pi*P[i][j][6])
-                 end
-             end
-           end
-           return E_x, E_y, 0.0, 0.0, 0.0, B_z
-        end,
-        evolve = true,
-     },
+     -----------------------------------------------------------------------------
+     -- Fields
+     -----------------------------------------------------------------------------
+     ...
   }
   --------------------------------------------------------------------------------
   -- Run application
   --------------------------------------------------------------------------------
   plasmaApp:run()
 
-The extension from 1x1v to 2x2v requires the additional arguments to the tables :code:`lower, upper, cells, decompCuts, periodicDirs` in the Common part of the App, and :code:`lower, upper, cells` in the species table corresponding to how many velocity dimensions there are.
-The generalization of the initial conditions is easiest if we define local variables for each entry in :code:`xn[]`.
-We are only evolving the electrons in this simulation, so we only require one species table for this input file.
-The flag :code:`useShared=true` denotes that this input file uses shared memory on a compute node and can be run on a multi-core machine without the need for MPI communication.
-This functionality is leveraged extensively in the Benchmarks/ section of the gkyl repo to test the performance of this input file on different computer architectures.
+The **Common** section of the **App** defines input parameters which will be utilized by all solvers in the simulation.
+For example, the configuration space extents and number of configuration space cells (:code:`lower, upper, cells`), as well as what directions, if any, utilize periodic boundary conditions (:code:`periodicDirs`), and how to parallelize the simulation (:code:`decompCuts,useShared`).
+
+.. code-block:: lua
+
+  --------------------------------------------------------------------------------
+  -- Common
+  --------------------------------------------------------------------------------
+  logToFile = true,
+
+  tEnd = 50.0,                             -- End time
+  nFrame = 1,                              -- Number of output frames
+  lower = {0.0,0.0},                       -- Lower boundary of configuration space
+  upper = {Lx,Ly},                         -- Upper boundary of configuration space
+  cells = {Nx,Ny},                         -- Configuration space cells
+  basis = "serendipity",                   -- One of "serendipity", "maximal-order", or "tensor"
+  polyOrder = 2,                           -- Polynomial order
+  timeStepper = "rk3s4",                   -- One of "rk2", "rk3", or "rk3s4"
+
+  -- MPI decomposition for configuration space
+  decompCuts = {1,1},                      -- Cuts in each configuration direction
+  useShared = true,                        -- If using shared memory
+
+  -- Boundary conditions for configuration space
+  periodicDirs = {1,2},                    -- periodic directions (both x and y)
+
+  -- Integrated moment flag, compute integrated quantities 1000 times in simulation
+  calcIntQuantEvery = 0.001,
+
+The **Species** section of the **App** defines the species-specific inputs for the Vlasov-Maxwell simulation within a :code:`Plasma.Species` table.
+For example, the velocity space extents and number of velocity space cells (:code:`lower, upper, cells`), the function which prescribes the initial condition, and the types of diagnostics.
+More discussion of diagnostic capabilities can be found in :ref:`app_vlasov`.
+
+.. code-block:: lua
+
+  --------------------------------------------------------------------------------
+  -- Electrons
+  --------------------------------------------------------------------------------
+  elc = Plasma.Species {
+    charge = chargeElc, mass = massElc,
+    -- Velocity space grid
+    lower = {-vLimElc, -vLimElc},
+    upper = {vLimElc, vLimElc},
+    cells = {NvElc, NvElc},
+    -- Initial conditions
+    init = function (t, xn)
+       local x, y, vx, vy = xn[1], xn[2], xn[3], xn[4]
+       local fv = maxwellian2D(nElc1, vx, vy, uxElc1, uyElc1, vthElc1) +
+          maxwellian2D(nElc2, vx, vy, uxElc2, uyElc2, vthElc2)
+      return fv
+    end,
+    evolve = true,
+    diagnosticMoments = {"M0","M1i","M2ij","M3i"},
+    diagnosticIntegratedMoments = {"intM0","intM1i","intM2Flow","intM2Thermal"},
+  },
+
+Note that for this particular simulation the ions are a stationary, neutralizing background that does not contribute to the plasma current, so we only require a species table for the electrons.
+
+The **Field** section if the final section of the **App** and specifies the input parameters for the field equation, in this case Maxwell's equation, in the :code:`Plasma.Field` table.
+For example, similar to the :code:`Plasma.Species` table, the :code:`Plasma.Field` table contains the initial condition for the electromagnetic field.
+
+.. code-block:: lua
+
+  --------------------------------------------------------------------------------
+  -- Field solver
+  --------------------------------------------------------------------------------
+  field = Plasma.Field {
+    epsilon0 = permitt, mu0 = permeab,
+    init = function (t, xn)
+       local x, y = xn[1], xn[2]
+       local E_x, E_y, B_z = 0.0, 0.0, 0.0
+       for i=-N,N,1 do
+          for j=-N,N,1 do
+             if i~=0 or j~=0 then          
+                E_x = E_x + perturb_n*P[i][j][1]*math.sin(i*kx*x+j*ky*y+2*math.pi*P[i][j][2])
+                E_y = E_y + perturb_n*P[i][j][3]*math.sin(i*kx*x+j*ky*y+2*math.pi*P[i][j][4])
+                B_z = B_z + perturb_n*P[i][j][5]*math.sin(i*kx*x+j*ky*y+2*math.pi*P[i][j][6])
+             end
+          end
+       end
+       return E_x, E_y, 0.0, 0.0, 0.0, B_z
+    end,
+    evolve = true,
+  },
 
 Postprocessing
 --------------
@@ -236,7 +269,7 @@ A complete run of this simulation will output the following text to the terminal
 
   Starting main loop of PlasmaOnCartGrid simulation ...
 
-   Step 0 at time 0. Time step 0.0360652. Completed 0%
+  Step 0 at time 0. Time step 0.0360652. Completed 0%
   0123456789 Step   139 at time 5.01307. Time step 0.0360652. Completed 10%
   0123456789 Step   278 at time 10.0261. Time step 0.0360652. Completed 20%
   0123456789 Step   416 at time 15.0031. Time step 0.0360652. Completed 30%
@@ -251,20 +284,20 @@ A complete run of this simulation will output the following text to the terminal
   Total number of time-steps 1388
   Number of barriers 116062 barriers (83.6182 barriers/step)
 
-  Solver took       699.52738 sec   (0.503982 s/step)   (76.289%)
-  Solver BCs took         5.13684 sec   (0.003701 s/step)   ( 0.560%)
-  Field solver took         1.68614 sec   (0.001215 s/step)   ( 0.184%)
-  Field solver BCs took       0.30194 sec   (0.000218 s/step)   ( 0.033%)
-  Function field solver took      0.00000 sec   (0.000000 s/step)   ( 0.000%)
-  Moment calculations took    105.12776 sec   (0.075740 s/step)   (11.465%)
-  Integrated moment calculations took  54.01177 sec   (0.038913 s/step)   ( 5.890%)
-  Field energy calculations took      0.05532 sec   (0.000040 s/step)   ( 0.006%)
-  Collision solver(s) took      0.00000 sec   (0.000000 s/step)   ( 0.000%)
-  Collision moments(s) took     0.00000 sec   (0.000000 s/step)   ( 0.000%)
-  Source updaters took        0.00000 sec   (0.000000 s/step)   ( 0.000%)
-  Stepper combine/copy took    56.49974 sec   (0.040706 s/step)   ( 6.162%)
-  Time spent in barrier function      0.48815 sec   (0.000352 s/step)   (     0%)
-  [Unaccounted for]      -5.39741 sec   (-0.003889 s/step)   (-0.589%)
+  Solver took                           699.52738 sec     (0.503982 s/step)   (76.289%)
+  Solver BCs took                       5.13684 sec       (0.003701 s/step)   ( 0.560%)
+  Field solver took                     1.68614 sec       (0.001215 s/step)   ( 0.184%)
+  Field solver BCs took                 0.30194 sec       (0.000218 s/step)   ( 0.033%)
+  Function field solver took            0.00000 sec       (0.000000 s/step)   ( 0.000%)
+  Moment calculations took              105.12776 sec     (0.075740 s/step)   (11.465%)
+  Integrated moment calculations took   54.01177 sec      (0.038913 s/step)   ( 5.890%)
+  Field energy calculations took        0.05532 sec       (0.000040 s/step)   ( 0.006%)
+  Collision solver(s) took              0.00000 sec       (0.000000 s/step)   ( 0.000%)
+  Collision moments(s) took             0.00000 sec       (0.000000 s/step)   ( 0.000%)
+  Source updaters took                  0.00000 sec       (0.000000 s/step)   ( 0.000%)
+  Stepper combine/copy took             56.49974 sec      (0.040706 s/step)   ( 6.162%)
+  Time spent in barrier function        0.48815 sec       (0.000352 s/step)   (     0%)
+  [Unaccounted for]                     -5.39741 sec      (-0.003889 s/step)   (-0.589%)
 
   Main loop completed in      916.94948 sec   (0.660626 s/step)   (   100%)
 
@@ -276,6 +309,48 @@ Increasing the resolution to :math:`32^2 \times 32^2` and now running the simula
   ~/gkylsoft/openmpi/bin/mpirun -n 10 ~/gkylsoft/gkyl/bin/gkyl vm-tsw-2x2v.lua
 
 we obtain the following performance with :code:`useShared=true` and the installed MPI from the Gkeyll build
+
+.. code-block:: bash
+
+  Wed Sep 16 2020 19:14:03.000000000
+  Gkyl built with a4430cbb5d93
+  Gkyl built on Sep 16 2020 01:25:31
+  Initializing PlasmaOnCartGrid simulation ...
+  Using CFL number 0.4
+  Initializing completed in 3.50176 sec
+  Starting main loop of PlasmaOnCartGrid simulation ...
+  Step 0 at time 0. Time step 0.0180326. Completed 0%
+  0123456789 Step   278 at time 5.01307. Time step 0.0180326. Completed 10%
+  0123456789 Step   555 at time 10.0081. Time step 0.0180326. Completed 20%
+  0123456789 Step   832 at time 15.0031. Time step 0.0180326. Completed 30%
+  0123456789 Step  1110 at time 20.0162. Time step 0.0180326. Completed 40%
+  0123456789 Step  1387 at time 25.0112. Time step 0.0180326. Completed 50%
+  0123456789 Step  1664 at time 30.0063. Time step 0.0180326. Completed 60%
+  0123456789 Step  1941 at time 35.0013. Time step 0.0180326. Completed 70%
+  0123456789 Step  2219 at time 40.0144. Time step 0.0180326. Completed 80%
+  0123456789 Step  2496 at time 45.0094. Time step 0.0180326. Completed 90%
+  0123456789 Step  2773 at time 50. Time step 0.0136003. Completed 100%
+  0
+  Total number of time-steps 2774
+  Number of barriers 220012 barriers (79.3122 barriers/step)
+  Solver took                           3209.08362 sec    (1.156843 s/step)   (54.918%)
+  Solver BCs took                       83.27781 sec      (0.030021 s/step)   ( 1.425%)
+  Field solver took                     3.61164 sec       (0.001302 s/step)   ( 0.062%)
+  Field solver BCs took                 1.40878 sec       (0.000508 s/step)   ( 0.024%)
+  Function field solver took            0.00000 sec       (0.000000 s/step)   ( 0.000%)
+  Moment calculations took              289.90340 sec     (0.104507 s/step)   ( 4.961%)
+  Integrated moment calculations took   101.71780 sec     (0.036668 s/step)   ( 1.741%)
+  Field energy calculations took        0.11471 sec       (0.000041 s/step)   ( 0.002%)
+  Collision solver(s) took              0.00000 sec       (0.000000 s/step)   ( 0.000%)
+  Collision moments(s) took             0.00000 sec       (0.000000 s/step)   ( 0.000%)
+  Source updaters took                  0.00000 sec       (0.000000 s/step)   ( 0.000%)
+  Stepper combine/copy took             1251.96865 sec    (0.451323 s/step)   (21.425%)
+  Time spent in barrier function        174.33926 sec     (0.062848 s/step)   (     3%)
+  [Unaccounted for]                     902.31721 sec     (0.325277 s/step)   (15.442%)
+  Main loop completed in                5843.40363 sec    (2.106490 s/step)   (   100%)
+
+The :math:`32^2 \times 32^2` higher resolution simulation is ~3.2 times more expensive per time-step than the :math:`16^2 \times 16^2`.
+This cost difference corresponds to a speed-up of a factor of five compared to the expected cost of a serial simulation (16 times more grid cells and only 3.2 times more expensive).
 
 References
 ----------

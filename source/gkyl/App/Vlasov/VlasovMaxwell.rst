@@ -1,6 +1,6 @@
 .. highlight:: lua
 
-.. _vlasovApp:
+.. _app_vlasov:
 
 VlasovMaxwell: Vlasov-Maxwell equations on a Cartesian grid
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
