@@ -1,4 +1,4 @@
-.. _collisionModels:
+.. _app_coll:
 
 Collision models in Gkeyll
 ++++++++++++++++++++++++++
@@ -305,7 +305,7 @@ in the preamble and pass it as the collision frequency as follows:
 
   local function nu_eeProfile(t, xn)
      local x = xn[1]
-     return nuElc*math.exp(-x)
+     return nu_ee*math.exp(-x)
   end
 
   vlasovApp = Plasma.App {
@@ -352,7 +352,7 @@ Examples
 We offer two full examples of the use of collisions. One in Vlasov-Maxwell and
 one in Gyrokinetics.
 
-Example 1: 1x1x collisional relaxation
+Example 1: 1x1v collisional relaxation
 ``````````````````````````````````````
 
 Consider an initial distribution function in 1x1v phase space given by a Maxwellian
@@ -439,7 +439,9 @@ of the distribution function as function of time with ``pgkyl``:
 
   pgkyl -f "lboRelax_bump_[0-9]*.bp" interp sel --z0 0. anim -x '$v$' -y '$f(x=0,v,t)$'
 
-This command produces the movie given below. We can see that from the
+(note that :ref:`postgkyl <pg_usage>` allows abbreviations,
+so ``interp`` = :ref:`pg_cmd_interpolate`, ``sel`` = :ref:`pg_cmd_select`,
+``anim`` = :ref:`pg_cmd_animate`) This command produces the movie given below. We can see that from the
 initial, bump-in-tail state the distribution relaxes to a Maxwellian.
 The Maxwellian by the way is the analytic steady state of this operator.
 
@@ -465,13 +467,13 @@ scale of it, the total particle energy is conserved very well. The changes
 in energy over a collisional period are of the order of machine precision.
 
 .. figure:: figures/lboRelax_bump_intM2.png
-  :scale: 40 %
+  :scale: 30 %
   :align: center
 
   Normalized particle energy vs. time as an initial bump-in-tail distribution
   is relaxed to a Maxwellian by the Dougherty collision operator.
 
-Example 2: 1x2x collisional Landau damping
+Example 2: 1x2v collisional Landau damping
 ``````````````````````````````````````````
 
 We now explore the modification of Landau damping by inclusion of Dougherty
@@ -479,34 +481,142 @@ collisions. Specifically, we will consider ion acoustic waves with adiabatic
 electrons. This means that the electron number density simply follows
 
 .. math::
+  :label: adiabaticElc
 
   n_e(x,t) = n_0\left(1+\frac{e\phi}{T_{e0}}\right)
 
 and our gyrokinetic Poisson equation is simply replaced by the quasineutrality
 
 .. math::
-  
+
   n_0\left(1+\frac{e\phi}{T_{e0}}\right) = n_i(x,t)
   = 2\pi B\int\mathrm{d}v_{\parallel}\,\mathrm{d}\mu~f_{i}(x,v_{\parallel},\mu,t).
 
-So there is no need to evolve the electron distribution function, and we only
-solve the electrostatic gyrokinetic equations for ions:
+So there is no need to evolve the electron distribution function. In the Gyrokinetic
+App we can specify an adiabatic species using ``Plasma.AdiabaticSpecies``:
+
+.. code:: lua
+
+  plasmaApp = Plasma.App {
+     ...
+     adiabaticElectron = Plasma.AdiabaticSpecies {
+        charge = -1.0, mass = mElc,
+        temp   = Te,
+        -- Initial conditions.. use ion background so that background is exactly neutral.
+        init = function (t, xn)
+           return nElc
+        end,
+        evolve = false, -- Evolve species?
+     },
+     ...
+   }
+
+This simulation then only needs to solve the electrostatic gyrokinetic equations
+for ions
 
 .. math::
+  :label: ionGK 
+
   \frac{\partial Bf_i}{\partial t} + \nabla\cdot\left(Bf_i\mathbf{\dot{R}}\right)
   +\frac{\partial}{\partial v_{\parallel}}\left(Bf_i\dot{v_{\parallel}}\right)
   = \left(\frac{\partial B f_i}{\partial t}\right)_c
 
-If the right side of this equation were zero, this ion acoustic wave would damp
-at the collisionless rate calculated by Landau (well he did electron Langmuir
-waves). But collisions will change the picture and we wish to numerically find
-out how.
+and we do so with an initial condition that contains a sinusoidal perturbation
+(wavenumber :math:`k=0.5`) in the ion density:
 
-This simulation is setup in the :doc:`ionSound.lua input file <inputFiles/ionSound>`.
+.. math::
 
+  f_i(x,v_{\parallel},\mu,t=0)=\frac{n_{i0}\left[1+\alpha\cos(kx)\right]}{\sqrt{2\pi v_{ti0}^2}}
+  \exp\left[-\frac{v_{\parallel}^2+2\mu B/m_i}{2v_{ti0}^2}\right]
 
+If the right side of this equation :eq:`ionGK` were zero, this ion acoustic wave
+would damp at the collisionless rate calculated by Landau (well he did electron
+Langmuir waves). But collisions will change the picture and we wish to numerically
+find out how.
 
+This simulation is setup in the :doc:`ionSound.lua <inputFiles/ionSound>` input file.
+This input file calls for discretizing the ion phase space
+:math:`[-\pi/k,\pi/k]\times[-6v_t,6v_t]\times[0,m_i(5v_t^2)/(2B_0)]` using 
+:math:`64\times128\times16` cells and a piecewise linear basis. With a
+collisionality of :math:`\nu_=0.005`, the simulation ran on a 2015 MacbookPro
+in 41 minutes, while a collisionality of :math:`\nu=0.05` required 1.35 hours. They
+were run the command 
 
+.. code:: bash
+
+  gkyl ionSound.lua
+
+and produced :doc:`this screen output <inputFiles/ionSoundLog>`.
+
+Note that this is really a linear problem, that is, one can sufficiently model it
+with a linearized version of equation :eq:`ionGK`, using :math:`f_i=f_{i0}+f_{i1}`,
+where the fluctuation :math:`f_{i1}` is small compared to the equilibrium
+(Maxwellian) :math:`f_{i0}`. Users may wish to output this fluctuation in time: in
+order to to this specify the background with the ``initBackground`` table:
+
+.. code:: lua
+
+  ion = Plasma.Species {
+     ...
+     -- Specify background so that we can plot perturbed distribution and moments.
+     initBackground = {"maxwellian",
+        density = function (t, xn)
+           return nIon
+        end,
+        temperature = function (t, xn)
+           return Ti
+        end,
+     },
+     ...
+  },
+
+This will output the fluctuation to a file with the name format
+``<simulation>_<species>_f1_#.bp``, where ``#`` stands for the frame number. So for
+example, in this ``ionSound.lua`` case it creates files named ``ionSound_ion_f1_#.bp``.
+We can plot this fluctuation along :math:`v_\parallel` at :math:`$t=5$` with 
+
+.. code:: bash
+
+  pgkyl -f "ionSound_ion_f1_10.bp" interp sel --z0 0.0 --z2 0.0 pl -x '$v_\parallel$' -y '$f_{i1}(x=0,v_\parallel,\mu=0,t=5)$'
+
+(note that :ref:`postgkyl <pg_usage>` allows abbreviations,
+so ``interp`` = :ref:`pg_cmd_interpolate`, ``sel`` = :ref:`pg_cmd_select`,
+``pl`` = :ref:`pg_cmd_plot`) which produces the following image
+
+.. figure:: figures/ionSound_ion_f1_10.png
+  :scale: 40 %
+  :align: center
+
+  Fluctuation in the ion distribution function :math:`f_{i1}` along :math:`v_\parallel`
+  at time :math:`t=5`. The fluctuation is defined as the instantaneous :math:`f_i`
+  minust the equilibrium :math:`f_{i0}` defined in the input file (a Maxwellian).
+
+Perhaps most valuable to the physics of this simulation is to see a signature of the
+decay of the ion acoustic wave. This simulation produced the integrated squared
+electrostatic potential, :math:`\int\mathrm{d}x\,|\phi|^2`, which we take as a measure
+of the wave energy. It is stored in a file with the name format ``<simulation>_phiSq.bp``.
+If we had run two simulations, :doc:`ionSound.lua <inputFiles/ionSound>` with :math:`\nu=0.005`
+and :doc:`ionSoundH.lua <inputFiles/ionSoundH>` with :math:`\nu=0.05`, we could plot both electrostatic
+energies in time with the following ``pgkyl`` command:
+
+.. code:: bash
+
+  pgkyl -f ionSound_phi2.bp -l '$\nu=0.005$' -f ionSoundH_phi2.bp -l '$\nu=0.05$' pl --logy -f0 -x 'time' -y 'Integrated $|\phi|^2$'
+
+Notice that we are giving each file a label to use in the plot with the ``-l`` flag. Postgkyl
+then produces the following figure
+
+.. figure:: figures/ionSound_phiSq.png
+  :scale: 40 %
+  :align: center
+
+  Electrostatic field energy as a function of time for two collisionalities in
+  1x2v ion-sound wave damping simulation with gyrokinetics.
+
+We thus see that the wave energy is decaying as a function of time (the envelope of the curve
+is going down), and that the rate at which this happens decreases with collisionality. That is,
+for this case increasing collisionality decreased the damping rate. From this curve we can also
+read the period of the wave, using the spacing between the dips.
 
 References
 ----------

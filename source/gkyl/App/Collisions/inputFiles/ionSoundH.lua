@@ -13,7 +13,7 @@ mIon    = 1.0            -- Ion mass
 mElc    = 1.0/1836.16    -- Electron mass.
 n0      = 1.0            -- Background density.
 B0      = 1.0            -- Background magnetic field magnitude.
-nuIon   = 0.005          -- Ion-ion collision frequency.
+nuIon   = 0.05          -- Ion-ion collision frequency.
 knumber = 0.5            -- Wave number.
 
 -- Lower and upper bound of configuration space.
@@ -27,7 +27,7 @@ vtIon   = math.sqrt(Ti)                -- Ion thermal speed.
 vtElc   = math.sqrt((mIon/mElc)*Te)    -- Electron thermal speed. 
 
 plasmaApp = Plasma.App {
-   tEnd        = 25.0,             -- End time.
+   tEnd        = 25.0,            -- End time.
    nFrame      = 50,               -- Number of output frames.
    lower       = {xLower},         -- Configuration space lower left.
    upper       = {xUpper},         -- Configuration space upper right.
@@ -85,7 +85,8 @@ plasmaApp = Plasma.App {
    },
 
    adiabaticElectron = Plasma.AdiabaticSpecies {
-      charge = -1.0, mass = mElc,
+      charge = -1.0,
+      mass   = mElc,
       temp   = Te,
       -- Initial conditions.. use ion background so that background is exactly neutral.
       init = function (t, xn)
