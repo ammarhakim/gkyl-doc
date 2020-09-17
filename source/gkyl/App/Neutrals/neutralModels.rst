@@ -7,7 +7,6 @@ Simplified models of plasma-neutral interactions available in Gkeyll. The neutra
 
 .. contents::
 
-
 Electron-impact Ionization
 --------------------------
 
@@ -42,6 +41,8 @@ Currently the ionization rate :math:`\langle v_{e} \sigma_{iz}\rangle` is approx
    \langle v_e \sigma_{iz} \rangle = A  \frac{1 + P \, (E_{iz}/T_e)^{1/2}}{X + E_{iz}/T_e} \left(\frac{E_{iz}}{T_e}\right)^K e^{-E_{iz}/T_e} \, \times 10^{-6} {\rm m}^{3}/{\rm s}, 
 
 where :math:`A`, :math:`K`, :math:`P` and :math:`X` are tabulated for elements up to :math:`Z=28`. To avoid unphysical negative temperatures, when :math:`v^2_{th,iz} < 0` the ionization rate is set to zero in the code.
+
+A similar model of ionization was previously used in Gkeyll and was presented in [Cagas2017]_ 
    
 Charge exchange
 ---------------
@@ -72,7 +73,7 @@ The cross section is approximated by a fitting function. For hydrogen and Deuter
 Neutral species and gyrokinetic plasma species coupling
 -------------------------------------------------------
 
-Neutral species are always evolved on the Vlasov grid. For a Vlasov-Maxwell plasma species, the neutrals and ions are evolved on identical phase-space grids. Thus, the interaction terms in Eqs. :eq:`izIon`, :eq:`cxIon`, and :eq:`cxNeut` are straightforward. However, when the plasma species are evolved using the gyrokinetic model, the ion and neutral velocity-space grids are no longer identical, and it becomes necessary to pass information between two different phase-space grids. This is accomplished by taking fluid moments, :math:`n`, :math:`\mathbf{u}`, and :math:`v^2_{th}`, of the species distribution function and using them to project a Maxwellian distribution function on the destination phase-space grid. This is valid assuming that ion and neutral distribution functions are approximately Maxwellian.
+Neutral species are always evolved on the Vlasov grid. For a Vlasov-Maxwell plasma species, the neutrals and ions are evolved on identical phase-space grids. Thus, the ion-neutral interaction terms in Eqs. :eq:`izIon`, :eq:`cxIon`, and :eq:`cxNeut` are straightforward. However, when the plasma species are evolved using the gyrokinetic model, the ion and neutral velocity-space grids are no longer identical, and it becomes necessary to pass information between two different phase-space grids. This is accomplished by taking fluid moments, :math:`n`, :math:`\mathbf{u}`, and :math:`v^2_{th}`, of the species distribution function and using them to project a Maxwellian distribution function on the destination phase-space grid. This is valid assuming that ion and neutral distribution functions are approximately Maxwellian.
 
 In the Vlasov-Maxwell formulation, a Maxwellian distribution is defined
 
@@ -137,7 +138,7 @@ Below is an example of adding ionization to a Vlasov-Maxwell simulation:
       	 neutrals = "neut",             -- define name for neutral species
       	 elemCharge = eV,               -- define elementary charge
       	 elcMass = me,                  -- electron mass
-         plasma = "H",                  -- neutral gas species
+         plasma = "H",                  -- ion species element
        },
        ...
      },
@@ -259,7 +260,42 @@ Charge exchange can be added much in the same way as ionization was included abo
 Examples
 --------
 
-.. _app_neut_ex:
+Two examples of simulations with neutral interactions are presented here. The first uses the Vlasov-Maxwell solver for the plasma species and includes electron-impact ionization. The second uses the gyrokinetic solver with both electron-impact ionization and charge exchange.
+
+1X1V Vlasov simulation
+``````````````````````
+
+A simple Vlasov-Maxwell test case in 1X1V with spatially constant fluid moments for all species and periodic boundary conditions can be set up to test conservation properties of this model. Simply run the included input file :doc:`vlasovIz.lua <inputFiles/vlasovIz>` using standard procedures detailed :ref:`here <Running simulations>`. The simulation completes in about 12 seconds on a 2019 MacBook Pro. Then use the Postgkyl command-line tool to check particle and energy conservation. To plot the sum of the integrated particle densities of ions and electrons, use the following command.
+
+.. code-block:: bash
+
+   pgkyl -f vlasovIz_ion_intM0.bp -f vlasovIz_neut_intM0.bp ev 'f0 f1 +' plot -x time -y particles
+
+This produces the plot shown below, illustrating conservation of particle number. 
+
+.. figure:: figures/totalIntM0.png
+  :scale: 40 %
+  :align: center
+
+  Sum of ion and neutral integrated particle densities vs. time.
+
+Next plot the sum of integrated thermal energy of ions and neutrals with the following command.
+
+.. code-block:: bash
+
+   pgkyl -f vlasovIz_ion_intM2Thermal.bp -f vlasovIz_neut_intM2Thermal.bp ev 'f0 f1 +' plot -x time -y 'thermal energy'
+
+This produces the plot shown below which demonstrates the conservation of thermal energy.
+   
+.. figure:: figures/totalIntM2.png
+  :scale: 40 %
+  :align: center
+
+  Sum of ion and neutral integrated thermal energy vs. time. 
+
+
+1X2V gyrokinetic simulation
+```````````````````````````
 
 
 References
@@ -269,6 +305,8 @@ References
 .. [Wersal2015] Wersal, C., & Ricci, P. (2015). A first-principles self-consistent model of plasma turbulence and kinetic neutral dynamics in the tokamak scrape-off layer. Nuclear Fusion, 55(12), 123014.
 		
 .. [Voronov1997] Voronov, G. S. (1997). A practical fit formula for ionization rate coefficients of atoms and ions by electron impact: Z = 1-28. Atomic Data and Nuclear Data Tables, 65(1), 1–35.
+
+.. [Cagas2017] Cagas, P., Hakim, A., Juno, J., & Srinivasan, B. (2017). Continuum kinetic and multi-fluid simulations of classical sheaths. Phys. Plasmas, 24(2), 22118.
 		 
 .. [Meier2012] Meier, E. T., & Shumlak, U. (2012). A general nonlinear fluid model for reacting plasma-neutral mixtures. Physics of Plasmas, 19(7).
 
