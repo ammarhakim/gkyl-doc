@@ -187,7 +187,7 @@ to:
 
 
 Note on building on Mac OS X
------------------------------
+****************************
 
 To build on Mac OS X Mojave and beyond you must set the following env flag::
 
