@@ -2,8 +2,8 @@
 
 .. _qs_intro:
 
-Introduction: A first Gkeyll simulation
-+++++++++++++++++++++++++++++++++++++++
+A first Gkeyll simulation
++++++++++++++++++++++++++
 
 Gkeyll supports several models and numerous capabilities. Before diving into those,
 here's a short overview of an input file, how to run it and plot its results.
