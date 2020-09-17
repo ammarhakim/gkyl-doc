@@ -296,11 +296,26 @@ This produces the plot shown below which demonstrates the conservation of therma
 
 1X2V gyrokinetic simulation
 ```````````````````````````
+This example is based on a simplified model of a scrape-off layer plasma, the open-field line region in a fusion device. Parameters were chosen based on previous Gkeyll simulations described in [Shi2015]_. Gyrokinetic ion and electron species are coupled to Vlasov neutrals via electron-impact ionization and charge exchange interactions. Sheath model boundary conditions are used for the plasma species and reflecting boundary conditions are used for neutrals.
 
+The simulation can be run with the input file :doc:`1x2vSOL.lua <inputFiles/1x2vSOL>`, which is currently set to run in parallel on 4 processors (``decompCuts = {4}``). On a 2019 Macbook Pro, this simulation takes approximately 15 minutes to complete. The output can be analyzed with the Postgkyl tools. For example, the ``anim`` command can be used to observe changes in the electron density profile, as shown below.
 
+.. code-block:: bash
+
+    pgkyl -f "1x2vSOL_elc_GkM0_[0-9]*.bp" interp anim -x '$x$' -y '$n_e$'
+
+This command produces the following animation of the evolution of the electron density profile in time.
+
+.. raw:: html
+
+  <center>
+  <video controls height="300" width="450">
+    <source src="../../../_static/1x2vSOLneut.mp4" type="video/mp4">
+  </video>
+  </center>
+ 
 References
 ----------
-
 
 .. [Wersal2015] Wersal, C., & Ricci, P. (2015). A first-principles self-consistent model of plasma turbulence and kinetic neutral dynamics in the tokamak scrape-off layer. Nuclear Fusion, 55(12), 123014.
 		
@@ -309,6 +324,8 @@ References
 .. [Cagas2017] Cagas, P., Hakim, A., Juno, J., & Srinivasan, B. (2017). Continuum kinetic and multi-fluid simulations of classical sheaths. Phys. Plasmas, 24(2), 22118.
 		 
 .. [Meier2012] Meier, E. T., & Shumlak, U. (2012). A general nonlinear fluid model for reacting plasma-neutral mixtures. Physics of Plasmas, 19(7).
+
+.. [Shi2015] Shi, E. L., Hakim, A. H., & Hammett, G. W. (2015). A gyrokinetic one-dimensional scrape-off layer model of an edge-localized mode heat pulse. Physics of Plasmas, 22(2).
 
 
 		
