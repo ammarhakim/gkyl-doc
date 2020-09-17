@@ -4,8 +4,8 @@
 
 .. contents::
 
-Moments: Multifluid-moment-Maxwell model
-++++++++++++++++++++++++++++++++++++++++
+Moments App: Multifluid-moment-Maxwell model
+++++++++++++++++++++++++++++++++++++++++++++
 
 Summary of model equations
 --------------------------
