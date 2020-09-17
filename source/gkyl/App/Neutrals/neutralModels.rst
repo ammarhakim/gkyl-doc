@@ -1,4 +1,4 @@
-.. _neutralModels:
+.. _app_neut:
 
 Neutral models in Gkeyll
 ++++++++++++++++++++++++
@@ -14,12 +14,22 @@ Electron-impact Ionization
 This process is given by :math:`e^{-} + n \rightarrow i^{+} + 2e^{-} - E_{iz}`, where :math:`E_{iz}` is the ionization energy and modeled by collision terms on the RHS of the dynamical equations, as in [Wersal2015]_:
 
 .. math::
+   :label: izElc
+	   
+   \frac{d f_e}{d t} = -n_n \langle v_{e} \sigma_{iz}\rangle (2 f_{M,iz} - f_e),
 
-   \frac{d f_n}{d t} &= -n_e \langle v_{e} \sigma_{iz}\rangle f_n, \\
-   \frac{d f_i}{d t} &= n_e \langle v_{e} \sigma_{iz}\rangle f_n, \\
-   \frac{d f_e}{d t} &= -n_n \langle v_{e} \sigma_{iz}\rangle (2 f_{M,iz} - f_e),
+.. math::
+   :label: izIon
+	  
+   \frac{d f_i}{d t} = n_e \langle v_{e} \sigma_{iz}\rangle f_n, 
+   
+.. math::
+   :label: izNeut
+	   
+   \frac{d f_n}{d t} = -n_e \langle v_{e} \sigma_{iz}\rangle f_n,
 
-where :math:`f_{M,iz} = f_{M,iz}(n_e, \mathbf{u}_n, v^2_{th,iz})` is a Maxwellian distribution function that accounts for the lower-energy elelectrons resulting from this process. (See [reference section below] for definitions of Maxwellian distribution function on the Vlasov-Maxwell and gyrokinetic grids.) :math:`n_e` is the electron density, :math:`\mathbf{u}_n` is the neutral fluid velocity, and :math:`v^2_{th,iz}` is defined by
+
+where :math:`f_{M,iz} = f_{M,iz}(n_e, \mathbf{u}_n, v^2_{th,iz})` is a Maxwellian distribution function that accounts for the lower-energy elelectrons resulting from this process. (See :ref:`Neutral species and gyrokinetic plasma species coupling` for definitions of Maxwellian distribution function on the Vlasov-Maxwell and gyrokinetic grids.) :math:`n_e` is the electron density, :math:`\mathbf{u}_n` is the neutral fluid velocity, and :math:`v^2_{th,iz}` is defined by
 
 .. math::
 
@@ -38,11 +48,12 @@ Charge exchange
 
 This process is given by :math:`i^{+} + n \rightarrow n + i^{+}`, and the simplifed model of this process contained within Gkeyll is based on [Meier2012]_. Collision terms appear in the ion and neutral equations as:
 
-..  math::
+..  math:: \frac{d f_i}{dt} =  \sigma_{cx} V_{cx}( n_i f_n - n_n f_i ),
+    :label: cxIon
 
-    \frac{d f_i}{dt} &=  \sigma_{cx} V_{cx}( n_i f_n - n_n f_i ) \\
-    \frac{d f_n}{dt} &= -\frac{m_i}{m_n}\sigma_{cx} V_{cx} (n_i f_n - n_n f_i),
-
+..  math:: \frac{d f_n}{dt} = -\frac{m_i}{m_n}\sigma_{cx} V_{cx} (n_i f_n - n_n f_i),
+    :label: cxNeut
+ 
 where
 
 .. math::
@@ -61,7 +72,7 @@ The cross section is approximated by a fitting function. For hydrogen and Deuter
 Neutral species and gyrokinetic plasma species coupling
 -------------------------------------------------------
 
-Neutral species are always evolved on the Vlasov grid. For a Vlasov-Maxwell plasma species, the neutrals and ions are evolved on identical phase-space grids. Thus, the interaction terms in [ref eqns. here] are straightforward. However, when the plasma species are evolved using the gyrokinetic model, the ion and neutral velocity-space grids are no longer identical, and it becomes necessary to pass information between two different phase-space grids. This is accomplished by taking fluid moments, :math:`n`, :math:`\mathbf{u}`, and :math:`v^2_{th}`, of the species distribution function and using them to project a Maxwellian distribution function on the destination phase-space grid. This is valid assuming that ion and neutral distribution functions are approximately Maxwellian.
+Neutral species are always evolved on the Vlasov grid. For a Vlasov-Maxwell plasma species, the neutrals and ions are evolved on identical phase-space grids. Thus, the interaction terms in Eqs. :eq:`izIon`, :eq:`cxIon`, and :eq:`cxNeut` are straightforward. However, when the plasma species are evolved using the gyrokinetic model, the ion and neutral velocity-space grids are no longer identical, and it becomes necessary to pass information between two different phase-space grids. This is accomplished by taking fluid moments, :math:`n`, :math:`\mathbf{u}`, and :math:`v^2_{th}`, of the species distribution function and using them to project a Maxwellian distribution function on the destination phase-space grid. This is valid assuming that ion and neutral distribution functions are approximately Maxwellian.
 
 In the Vlasov-Maxwell formulation, a Maxwellian distribution is defined
 
@@ -247,6 +258,8 @@ Charge exchange can be added much in the same way as ionization was included abo
 
 Examples
 --------
+
+.. _app_neut_ex:
 
 
 References
