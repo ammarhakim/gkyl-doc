@@ -7,39 +7,39 @@ Installing with Conda
 ---------------------
 
 Once `Conda <https://conda.io/miniconda.html>`_ is installed and added
-to the ``PATH``, Gkeyll can be obtained with::
+to the ``PATH``, gkyl can be obtained with::
 
   conda install -c gkyl gkeyll
 
 Note, that this will also install all dependencies into the Conda
 install directory. Often this may lead to some conflicts, particularly
 for the MPI installation, specially if there is another version of MPI
-already located in the system. Gkeyll should be run using the MPI
+already located in the system. gkyl should be run using the MPI
 provided by Conda.
 
-In general, having Conda and source-built Gkeyll on the same machine
+In general, having Conda and source-built gkyl on the same machine
 can cause confusion. In that case please use explicit paths to the
-mpiexec and Gkeyll executable you wish to use when running
+mpiexec and gkyl executable you wish to use when running
 simulations.
 
 
 Installing from source
 ----------------------
 
-To install Gkeyll from source, first clone the Github repository using::
+To install gkyl from source, first clone the Github repository using::
 
      git clone https://github.com/ammarhakim/gkyl
 
 Navigate into the ``gkyl`` directory to begin.
 
-Building Gkeyll requires a modern C/C++ compiler and Python 3 (for use
+Building gkyl requires a modern C/C++ compiler and Python 3 (for use
 in the ``waf`` build system and post-processing). The following
 instructions assume that these tools are present.
 
 Installing using "machine files"
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For systems on which Gkeyll has been built before, the code can be
+For systems on which gkyl has been built before, the code can be
 built in three steps using scripts found in the ``machines/`` directory.
 
 1. Install dependencies using a ``mkdeps`` script from the ``machines/`` directory::
@@ -107,12 +107,12 @@ By default, the mkdeps.sh script will install dependencies in
 $HOME/gkylsoft directory. If you install it elsewhere, you will need
 to modify the instructions below accordingly.
 
-Once you have all dependencies installed, you can build Gkeyll itself
+Once you have all dependencies installed, you can build gkyl itself
 by cd-ing to the top-directory in the source::
 
   cd gkyl
 
-Gkeyll uses the Waf build system. You do NOT need to install waf as it
+gkyl uses the Waf build system. You do NOT need to install waf as it
 is included with the distribution. However, waf depends on Python
 (included on most systems). Waf takes a number of options. To get a
 list do ::
@@ -203,7 +203,7 @@ suggestions and common error messages in
 
 .. rubric:: Footnotes
 
-.. [#why] The reason for this is that Gkeyll is in reality a LuaJIT
+.. [#why] The reason for this is that gkyl is in reality a LuaJIT
     compiler extended with MPI. Hence, for the compiler to find Lua
-    modules (i.e. Gkeyll specific code) certain paths need to be set
+    modules (i.e. gkyl specific code) certain paths need to be set
     which is done relative to the install location.
