@@ -443,6 +443,9 @@ Here ``#`` is the frame number, where the total number of output frames for each
 
 We can use the Gkeyll post-processing tool (:ref:`postgkyl <pg_main>`) to visualize the outputs.
 
+Electron density
+^^^^^^^^^^^^^^^^
+
 First, let's examine the initial conditions, which are given in output files ending in ``_0.bp``. 
 The initial electron density :math:`n_e(x,y,z)` is found in ``gk-sheath_electron_GkM0_0.bp``, where ``GkM0`` is the label for the density moment.
 Let's look at this file as a function of the :math:`x` and :math:`z` coordintes by taking a line-out at :math:`y=0` via
@@ -472,6 +475,9 @@ gives
    :align: center
 
    Electron density :math:`n_e(x,y=0,z,t=10\mu\text{s})`
+
+Sheath potential
+^^^^^^^^^^^^^^^^
 
 Now let's look at the electrostatic potential, :math:`\phi`. We'd like to see if the sheath potential formed self-consistently due to our conducting-sheath boundary conditions.
 Let's look at :math:`\phi` along the field line (i.e. along the :math:`z` coordinate) by taking line-outs at :math:`x=1.0` and :math:`y=0`.
@@ -503,6 +509,64 @@ We can also make an animation of the evolution of the sheath potential via
     <source src="../_static/gk-sheath_phi_z.mp4" type="video/mp4">
   </video>
   </center>
+
+Particle balance
+^^^^^^^^^^^^^^^^
+
+We can examine particle balance between the sources and sinks (from end losses to the wall via the sheath) by looking at the ``electron_intM0.bp`` (integrated electron density) file and other related files. By using the ``ev`` (:ref:`evaluate <pg_cmd_ev>`) command, we can combine various quantities. ``ev`` is extremely useful and flexible, but it can lead to some complicated ``pgkyl`` commands. For this plot, the full command that we'll use is
+
+.. code-block:: bash
+
+  pgkyl -f gk-sheath_electron_intM0.bp -l 'total' -f gk-sheath_electron_intSrcM0.bp -l 'sources' 
+    -f gk-sheath_electron_intM0FluxZlower.bp -f gk-sheath_electron_intM0FluxZupper.bp 
+    ev -l 'sinks' 'f2 f3 + -1 *' dataset -i1,-1 ev -l 'sources + sinks' 'f0 f1 +' 
+    dataset -i0,-1 ev -l 'total - (sources + sinks)' 'f0 f1 -' 
+    dataset -i0,1,-3,-2,-1 pl -x 'time (s)' -f0
+
+Let's break this command down a bit. We first load all the data files that we need: 
+
+.. code-block:: bash
+   
+  pgkyl -f gk-sheath_electron_intM0.bp -l 'total' -f gk-sheath_electron_intSrcM0.bp -l 'sources' 
+    -f gk-sheath_electron_intM0FluxZlower.bp -f gk-sheath_electron_intM0FluxZupper.bp
+
+``gk-sheath_electron_intM0.bp`` is the (total) integrated electron density, ``gk-sheath_electron_intSrcM0.bp`` is the integrated electron source density, ``gk-sheath_electron_intM0FluxZlower.bp`` is the integrated particle flux to the lower divertor plate, and ``gk-sheath_electron_intM0FluxZupper.bp`` is the integrated particle flux to the upper plate. We've used the ``-l`` flag to label the first two of these as ``'total'`` and ``'sources'``.
+
+Next, we use the ``ev`` command to sum the fluxes and change the sign so that the result is negative:
+
+.. code-block:: bash
+   
+  ev -l 'sinks' 'f2 f3 + -1 *'
+
+Here, ``f2`` refers to the 3rd loaded file (active dataset 2, with 0-based indexing) and ``f3`` the 4th loaded file (active dataset 3); these are the two ``Flux`` files. The ``ev`` command uses `reverse Polish notation <https://en.wikipedia.org/wiki/Reverse_Polish_notation>`_, so that this command translates to ``-(f2 + f3)``. This creates a new dataset at the end of the stack, which can be indexed as dataset -1. 
+
+Next, we want to sum the sources and the sinks. To do this, we activate the source dataset (dataset 1 from the original loading) and the sinks dataset (dataset -1, which we just created with ``ev``). We can then use ``ev`` to sum them, via
+
+.. code-block:: bash
+
+  dataset -i1,-1 ev -l 'sources + sinks' 'f0 f1 +'
+
+This pushes another new dataset to the stack, which becomes dataset -1 and pushes the sinks dataset back to dataset -2. Next, we activate the total dataset (dataset 0) and the sources + sinks dataset (dataset -1), and use ``ev`` to compute the difference, via
+
+.. code-block:: bash
+
+  dataset -i0,-1 ev -l 'total - (sources + sinks)' 'f0 f1 -'
+
+Again, this pushes another dataset to the stack. Now we have computed everything we need. We just need to activate all the datasets we would like to plot, and plot them. We do this with
+
+.. code-block:: bash
+
+  dataset -i0,1,-3,-2,-1 pl -x 'time (s)' -f0
+
+with the ``-f0`` flag to put all the lines on figure 0. The end result is
+
+.. figure:: figures/gk-sheath_electron_intM0balance.png
+   :scale: 40 %
+   :align: center
+
+   Electron particle balance
+
+The purple line shows that electron density is conserved after accounting for sources and sinks.
 
 References
 ----------
