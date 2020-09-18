@@ -546,6 +546,7 @@ Next, we want to sum the sources and the sinks. To do this, we activate the sour
 
   dataset -i1,-1 ev -l 'sources + sinks' 'f0 f1 +'
 
+Note that the indexing for ``f0`` and ``f1`` in ``ev`` only references active datasets, so here, ``f0`` = dataset 1 and ``f1`` = dataset -1.
 This pushes another new dataset to the stack, which becomes dataset -1 and pushes the sinks dataset back to dataset -2. Next, we activate the total dataset (dataset 0) and the sources + sinks dataset (dataset -1), and use ``ev`` to compute the difference, via
 
 .. code-block:: bash
@@ -567,6 +568,50 @@ with the ``-f0`` flag to put all the lines on figure 0. The end result is
    Electron particle balance
 
 The purple line shows that electron density is conserved after accounting for sources and sinks.
+
+Divertor Fluxes
+^^^^^^^^^^^^^^^
+
+We can also look at profiles of the particle and energy fluxes to the end-plates. For example, to look at the ion particle flux to the lower divertor plate vs :math:`x`, averaged in :math:`y`, we use
+
+.. code-block:: bash
+
+  pgkyl -f gk-sheath_ion_GkM0FluxZlower_10.bp interp ev 'f0 1,2 avg' pl -x '$x$'
+
+Here we use ``ev`` to average in the :math:`y` and :math:`z` direction (for boundary fluxes, an average in the boundary direction is always required). This results in
+
+.. figure:: figures/gk-sheath_ion_GkM0FluxZlower_10.png
+   :scale: 40 %
+   :align: center
+
+   Ion particle flux to lower divertor at t=10 :math:`\mu\text{s}`
+
+The ion energy (heat) flux profile can similarly be plotted via
+
+.. code-block:: bash
+
+  pgkyl -f gk-sheath_ion_GkEnergyFluxZlower_10.bp interp ev 'f0 1,2 avg' pl -x '$x$'
+
+.. figure:: figures/gk-sheath_ion_GkEnergyFluxZlower_10.png
+   :scale: 40 %
+   :align: center
+
+   Ion heat flux to lower divertor at t=10 :math:`\mu\text{s}`
+
+Suppose instead of the instantaneous flux, we want the time-averaged flux over some period of time, perhaps from 5-10 :math:`\mu\text{s}`. To compute this, we can use
+
+.. code-block:: bash
+
+  pgkyl -f "gk-sheath_ion_GkEnergyFluxZlower_*.bp" interp collect sel --z0 5:10 ev 'f0 0,2,3 avg' pl -x '$x$'
+
+This uses the :ref:`collect <pg_cmd_collect>` command to aggregate the frames into a time dimension, which becomes coordinate 0. We then use ``sel --z0 5:10`` to select frames 5-10.
+Then we use ``ev 'f0 0,2,3 avg'`` to average the data in the 0th (time), 2nd (:math:`y`), and 3rd (:math:`z`) dimensions. This gives
+
+.. figure:: figures/gk-sheath_ion_GkEnergyFluxZlower_10.png
+   :scale: 40 %
+   :align: center
+
+   Time-averaged ion heat flux to lower divertor (t= 5-10 :math:`\mu\text{s}`)
 
 References
 ----------
