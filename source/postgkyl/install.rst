@@ -4,15 +4,14 @@ postgkyl Install
 ================
 
 There are two options for getting Postgkyl.  The first option is to
-clone the source code and the second is to get the `Conda
-<https://conda.io/miniconda.html>`_ package. The first option has an
-advantage of always having the most up-to-date version and is
-generally required for people that want to contribute to the code.  On
-the other hand, the later option literally requires a single ``conda``
-command.
+get the `Conda <https://conda.io/miniconda.html>`_ package and the
+second is ti clone the source code repository.  The first option is
+preferred for the majority of users as it requires literally a single
+Conda command. What is more, Conda is already the suggested way of
+installing the dependencies. On the other hand, the later option has
+an advantage of always having the most up-to-date version and is
+generally required for users that want to contribute to the code.
 
-Note that it is not advisable to have both versions present on a
-single machine as it may lead to unexpected behavior.
 
 Installing with Conda (preferred)
 ---------------------------------
@@ -51,7 +50,7 @@ Postgkyl source code is hosted in a `GitHub
 running, one needs to clone the repository, install dependencies, and
 modify the ``PATH`` and ``PYTHONPATH`` environmental variables.
 
-Postgkyl has these dependencies, which are readilly available thru Conda:
+Postgkyl has these dependencies, which are readily available thru Conda:
 
 * `Click <https://click.palletsprojects.com/en/7.x/>`_
 * `Matplotlib <https://matplotlib.org/>`_ >= 3.0
@@ -62,7 +61,7 @@ Postgkyl has these dependencies, which are readilly available thru Conda:
 
 Additionally, to read the Gkeyll 2 output files, the Python wrapper of
 `Adios <https://www.olcf.ornl.gov/center-projects/adios/>`_ is
-required. It can be either obtaine from the Gkeyll Conda channel,
+required. It can be either obtained from the Gkeyll Conda channel,
 
 .. code-block:: bash
                 
@@ -82,10 +81,26 @@ Finally, the ``postgkyl`` repository must be added to the
 ``PYTHONPATH`` and, if one wants to use Postgkyl directly from a
 terminal, to the ``PATH``.
 
-Alternativelly, all the dependencies can be installed from Conda:
+Alternatively, all the dependencies can be installed from Conda:
 
 .. code-block:: bash
 
   conda install -c gkyl postgkyl --only-deps
 
+
+Switching from Conda version to repository
+------------------------------------------
+
+While the Conda build of Postgkyl is the suggested version for the
+majority of users, the source code repository is required for any code
+contributions.  We should stress out that when switching between the
+different version, it is strongly advised to remove the other
+version. Having both may lead to an unforeseen behavior based on the
+relative order of components in the ``PATH`` and ``PYTHONPATH``.
+
+The Conda version can be uninstalled with:
+
+.. code-block:: bash
+
+  conda uninstall postgkyl
 

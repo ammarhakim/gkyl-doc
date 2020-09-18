@@ -1,7 +1,7 @@
 .. _pg_usage:
 
 Using Postgkyl
-++++++++++++++
+==============
 
 Postgkyl is, at its core, a Python library. When properly installed
 (see :ref:`pg_install`), it can be loaded in any Python script or
