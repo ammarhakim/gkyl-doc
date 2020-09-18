@@ -294,9 +294,9 @@ This produces the plot shown below which demonstrates the conservation of therma
   Sum of ion and neutral integrated thermal energy vs. time. 
 
 
-1X2V gyrokinetic simulation
-```````````````````````````
-This example is based on a simplified model of a scrape-off layer plasma, the open-field line region in a fusion device. Parameters were chosen based on previous Gkeyll simulations described in [Shi2015]_. Gyrokinetic ion and electron species are coupled to Vlasov neutrals via electron-impact ionization and charge exchange interactions. Sheath model boundary conditions are used for the plasma species and reflecting boundary conditions are used for neutrals.
+1X2V gyrokinetic + 1X3V Vlasov simulation
+`````````````````````````````````````````
+This example is based on a simplified model of a scrape-off layer plasma, the open-field line region in a fusion device. Parameters were chosen based on previous Gkeyll simulations described in [Shi2015]_. Gyrokinetic ion and electron species are coupled to Vlasov neutrals via electron-impact ionization and charge exchange interactions. Sheath model boundary conditions are used for the plasma species and reflecting boundary conditions are used for neutrals. The gyrokinetic species are run with two velocity-space dimensions 
 
 The simulation can be run with the input file :doc:`1x2vSOL.lua <inputFiles/1x2vSOL>`, which is currently set to run in parallel on 4 processors (``decompCuts = {4}``). On a 2019 Macbook Pro, this simulation takes approximately 15 minutes to complete. The output can be analyzed with the Postgkyl tools. For example, the ``anim`` command can be used to observe changes in the electron density profile, as shown below.
 
