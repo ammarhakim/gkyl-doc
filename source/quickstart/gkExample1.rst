@@ -517,17 +517,17 @@ We can examine particle balance between the sources and sinks (from end losses t
 
 .. code-block:: bash
 
-  pgkyl -f gk-sheath_electron_intM0.bp -l 'total' -f gk-sheath_electron_intSrcM0.bp -l 'sources' 
-    -f gk-sheath_electron_intM0FluxZlower.bp -f gk-sheath_electron_intM0FluxZupper.bp 
-    ev -l 'sinks' 'f2 f3 + -1 *' dataset -i1,-1 ev -l 'sources + sinks' 'f0 f1 +' 
-    dataset -i0,-1 ev -l 'total - (sources + sinks)' 'f0 f1 -' 
+  pgkyl -f gk-sheath_electron_intM0.bp -l 'total' -f gk-sheath_electron_intSrcM0.bp -l 'sources' \
+    -f gk-sheath_electron_intM0FluxZlower.bp -f gk-sheath_electron_intM0FluxZupper.bp \
+    ev -l 'sinks' 'f2 f3 + -1 *' dataset -i1,-1 ev -l 'sources + sinks' 'f0 f1 +' \
+    dataset -i0,-1 ev -l 'total - (sources + sinks)' 'f0 f1 -' \
     dataset -i0,1,-3,-2,-1 pl -x 'time (s)' -f0
 
 Let's break this command down a bit. We first load all the data files that we need: 
 
 .. code-block:: bash
    
-  pgkyl -f gk-sheath_electron_intM0.bp -l 'total' -f gk-sheath_electron_intSrcM0.bp -l 'sources' 
+  pgkyl -f gk-sheath_electron_intM0.bp -l 'total' -f gk-sheath_electron_intSrcM0.bp -l 'sources' \
     -f gk-sheath_electron_intM0FluxZlower.bp -f gk-sheath_electron_intM0FluxZupper.bp
 
 ``gk-sheath_electron_intM0.bp`` is the (total) integrated electron density, ``gk-sheath_electron_intSrcM0.bp`` is the integrated electron source density, ``gk-sheath_electron_intM0FluxZlower.bp`` is the integrated particle flux to the lower divertor plate, and ``gk-sheath_electron_intM0FluxZupper.bp`` is the integrated particle flux to the upper plate. We've used the ``-l`` flag to label the first two of these as ``'total'`` and ``'sources'``.
@@ -602,7 +602,7 @@ Suppose instead of the instantaneous flux, we want the time-averaged flux over s
 
 .. code-block:: bash
 
-  pgkyl -f "gk-sheath_ion_GkEnergyFluxZlower_*.bp" interp collect 
+  pgkyl -f "gk-sheath_ion_GkEnergyFluxZlower_*.bp" interp collect \
     sel --z0 5:10 ev 'f0 0,2,3 avg' pl -x '$x$'
 
 This uses the :ref:`collect <pg_cmd_collect>` command to aggregate the frames into a time dimension, which becomes coordinate 0. We then use ``sel --z0 5:10`` to select frames 5-10.
