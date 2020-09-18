@@ -6,28 +6,8 @@ gkyl install
 There are two options for installing gkyl. One can install from Conda
 (the preferred choice), or from the source code.
 
-Installing with Conda (preferred)
----------------------------------
-
-Once `Conda <https://conda.io/miniconda.html>`_ is installed and added
-to the ``PATH``, gkyl can be obtained with::
-
-  conda install -c gkyl gkeyll
-
-Note, that this will also install all dependencies into the Conda
-install directory. Often this may lead to some conflicts, particularly
-for the MPI installation, specially if there is another version of MPI
-already located in the system. gkyl should be run using the MPI
-provided by Conda.
-
-In general, having Conda and source-built gkyl on the same machine
-can cause confusion. In that case please use explicit paths to the
-mpiexec and gkyl executable you wish to use when running
-simulations.
-
-
-Installing from source
-----------------------
+Installing from source (preferred)
+----------------------------------
 
 To install gkyl from source, first clone the `GitHub <https://github.com/ammarhakim/gkyl>`_ repository using::
 
@@ -39,8 +19,8 @@ Building gkyl requires a modern C/C++ compiler (**But NOT Clang >= 12.0**) and P
 in the ``waf`` build system and post-processing). The following
 instructions assume that these tools are present.
 
-Installing using "machine files"
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Installing using "machine files" (recommended)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For systems on which gkyl has been built before, the code can be
 built in three steps using scripts found in the ``machines/`` directory.
@@ -79,7 +59,10 @@ machine. Instructions can be found in ``machines/README.md``.
 Installing from source manually 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The first step in building the code is to build the
+If machine files are not available, the dependencies, configuration, and build
+can be done manually. 
+
+The first step is to build the
 dependencies. Depending on your system, building dependencies can be
 complicated. On a Mac or Linux machine you can simply run the
 mkdeps.sh script in the install-deps directory. To build dependencies
@@ -195,6 +178,27 @@ Note on building on Mac OS X
 To build on Mac OS X Mojave and beyond you must set the following env flag::
 
   export MACOSX_DEPLOYMENT_TARGET=10.9  
+
+Installing with Conda
+---------------------------------
+
+The gkyl package is also available to be installed via Conda, although
+this gives less flexibility for keeping the code up-to-date as gkyl development continues.
+Once `Conda <https://conda.io/miniconda.html>`_ is installed and added
+to the ``PATH``, gkyl can be obtained with::
+
+  conda install -c gkyl gkeyll
+
+Note, that this will also install all dependencies into the Conda
+install directory. Often this may lead to some conflicts, particularly
+for the MPI installation, specially if there is another version of MPI
+already located in the system. gkyl should be run using the MPI
+provided by Conda.
+
+In general, having Conda and source-built gkyl on the same machine
+can cause confusion. In that case please use explicit paths to the
+mpiexec and gkyl executable you wish to use when running
+simulations.
 
 
 Troubleshooting
