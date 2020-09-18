@@ -26,7 +26,7 @@ tool do::
 This will print the help and the command options for the tool to the
 terminal.
 
-On this page the main tools are document.
+On this page the main tools are documented.
 
 Solving the exact Reimann problem for Euler equations: ``exacteulerrp``
 -----------------------------------------------------------------------
