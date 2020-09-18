@@ -409,24 +409,100 @@ You should see the program printing to the screen like this:
 .. code-block:: bash
 
 	bash$ ~/gkylsoft/gkyl/bin/gkyl gk-sheath.lua 
-	Thu Sep 17 2020 12:02:01.000000000
+	Fri Sep 18 2020 09:27:57.000000000
 	Gkyl built with 1b66bd4a21e5
 	Gkyl built on Sep 17 2020 11:59:51
 	Initializing Gyrokinetic simulation ...
-	Initializing completed in 2.30621 sec
+	Initializing completed in 2.33899 sec
 	
 	Starting main loop of Gyrokinetic simulation ...
 	
 	 Step 0 at time 0. Time step 5.4405e-09. Completed 0%
-	012345678 Step    13 at time 5.44914e-08. Time step 4.85799e-09. Completed 10%
-	9012345678 Step    24 at time 1.02034e-07. Time step 4.46502e-09. Completed 20%
-	90123
+	0123456789 Step   208 at time 1.00281e-06. Time step 4.90027e-09. Completed 10%
+	0123456789 Step   412 at time 2.00202e-06. Time step 4.90093e-09. Completed 20%
+	01234
 
-This simulation should run in ~15 seconds. The full output to the screen 
+This simulation ran in ~256 seconds on a 2019 Macbook Pro. The full output to the screen 
 will look something like :doc:`this <inputFiles/gk-sheath-log>`.
 
-Postprocessing
---------------
+Diagnostic Output and Plotting
+------------------------------
+
+If you examine the contents of the simulation directory after the simulation finishes, you
+will see a large quantity of diagnostic output ``*.bp`` files.
+
+Some of the types of files are
+
+- Distribution functions for each species: ``gk-sheath_electron_#.bp`` and ``gk-sheath_ion_#.bp``
+- Moment quantities for each species, e.g. ``gk-sheath_electron_[MOM]_#.bp``, with ``MOM``=``GkM0`` (electron density), ``MOM``=``GkTemp`` (electron temperature), etc.
+- Electric potential, phi: ``gk-sheath_phi_#.bp``
+- Integrated moment quantities, e.g. ``gk-sheath_electron_intM0.bp`` (integrated electron density), etc.
+- Integrated field quantities, e.g. ``gk-sheath_esEnergy.bp`` (integrated electrostatic field energy), ``gk-sheath_phiSq.bp`` (integrated phi^2), etc.
+
+Here ``#`` is the frame number, where the total number of output frames for each quantity is controlled by the ``nFrame`` parameter in the input file.
+
+We can use the Gkeyll post-processing tool (:ref:`postgkyl <pg_main>`) to visualize the outputs.
+
+First, let's examine the initial conditions, which are given in output files ending in ``_0.bp``. 
+The initial electron density :math:`n_e(x,y,z)` is found in ``gk-sheath_electron_GkM0_0.bp``, where ``GkM0`` is the label for the density moment.
+Let's look at this file as a function of the :math:`x` and :math:`z` coordintes by taking a line-out at :math:`y=0` via
+
+.. code-block:: bash
+
+   pgkyl -f gk-sheath_electron_GkM0_0.bp interp sel --z1 0. pl -x '$x$' -y '$z$'
+
+where we have used the ``interp`` (:ref:`interpolate <pg_cmd_interpolate>`) command to interpolate the DG data onto the grid, and the ``sel --z1 0.`` (:ref:`select <pg_cmd_select>`) command to make the line-out at :math:`y=0` (``--z1`` refers to the :math:`y` coordinate here). The resulting plot looks like
+
+.. figure:: figures/gk-sheath_electron_GkM0_0.png
+   :scale: 40 %
+   :align: center
+
+   Initial electron density :math:`n_e(x,y=0,z,t=0)`
+
+We ran this simulation for 10 :math:`\mu\text{s}`, and since ``nframe=10`` we have an output frame for each :math:`\mu\text{s}` of the simulation. Let's look at the final state now, at :math:`t=10\mu\text{s}`. 
+
+.. code-block:: bash
+
+   pgkyl -f gk-sheath_electron_GkM0_10.bp interp sel --z1 0. pl -x '$x$' -y '$z$'
+
+gives
+
+.. figure:: figures/gk-sheath_electron_GkM0_10.png
+   :scale: 40 %
+   :align: center
+
+   Electron density :math:`n_e(x,y=0,z,t=10\mu\text{s})`
+
+Now let's look at the electrostatic potential, :math:`\phi`. We'd like to see if the sheath potential formed self-consistently due to our conducting-sheath boundary conditions.
+Let's look at :math:`\phi` along the field line (i.e. along the :math:`z` coordinate) by taking line-outs at :math:`x=1.0` and :math:`y=0`.
+
+.. code-block:: bash
+
+   pgkyl -f gk-sheath_phi_10.bp interp sel --z0 1. --z1 0. pl -x '$z$'
+
+gives
+
+.. figure:: figures/gk-sheath_phi_z_10.png
+   :scale: 40 %
+   :align: center
+
+   Electrostatic potential :math:`\phi(x=1,y=0,z,t=10\mu\text{s})`
+
+Indeed, at the domain ends in :math:`z`, we have a sheath potential :math:`\phi_{sh} = 90 \text{ V}`. 
+
+We can also make an animation of the evolution of the sheath potential via
+
+.. code-block:: bash
+
+   pgkyl -f "gk-sheath_phi_*.bp" interp sel --z0 1. --z1 0. anim -x '$z$'
+
+.. raw:: html
+
+  <center>
+  <video controls height="300" width="450" loop autoplay muted>
+    <source src="../_static/gk-sheath_phi_z.mp4" type="video/mp4">
+  </video>
+  </center>
 
 References
 ----------
