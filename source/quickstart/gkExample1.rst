@@ -161,8 +161,8 @@ In this input file, the App initialization consists of 4 sections:
      -- Common
      -----------------------------------------------------------------------------
      logToFile = true,                    -- will write simulation output log to gk-sheath_0.log
-     tEnd = .5e-6,                        -- simulation end time [s]
-     nFrame = 1,                          -- number of output frames for diagnostics
+     tEnd = 10e-6,                        -- simulation end time [s]
+     nFrame = 10,                          -- number of output frames for diagnostics
      lower = {R - Lx/2, -Ly/2, -Lz/2},    -- configuration space domain lower bounds, {x_min, y_min, z_min} 
      upper = {R + Lx/2, Ly/2, Lz/2},      -- configuration space domain upper bounds, {x_max, y_max, z_max}
      cells = {4, 1, 8},                   -- number of configuration space cells, {nx, ny, nz}
