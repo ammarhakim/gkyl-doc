@@ -159,11 +159,22 @@ Sample submit scripts:
 - :doc:`TACC's Stampede2 <inputFiles/jobscript_stampede2>`.
 - :doc:`MIT's Engaging <inputFiles/jobscript_engaging>`.
 - :doc:`Princeton's Eddy <inputFiles/jobscript_eddy>`.
+- :doc:`Princeton's Adroit <inputFiles/jobscript_adroitCPU>`.
 
 .. _gkyl_usage_run_gpu:
 
 Running on GPUs
 ^^^^^^^^^^^^^^^
+
+Gkyl is also capable of running on graphical processing units (GPUs) with minimal modifiation
+of an input file you would use to run on CPUs. At the moment, if gkyl was built with CUDA
+and the node one is performing the computation in has a GPU, it will default to running the
+calculation in a GPU. So given an input file `cudaFile.lua`, we would simply run it with
+
+.. code:: bash
+
+  gkyl cudaFile.lua
+
 
 On clusters is often common to submit scripts that queue the job for running on compute
 nodes (when the resources become available). In fact this is often preferable to `ssh`-ing
@@ -172,11 +183,57 @@ jobs were given in :ref:`the previous section <gkyl_usage_run_parallel>`, and be
 provide some sample jobscripts for submitting GPU jobs:
 
 - :doc:`PPPL's Portal <inputFiles/jobscript_portalGPU>`.
+- :doc:`Princeton's Adroit <inputFiles/jobscript_adroitGPU>`.
+
+Some usage and development notes regarding gkyl's GPU capabilities can be found
+`in this repository <https://github.com/ammarhakim/gkylgpuhack/tree/master/clusterInfo>`_.
 
 
 Restarts
 --------
 
+Sometimes a simulations ends prematurely (e.g. your job's wallclock time allocation ran out),
+or perhaps it ended successfully but now you wish to run it longer. In these cases one can
+**restart** the simulation.
+
+The first simulation prints out a number of restart files, those ending in ``_restart.bp``. In
+order to begin a second simulation from where the first left off, check the ``tEnd`` and ``nFrame``
+variables in the input file. These are defined as absolute times/number of frames, that is, they
+specify the final simulation time and number of ouput frames from the beginning of the first
+simulation, **not relative to the previous simulation**.
+
+So suppose we run simulation 1 with the following in the App's Common section:
+
+.. code-block:: Lua
+
+  momentApp = Moments.App {
+     ...
+     tEnd   = 10.0,
+     nFrame = 100,
+     ...
+  }
+
+There are two restart scenarios:
+
+ - If the simulation completes successfully, one must increase ``tEnd`` and ``nFrame`` in order to
+   run the second, restart simulation. Otherwise it will just initialize, realize it does not need
+   to advance any further, and terminate.
+ - The first simulation ended prematurely, so ``tEnd=10.0`` was not reached. One
+   can restart the simulation with the same ``tEnd`` and ``nFrame`` and it will simply try to get
+   there this second time. Or one can increase ``tEnd`` and ``nFrame`` so the second simulation
+   goes farther than the first one intended to.
+
+Once you've made the appropriate edits to the input file the second, restart simulation 
+is run by simply appending the word `restart` after the input file, like
+
+.. code: bash
+
+  gkyl inputFile.lua restart
+
+This second, restart simulation will use the ``_restart.bp`` files of the first simulation to
+construct an initial condition. **Note** that it will look for the restart files in the same
+directory in which the restart simulation is being run, so typically we run restarts in the same
+directory as the first simulation.
 
 Handy perks
 -----------
