@@ -7,7 +7,7 @@
 -- App dependencies
 --------------------------------------------------------------------------------
 local Plasma = (require "App.PlasmaOnCartGrid").Gyrokinetic()  -- load the Gyrokinetic App
-local Constants = require "Lib.Constants"                      -- load some Constants
+local Constants = require "Lib.Constants"                      -- load some physical Constants
 
 --------------------------------------------------------------------------------
 -- Preamble

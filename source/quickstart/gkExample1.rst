@@ -36,7 +36,7 @@ dependencies. This should be done at the top of the input file, via
   -- App dependencies
   --------------------------------------------------------------------------------
   local Plasma = (require "App.PlasmaOnCartGrid").Gyrokinetic()  -- load the Gyrokinetic App
-  local Constants = require "Lib.Constants"                      -- load some Constants
+  local Constants = require "Lib.Constants"                      -- load some physical Constants
 
 Here we have also loaded the ``Constants`` library, which
 contains various physical constants that we will use later.
