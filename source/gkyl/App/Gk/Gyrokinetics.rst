@@ -1,6 +1,6 @@
 .. highlight:: lua
 
-.. _gk_app:
+.. _app_gk:
 
 Gyrokinetic App: Electromagnetic gyrokinetic model for magnetized plasmas
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

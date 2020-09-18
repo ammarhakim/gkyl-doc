@@ -1,8 +1,8 @@
 .. highlight:: lua
 
-.. _momentApp:
-
 .. contents::
+
+.. _app_moment:
 
 Moments App: Multifluid-moment-Maxwell model
 ++++++++++++++++++++++++++++++++++++++++++++

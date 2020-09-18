@@ -1,6 +1,6 @@
 .. _pg_main:
 
-Postgkyl Reference
+postgkyl Reference
 ++++++++++++++++++
 
 Below is the (hopefully) complete reference to the postgkyl tool for post-processing

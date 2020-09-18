@@ -1,3 +1,5 @@
+.. _gkyl_tools:
+
 gkyl Tools
 ++++++++++
 
@@ -115,7 +117,7 @@ the internal density do::
 
 to produce the following plot.
 
-.. figure:: sod-shock-density.png
+.. figure:: figures/sod-shock-density.png
   :width: 100%
   :align: center
 
@@ -235,7 +237,7 @@ and how to use them.
 
 Example of the real freuqency for the cold plasma waves is shown below
 
-.. figure:: cold-plasma-disp.png
+.. figure:: figures/cold-plasma-disp.png
   :width: 100%
   :align: center
 

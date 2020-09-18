@@ -343,7 +343,7 @@ For this simulation, we use zero-flux boundary conditions in the x (radial) dire
 and sheath-model boundary conditions in the z (field-aligned) direction.
 
 Finally, we specify the diagnostics that should be outputted for each species. These consist of various moments
-and integrated quantities. For more details about available diagnostics, see :ref:`gk_app`.
+and integrated quantities. For more details about available diagnostics, see :ref:`app_gk`.
 
 - The **Fields** section specifies parameters and options related to the field solvers for the gyrokinetic potential(s). 
 

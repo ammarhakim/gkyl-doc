@@ -1,3 +1,5 @@
+.. _gkyl_apps:
+
 gkyl Apps
 +++++++++
 
