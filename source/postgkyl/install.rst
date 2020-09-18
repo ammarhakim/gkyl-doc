@@ -1,6 +1,6 @@
 .. _pg_install:
 
-postgkyl Install
+postgkyl install
 ================
 
 There are two options for getting Postgkyl.  The first option is to

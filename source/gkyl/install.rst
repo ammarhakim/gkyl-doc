@@ -1,6 +1,6 @@
 .. _gkyl_install:
 
-gkyl Install
+gkyl install
 ============
 
 There are two options for installing gkyl. One can install from Conda
