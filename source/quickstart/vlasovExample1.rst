@@ -246,17 +246,17 @@ For example, similar to the :code:`Plasma.Species` table, the :code:`Plasma.Fiel
     evolve = true,
   },
 
-Postprocessing
---------------
+Running the simulation
+----------------------
 
 The input file :code:`vm-tsw-2x2v.lua` can be run using the gkyl executable
 
 .. code-block:: bash
 
-  gkyl vm-tsw-2x2v.lua
+  ~/gkylsoft/gkyl/bin/gkyl vm-tsw-2x2v.lua
 
-assuming :code:`gkyl` has been aliased to the location of the executable.
-A complete run of this simulation will output the following text to the terminal.
+assuming :code:`gkyl` has been installed in the user's home directory.
+When running this simulation, a user should see the following output 
 
 .. code-block:: bash
 
@@ -269,35 +269,9 @@ A complete run of this simulation will output the following text to the terminal
   Starting main loop of Vlasov-Maxwell simulation ...
   Step 0 at time 0. Time step 0.0360652. Completed 0%
   0123456789 Step   139 at time 5.01307. Time step 0.0360652. Completed 10%
-  0123456789 Step   278 at time 10.0261. Time step 0.0360652. Completed 20%
-  0123456789 Step   416 at time 15.0031. Time step 0.0360652. Completed 30%
-  0123456789 Step   555 at time 20.0162. Time step 0.0360652. Completed 40%
-  0123456789 Step   694 at time 25.0293. Time step 0.0360652. Completed 50%
-  0123456789 Step   832 at time 30.0063. Time step 0.0360652. Completed 60%
-  0123456789 Step   971 at time 35.0193. Time step 0.0360652. Completed 70%
-  0123456789 Step  1110 at time 40.0324. Time step 0.0360652. Completed 80%
-  0123456789 Step  1248 at time 45.0094. Time step 0.0360652. Completed 90%
-  0123456789 Step  1387 at time 50. Time step 0.0136003. Completed 100%
-  0
-  Total number of time-steps 1388
+  01234
 
-  Solver took                           699.52738 sec     (0.503982 s/step)   (76.289%)
-  Solver BCs took                       5.13684 sec       (0.003701 s/step)   ( 0.560%)
-  Field solver took                     1.68614 sec       (0.001215 s/step)   ( 0.184%)
-  Field solver BCs took                 0.30194 sec       (0.000218 s/step)   ( 0.033%)
-  Function field solver took            0.00000 sec       (0.000000 s/step)   ( 0.000%)
-  Moment calculations took              105.12776 sec     (0.075740 s/step)   (11.465%)
-  Integrated moment calculations took   54.01177 sec      (0.038913 s/step)   ( 5.890%)
-  Field energy calculations took        0.05532 sec       (0.000040 s/step)   ( 0.006%)
-  Collision solver(s) took              0.00000 sec       (0.000000 s/step)   ( 0.000%)
-  Collision moments(s) took             0.00000 sec       (0.000000 s/step)   ( 0.000%)
-  Source updaters took                  0.00000 sec       (0.000000 s/step)   ( 0.000%)
-  Stepper combine/copy took             56.49974 sec      (0.040706 s/step)   ( 6.162%)
-  Time spent in barrier function        0.48815 sec       (0.000352 s/step)   (     0%)
-  [Unaccounted for]                     -5.39741 sec      (-0.003889 s/step)   (-0.589%)
-
-  Main loop completed in                916.94948 sec     (0.660626 s/step)   (   100%)
-
+The full screen output can be found :doc:`here <inputFiles/vm-tsw-2x2v-log>`, which includes performance details for the simulation.
 This example was run with a single core of a 10th gen Intel i9 (Comet Lake) processor.
 Increasing the resolution to :math:`32^2 \times 32^2` and now running the simulation using all 10 cores of the Intel i9 using
 
@@ -305,50 +279,113 @@ Increasing the resolution to :math:`32^2 \times 32^2` and now running the simula
 
   ~/gkylsoft/openmpi/bin/mpirun -n 10 ~/gkylsoft/gkyl/bin/gkyl vm-tsw-2x2v.lua
 
-we obtain the following performance with :code:`useShared=true` and the installed MPI from the Gkeyll build
+we obtain the :doc:`following performance <inputFiles/vm-tsw-2x2v-higher-res-log>` with :code:`useShared=true` and the installed MPI from the Gkeyll build.
+
+Postprocessing
+--------------
+
+The output of this simulation is the following set of files:
+
+- Distribution functions: ``vm-tsw-2x2v_elc_#.bp``.
+- Electromagnetic fields: ``vm-tsw-2x2v_field_#.bp``.
+- Diagnostic moments: ``vm-tsw-2x2v_elc_M0_#.bp``, ``vm-tsw-2x2v_elc_M1i_#.bp``, ``vm-tsw-2x2v_elc_M2ij_#.bp``, and ``vm-tsw-2x2v_elc_M3i_#.bp``.
+- Field energy: ``vm-tsw-2x2v_fieldEnergy.bp``.
+- Diagnostic integrated moments: ``vm-tsw-2x2v_elc_intM0.bp``,  ``vm-tsw-2x2v_elc_intM1i.bp``, ``vm-tsw-2x2v_elc_intM2Flow.bp``, and ``vm-tsw-2x2v_elc_intM2Thermal.bp``.
+
+Snapshots (frames) are labeled by the number ``#`` at the end of the file name, while integrated diagnostics that are computed as a time-series, such as the field energy, are written out as a single file.
+Since :code:`nFrame=1` in the input file, the only frames that are output are ``0``, corresponding to the initial condition, and ``1``, corresponding to the end of the simulation.
+
+Since this simulation has two configuration space dimensions, postgkyl creates pcolor plots when run from the command line with :code:`pgkyl`. 
+We can compare the initial condition and final state of the magnetic field, :math:`B_z`, (of the :math:`32^2 \times 32^2` simulation) in two separate figures with the :code:`pgkyl` command:
 
 .. code-block:: bash
 
-  Wed Sep 16 2020 19:14:03.000000000
-  Gkyl built with a4430cbb5d93
-  Gkyl built on Sep 16 2020 01:25:31
-  Initializing Vlasov-Maxwell simulation ...
-  Initializing completed in 3.50176 sec
+  pgkyl -f vm-tsw-2x2v_field_0.bp -f vm-tsw-2x2v_field_1.bp interp sel --comp 5 plot -b --fix-aspect
 
-  Starting main loop of Vlasov-Maxwell simulation ...
-  Step 0 at time 0. Time step 0.0180326. Completed 0%
-  0123456789 Step   278 at time 5.01307. Time step 0.0180326. Completed 10%
-  0123456789 Step   555 at time 10.0081. Time step 0.0180326. Completed 20%
-  0123456789 Step   832 at time 15.0031. Time step 0.0180326. Completed 30%
-  0123456789 Step  1110 at time 20.0162. Time step 0.0180326. Completed 40%
-  0123456789 Step  1387 at time 25.0112. Time step 0.0180326. Completed 50%
-  0123456789 Step  1664 at time 30.0063. Time step 0.0180326. Completed 60%
-  0123456789 Step  1941 at time 35.0013. Time step 0.0180326. Completed 70%
-  0123456789 Step  2219 at time 40.0144. Time step 0.0180326. Completed 80%
-  0123456789 Step  2496 at time 45.0094. Time step 0.0180326. Completed 90%
-  0123456789 Step  2773 at time 50. Time step 0.0136003. Completed 100%
-  0
-  Total number of time-steps 2774
+.. figure:: figures/vm-tsw-2x2v_field.png
+   :scale: 40 %
+   :align: center
 
-  Solver took                           3209.08362 sec    (1.156843 s/step)   (54.918%)
-  Solver BCs took                       83.27781 sec      (0.030021 s/step)   ( 1.425%)
-  Field solver took                     3.61164 sec       (0.001302 s/step)   ( 0.062%)
-  Field solver BCs took                 1.40878 sec       (0.000508 s/step)   ( 0.024%)
-  Function field solver took            0.00000 sec       (0.000000 s/step)   ( 0.000%)
-  Moment calculations took              289.90340 sec     (0.104507 s/step)   ( 4.961%)
-  Integrated moment calculations took   101.71780 sec     (0.036668 s/step)   ( 1.741%)
-  Field energy calculations took        0.11471 sec       (0.000041 s/step)   ( 0.002%)
-  Collision solver(s) took              0.00000 sec       (0.000000 s/step)   ( 0.000%)
-  Collision moments(s) took             0.00000 sec       (0.000000 s/step)   ( 0.000%)
-  Source updaters took                  0.00000 sec       (0.000000 s/step)   ( 0.000%)
-  Stepper combine/copy took             1251.96865 sec    (0.451323 s/step)   (21.425%)
-  Time spent in barrier function        174.33926 sec     (0.062848 s/step)   (     3%)
-  [Unaccounted for]                     902.31721 sec     (0.325277 s/step)   (15.442%)
-  
-  Main loop completed in                5843.40363 sec    (2.106490 s/step)   (   100%)
+   :math:`B_z` magnetic field at :math:`t=0 \omega_{pe}^{-1}` (left) and :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation (right).
 
-The :math:`32^2 \times 32^2` higher resolution simulation is ~3.2 times more expensive per time-step than the :math:`16^2 \times 16^2`.
-This cost difference corresponds to a speed-up of a factor of five compared to the expected cost of a serial simulation (16 times more grid cells and only 3.2 times more expensive).
+The default postgkyl colorbar is sequential and useful for visualizing data such as distribution functions, which will vary from 0 (zero phase space density/no particles) to some number (corresponding to a local increase in phase space density).
+However, we can see that the colorbar for the magnetic field varies between roughly equal positive and negative numbers, and thus a diverging colormap may yield a more useful representation of the data.
+In addition, we can utilize the flexibility of the :code:`interpolate` command to interpolate the discontinuous Galerkin data onto an even finer mesh
+
+.. code-block:: bash
+
+  pgkyl -f vm-tsw-2x2v_field_0.bp -f vm-tsw-2x2v_field_1.bp interp -i 6 sel --comp 5 plot -b --fix-aspect --diverging --xlabel '$x (d_e) $' --ylabel '$y (d_e) $'
+
+.. figure:: figures/vm-tsw-2x2v_field_finer_interp.png
+   :scale: 40 %
+   :align: center
+
+   :math:`B_z` magnetic field at :math:`t=0 \omega_{pe}^{-1}` (left) and :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation (right), now with a diverging colorbar, finer interpolation, and labels.
+
+where we have now added labels with the normalized units in :math:`x` and :math:`y`.
+Note that the default interpolation level for polynomial order 2 is 3 (:code:`polyOrder` + 1).
+
+We can likewise visualize diagnostic moments such as the first velocity moment ``elc_M1i``
+
+.. code-block:: bash
+
+  pgkyl -f vm-tsw-2x2v_elc_M1i_1.bp interp -i 6 plot --fix-aspect --diverging --xlabel '$x (d_e) $' --ylabel '$y (d_e) $'
+
+.. figure:: figures/vm-tsw-2x2v_elc_M1i.png
+   :scale: 40 %
+   :align: center
+
+   :math:`M1_x` first velocity moment (left) and :math:`M1_y` first velocity moment (right) at :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation.
+
+Note that ``elc_M1i`` has two components due to the fact that this simulation has two velocity dimensions, and both components are visualized when this :code:`pgkyl` command is utilized.
+The left plot is the :math:`v_x` velocity moment and the right plot is the :math:`v_y` velocity moment.
+Further details on the diagnostics available and their definitions can be found in :ref:`app_vlasov`.
+
+We can also visualize the distribution function from this simulation.
+However, for this simulation the distribution function if four-dimensional, two configuration space and two velocity space dimensions.
+Postgkyl offers a number of options for down-selecting the data to be more amenable to visualizing.
+For example, we can read-in a subset of the data and visualize the distribution function in velocity space :math:`v_x-v_y` in the lower left corner of the domain
+
+.. code-block:: bash
+
+  pgkyl -f vm-tsw-2x2v_elc_1.bp --z0 0 --z1 0 interp -i 6 sel --z0 0.0 --z1 0.0 plot --xlabel '$v_x (v_{th_e}) $' --ylabel '$v_y (v_{th_e}) $' --vmin 0.0
+
+.. figure:: figures/vm-tsw-2x2v_elc_vxvy.png
+   :scale: 40 %
+   :align: center
+
+   Electron distribution function plotted at :math:`(x,y)=(0.0,0.0)` as a function of :math:`v_x-v_y` at :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation.
+
+Note that the immediate :code:`--z0 0 --z1 0` tells postgkyl to read in only the first :math:`x` and :math:`y` configuration space grid cells (while still reading in all of velocity space).
+Because we are then interpolating the data onto a finer mesh, the data is still four dimensional so we pass the abbreviated select command :code:`sel` to finally down-select to the lower-left corner of the configuration space domain.
+These selective read-in commands are vital for very large arrays where the cost in memory and CPU time can be quite large to read-in and manipulate the data structure of interest.
+
+Alternatively, if we do want to read-in the whole array, we can perform other manipulations to the distribution function such we can still easily visualize the data.
+For example, we can use the :code:`integrate` command to integrate the distribution function over :math:`x` and :math:`v_x` to produce a :math:`y-v_y` plot of the electron distribution function.
+
+.. code-block:: bash
+
+  pgkyl -f vm-tsw-2x2v_elc_1.bp interp integrate 0,2 plot --xlabel '$y (d_e) $' --ylabel '$v_y (v_{th_e}) $' --vmin 0.0
+
+.. figure:: figures/vm-tsw-2x2v_elc_yvy.png
+   :scale: 40 %
+   :align: center
+
+   Electron distribution function integrated in :math:`x` and :math:`v_x`, plotted as a function of :math:`y-v_y` at :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation.
+
+Finally, since we performed this simulation at two different resolutions, and interesting diagnostic to look at is a comparison of integrated quantities between the two simulations.
+For ease of plotting we have moved the data from the two simulations to two different folders, :code:`res1` (:math:`16^2 \times 16^2`) and :code:`res2` (:math:`32^2 \times 32^2`).
+Here, we are being agnostic on what a user might have named these two different simulations and labeling them ourselves with postgkyl.
+
+.. code-block:: bash
+
+  pgkyl -f res1/*fieldEnergy.bp -l '$16^2 \times 16^2$' -f res2/*fieldEnergy.bp -l '$32^2 \times 32^2$' select --comp 5 plot --logy --xlabel '$t (\omega_{pe}^{-1})$' --ylabel '$\int B_z^2$' -f0 
+
+.. figure:: figures/vm-tsw-2x2v_fieldEnergy.png
+   :scale: 40 %
+   :align: center
+
+   Integrated magnetic field energy, :math:`|B_z|^2`, plotted as a function of time comparing the lower resolution calculation, :math:`16^2 \times 16^2` (blue), and higher resolution calculation, :math:`32^2 \times 32^2` (orange).
 
 References
 ----------
