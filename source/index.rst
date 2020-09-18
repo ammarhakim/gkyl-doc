@@ -17,6 +17,10 @@ package. Here you will find documentation for the full Gkeyll package.
 
 For license see :doc:`License <aboutAndLicense>`.
 
+.. image:: Shi2019image.png
+    :class: align-right
+    :scale: 80 %
+
 .. toctree::
    :maxdepth: 2
 
