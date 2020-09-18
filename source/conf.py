@@ -106,6 +106,11 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+html_context = {
+    'css_files': [
+        '_static/theme_overrides.css',  # override wide tables in RTD theme
+        ],
+     }
 
 # -- Options for HTMLHelp output ------------------------------------------
 
@@ -162,16 +167,3 @@ texinfo_documents = [
      author, 'gkyl', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-# import easydev
-# import os
-# extensions.append('easydev.copybutton')
-# jscopybutton_path = easydev.copybutton.get_copybutton_path()
-
-# if os.path.isdir('_static')==False:
-#     os.mkdir('_static')
-
-# import shutil
-# shutil.copy(jscopybutton_path, '_static')
-
-# html_static_path = ['_static']
