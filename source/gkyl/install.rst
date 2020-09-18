@@ -19,6 +19,8 @@ Building gkyl requires a modern C/C++ compiler (**But NOT Clang >= 12.0**) and P
 in the ``waf`` build system and post-processing). The following
 instructions assume that these tools are present.
 
+.. _gkyl_install_machines:
+
 Installing using "machine files" (recommended)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -47,6 +49,8 @@ build, unless one wishes to change the dependencies.
 
 The final result will be a ``gkyl`` executable located in the ``~/gkylsoft/gkyl/bin/`` directory.
 Feel free to add this directory to your ``PATH`` environment variable.
+
+.. _gkyl_install_machines_readme:
 
 Machine files for non-native systems
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

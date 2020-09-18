@@ -29,6 +29,7 @@ Run simulations
 ---------------
 
 There are three ways of running simulations with gkyl:
+
 - Serial: using a single core/processes/CPU.
 - Parallel: running a multi-core simulation (using MPI).
 - GPUs: using graphical processing units (GPUs).
@@ -39,7 +40,7 @@ modalities you will use. We provide some examples of each of these below.
 Serial simulations
 ^^^^^^^^^^^^^^^^^^
 
-Suppose you have a the :doc:`kbm.lua <inputFiles/kbm>` input file for a linear
+Suppose you have the :doc:`kbm.lua <inputFiles/kbm>` input file for a linear
 kinetic ballooning mode (KBM) calculation with gyrokinetics. In the Common section
 of the App declaration (i.e. between ``plasmaApp = Plasma.App {`` and
 ``electron = Plasma.Species {``) there are two variables, ``decompCuts`` and ``useShared``.
@@ -135,6 +136,22 @@ Parallel simulation
 ^^^^^^^^^^^^^^^^^^^
 
 Show how to run various simulations with MPI (with and without shared memory?)
+
+On many computer clusters where one may run parallel simulations one must submit
+scripts in order to submit a job. This jobscript causes the simulation to be queued
+so that it runs once resources (i.e. cores, nodes) become available. When resources are
+finally available the simulation runs in a compute node (instead of the login node).
+
+Jobscripts for some machines are provided below. Note that the installation
+instructions point to :ref:`machine scripts <gkyl_install_machines>` for building gkyl
+on each of these computers. If you need assistance with setting up gkyl in a new cluster,
+:ref:`see this <gkyl_install_machines_readme>` or feel free to contact the developers.
+
+Sample submit scripts:
+
+- :doc:`NERSC's Cori <inputFiles/jobscript_cori>`.
+- :doc:`TACC's Stampede2 <inputFiles/jobscript_stampede2>`.
+
 
 Running on GPUs
 ^^^^^^^^^^^^^^^
