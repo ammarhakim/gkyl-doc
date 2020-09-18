@@ -1,216 +1,493 @@
 .. _pg_cmd_plot:
 
 plot
-----
+====
+
+``postgkyl.output.plot`` plots 1D and 2D data using `Matplotlib
+<https://matplotlib.org/>`_
+
+.. raw:: html
+         
+   <details>
+   <summary><a>Arguments and parameters</a></summary>
+   
+.. list-table:: ``plot`` arguments and parameters
+  :widths: 10 70
+  :header-rows: 1
+
+  * - Parameter
+    - Description
+  * - ``data``
+    - Gkeyll ``Data`` object to be plotted
+  * - ``args``
+    - An optional tuple of additional Matplotlib parameters, .e.g.,
+      ``--`` for dashed lines
+  * - ``scatter``
+    - (1D mode) Only shows points without lines
+  * - ``streamline``
+    - (2D mode) Shows streamlines of vector data
+  * - ``quiver``
+    - (2D mode) Shows vector arrows
+  * - ``countour``
+    - (2D mode) Shows contours instead of area
+  * - ``diverging``
+    - (2D mode) Changes colormap to diverging (red to blue) and
+      centers value range around 0
+  * - ``group``
+    - (2D mode) Splits 2D data into 1D lines and plots them on top of
+      each other
+  * - ``xscale``
+    - Multiply x-axis by the set number (default: 1.0)
+  * - ``yscale``
+    - Multiply y-axis by the set number (default: 1.0)
+  * - ``logx``
+    - Changes x-axis to logaritmic
+  * - ``logy``
+    - Changes y-axis to logaritmic
+  * - ``logz``
+    - Changes 2D value axis to logaritmic
+  * - ``style``
+    - Chages the Matplotlib style file
+  * - ``legend``
+    - Turns the legend on and off (default: on)
+  * - ``labelPrefix``
+    - Allows to pass a prefix for the automated label
+  * - ``xlabel``
+    - Sets the lable for the x-axis (accepts LaTeX)
+  * - ``ylabel``
+    - Sets the label for the y-axis (accepts LaTeX)
+  * - ``title``
+    - Sets the plot title (accepts LaTeX)
+  * - ``fixaspect``
+    - Fixes the aspect ratio between the x and y axies
+  * - ``vmin``
+    - Sets the minimum value for a 2D plot
+  * - ``vmax``
+    - Sets the maximum value for a 2D plot
+  * - ``xlim``
+    - Manually sets the x-axis limits
+  * - ``ylim``
+    - Manually sets the y-axis limits
+  * - ``showgrid``
+    - Turns the grid on and off (default: on)
+  * - ``hashtag``
+    - Adds a little ``#pgkyl`` label to the bottom right corner
+  * - ``xkcd``
+    - Turns on the *xkcd* mode
+  * - ``color``
+    - Manually sets the color for 1D plots
+  * - ``markersize``
+    - Overwrites the marker size value
+      
+.. raw:: html
+         
+   </details>
+   <br>
+
+The Python function is wrapped into the ``plot`` command.
+   
+.. raw:: html
+         
+   <details>
+   <summary><a>Command help</a></summary>
+
+.. code-block:: bash
+  :emphasize-lines: 1
+
+  $ pgkyl plot -h
+    Usage: pgkyl plot [OPTIONS]
+
+      Plot active datasets, optionally displaying the plot and/or saving it to
+      PNG files. Plot labels can use a sub-set of LaTeX math commands placed
+      between dollar ($) signs.
+
+    Options:
+      -f, --figure TEXT           Specify figure (integer) to plot in.
+      -s, --squeeze               Squeeze the components into one panel.
+      -b, --subplots              Make subplots from multiple datasets.
+      --arg TEXT                  Additional plotting arguments like '*--'.
+      -c, --contour               Draw contour plot.
+      -q, --quiver                Draw quiver plot.
+      -l, --streamline            Make streamline plot.
+      -s, --scatter               Plot data in scatter-plot mode.
+      --markersize FLOAT          Set marker size for scatter plots.
+      -d, --diverging             Switch to inverted color mode.
+      -g, --group [0|1]           Switch to group mode.
+      --style TEXT                Specify Matplotlib style file (default:
+                                  Postgkyl).
+      -a, --fix-aspect            Enforce the same scaling on both axes.
+      --logx                      Set x-axis to log scale.
+      --logy                      Set y-axis to log scale.
+      --logz                      Set values of 2D plot to log scale.
+      --xscale FLOAT              Value to scale the x-axis (default: 1.0).
+      --yscale FLOAT              Value to scale the y-axis (default: 1.0).
+      --vmax FLOAT                Set maximal value of data for plots.
+      --vmin FLOAT                Set minimal value of data for plots.
+      --xlim TEXT                 Set limits for the x-coordinate (lower,upper)
+      --ylim TEXT                 Set limits for the y-coordinate (lower,upper).
+      --legend / --no-legend      Show legend.
+      --force-legend              Force legend even when plotting a single
+                                  dataset.
+      --show / --no-show          Turn showing of the plot ON and OFF (default:
+                                  ON).
+      --color TEXT                Set color when available.
+      -x, --xlabel TEXT           Specify a x-axis label.
+      -y, --ylabel TEXT           Specify a y-axis label.
+      -t, --title TEXT            Specify a title.
+      --save                      Save figure as PNG file.
+      --saveas TEXT               Name of figure file.
+      --dpi INTEGER               DPI (resolution) for output
+      -e, --edgecolors TEXT       Set color for cell edges to show grid outline
+                                  (default: None)
+      --showgrid / --no-showgrid  Show grid-lines (default: True)
+      --xkcd                      Turns on the xkcd style!
+      --hashtag                   Turns on the pgkyl hashtag!
+      -h, --help                  Show this message and exit.
+      
+.. raw:: html
+         
+   </details>
+   <br>
 
 .. contents::
 
-Command Line Mode
-^^^^^^^^^^^^^^^^^
+Default plotting
+----------------
 
-.. code-block:: bash
+``plot`` automatically regnizes the dimensions of data and creates
+either 1D line plot or 2D ``pcolormesh`` plot using the Postgkyl
+style file (Inferno color map).
 
-   $ pgkyl plot --help
-   Usage: pgkyl plot [OPTIONS]
-
-     Plot the data
-
-   Options:
-     -f, --figure TEXT       Specify figure to plot in.
-     -s, --squeeze           Squeeze the components into one panel.
-     -a, --arg TEXT          Additional plotting arguments like '*--'.
-     -c, --contour           Switch to contour mode.
-     -q, --quiver            Switch to quiver mode.
-     -l, --streamline        Switch to streamline mode.
-     -d, --diverging         Switch to diverging colormesh mode.
-     -g, --group [0|1]       Switch to group mode.
-     --style TEXT            Specify Matplotlib style file (default: Postgkyl).
-     --fix-aspect            Enforce the same scaling on both axes.
-     --logx                  Set x-axis to log scale.
-     --logy                  Set y-axis to log scale.
-     --vmax FLOAT            Set maximal value for plots.
-     --vmin FLOAT            Set minimal value for plots.
-     --legend / --no-legend  Show legend.
-     --show / --no-show      Turn showing of the plot ON and OFF (default: ON).
-     -x, --xlabel TEXT       Specify a x-axis label.
-     -y, --ylabel TEXT       Specify a y-axis label.
-     -t, --title TEXT        Specify a title label.
-     --save                  Save figure as PNG.
-     --saveas TEXT           Name to save the plot as.
-     --help                  Show this message and exit.
-
-Visualization is one of the main purposes of Postgkyl.  For this,
-Postgkyl has the ``plot`` command which works with both 1D and 2D
-data, supports special type of plots like contour or quiver, and deals
-with the basic formatting.
-
-A simple example of plotting electron distribution function from a
-two-stream instability simulation:
-
-.. code-block:: bash
-
-   pgkyl -f two-stream_elc_2.bp plot
-
-.. figure:: fig/output_1.png
-   :scale: 50 %
-
-   Electron distribution function from a two-stream
-   instability simulation.
-
-.. list-table:: Plot parameters: figures and subplots
-   :widths: 10, 30, 60
-   :header-rows: 1
-
-   * - Abbreviation
-     - Parameter
-     - Description
-   * - ``-f``
-     - ``--figure``
-     - Specify figure to plot in
-   * - ``-s``
-     - ``--squeeze``
-     - Squeeze all the components into one subplot
-
-By default, Postgkyl creates a single figure for each data set (file
-loaded).  However, it is often useful to to plot different data sets
-on top of each other, e.g., number densities at the beginning and the
-end of the simulation. This could be done with the ``-f``
-(``--figure``) flag:
-
-.. code-block:: bash
-
-   pgkyl -f two-stream_elc_M0_0.bp -f two-stream_elc_M0_10.bp plot -f 0
-
-.. figure:: fig/output_2.png
-   :scale: 50 %
-
-   Electron number densities at the beginning and the end of
-   simulation both forced to plot into Figure 0 with the ``-f 0`` flag.
-
-Gkyl data can contain multiple components which represent various
-things like nodal or modal values for discontinuous Galerkin data or
-components of a vector field.  By default, each component is plotted
-into a separate subplots:
-
-.. figure:: fig/output_3.png
-   :scale: 50 %
-
-   Modes of electron distribution function from a two-stream
-   instability simulation. Each mode is plotted into a separate
-   subplot by default.
-
-The motivation behind this is, that unless the user specifies a
-component, he/she wants to get an overview on all of them and not
-clutter the whole desktop with figures.  However, this could be
-overcome with the ``--squeeze`` flag which puts all the components
-into just a single subplot (useful, for example, for comparing different
-components of an electromagnetic field).
-
-.. list-table:: Plot parameters: special plots
-   :widths: 10, 30, 60
-   :header-rows: 1
-
-   * - Abbreviation
-     - Parameter
-     - Description
-   * - ``-c``
-     - ``--contour``
-     - Switch to contour mode
-   * - ``-q``
-     - ``--quiver``
-     - Switch to quiver mode
-   * - ``-l``
-     - ``--streamline``
-     - Switch to streamline mode
-
-.. figure:: fig/output_4.png
-   :scale: 50 %
-
-   Electron distribution function from a two-stream
-   instability simulation with plot in the contour mode (``-c``).
-
-.. list-table:: Plot parameters: basic formatting
-   :widths: 10, 30, 60
-   :header-rows: 1
-
-   * - Abbreviation
-     - Parameter
-     - Description
-   * - ``-a``
-     - ``--arg``
-     - Pass additional arguments, e.g. ``*--``, to the plot
-   * -
-     - ``--style``
-     - Set Matplotlib style
-   * -
-     - ``--fixed-axis``
-     - Enforce the same scaling on both axes
-   * -
-     - ``--logx``
-     - Set the x-axis to logarithmic scale
-   * -
-     - ``--logy``
-     - Set the y-axis to logarithmic scale
-   * -
-     - ``--no-legend``
-     - Turn off the legend
-   * - ``-x``
-     - ``--xlabel``
-     - Set the x-axis label
-   * - ``-y``
-     - ``--ylabel``
-     - Set the y-axis label
-   * - ``-t``
-     - ``--title``
-     - Set the figure title
-
-The ``--arg`` flag allows for passing additional arguments to the
-Matplotlib plot which is called internally. For example, slightly
-modifying the density plot with ``-a 'o--k'`` turns on circular
-markers (``o``), switches line style to dashed (``--``), and sets
-color to black (``k``).
-
-.. code-block:: bash
-
-   pgkyl -f two-stream_elc_M0_0.bp plot -a 'o--k'
-
-.. figure:: fig/output_5.png
-   :scale: 50 %
-
-   Electron number density from a two-stream simulation with the ``-a
-   'o--k'`` parameter.
-
-Custom axis labels can be added with ``--xlabel`` and ``--ylabel``. If
-they are not specified, neutral *z_i* labels are added (*z* is
-customary for a general phase-space coordinate).  Note that the
-*z*-labels are retained through the postprocessing chain (see
-:ref:`pg_usage` for more information on chaining the commands).  For
-example, in a 1X2V Vlasov simulation *z_0* will be *x*, *z_1* will be
-*v_x*, and *z_2* will be *v_y* even if some dimension gets integrated
-out.
-
-------
-
-Script Mode
-^^^^^^^^^^^
-
-The ``plot`` command internally calls the ``output.plot()`` function.
+Here is an example of 2D particle distribution function from the
+two-stream instability simulation.
 
 .. code-block:: python
+  :emphasize-lines: 5
 
   import postgkyl as pg
-  import matplotlib.pyplot as plt
-  
-  data = pg.data.GData('bgk_neut_0.bp')
+  data = pg.Data('two-stream_elc_80.bp')
+  dg = pg.GInterpModal(data)
+  dg.interpolate(stack=True)
   pg.output.plot(data)
-  plt.show()
 
-Note that, similarly to the Matplotlib ``plt.plot()``, ``plt.show()``
-is required to see the figure.
+.. code-block:: bash
 
-Most of the command line parameters are passed into the function as keyword
-arguments. For example:
+  pgkyl -f two-stream_elc_80.bp interpolate plot
+
+Note that in this case the data does not contain the values of the
+distribution function directly but rather the expansion components of
+the basis functions. Therefore, :ref:`pg_cmd_interpolate` was added to
+the flow to show the distribution function itself.
+  
+.. figure:: ../fig/plot/default2D.png
+  :align: center
+        
+  The default behavior of ``plot`` for 2D data
+
+1D plots are created in a similar manner. For example, here is the
+electron density correfponding to the figure above.
 
 .. code-block:: python
+  :emphasize-lines: 5
 
-  pg.output.plot(data, 'o--k', logx=True, xlabel='$v_x$')
+  import postgkyl as pg
+  data = pg.Data('two-stream_elc_M0_80.bp')
+  dg = pg.GInterpModal(data)
+  dg.interpolate(stack=True)
+  pg.output.plot(data)
+
+.. code-block:: bash
+
+  pgkyl -f two-stream_elc_M0_80.bp interpolate plot
+
+.. figure:: ../fig/plot/default1D.png
+  :align: center
+        
+  The default behavior of ``plot`` for 1D data
+                
+Plotting with multiple components
+---------------------------------
+
+Gkeyll data can contain multiple components. Typically, these are
+basis function expansion coefficients but can also correspond to
+components of a vector array like electromagnetic field or
+momentum. By default, Postgkyl plots each component into a separate
+subplot.
+
+This can be seen if we do not use the interpolation from the previous
+example and let Postgkyl plot the expansion coefficients.
+
+.. code-block:: python
+  :emphasize-lines: 5
+
+  import postgkyl as pg
+  data = pg.Data('two-stream_elc_M0_80.bp')
+  pg.output.plot(data)
+
+.. code-block:: bash
+
+  pgkyl -f two-stream_elc_M0_80.bp plot
+
+.. figure:: ../fig/plot/multi_comp.png
+  :align: center
+        
+  Plotting data with multiple components
+
+Postgkyl automatically adds labels with component indices to each
+subplot. If there are some labels already (either custom or when
+working with multiple data sets), the component indices are
+appended. Postgkyl also automatically calculates the numbers of rows
+and columns (it tries to make a square). This can be overridden with
+``nSubplotRow`` or ``nSubplotCol``.
+
+The default behavior of putting each component to an individual
+subplot can be supressed with the ``squeeze`` parameter. This is
+useful, for example, for comparing magnitudes.  Note that the
+magnitues of the expansion coefficients are quite different so this is
+not the best example of the functionality.
+
+.. code-block:: python
+  :emphasize-lines: 5
+
+  import postgkyl as pg
+  data = pg.Data('two-stream_elc_M0_80.bp')
+  pg.output.plot(data, squeeze=True)
+
+.. code-block:: bash
+
+  pgkyl -f two-stream_elc_M0_80.bp plot --squeeze
+
+.. figure:: ../fig/plot/multi_comp_s.png
+  :align: center
+        
+  Plotting data with multiple components with ``squeeze=True``
+
+Plotting with multiple data sets
+--------------------------------
+
+Postgkyl in a terminal can easily load multiple files (see
+:ref:`pg_loading` for more details). By default, each data set
+creates its own figure.
+
+.. code-block:: bash
+
+  pgkyl -f two-stream_elc_70.bp -f two-stream_elc_80.bp interp plot
+
+.. image:: ../fig/plot/multi_1.png
+  :width: 49%
+.. image:: ../fig/plot/multi_2.png
+  :width: 49%
+          
+Postgkyl automatically parses the names of the files and creates
+labels from the unique part of each one. Note that the labels can
+specified manually during :ref:`pg_loading`.
+
+This behavior can be supressed by specifying the figure to plot
+in. When the same figure is specified, data sets are plotted on top of
+each other.
+
+.. code-block:: python
+  :emphasize-lines: 8, 9
+                    
+  import postgkyl as pg
+  data1 = pg.Data('two-stream_elc_M0_70.bp')
+  dg = pg.GInterpModal(data1)
+  dg.interpolate(stack=True)
+  data2 = pg.Data('two-stream_elc_M0_80.bp')
+  dg = pg.GInterpModal(data2)
+  dg.interpolate(stack=True)
+  pg.output.plot(data1, figure=0)
+  pg.output.plot(data2, figure=0)
+
+.. code-block:: bash
+  
+  pgkyl -f two-stream_elc_M0_70.bp -f two-stream_elc_M0_80.bp interp plot --figure=0
+
+.. figure:: ../fig/plot/multi_f0.png
+  :align: center
+        
+  Plotting multiple data set with specifying ``figgure=0``
+
+Finally, the data sets can be added into subplots.
+
+.. code-block:: bash
+  
+  pgkyl -f two-stream_elc_70.bp -f two-stream_elc_80.bp interp plot --figure=0 --subplots
+
+.. figure:: ../fig/plot/multi_subplots.png
+  :align: center
+        
+  Plotting multiple data set with specifying ``figgure=0`` and
+  ``subplots``
+  
+The same behavior can be achieved in a script as well but requires
+slightly more manual control.
+ 
+.. code-block:: python
+  :emphasize-lines: 8, 9
+                    
+  import postgkyl as pg
+  data1 = pg.Data('two-stream_elc_M0_70.bp')
+  dg = pg.GInterpModal(data1)
+  dg.interpolate(stack=True)
+  data2 = pg.Data('two-stream_elc_M0_80.bp')
+  dg = pg.GInterpModal(data2)
+  dg.interpolate(stack=True)
+  pg.output.plot(data1, figure=0, numAxes=2)
+  pg.output.plot(data2, figure=0, numAxes=2, startAxes=1)
+
+
+Plotting modes
+--------------
+
+Appart from the default line 1D plots and continuous 2D plots,
+Postgkyl offers some additional modes.
+
+Countour
+^^^^^^^^
+
+.. code-block:: python
+  :emphasize-lines: 5
+                    
+  import postgkyl as pg
+  data = pg.Data('two-stream_elc_80.bp')
+  dg = pg.GInterpModal(data)
+  dg.interpolate(stack=True)
+  pg.output.plot(data, contour=True)
+
+.. code-block:: bash
+
+  pgkyl -f two-stream_elc_80.bp interpolate plot --contour
+
+.. figure:: ../fig/plot/contour.png
+  :align: center
+        
+  Plotting multiple data set with ``contour=True``
+
+Diverging
+^^^^^^^^^
+
+Diverging mode is similar to the default plotting mode but the
+colormap is changed to a red-white-blue and the range is set to the
+plus-minus maximum absolute value. It is particulary useful for
+visualizing changes, both in time and around a mean value.
+
+Here we use the :ref:`pg_cmd_ev` command to visualize the change from
+the initial conditions.
+
+.. code-block:: bash
+
+  pgkyl -f two-stream_elc_0.bp -f two-stream_elc_80.bp interpolate ev 'f1 f0 -' plot --diverging
+
+.. figure:: ../fig/plot/diverging.png
+  :align: center
+        
+  ``diverging`` mode is used to visualize changes from the initial conditions
+
+Group
+^^^^^
+
+In the group mode (maybe not the best name :-/), one direction (either
+0 or 1) is retained and the other is split into individual lineouts
+which are then plot over each other. The lines are color-coded with
+the inferno colormap, i.e., from black to yellow as the coordinate
+increases. This could provide an additional insight into variation
+along one coordinate axis.
+
+In the example, the 2D distribution function is first limited in the
+first coordinate, ``z0`` (in this case corresponding to ``x``), from
+1.5 to 2.0 using the :ref:`pg_cmd_select` command (otherwise there
+would be too many lines). Then the plot with ``group=True`` is used.
+
+.. code-block:: python
+  :emphasize-lines: 6
+
+  import postgkyl as pg
+  data = pg.Data('two-stream_elc_80.bp')
+  dg = pg.GInterpModal(data)
+  dg.interpolate(stack=True)
+  pg.data.select(data, z0='1.5:2.0', stack=True)
+  pg.output.plot(data, group=1)
+
+.. code-block:: bash
+
+  pgkyl -f two-stream_elc_80.bp interpolate select --z0 1.5:2.0 lot --group 1
+
+.. figure:: ../fig/plot/group.png
+  :align: center
+        
+  Plotting the distribution function limited to 1.5<x<2.0 with ``group=1``
+
+Formating
+---------
+
+While Postgkyl is not necesarily meant for the production level
+figures for publications, it includes a decent amount of formating
+options.
+
+The majority of a look of each figure, e.g., grid line style and
+thickness or colormap, is set in a stule file. Custom matplotlib style
+files can be specified with ``style`` keyword. The default  Postgkyl
+style is the following:
+
+.. code-block:: bash
+
+  figure.facecolor : white
+  lines.linewidth : 2
+  font.size : 12
+  axes.labelsize : large
+  axes.titlesize : 14
+  image.interpolation : none
+  image.cmap : inferno
+  image.origin : lower
+  grid.linewidth : 0.5
+  grid.linestyle : :
+
+Additionally, Postgkyl allows to specify all the axis labels and the
+plot title.
+
+.. code-block:: python
+  :emphasize-lines: 5
+
+  import postgkyl as pg
+  data = pg.Data('two-stream_elc_80.bp')
+  dg = pg.GInterpModal(data)
+  dg.interpolate(stack=True)
+  pg.output.plot(data, xlabel=r'$x$', ylabel=r'$v_x$', title=r'Two-stream instability, $k=\frac{1}{2}$')                
+
+.. code-block:: bash
+
+  pgkyl -f two-stream_elc_80.bp interpolate plot --xlabel '$x$' --ylabel '$v_x$' --title 'Two-stream instability, $k=\frac{1}{2}$'
+
+.. figure:: ../fig/plot/labels.png
+  :align: center
+        
+  Postgkyl allows to specify axis labels and the figure title
+
+Postgkyl supports the logaritmic axes.
+
+.. code-block:: python
+  :emphasize-lines: 5
+
+  import postgkyl as pg
+  data = pg.Data('two-stream_fieldEnergy.bp')
+  pg.data.select(data, comp=0, stack=True)
+  pg.output.plot(data, logy=True)                
+
+.. code-block:: bash
+
+  pgkyl -f two-stream_fieldEnergy.bp select -c0 plot --logy
+
+.. figure:: ../fig/plot/logy.png
+  :align: center
+        
+  Plotting field energy with ``logy``
+
+Storing
+-------
+
+Plotting outputs can be save as a ``PNG`` files using the ``save``
+parameter which uses the data set name(s) to put together the name of
+the image. Alternativelly, ``saveas`` can be used to specify the
+custom file name (without the extension, all the files are saved as
+``.png``). DPI of the result can be controlled with the ``dpi`` parameter.
