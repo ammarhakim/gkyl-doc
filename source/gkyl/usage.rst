@@ -25,6 +25,8 @@ The ``gkyl`` command has a built-in help menu. Access it with
 
   gkyl -h
 
+.. _gkyl_usage_run:
+
 Run simulations
 ---------------
 
@@ -36,6 +38,8 @@ There are three ways of running simulations with gkyl:
 
 The input file has to have some knowledge of which of these
 modalities you will use. We provide some examples of each of these below.
+
+.. _gkyl_usage_run_serial:
 
 Serial simulations
 ^^^^^^^^^^^^^^^^^^
@@ -132,6 +136,8 @@ These simulation logs contain the following:
 Also, by default gkyl produces a log file with the format ``<input-file-name>_0.log``.
 If you wish to disable this set ``logToFile = false,`` in the Common section of the App.
 
+.. _gkyl_usage_run_parallel:
+
 Parallel simulation
 ^^^^^^^^^^^^^^^^^^^
 
@@ -151,10 +157,21 @@ Sample submit scripts:
 
 - :doc:`NERSC's Cori <inputFiles/jobscript_cori>`.
 - :doc:`TACC's Stampede2 <inputFiles/jobscript_stampede2>`.
+- :doc:`MIT's Engaging <inputFiles/jobscript_engaging>`.
+- :doc:`Princeton's Eddy <inputFiles/jobscript_eddy>`.
 
+.. _gkyl_usage_run_gpu:
 
 Running on GPUs
 ^^^^^^^^^^^^^^^
+
+On clusters is often common to submit scripts that queue the job for running on compute
+nodes (when the resources become available). In fact this is often preferable to `ssh`-ing
+into a node if that is even possible. Some sample job scripts for running parallel (CPU)
+jobs were given in :ref:`the previous section <gkyl_usage_run_parallel>`, and below we
+provide some sample jobscripts for submitting GPU jobs:
+
+- :doc:`PPPL's Portal <inputFiles/jobscript_portalGPU>`.
 
 
 Restarts
