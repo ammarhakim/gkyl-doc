@@ -9,9 +9,9 @@ We now cover the basics of runing gkyl on desktops, clusters, and GPUs. Gkyl can
 be used to run any Lua scripts, as well as tools provided within gkyl. We also comment
 on some useful tools provided by `ADIOS <https://github.com/ornladios/ADIOS>`_.
 
-Additional details on the contents of the input files can be found in the :ref:`<gkyl_appGeneral>`
-and the pages for the :ref:`Vlasov <app_vlasov>`, :ref:`Gyrokinetic <app_gk>` and
-:ref:`Moment <app_moment>` Apps.
+Additional details on the contents of the input files can be found in the
+:ref:`Input file file basics <gkyl_appBasics>` page and the pages for the
+:ref:`Vlasov <app_vlasov>`, :ref:`Gyrokinetic <app_gk>` and :ref:`Moment <app_moments>` Apps.
 
 The :ref:`installation <gkyl_install>` placed the gkyl executable in
 ``<INSTALL-DIR>/gkylsoft/gkyl/bin/`` (where the default ``<INSTALL-DIR>`` is home, ``~``),
@@ -119,6 +119,7 @@ produce the following output to screen:
 These simulation logs contain the following:
 
 .. list-table::
+  :widths: 20 80
 
   * - Line 1:
     - start date and time.
