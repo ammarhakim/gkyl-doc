@@ -1,3 +1,5 @@
+.. _qs_main:
+
 Quickstart
 ++++++++++
 

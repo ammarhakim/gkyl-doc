@@ -177,6 +177,15 @@ The argument following ``-n`` is the total number of MPI processes to launch, in
 :math:`4\times4=16`. This clearly requires that your computer/node/job has access to
 at least 16 cores.
 
+.. note::
+
+   - (**This feature may be superseeded soon**) One can request additional
+     parallelism in velocity space for kinetic simulations by setting ``useShared = true``.
+     This enables MPI shared memory. In this case the ``decompCuts`` must specify the
+     *number of nodes* and not number of processors. That is, the total
+     number of processors will be determined from ``decompCuts`` and
+     the number of threads per node.
+
 On many computer clusters where one may run parallel simulations one must submit
 scripts in order to submit a job. This jobscript causes the simulation to be queued
 so that it runs once resources (i.e. cores, nodes) become available. When resources are
