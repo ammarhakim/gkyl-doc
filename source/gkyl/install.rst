@@ -48,7 +48,7 @@ build, unless one wishes to change the dependencies.
      ./waf build install
 
 The final result will be a ``gkyl`` executable located in the ``~/gkylsoft/gkyl/bin/`` directory.
-Feel free to add this directory to your ``PATH`` environment variable.
+Feel free to add this directory to your ``PATH`` environment variable or `create an alias <https://linuxize.com/post/how-to-create-bash-aliases/>`_ so you can simply call ``gkyl``.
 
 .. _gkyl_install_machines_readme:
 
