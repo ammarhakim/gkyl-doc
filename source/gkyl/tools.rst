@@ -111,18 +111,18 @@ Riemann problem::
   sod-shock_internalenergy.bp	sod-shock_velocity.bp
   
 You can now use postgkyl to plot the solution. For example, to plot
-the internal density do::
+all the files in a single figure do::
 
-  pgkyl -f sod-shock_density.bp pl
+  pgkyl -f "sod-shock_*.bp" pl  -b
 
 to produce the following plot.
 
-.. figure:: figures/sod-shock-density.png
+.. figure:: figures/sod-shock-vals.png
   :width: 100%
   :align: center
 
-  Density from the exact solution to the sod-shock Riemann problem
-  computed using the ``exacteulerrp`` tool.
+  The exact solution to the sod-shock Riemann problem computed using
+  the ``exacteulerrp`` tool.
   
 For a comprehensive set of 1D Riemann problems used to benchmark two
 finite-volume schemes see `this note
