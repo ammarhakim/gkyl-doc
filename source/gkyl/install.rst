@@ -18,9 +18,18 @@ To install gkyl from source, first clone the `GitHub <https://github.com/ammarha
 
 Navigate into the ``gkyl`` directory to begin.
 
-Building gkyl requires a modern C/C++ compiler (**But NOT Clang >= 12.0 provided by Xcode 12**) and Python 3 (for use
-in the ``waf`` build system and post-processing). The following
-instructions assume that these tools are present.
+In many cases, an installation of gkyl will involve building most of gkyl's dependencies only require a modern C/C++ compiler and Python 3.
+The full list of dependencies is:
+
+* C/C++ compiler with C++17 support (**But NOT Clang >= 12.0 provided by Xcode 12**)
+* Python 3 (**But NOT >=Python 3.8**)
+* MPI compiler with MPI3 support (>=openmpi 3.0 or >=mpich 3.0)
+* LuaJIT 2.1.0
+* ADIOS 1.13.1 (**But NOT >=ADIOS 2.0**)
+* Eigen 3.3.7
+* CUDA Toolkit >=10.2 (**if building with GPU support**)
+
+The following instructions assume that at minimum the user has both a C/C++ compiler with C++17 support and Python 3.
 
 .. _gkyl_install_machines:
 
