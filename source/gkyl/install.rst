@@ -55,6 +55,25 @@ will be made in ``~/gkylsoft/``.
 
 **NOTE**: Steps 1 and 2 should only need to be done on the first
 build, unless one wishes to change the dependencies.
+A successful ``waf`` configure, on a system without GPU support, will look like:
+
+.. code-block:: bash
+
+  bash$ ./machines/configure.macosx.sh
+  ./waf CC=clang CXX=clang++ MPICC=/Users/junoravin/gkylsoft/openmpi/bin/mpicc MPICXX=/Users/junoravin/gkylsoft/openmpi/bin/mpicxx --out=build --prefix=/Users/junoravin/gkylsoft/gkyl --cxxflags=-O3,-std=c++17 --luajit-inc-dir=/Users/junoravin/gkylsoft/luajit/include/luajit-2.1 --luajit-lib-dir=/Users/junoravin/gkylsoft/luajit/lib --luajit-share-dir=/Users/junoravin/gkylsoft/luajit/share/luajit-2.1.0-beta3 --enable-mpi --mpi-inc-dir=/Users/junoravin/gkylsoft/openmpi/include --mpi-lib-dir=/Users/junoravin/gkylsoft/openmpi/lib --mpi-link-libs=mpi --enable-adios --adios-inc-dir=/Users/junoravin/gkylsoft/adios/include --adios-lib-dir=/Users/junoravin/gkylsoft/adios/lib configure
+  Setting top to                           : /Users/junoravin/gkyl
+  Setting out to                           : /Users/junoravin/gkyl/build
+  Checking for 'clang' (C compiler)        : clang
+  Checking for 'clang++' (C++ compiler)    : clang++
+  Setting dependency path:                 : /Users/junoravin/gkylsoft
+  Setting prefix:                          : /Users/junoravin/gkylsoft/gkyl
+  Checking for LUAJIT                      : Found LuaJIT
+  Checking for MPI                         : Found MPI
+  Checking for ADIOS                       : Found ADIOS
+  Checking for EIGEN                       : Found EIGEN
+  Checking for Sqlite3                     : Using Sqlite3
+  Checking for NVCC compiler               : Not found NVCC
+  'configure' finished successfully (0.843s)
 
 3. Build the code using::
 
