@@ -3,8 +3,11 @@
 gkyl install
 ============
 
-There are two options for installing gkyl. One can install from Conda
-(the preferred choice), or from the source code.
+There are two options for installing gkyl. 
+One can install directly from the source code, or via the `Conda <https://conda.io/miniconda.html>`_ package.
+**Installing directly from the source is the preferred option**, as this method gives users more control over the installation process.
+For many users who will wish to run gkyl on a cluster, which will have cluster-built versions of the Message Passing Interface (MPI) for parallel simulations, 
+and potentially other gkyl depedencies, the source build will allow users to set the appropriate paths to the cluster installations of these dependencies.
 
 Installing from source (preferred)
 ----------------------------------
@@ -15,7 +18,7 @@ To install gkyl from source, first clone the `GitHub <https://github.com/ammarha
 
 Navigate into the ``gkyl`` directory to begin.
 
-Building gkyl requires a modern C/C++ compiler (**But NOT Clang >= 12.0**) and Python 3 (for use
+Building gkyl requires a modern C/C++ compiler (**But NOT Clang >= 12.0 provided by Xcode 12**) and Python 3 (for use
 in the ``waf`` build system and post-processing). The following
 instructions assume that these tools are present.
 
@@ -34,6 +37,7 @@ built in three steps using scripts found in the ``machines/`` directory.
 where ``[SYSTEM]`` should be replaced by the name of the system you are
 building on, such as ``macosx`` or ``eddy``. By default, installations
 will be made in ``~/gkylsoft/``.
+**Even on systems which have installations of gkyl dependencies such as MPI, the mkdeps script must be run first to build other gkyl dependencies such as LuaJIT.**
 
 2. Configure ``waf`` using a ``configure`` script from the ``machines/`` directory::
      
@@ -181,7 +185,16 @@ Note on building on Mac OS X
 
 To build on Mac OS X Mojave and beyond you must set the following env flag::
 
-  export MACOSX_DEPLOYMENT_TARGET=10.9  
+  export MACOSX_DEPLOYMENT_TARGET=10.YY  
+
+where ``YY`` is the version number of the OSX operating system. 
+For example, to build on OS X Mojave the env flag is::
+
+  export MACOSX_DEPLOYMENT_TARGET=10.14  
+
+and to build on OS X Catalina the env flag is::
+
+  export MACOSX_DEPLOYMENT_TARGET=10.15  
 
 Installing with Conda
 ---------------------------------

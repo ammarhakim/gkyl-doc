@@ -5,8 +5,8 @@ postgkyl install
 
 There are two options for getting Postgkyl.  The first option is to
 get the `Conda <https://conda.io/miniconda.html>`_ package and the
-second is ti clone the source code repository.  The first option is
-preferred for the majority of users as it requires literally a single
+second is to clone the source code repository. **Installing via Conda is preferred** 
+for the majority of users as it requires literally a single
 Conda command. What is more, Conda is already the suggested way of
 installing the dependencies. On the other hand, the later option has
 an advantage of always having the most up-to-date version and is
