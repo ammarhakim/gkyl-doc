@@ -3,11 +3,16 @@
 gkyl install
 ============
 
-There are two options for installing gkyl. 
-One can install directly from the source code, or via the `Conda <https://conda.io/miniconda.html>`_ package.
-**Installing directly from the source is the preferred option**, as this method gives users more control over the installation process.
-For many users who will wish to run gkyl on a cluster, which will have cluster-built versions of the Message Passing Interface (MPI) for parallel simulations, 
-and potentially other gkyl depedencies, the source build will allow users to set the appropriate paths to the cluster installations of these dependencies.
+There are two options for installing gkyl.  One can install directly
+from the source code, or via the `Conda
+<https://conda.io/miniconda.html>`_ package.  **Installing directly
+from the source is the preferred option**, as this method gives users
+more control over the installation process.  For many users who will
+wish to run gkyl on a cluster, which will have cluster-built versions
+of the Message Passing Interface (MPI) for parallel simulations, and
+potentially other gkyl depedencies, the source build will allow users
+to set the appropriate paths to the cluster installations of these
+dependencies.
 
 Installing from source (preferred)
 ----------------------------------
