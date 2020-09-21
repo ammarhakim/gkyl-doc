@@ -1,6 +1,11 @@
 The  Gkeyll 2.0 Code: Documentation Home
 ++++++++++++++++++++++++++++++++++++++++
 
+.. epigraph::
+
+   "Don't Panic"
+   -- The Hitchhiker's Guide to the Galaxy
+
 Gkeyll v2.0 (pronounced as in the book `"The Strange Case of
 Dr. Jekyll and Mr. Hyde"
 <https://www.gutenberg.org/files/43/43-h/43-h.htm>`_) is a
