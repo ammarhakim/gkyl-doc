@@ -22,7 +22,7 @@ In many cases, an installation of gkyl will involve building most of gkyl's depe
 The full list of dependencies is:
 
 * C/C++ compiler with C++17 support (**But NOT Clang >= 12.0 provided by Xcode 12**)
-* Python 3 (**But NOT >=Python 3.8**)
+* Python 3 >=3.6
 * MPI compiler with MPI3 support (>=openmpi 3.0 or >=mpich 3.0)
 * LuaJIT 2.1.0
 * ADIOS 1.13.1 (**But NOT >=ADIOS 2.0**)
