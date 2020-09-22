@@ -5,11 +5,11 @@ postgkyl install
 
 There are two options for getting Postgkyl.  The first option is to
 get the `Conda <https://conda.io/miniconda.html>`_ package and the
-second is to clone the source code repository. **Installing via Conda is preferred** 
-for the majority of users as it requires literally a single
-Conda command. What is more, Conda is already the suggested way of
-installing the dependencies. On the other hand, the later option has
-an advantage of always having the most up-to-date version and is
+second is to clone the source code repository. **Installing via Conda
+is preferred** for the majority of users as it requires literally a
+single Conda command. What is more, Conda is already the suggested way
+of installing all the dependencies. On the other hand, the later option
+has an advantage of always having the most up-to-date version and is
 generally required for users that want to contribute to the code.
 
 
@@ -42,6 +42,14 @@ create a Conda `environment
 <https://conda.io/docs/user-guide/tasks/manage-environments.html>`_ or
 install Conda into the ``$HOME`` directory.
 
+The Gkeyll Conda channel is recommended for installing the
+dependencies even if Postgkyl source code repository is used (see
+bellow)
+
+.. code-block:: bash
+
+  conda install -c gkyl postgkyl --only-deps
+
 Installing from source
 ----------------------
   
@@ -58,6 +66,7 @@ Postgkyl has these dependencies, which are readily available thru Conda:
 * `PyTables <https://www.pytables.org/>`_
 * `SciPy <https://www.scipy.org/>`_
 * `SymPy <https://www.sympy.org/en/index.html>`_
+* `Bokeh <https://docs.bokeh.org/en/latest/index.html>`_
 
 Additionally, to read the Gkeyll 2 output files, the Python wrapper of
 `Adios <https://www.olcf.ornl.gov/center-projects/adios/>`_ is
@@ -80,13 +89,6 @@ install:
 Finally, the ``postgkyl`` repository must be added to the
 ``PYTHONPATH`` and, if one wants to use Postgkyl directly from a
 terminal, to the ``PATH``.
-
-Alternatively, all the dependencies can be installed from Conda:
-
-.. code-block:: bash
-
-  conda install -c gkyl postgkyl --only-deps
-
 
 Switching from Conda version to repository
 ------------------------------------------
