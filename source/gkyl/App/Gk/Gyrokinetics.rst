@@ -182,8 +182,8 @@ one obtains
 .. math::
   
   \int\mathrm{d}\mathbf{z}\frac{\partial f}{\partial t}\psi
-  + \int\mathrm{d}\mathbf{v}\,\mathrm{d}y\,\widehat{v_xf\psi}\Big|^{v_{x,i+1/2}}_{v_{x,i-1/2}} 
-  + \int\mathrm{d}\mathbf{v}\,\mathrm{d}x\,\widehat{v_yf\psi}\Big|^{v_{y,j+1/2}}_{v_{y,j-1/2}}
+  + \int\mathrm{d}\mathbf{v}\,\mathrm{d}y\,\widehat{v_xf\psi}\Big|^{x_{i+1/2}}_{x_{i-1/2}} 
+  + \int\mathrm{d}\mathbf{v}\,\mathrm{d}x\,\widehat{v_yf\psi}\Big|^{y_{j+1/2}}_{y_{j-1/2}}
   - \int\mathrm{d}\mathbf{z}\,\mathbf{v}\cdot(\nabla\psi)f = 0
 
 ..  + \mathbf{a}\cdot\nabla_{\mathbf{v}} f = 0
@@ -197,16 +197,18 @@ are computed. This means tha in the ghost cell at the upper boundary along :math
   :label: dfdtGhost
   
   \int\mathrm{d}\mathbf{z}\frac{\partial f}{\partial t}\psi =
-  - \int\mathrm{d}\mathbf{v}\,\mathrm{d}x\,\widehat{v_yf\psi}\Big|^{v_{y,j+1/2}}_{v_{y,j-1/2}}
+  - \int\mathrm{d}\mathbf{v}\,\mathrm{d}x\,\widehat{v_yf\psi}\Big|^{y_{j+1/2}}_{y_{j-1/2}}
 
 This is phase-space flux through the upper :math:`x` boundary during a stage of the PDE solver.
-Runge-Kutta integrators however have :math:`s` stages, so we accumulate these to calculate the total
-phase-space flux during a single time step through the upper :math:`x` boundary as
+For Runge-Kutta steppers one must form a linear combination of these fluxes from every stage in
+the same manner as the time rates of change are combined for forward time stepping. For the sake
+of simplicity here we just assume a single forward Euler step, and define phase-space flux
+during a single time step through the upper :math:`x` boundary as
 
 .. math::
   
-  \Gamma_{\mathbf{z},x_+} = - \frac{1}{V}\sum_s
-  \int\mathrm{d}\mathbf{v}\,\mathrm{d}x\,\widehat{v_yf\psi}\Big|^{v_{y,j+1/2}}_{v_{y,j-1/2}}
+  \Gamma_{\mathbf{z},x_+} = - \frac{1}{V}
+  \int\mathrm{d}\mathbf{v}\,\mathrm{d}x\,\widehat{v_yf\psi}\Big|^{y_{j+1/2}}_{y_{j-1/2}}
 
 where the volume factor :math:`V` arises from the phase-space integral on the left side of
 equation :eq:`dfdtGhost`. **Note** that these integrals are over a single cell, and that the
@@ -218,8 +220,8 @@ through ``diagnosticBoundaryFluxMoments={GkM0}`` the diagnostic would be compute
 
 .. math::
 
-  \int\mathrm{d}\mathbf{v}\,\Gamma_{\mathbf{z},x_+} = - \int\mathrm{d}\mathbf{v}\frac{1}{V}\sum_s
-  \int\mathrm{d}\mathbf{v}'\,\mathrm{d}x\,\widehat{v_y'f\psi}\Big|^{v_{y,j+1/2}'}_{v_{y,j-1/2}'}
+  \int\mathrm{d}\mathbf{v}\,\Gamma_{\mathbf{z},x_+} = - \int\mathrm{d}\mathbf{v}\frac{1}{V}
+  \int\mathrm{d}\mathbf{v}'\,\mathrm{d}x\,\widehat{v_y'f\psi}\Big|^{y_{j+1/2}'}_{y_{j-1/2}'}
 
 This yields the rate of number density crossing the upper :math:`x` boundary (per cell-length in
 the :math:`x` direction of the ghost cell). In order to compute
@@ -230,8 +232,8 @@ the number of particles per unit time crossing the upper :math:`x` boundary
 .. math::
 
   (\Delta x)\int\mathrm{d}\mathbf{v}\,\mathrm{d}y\,\Gamma_{\mathbf{z},x_+} =
-  - (\Delta x)\int\mathrm{d}\mathbf{v}\,\mathrm{d}y\frac{1}{V}\sum_s
-  \int\mathrm{d}\mathbf{v}'\,\mathrm{d}x\,\widehat{v_y'f\psi}\Big|^{v_{y,j+1/2}'}_{v_{y,j-1/2}'}
+  - (\Delta x)\int\mathrm{d}\mathbf{v}\,\mathrm{d}y\frac{1}{V}
+  \int\mathrm{d}\mathbf{v}'\,\mathrm{d}x\,\widehat{v_y'f\psi}\Big|^{y_{j+1/2}'}_{y_{j-1/2}'}
 
 The final detail is that the files created by these diagnostics contain the fluxes 
 through the boundary accumulated since the last snapshot (frame), not since the beginning of the
