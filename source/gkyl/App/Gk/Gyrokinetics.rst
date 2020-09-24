@@ -162,8 +162,8 @@ included, i.e. :math:`d_v=1` for 1V and :math:`d_v=3` for 2V. Also,
   * ``intM1``: integrated momentum flux through the boundary.
   * ``intKE``: integrated kinetic energy flux through the boundary.
 
-A note on bundary flux diagnostics
-==================================
+A note on boundary flux diagnostics
+===================================
 
 The boundary fluxes are computed via integrals of the time rates of change computed
 in the ghost cells. If we consider a simple phase-space advection equation in 2X2V
