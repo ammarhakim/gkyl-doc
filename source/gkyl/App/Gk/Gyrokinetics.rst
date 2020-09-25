@@ -136,7 +136,8 @@ included, i.e. :math:`d_v=1` for 1V and :math:`d_v=3` for 2V. Also,
   * ``GkM0``: number density :math:`n = \int\mathrm{d}\mathbf{w}~f`.
   * ``GkM1``: particle momentum density :math:`nu_\parallel=\int\mathrm{d}\mathbf{w}~v_\parallel f`.
   * ``GkM2``: particle energy density :math:`\int\mathrm{d}\mathbf{w}~v^2 f`.
-  * ``GkUpar``: flow velocity :math:`u_\parallel=n^{-1}\int\mathrm{d}\mathbf{w}~v^2 f`.
+  * ``GkUpar``: flow velocity
+    :math:`u_\parallel=n^{-1}\int\mathrm{d}\mathbf{w}~v_\parallel f`.
   * ``GkTemp``: temperature :math:`T=(d_v n)^{-1}\int\mathrm{d}\mathbf{w}~(v_\parallel-u_\parallel)^2 f`.
 - ``diagnosticIntegratedMoments``
   Velocity moments integrated over configuration-space. The options are
