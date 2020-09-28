@@ -20,14 +20,18 @@ Build troubleshooting
   If this causes compilation to take too long, you can use ``waf -h``
   to see the default number of threads used, and then try something
   smaller than that but larger than 1.
+- There seems to be a bug in ``clang`` version 12. When the build
+  fails on a Mac machine, it is good to double-check the ``clang``
+  version and potentially downgrade it to the version 11.
 
 Configuring gkyl with configure.[SYSTEM].sh script not finding dependency
 -------------------------------------------------------------------------
 
-- When running the ``configure.[SYSTEM].sh``, the ``waf`` build system is looking
-  for the installations of ``gkyl``'s dependencies in the ``gkylsoft`` folder, wherever
-  that may be (usually ``~/gkylsoft`` or ``$HOME/gkylsoft``).
-  If ``waf`` cannot find a dependency, the user will get the following error message
+- When running the ``configure.[SYSTEM].sh``, the ``waf`` build system
+  is looking for the installations of ``gkyl``'s dependencies in the
+  ``gkylsoft`` folder, wherever that may be (usually ``~/gkylsoft`` or
+  ``$HOME/gkylsoft``).  If ``waf`` cannot find a dependency, the user
+  will get the following error message
 
 .. code-block:: bash
 

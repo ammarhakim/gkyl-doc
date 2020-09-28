@@ -76,7 +76,10 @@ required. It can be either obtained from the Gkeyll Conda channel,
                 
   conda install -c gkyl adiospy
 
-or build manually from the source code. The standard location for the
+or build manually from the source code. Note that for the manual
+build, Adios needs to be already installed and its ``bin`` directory
+added to the ``PATH`` (the default Gkeyll location is
+``~/gkylsoft/adios/bin/``). The standard location for the
 wrapper in the Gkeyll installation is
 ``gkyl/install-deps/adios-x.x.x/wrappers/numpy/``. Then to build and
 install:
@@ -85,6 +88,29 @@ install:
                 
   make python
   python setup.py install
+  
+.. raw:: html
+         
+   <details>
+   <summary><a>Note on building the wrapper with clang</a></summary>
+  
+The build currently does not work out of the box with the ``clang``
+compiler because of a deprecated library. This can be overcome
+removing the ``-lrt`` flag from the line 33 of the ``Makefile``. The
+edited lines 32 and 33 should look like this:
+
+.. code-block:: bash
+                
+  adios.so:
+          python setup.py build_ext
+
+This will allow to complete the build successfully and it has no know
+consequences for Postgkyl.
+          
+.. raw:: html
+
+  </details>
+  <br>
 
 Finally, the ``postgkyl`` repository must be added to the
 ``PYTHONPATH`` and, if one wants to use Postgkyl directly from a

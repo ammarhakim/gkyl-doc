@@ -84,8 +84,17 @@ A successful ``waf`` configure, on a system without GPU support, will look like:
 
      ./waf build install
 
-The final result will be a ``gkyl`` executable located in the ``~/gkylsoft/gkyl/bin/`` directory.
-Feel free to add this directory to your ``PATH`` environment variable or `create an alias <https://linuxize.com/post/how-to-create-bash-aliases/>`_ so you can simply call ``gkyl``.
+The final result will be a ``gkyl`` executable located in the
+``~/gkylsoft/gkyl/bin/`` directory.  Feel free to add this directory
+to your ``PATH`` environment variable or `create an alias
+<https://linuxize.com/post/how-to-create-bash-aliases/>`_ so you can
+simply call ``gkyl``.
+
+Note that if MPI was built as well as the part of the installation,
+``~/gkylsoft/openmpi/bin/`` needs to be added to the ``PATH`` as
+well. Finally, on some distributions, it is required to add
+``~/gkylsoft/openmpi/bin/`` to the ``LD_LIBRARY_PATH`` environmental
+variable.
 
 .. _gkyl_install_machines_readme:
 
