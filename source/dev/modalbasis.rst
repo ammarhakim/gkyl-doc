@@ -91,8 +91,9 @@ expanded in the basis. The inner product of the two functions is:
 
    \overline{f g} = \frac{1}{2^d}  \langle f g \rangle
 
-Now, as the basis functions are orthonormal, this leads to the
-particularly simple expression
+Note the the bar on the LHS, i.e. this expression gives the *average*
+of the inner product on a single cell. Now, as the basis functions are
+orthonormal, this leads to the particularly simple expression
 
 .. math::
 

@@ -8,11 +8,10 @@ features. For some of the calculations the use of a CAS is essential
 as the algebra, even though relatively easy, is very tedious, needing
 thousands of evaluations of various integrals etc.
 
-A very pleasant front-end for Maxima is provided by the `TeXmacs
-<http://www.texmacs.org>`_ program. When Maxima is run through TeXmacs
-one can mix regular text (and equations) with Maxima
-interactions. Other front-ends to Maxima also exist, although I have
-not tested or used any of them.
+A very pleasant front-end for Maxima is provided by the `wxmaxima
+<https://wxmaxima-developers.github.io/wxmaxima/>`_ program. This
+provides a "document based" interface to Maxima and one can mix
+regular text (and equations) with Maxima interactions.
 
 A very comprehensive physics oriented tutorial is `Maxima by Example
 by Edwin Woollett <https://web.csulb.edu/~woollett/>`_.
@@ -40,10 +39,11 @@ example as::
 This will load the code to work with Modal basis functions and the
 serendipity basis sets in 1x1v into your Maxima session/code.
 
-To make plots on Maxima, you can use the excellent `draw2d
+To make plots on Maxima, you can use the excellent `draw2d/3d
 <http://www.austromath.at/daten/maxima/zusatz/Graphics_with_Maxima.pdf>`_
-package. To get this to work you need to install Gnuplot and set some
-paths properly. On a Mac, the maxima-init.mac file looks like::
+packages. Chapter 4 of this manual describes the draw packages. To get
+plotting to work you need to install Gnuplot and set some paths
+properly. On a Mac, the maxima-init.mac file looks like::
 
   load("draw")$
   gnuplot_command: "/Applications/Gnuplot.app/Contents/Resources/bin/gnuplot" $
