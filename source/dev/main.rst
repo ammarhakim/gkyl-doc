@@ -6,6 +6,7 @@ Developer notes
              
   onmaxima
   modalbasis
+  recovery
   ssp-rk
   vlasov-normalizations
   vlasov-denorm  
