@@ -3,7 +3,7 @@
 Neutral models in Gkeyll
 ++++++++++++++++++++++++
 
-Simplified models of plasma-neutral interactions available in Gkeyll. The neutral species is always modeled as a kinetic Boltzmann species using the Vlasov-Maxwell solver, while the plasma species to which it is coupled can be either Vlasov-Maxwell or gyrokinetic. (*Disclaimer: these features are not yet available in the main branch of the code.*)
+Simplified models of plasma-neutral interactions available in Gkeyll. The neutral species is always modeled as a kinetic Boltzmann species using the Vlasov-Maxwell solver, while the plasma species to which it is coupled can be either Vlasov-Maxwell or gyrokinetic.
 
 .. contents::
 
