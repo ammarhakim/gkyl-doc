@@ -2,8 +2,11 @@ Publications and theses
 +++++++++++++++++++++++
 
 A good source of various benchmarks and other tests is A. Hakim's
-`Simulation Journal <http://ammar-hakim.org/sj/>`_, and the `github
+`Simulation Journal <http://ammar-hakim.org/sj/>`_ and its `github
 webpage <https://github.com/ammarhakim/ammar-simjournal>`_.
+
+We have also started compiling input files for the simulations reported in
+publications in `this repository <https://github.com/ammarhakim/gkyl-paper-inp>`_.
 
 Doctoral Dissertations
 ----------------------

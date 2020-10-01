@@ -2,7 +2,7 @@
 
 .. contents::
 
-.. _app_moment:
+.. _app_moments:
 
 Moments App: Multifluid-moment-Maxwell model
 ++++++++++++++++++++++++++++++++++++++++++++

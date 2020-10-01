@@ -26,7 +26,7 @@ tool do::
 This will print the help and the command options for the tool to the
 terminal.
 
-On this page the main tools are document.
+On this page the main tools are documented.
 
 Solving the exact Reimann problem for Euler equations: ``exacteulerrp``
 -----------------------------------------------------------------------
@@ -111,18 +111,18 @@ Riemann problem::
   sod-shock_internalenergy.bp	sod-shock_velocity.bp
   
 You can now use postgkyl to plot the solution. For example, to plot
-the internal density do::
+all the files in a single figure do::
 
-  pgkyl -f sod-shock_density.bp pl
+  pgkyl -f "sod-shock_*.bp" pl  -b
 
 to produce the following plot.
 
-.. figure:: figures/sod-shock-density.png
+.. figure:: figures/sod-shock-vals.png
   :width: 100%
   :align: center
 
-  Density from the exact solution to the sod-shock Riemann problem
-  computed using the ``exacteulerrp`` tool.
+  The exact solution to the sod-shock Riemann problem computed using
+  the ``exacteulerrp`` tool.
   
 For a comprehensive set of 1D Riemann problems used to benchmark two
 finite-volume schemes see `this note
@@ -203,7 +203,7 @@ Any number of species can be specified and the ``field`` can be either
 ``Species.Maxwell`` or ``Species.Poisson``. The wave-vectors at which
 to compute the dispersion are specified in the ``kvector`` table,
 which is a list of three element tables (with components :math:`k_x,
-k_y, k_z`.
+k_y, k_z`).
 
 To run this input file (say it is saved in `cold-plasma.lua`)::
 
@@ -274,7 +274,10 @@ The ``Species.Isothermal`` takes the following parameters:
      -
    * - temperature
      - Fluid temperature (set to zero for cold fluid)
-     - 
+     -
+   * - ignoreBackgroundField
+     - Do not consider background electromagnetic field on species.
+     - false
 
 The ``Species.Euler`` takes the following parameters:
      
@@ -303,3 +306,61 @@ The ``Species.Euler`` takes the following parameters:
    * - gasGamma
      - Gas adiabatic index
      - 5/3
+   * - ignoreBackgroundField
+     - Do not consider background electromagnetic field on species.
+     - false       
+
+The ``Species.Tenmoment`` takes the following parameters:
+     
+.. list-table:: Parameters for ``Species.TenMoment``
+   :widths: 20, 60, 20
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+     - Default
+   * - mass
+     - Mass of particle
+     - 
+   * - charge
+     - Charge on particle
+     - 
+   * - density
+     - Number density
+     - 
+   * - velocity
+     - Velocity vector {:math:`v_x`, :math:`v_y`, :math:`v_z`}
+     -
+   * - pressureTensor
+     - Pressure in the fluid frame as a table {:math:`P_{xx}`,
+       :math:`P_{xy}`, :math:`P_{xz}`, :math:`P_{yy}`, :math:`P_{yz}`,
+       :math:`P_{zz}`}
+     -      
+   * - useClosure
+     - Flag to turn on various collisionless closures
+     - ``false``
+   * - chi
+     - Multiplicative factor in closure.
+     - :math:`\sqrt{4/9\pi}`.
+   * - ignoreBackgroundField
+     - Do not consider background electromagnetic field on species.
+     - false
+
+.. note::
+
+   - Presently, a unmagnetized Hammett-Perkins closure is
+     implemented. See tech-note linked above and [Ng2017]_. This is
+     not always very useful and accurate, specially for strongly
+     magnetized problems. We hope to implement better closures soon.
+
+   - The ``ignoreBackgroundField`` allows a species to "ignore" the
+     applied background electromagnetic fields. This is often useful
+     when one species is unmagnetized.
+       
+References
+----------
+
+.. [Ng2017] J. Ng, A. Hakim, A. Bhattacharjee, A. Stanier, &
+   W. Daughton "Simulations of anti-parallel reconnection using a
+   nonlocal heat flux closure". *Physics of Plasmas*, **24** (8),
+   082112–5. (2017) http://doi.org/10.1063/1.4993195

@@ -9,9 +9,9 @@ We now cover the basics of runing gkyl on desktops, clusters, and GPUs. Gkyl can
 be used to run any Lua scripts, as well as tools provided within gkyl. We also comment
 on some useful tools provided by `ADIOS <https://github.com/ornladios/ADIOS>`_.
 
-Additional details on the contents of the input files can be found in the :ref:`<gkyl_appGeneral>`
-and the pages for the :ref:`Vlasov <app_vlasov>`, :ref:`Gyrokinetic <app_gk>` and
-:ref:`Moment <app_moment>` Apps.
+Additional details on the contents of the input files can be found in the
+:ref:`Input file file basics <gkyl_appBasics>` page and the pages for the
+:ref:`Vlasov <app_vlasov>`, :ref:`Gyrokinetic <app_gk>` and :ref:`Moment <app_moments>` Apps.
 
 The :ref:`installation <gkyl_install>` placed the gkyl executable in
 ``<INSTALL-DIR>/gkylsoft/gkyl/bin/`` (where the default ``<INSTALL-DIR>`` is home, ``~``),
@@ -57,8 +57,12 @@ file contains:
 
 .. code:: Lua
 
-   decompCuts = {1, 1, 1},   -- Cuts in each configuration direction.
-   useShared  = false,       -- If to use shared memory.
+  plasmaApp = Plasma.App {
+     ...
+     decompCuts = {1, 1, 1},   -- Cuts in each configuration direction.
+     useShared  = false,       -- If to use shared memory.
+     ...
+  }
 
 Then one can run the input file in serial with the simple command:
 
@@ -115,6 +119,7 @@ produce the following output to screen:
 These simulation logs contain the following:
 
 .. list-table::
+  :widths: 20 80
 
   * - Line 1:
     - start date and time.
@@ -141,7 +146,46 @@ If you wish to disable this set ``logToFile = false,`` in the Common section of 
 Parallel simulation
 ^^^^^^^^^^^^^^^^^^^
 
-Show how to run various simulations with MPI (with and without shared memory?)
+For large problems running on a single CPU can lead to impractical runtimes. In those
+cases one benefits from parallelizing the simulation over many CPUs. This is
+accomplished in gkyl by decomposing the (phase) space into MPI domains. Therefore, in
+order to run parallel simulations you must have a parallel installation of gkyl, as most
+installations typically are. 
+
+Suppose one wishes to run the kinetic ballooning mode (KBM) calculation in
+:ref:`the previous section <gkyl_usage_run_serial>` on a node with 16 cores,
+using 4 MPI processes along :math:`y` and 4 along :math:`z`. In this case one must edit the
+variable ``decompCuts`` in the Common of the input file to reflect this decomposition:
+
+.. code:: Lua
+
+  plasmaApp = Plasma.App {
+     ...
+     decompCuts = {1, 4, 4},   -- Cuts in each configuration direction.
+     useShared  = false,       -- If to use shared memory.
+     ...
+  }
+
+Once ``decompCuts`` and the rest of the input file is set appropriately, you can run
+the simulation with the MPI executable provided by your cluster or MPI implementation
+(e.g. mpirun, mpiexec, srun, ibrun). For example, with mpirun we would run the simulation as
+
+.. code:: bash
+
+  mpirun -n 16 gkyl kbm.lua
+
+The argument following ``-n`` is the total number of MPI processes to launch, in this case
+:math:`4\times4=16`. This clearly requires that your computer/node/job has access to
+at least 16 cores.
+
+.. note::
+
+   - (**This feature may be superseeded soon**) One can request additional
+     parallelism in velocity space for kinetic simulations by setting ``useShared = true``.
+     This enables MPI shared memory. In this case the ``decompCuts`` must specify the
+     *number of nodes* and not number of processors. That is, the total
+     number of processors will be determined from ``decompCuts`` and
+     the number of threads per node.
 
 On many computer clusters where one may run parallel simulations one must submit
 scripts in order to submit a job. This jobscript causes the simulation to be queued
@@ -167,14 +211,14 @@ Running on GPUs
 ^^^^^^^^^^^^^^^
 
 Gkyl is also capable of running on graphical processing units (GPUs) with minimal modifiation
-of an input file you would use to run on CPUs. At the moment, if gkyl was built with CUDA
-and the node one is performing the computation in has a GPU, it will default to running the
-calculation in a GPU. So given an input file `cudaFile.lua`, we would simply run it with
+of an input file that you would use to run on CPUs. Our implementation of GPU capabilities uses
+CUDA. At the moment, if gkyl was built with CUDA and the node one is performing the computation
+in has a GPU, it will default to running the calculation in a GPU. So given an input file
+``cudaInputFile.lua``, we would simply run it with
 
 .. code:: bash
 
-  gkyl cudaFile.lua
-
+  gkyl cudaInputFile.lua
 
 On clusters is often common to submit scripts that queue the job for running on compute
 nodes (when the resources become available). In fact this is often preferable to `ssh`-ing
@@ -252,22 +296,142 @@ interverse which promises to compute the factors of "Life, the Universe, and Eve
 
 Try it! It's free!
 
+
+.. _gkyl_toolsIntro:
+
 gkyl Tools
 ^^^^^^^^^^
 
-Provide a (very) brief example of using a tool, and give a link to the
-:ref:`gkyl Tools <gkyl_tools>` website.
+
+A number of additional tools that users and developers may find useful as part
+of their (Gkeyll) workflow are shipped as :ref:`gkyl Tools <gkyl_tools>`. One such tool,
+for example, allows us to compare BP (ADIOS) files.
+
+Suppose you ran the `plasma beach <http://ammar-hakim.org/sj/je/je8/je8-plasmabeach.html>`_
+simulation with the Moment App, using the :doc:`momBeach.lua <inputFiles/momBeach>` input file
+which contains a variable 
+
+.. code:: Lua
+
+  local J0 = 1.0e-12   -- Amps/m^3.
+
+in the collisionless electromagnetic source. Let's assume you were scanning this variable, so
+you may choose to create another input file :doc:`momBeachS.lua <inputFiles/momBeachS>` which
+increases ``J0`` to
+
+.. code:: Lua
+
+  local J0 = 1.0e-10   -- Amps/m^3.
+
+If after running `momBeachS` you are not sure if the results changed at all, you can use the
+``comparefiles`` tool. For example, compare the electromagnetic fields produced at the end of
+both simulations with the following command:
+
+.. code:: bash
+
+  gkyl comparefiles -a momBeach_field_100.bp -b momBeachS_field_100.bp
+
+In this particular example the tool would then print the following to screen:
+
+.. code:: bash
+
+  Checking attr numCells in momBeach_field_100.bp momBeach_field_100s.bp ...
+  ... comparing numCells
+  Checking attr lowerBounds in momBeach_field_100.bp momBeach_field_100s.bp ...
+  ... comparing lowerBounds
+  Checking attr upperBounds in momBeach_field_100.bp momBeach_field_100s.bp ...
+  ... comparing upperBounds
+  Checking attr basisType in momBeach_field_100.bp momBeach_field_100s.bp ...
+  ... comparing basisType
+  Checking attr polyOrder in momBeach_field_100.bp momBeach_field_100s.bp ...
+  ... comparing polyOrder
+  Files are different!
+
+So we know that increasing ``J0`` by a factor of a 100 did change the simulation.
+
+Additional documentation of these tools is found in the :ref:`gkyl Tools reference <gkyl_tools>`.
+
 
 ADIOS tools
 ^^^^^^^^^^^
 
-ADIOS has two handy tools that one may use to explore data files of a gkyl simulation.
-For additional description of ADIOS and these tools see :download:`their documentation <figures/ADIOS-UsersManual-1.13.1.pdf>`.
+ADIOS has two handy tools that one may use to explore data files produced by a gkyl
+simulation. These are ``bpls`` and ``bpdump``. We give a brief example of each here, and
+expanded descriptions of their capabilities can be found in the
+:download:`ADIOS documentation <figures/ADIOS-UsersManual-1.13.1.pdf>`, or using the
+``bpls -h`` and ``bpdump -h`` commands.
+
+Note that these tools are complimentary to postgkyl's :ref:`info <pg_cmd_info>` command.
 
 bpls
 ~~~~
 
+``bpls`` provides a simple view of the structure and contents of a ``.bp`` file. For example,
+in :ref:`the previous section <gkyl_toolsIntro>` we discussed a 5-moment calculation of the
+`plasma beach <http://ammar-hakim.org/sj/je/je8/je8-plasmabeach.html>`_ problem. Such simulation
+produced the file ``momBeach_field_1.bp``. We can explore this file with
+
+.. code:: bash
+
+  bpls momBeach_field_1.bp
+
+which outputs
+
+.. code:: bash
+
+  double   time           scalar
+  integer  frame          scalar
+  double   CartGridField  {400, 8}
+
+It tells us that this file contains three variables, the simulation ``time`` at which this snapshot
+was produced, the ``frame`` number, and a Cartesian grid field (CartGridField) for 400 cells which
+contains 8 electromagnetic components (3 for electric field, 3 for magnetic field, and the other 2
+are used in gkyl's algorithms). One may dump one of these variables with the additional ``-d`` flag.
+So if we wish to know the simulation time of this frame, we would use
+
+.. code:: bash
+
+  bpls momBeach_field_1.bp time -d
+
+and see it output
+
+.. code:: bash
+
+   double   time           scalar
+   5.1e-11
+
+Note that for large variables (e.g. CartGridField) dumping can overwhelm the terminal/screen. One
+can also slice the dataset and only dump part of it, see ``bpls -h``.
+
+There are also a number of `attributes` (smaller pieces of time-constant data), which one can see with
+the ``-a`` flag:
+
+.. code:: bash
+
+  ws:dir jill$ bpls momBeach_field_1.bp -a
+    double   time           scalar
+    integer  frame          scalar
+    double   CartGridField  {400, 8}
+    string   changeset      attr
+    string   builddate      attr
+    string   type           attr
+    string   grid           attr
+    integer  numCells       attr
+    double   lowerBounds    attr
+    double   upperBounds    attr
+    string   basisType      attr
+    integer  polyOrder      attr
+    string   inputfile      attr
+
+and you can peek the value of an attribute with ``bpls <filename> -a <attribute-name> -d``.
+
 bpdump
 ~~~~~~
 
+The ``-d`` flag in the previous dumps the values of a variable onto the screen. There's a separate
+command to do just that called ``bpdump``. You can dump a specific variable with
+
+.. code:: bash
+
+  bpdump -d <variable-name> <filename>
 
