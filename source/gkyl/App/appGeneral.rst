@@ -146,7 +146,7 @@ We expand on the description of each part in the following sections:
      ...
 
      -----------------------------------------------------------------------------
-     -- Geometry.
+     -- ExternalFields.
      ...
 
      -----------------------------------------------------------------------------
@@ -161,16 +161,16 @@ We expand on the description of each part in the following sections:
   dependencies in order to load the App (in this case "Plasma"). The contents of this
   table depend on the specific App being used, although all the Apps have a similar
   structure. They consist of a <b>Common</b>, a <b>Species</b>, a <b>Fields</b>, a 
-  <b>Geometry</b> and an <b>Extras</b> section:
+  <b>ExternalFields</b> and an <b>Extras</b> section:
   <ul>
   <li> <b>Common</b> has parameters that are common to all Apps and control some aspects
   of the simulation, most notably the final simulation time and the frames to ouput.</li>
   <li> <b>Species</b> contains a declaration of each plasma species to be considered
   (e.g. electrons, hydrogen ions, neutrals).</li>
-  <li> <b>Fields</b> specifies the electrostatic, electromagnetic, or external fields
+  <li> <b>Fields</b> specifies the electrostatic or electromagnetic fields
   to be included in the simulation.</li>
-  <li> <b>Geometry</b>: Some simulations also require the specification of a specific
-  geometry (e.g. tokamak magnetic).</li>
+  <li> <b>ExternalFields</b>: Some simulations also require the specification of (possibly time-dependent) external fields.
+      For <a href=https://gkeyll.readthedocs.io/en/latest/gkyl/App/Gk/Gyrokinetics.html> gyrokinetics</a>, parameters and functions pertaining to the magnetic geometry are specified here.</li>
   <li> <b>Extras</b>: there are additional features that some simulations may require.</li>
 
   </details>
@@ -197,6 +197,7 @@ We expand on the description of each part in the following sections:
   </details>
   <br>
 
+.. _gkyl_appBasics_common:
 
 The input file Common
 ---------------------

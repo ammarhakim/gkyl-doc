@@ -22,52 +22,84 @@ This should be done at the top of the input file, via
 
 This creates a table ``Plasma`` that loads the gyrokinetic species, fields, etc. packages.
 
-The input file should then contain one or more ``Plasma.Species`` tables,
-a ``Plasma.Field`` table, and a ``Plasma.Geometry`` table, which are used to specify
-simulation parameters as shown below.
-
 The general structure of the input file is then
 
 .. code-block:: lua
 
+  -------------------------------------------------------------------------------
+  -- App dependencies.
   local Plasma = (require "App.PlasmaOnCartGrid").Gyrokinetic()
+  ...
 
+  -------------------------------------------------------------------------------
+  -- Preamble.
+  ...
+
+  -------------------------------------------------------------------------------
+  -- App initialization.
   plasmaApp = Plasma.App {  
-    -- basic parameters, see [topLevelApp]
+    -----------------------------------------------------------------------------
+    -- Common 
+    ...
 
-    -- description of each species (names, e.g. electron, are arbitrary but used for diagnostics)
+    -----------------------------------------------------------------------------
+    -- Species
     electron = Plasma.Species {
       -- GkSpecies parameters
+      ...
     },
 
     -- other species, e.g. ions
 
-    -- fields 
+    -----------------------------------------------------------------------------
+    -- Fields 
     field = Plasma.Field {  
       -- GkField parameters
+      ...
     },
 
-    funcField = Plasma.Geometry {
+    -----------------------------------------------------------------------------
+    -- ExternalFields
+    extField = Plasma.Geometry {
       -- GkGeometry parameters
+      ...
     },
   }
-  -- run application
+  -------------------------------------------------------------------------------
+  -- App run.
   plasmaApp:run()
 
-Note that if the app's ``run`` method is not called, the simulation
-will not be run, but the simulation will be initialized and the
-initial conditions will be written out to file.
 
-By CDIM we mean configuration space dimension and by VDIM we mean
-velocity space dimension. This app works in 1X1V, 1X2V and 3X2V. The
-velocity coordinates are :math:`v_\parallel, \mu`. See [Shi2017]_ for
-details.
+.. Note that if the app's ``run`` method is not called, the simulation
+.. will not be run, but the simulation will be initialized and the
+.. initial conditions will be written out to file.
+.. 
+.. By CDIM we mean configuration space dimension and by VDIM we mean
+.. velocity space dimension. This app works in 1X1V, 1X2V and 3X2V. The
   
 Species parameters
-----------------
-  
-The following parameters are used to specify species parameters for the gyrokinetic system. 
-Parameters that have default values can be omitted. Units are arbitrary, but typically SI units are used.
+------------------
+
+The Gyrokinetic App works with an arbitrary number of species. 
+
+Each species should be declared as
+
+.. code-block:: lua
+
+    -----------------------------------------------------------------------------
+    -- Species
+    species_name = Plasma.Species {
+      -- GkSpecies parameters
+      ...
+    },
+
+The species name (``species_name`` here) is arbitrary, but will be used for naming in diagnostic files, so names like ``ion`` or ``electron`` are common.
+
+Here we describe all possible parameters used to specify a gyrokinetic species.
+Parameters that have default values can be omitted. Units are arbitrary, but often SI units are used.
+In the following, VDIM refers to the velocity space dimension, and CDIM refers to the configuration space dimension. 
+The gyrokinetic app works for 1X1V (CDIM=1, VDIM=1), 1X2V, 2X2V, and 3X2V. 
+The velocity coordinates are :math:`(v_\parallel, \mu)`. See [Shi2017]_ for details.
 
 .. list-table:: GkSpecies Parameters
    :widths: 20, 60, 20
@@ -83,23 +115,58 @@ Parameters that have default values can be omitted. Units are arbitrary, but typ
      - Species mass
      - 1.0
    * - lower
-     - VDIM length table with lower-left velocity space coordinates
+     - VDIM-length table with lower-left velocity space coordinates
      -
    * - upper
-     - VDIM length table with upper-right velocity space coordinates
+     - VDIM-length table with upper-right velocity space coordinates
      -
    * - cells
-     - VDIM length table with number of velocity space cells
+     - VDIM-length table with number of velocity space cells
      -
    * - decompCuts
      - **NOT CURRENTLY SUPPORTED**, no processor decomposition in velocity space allowed
      - 
    * - init
-     - Function with signature ``function(t,xn)`` that initializes the
-       species distribution function. This function must return a
-       single value, :math:`f(x,v,t=0)` at ``xn``, which is a NDIM
-       vector.
+     - Specifies how to initialize the species distribution function. Use a Projection plugin (see `Projections <https://gkeyll.readthedocs.io/en/latest/gkyl/App/Projection/projection.html>`_), 
+       or a function with signature ``function(t,xn)`` that return a
+       single value, :math:`f(t=0,xn[0],xn[1],...)`, where ``xn`` is a NDIM vector.
      - 
+   * - evolve
+     - If set to ``false`` the species distribution function is not evolved. In this case, only initial conditions for this species will be written to file.
+     - true
+   * - bcx
+     - Length two table with BCs in X direction. See details on BCs below.
+     - { }
+   * - bcy
+     - Length two table with BCs in Y direction. Only needed if CDIM>1
+     - { }
+   * - bcz
+     - Length two table with BCs in Z direction. Only needed if CDIM>2
+     - { }     
+   * - coll 
+     - Collisions plugin. See `Collisions models in Gkeyll <https://gkeyll.readthedocs.io/en/latest/gkyl/App/Collisions/collisionModels.html>`_.
+     -
+   * - source
+     - Specifies a source that is added to the RHS on every timestep. Use a Projection plugin (see `Projections <https://gkeyll.readthedocs.io/en/latest/gkyl/App/Projection/projection.html>`_), 
+       or a function with signature ``function(t,xn)`` that return a
+       single value, :math:`S(t,xn[0],xn[1],...)`, where ``xn`` is a NDIM vector.
+     - 
+   * - diagnosticMoments
+     - List of moments to compute for diagnostics. See below for list
+       of moments supported.
+     - { }
+   * - diagnosticIntegratedMoments
+     - List of integrated moments to compute for diagnostics. See below for list
+       of integrated moments supported.
+     - { }
+   * - diagnosticBoundaryFluxMoments
+     - List of boundary flux moments to compute for diagnostics. See below for list
+       of moments supported.
+     - { }
+   * - diagnosticIntegratedBoundaryFluxMoments
+     - List of integrated boundary flux moments to compute for diagnostics. See below for list
+       of integrated moments supported.
+     - { }
 
 .. note::
 
@@ -131,31 +198,30 @@ included, i.e. :math:`d_v=1` for 1V and :math:`d_v=3` for 2V. Also,
 :math:`v^2=v_\parallel^2` for 1V and :math:`v^2=v_\parallel^2+2\mu B_0/m` for 2V.
 
 - ``diagnosticMoments``
-  Velocity moments of the distribution function. The options are
+  Velocity moments of the distribution function, written as functions of configuration-space position on each diagnostic frame. The options are
 
-  * ``GkM0``: number density :math:`n = \int\mathrm{d}\mathbf{w}~f`.
-  * ``GkM1``: particle momentum density :math:`nu_\parallel=\int\mathrm{d}\mathbf{w}~v_\parallel f`.
-  * ``GkM2``: particle energy density :math:`\int\mathrm{d}\mathbf{w}~v^2 f`.
-  * ``GkUpar``: flow velocity
-    :math:`u_\parallel=n^{-1}\int\mathrm{d}\mathbf{w}~v_\parallel f`.
-  * ``GkTemp``: temperature :math:`T=(d_v n)^{-1}\int\mathrm{d}\mathbf{w}~(v_\parallel-u_\parallel)^2 f`.
+  * ``GkM0``: number density, :math:`n = M_0 = \int\mathrm{d}\mathbf{w}~f`.
+  * ``GkM1``: parallel momentum density, :math:`M_1=\int\mathrm{d}\mathbf{w}~v_\parallel f`.
+  * ``GkM2``: energy density, :math:`M_2 = \int\mathrm{d}\mathbf{w}~v^2 f`.
+  * ``GkUpar``: parallel flow velocity,
+    :math:`u_\parallel= M_1/n`.
+  * ``GkTemp``: temperature, :math:`T = (m/d_v)(M_2 - M_1 u_\parallel)/n`
+  * ``GkBeta``: plasma beta, :math:`\beta = 2\mu_0 nT/B^2`
 - ``diagnosticIntegratedMoments``
-  Velocity moments integrated over configuration-space. The options are
+  Velocity moments integrated over configuration-space, written as time-series. The options are
 
-  * ``intM0``: particle number, so ``diagnosticMoment`` ``GkM0``
-    integrated over configuration-space.
-  * ``intM1``: momentum, so ``diagnosticMoment`` ``GkM1``
-    integrated over configuration-space.
-  * ``intKE``: kinetic energy, so ``diagnosticMoment`` ``GkM2``
-    integrated over configuration-space.
-  * ``intHE``: Hamiltonian integrated over phase-space.
+  * ``intM0``: particle number, :math:`N = \int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~f` 
+  * ``intM1``: parallel momentum, :math:`U = \int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~v_\parallel f` 
+  * ``intM2``: :math:`\int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~v^2 f`
+  * ``intKE``: kinetic energy, :math:`\mathcal{E}_K = ({m}/{2})\int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~v^2 f`
+  * ``intHE``: Hamiltonian energy, :math:`\mathcal{E}_H = \int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~H f`, where :math:`H = mv^2/2 + q\phi` is the Hamiltonian.
 - ``diagnosticBoundaryFluxMoments``
   Moments of the (phase-space) fluxes :math:`\Gamma_{\mathbf{z}}` through the
-  boundaries of configuration-space. The options are
+  (non-periodic) boundaries of configuration-space. The options are
 
-  * ``GkM0``: number density of the boundary fluxes :math:`\int\mathrm{d}\mathbf{w}~\Gamma_{\mathbf{z}}`.
-  * ``GkUpar``: flow velocity of the boundary fluxes.
-  * ``GkEnergy``: energy density of the boundary fluxes :math:`\int\mathrm{d}\mathbf{w}~v^2\Gamma_{\mathbf{z}}`.
+  * ``GkM0``: particle flux through boundary, :math:`\int\mathrm{d}\mathbf{w}~\Gamma_{\mathbf{z}}`.
+  * ``GkUpar``: parallel momentum flux through boundary, :math:`\int\mathrm{d}\mathbf{w}~v_\parallel \Gamma_{\mathbf{z}}`.
+  * ``GkEnergy``: energy flux through boundary, :math:`\int\mathrm{d}\mathbf{w}~H\Gamma_{\mathbf{z}}`.
 - ``diagnosticIntegratedBoundaryFluxMoments``
   Boundary flux moments integrated over configuration space.
 

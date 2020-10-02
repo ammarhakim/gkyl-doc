@@ -6,7 +6,7 @@ Gyrokinetic example
 +++++++++++++++++++
 
 The gyrokinetic system is used to study turbulence in magnetized plasmas.
-Gkeyll's ``Gyrokinetic`` App is specialized to study the edge/scrape-off-layer region of fusion devices, which requires
+Gkeyll's :ref:`Gyrokinetic App <app_gk>` is specialized to study the edge/scrape-off-layer region of fusion devices, which requires
 handling of large fluctuations and open-field-line regions.
 In this example, we will set up a gyrokinetic problem on open magnetic field lines (e.g. in the tokamak scrape-off layer).
 Using specialized boundary conditions along the field line that model the sheath interaction between the plasma and 
@@ -434,7 +434,7 @@ will see a large quantity of diagnostic output ``*.bp`` files.
 Some of the types of files are
 
 - Distribution functions for each species: ``gk-sheath_electron_#.bp`` and ``gk-sheath_ion_#.bp``
-- Moment quantities for each species, e.g. ``gk-sheath_electron_[MOM]_#.bp``, with ``MOM``=``GkM0`` (electron density), ``MOM``=``GkTemp`` (electron temperature), etc.
+- Moment quantities for each species, e.g. ``gk-sheath_electron_[MOM]_#.bp``, with ``MOM`` = ``GkM0`` (electron density), ``MOM`` = ``GkTemp`` (electron temperature), etc.
 - Electric potential, phi: ``gk-sheath_phi_#.bp``
 - Integrated moment quantities, e.g. ``gk-sheath_electron_intM0.bp`` (integrated electron density), etc.
 - Integrated field quantities, e.g. ``gk-sheath_esEnergy.bp`` (integrated electrostatic field energy), ``gk-sheath_phiSq.bp`` (integrated phi^2), etc.
@@ -538,28 +538,28 @@ Next, we use the ``ev`` command to sum the fluxes and change the sign so that th
    
   ev -l 'sinks' 'f2 f3 + -1 *'
 
-Here, ``f2`` refers to the 3rd loaded file (active dataset 2, with 0-based indexing) and ``f3`` the 4th loaded file (active dataset 3); these are the two ``Flux`` files. The ``ev`` command uses `reverse Polish notation <https://en.wikipedia.org/wiki/Reverse_Polish_notation>`_, so that this command translates to ``-(f2 + f3)``. This creates a new dataset at the end of the stack, which can be indexed as dataset -1. 
+Here, ``f2`` refers to the 3rd loaded file (active dataset 2, with 0-based indexing) and ``f3`` the 4th loaded file (active dataset 3); these are the two ``Flux`` files. The ``ev`` command uses `reverse Polish notation <https://en.wikipedia.org/wiki/Reverse_Polish_notation>`_, so that this command translates to ``-(f2 + f3)``. This creates a new dataset at the end of the stack, which can be indexed as dataset -1. We label this dataset as ``'sinks'``.
 
-Next, we want to sum the sources and the sinks. To do this, we activate the source dataset (dataset 1 from the original loading) and the sinks dataset (dataset -1, which we just created with ``ev``). We can then use ``ev`` to sum them, via
+Next, we want to sum the sources and the sinks. To do this, we activate the ``'source'`` dataset (dataset 1 from the original loading) and the ``'sinks'`` dataset (dataset -1, which we just created with ``ev``). We can then use ``ev`` to sum them, via
 
 .. code-block:: bash
 
   dataset -i1,-1 ev -l 'sources + sinks' 'f0 f1 +'
 
 Note that the indexing for ``f0`` and ``f1`` in ``ev`` only references active datasets, so here, ``f0`` = dataset 1 and ``f1`` = dataset -1.
-This pushes another new dataset to the stack, which becomes dataset -1 and pushes the sinks dataset back to dataset -2. Next, we activate the total dataset (dataset 0) and the sources + sinks dataset (dataset -1), and use ``ev`` to compute the difference, via
+This pushes another new dataset to the stack, which we label as ``'sources and sinks'``. This becomes dataset -1 and pushes the ``'sinks'`` dataset back to dataset -2. Next, we activate the ``'total'`` dataset (dataset 0) and the ``'sources + sinks'`` dataset (dataset -1), and use ``ev`` to compute the difference, via
 
 .. code-block:: bash
 
   dataset -i0,-1 ev -l 'total - (sources + sinks)' 'f0 f1 -'
 
-Again, this pushes another dataset to the stack. Now we have computed everything we need. We just need to activate all the datasets we would like to plot, and plot them. We do this with
+Again, this pushes another dataset to the stack, which we label as ``'total - (sources + sinks)'``. Now we have computed everything we need. We just need to activate all the datasets we would like to plot, and plot them. We do this with
 
 .. code-block:: bash
 
   dataset -i0,1,-3,-2,-1 pl -x 'time (s)' -f0
 
-with the ``-f0`` flag to put all the lines on figure 0. The end result is
+with the ``-f0`` flag to put all the lines on the same figure. The end result is
 
 .. figure:: figures/gk-sheath_electron_intM0balance.png
    :scale: 40 %
@@ -567,12 +567,19 @@ with the ``-f0`` flag to put all the lines on figure 0. The end result is
 
    Electron particle balance
 
-The purple line shows that electron density is conserved after accounting for sources and sinks.
+The flat purple line shows that electron density is conserved after accounting for sources and sinks.
+
+.. Energy balance
+.. ^^^^^^^^^^^^^^
+.. 
+.. .. code-block:: bash
+.. 	pgkyl -f 'gk-sheath_electron_intKE.bp' -l 'electron kinetic' -f 'gk-sheath_ion_intKE.bp' -l 'ion kinetic' -f 'gk-sheath_esEnergy.bp' -l 'ES field' -f 'gk-sheath_electron_intSrcKE.bp' -l 'electron source' -f 'gk-sheath_ion_intSrcKE.bp' -l 'ion source' -f 'gk-sheath_electron_intHEFluxZlower.bp' -f 'gk-sheath_electron_intHEFluxZupper.bp' -f 'gk-sheath_ion_intHEFluxZlower.bp' -f 'gk-sheath_ion_intHEFluxZupper.bp' dataset -i5,6 ev -l 'electron sink' 'f0 f1 + -1 *' dataset -i7,8 ev -l 'ion sink' 'f0 f1 + -1 *' dataset -i3,-2 ev -l 'electron source + sink' 'f0 f1 +' dataset -i4,-2 ev -l 'ion source + sink' 'f0 f1 +' dataset -i0,1,2,-2,-1 ev -l 'total kinetic + ES field - (sources + sinks)' 'f0 f1 + f2 + f3 - f4 -' dataset -i0,1,2,-3,-2,-1 pl -f0 --ylim -1,9
+.. 
 
 Divertor Fluxes
 ^^^^^^^^^^^^^^^
 
-We can also look at profiles of the particle and energy fluxes to the end-plates. For example, to look at the ion particle flux to the lower divertor plate vs :math:`x`, averaged in :math:`y`, we use
+We can also look at profiles of the particle and energy fluxes to the end-plates (i.e. boundary fluxes in the :math:`z` direction). These can be computed from files of the form ``*_[MOM]FluxZlower_#.bp`` and ``*_[MOM]FluxZupper_#.bp``. For example, to look at the ion particle flux to the lower divertor plate vs :math:`x`, averaged in :math:`y`, we use
 
 .. code-block:: bash
 
