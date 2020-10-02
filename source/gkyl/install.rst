@@ -143,15 +143,11 @@ By default, the mkdeps.sh script will install dependencies in
 $HOME/gkylsoft directory. If you install it elsewhere, you will need
 to modify the instructions below accordingly.
 
-Once you have all dependencies installed, you can build gkyl itself
-by cd-ing to the top-directory in the source::
-
-  cd gkyl
-
-gkyl uses the Waf build system. You do NOT need to install waf as it
-is included with the distribution. However, waf depends on Python
-(included on most systems). Waf takes a number of options. To get a
-list do ::
+Once you have all dependencies installed, you can build gkyl itself by
+cd-ing to the top-directory in the source. gkyl uses the Waf build
+system. You do NOT need to install waf as it is included with the
+distribution. However, waf depends on Python (included on most
+systems). Waf takes a number of options. To get a list do ::
 
    ./waf --help
 
