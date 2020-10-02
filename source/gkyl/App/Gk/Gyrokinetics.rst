@@ -214,20 +214,21 @@ included, i.e. :math:`d_v=1` for 1V and :math:`d_v=3` for 2V. Also,
   * ``intM1``: parallel momentum, :math:`U = \int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~v_\parallel f` 
   * ``intM2``: :math:`\int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~v^2 f`
   * ``intKE``: kinetic energy, :math:`\mathcal{E}_K = ({m}/{2})\int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~v^2 f`
-  * ``intHE``: Hamiltonian energy, :math:`\mathcal{E}_H = \int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~H f`, where :math:`H = mv^2/2 + q\phi` is the Hamiltonian.
+  * ``intHE``: total (kinetic + potential) energy, :math:`\mathcal{E}_H = \int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~H f`, where :math:`H = mv^2/2 + q\phi` is the Hamiltonian.
 - ``diagnosticBoundaryFluxMoments``
   Moments of the (phase-space) fluxes :math:`\Gamma_{\mathbf{z}}` through the
   (non-periodic) boundaries of configuration-space. The options are
 
   * ``GkM0``: particle flux through boundary, :math:`\int\mathrm{d}\mathbf{w}~\Gamma_{\mathbf{z}}`.
   * ``GkUpar``: parallel momentum flux through boundary, :math:`\int\mathrm{d}\mathbf{w}~v_\parallel \Gamma_{\mathbf{z}}`.
-  * ``GkEnergy``: energy flux through boundary, :math:`\int\mathrm{d}\mathbf{w}~H\Gamma_{\mathbf{z}}`.
+  * ``GkEnergy``: total (kinetic + potential) energy flux through boundary, :math:`\int\mathrm{d}\mathbf{w}~H\Gamma_{\mathbf{z}}`.
 - ``diagnosticIntegratedBoundaryFluxMoments``
   Boundary flux moments integrated over configuration space.
 
   * ``intM0``: integrated particle flux through the boundary.
   * ``intM1``: integrated momentum flux through the boundary.
   * ``intKE``: integrated kinetic energy flux through the boundary.
+  * ``intHE``: integrated total (kinetic + potential) energy flux through the boundary.
 
 A note on boundary flux diagnostics
 ===================================
