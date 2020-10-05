@@ -65,7 +65,7 @@ where your gkyl source lives. On Linux or Windows you will need to
 experiment with paths and settings to get plots to work.
 
 Note to developers on maximum default available memory with ``sbcl`` LISP compiler
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+----------------------------------------------------------------------------------
 
 Depending on which LISP compiler Maxima is using, by default, the compiler
 may not be able to claim/use all of the RAM on your computer. To change this
