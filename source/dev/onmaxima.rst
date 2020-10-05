@@ -63,3 +63,25 @@ properly. On a Mac, the maxima-init.mac file looks like::
 Again, remember "PATH_TO_YOUR_GKYL" is the full path to the location
 where your gkyl source lives. On Linux or Windows you will need to
 experiment with paths and settings to get plots to work.
+
+Note to developers on maximum default available memory with ``sbcl`` LISP compiler
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Depending on which LISP compiler Maxima is using, by default, the compiler
+may not be able to claim/use all of the RAM on your computer. To change this
+a developer needs to edit the "maxima" executable themselves. On MacOS go to the 
+following directory (assuming you have installed Maxima in your Applications)::
+
+  cd /Applications/Maxima.app/Contents/Resources/opt/bin
+
+Once in this directory, with your favorite text editor, open up the file ``maxima``.
+Search for the specific LISP compiler being used. For example, the most common LISP compiler
+amongst the Gkeyll development team is ``sbcl``. You should see a conditional statement like::
+
+  elif [ "$MAXIMA_LISP" = "sbcl" ]; then
+
+within the conditional add::
+
+  MAXIMA_LISP_OPTIONS+="--dynamic-space-size 100000"
+
+or a larger number depending on the size of your RAM.
