@@ -3,6 +3,11 @@ The  Gkeyll 2.0 Code: Documentation Home
 
 .. epigraph::
 
+   "Magic chicken software framework"
+   -- "Artificial" Intelligence view on Gkeyll
+
+.. epigraph::
+
    "Don't Panic"
    -- The Hitchhiker's Guide to the Galaxy
 
