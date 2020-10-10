@@ -37,17 +37,20 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
-- Hakim, A and Juno, J. "Alias-free, matrix-free, and quadrature-free
-  discontinuous Galerkin algorithms for (plasma) kinetic
-  equations". *Accepted to Supercomputing* `arXiv:2004.09019 <https://arxiv.org/abs/2004.09019>`_
+- Hakim, A and Juno, J. "Alias-free, Matrix-free, and Quadrature-free
+  Discontinuous Galerkin Algorithms for (Plasma) Kinetic
+  Equations". *Accepted to Supercomputing 2020* `arXiv:2004.09019
+  <https://arxiv.org/abs/2004.09019>`_
 
-- Francisquez, M., Bernard, T. N., Mandell, N. R., Hammett, G. W., Hakim, A. (2020).
-  "Conservative discontinuous Galerkin scheme of a gyro-averaged Dougherty collision operator",
-  *Nuclear Fusion*, **60**, (9). https://doi.org/10.1088%2F1741-4326%2Faba0c9 
+- Francisquez, M., Bernard, T. N., Mandell, N. R., Hammett, G. W.,
+  Hakim, A. (2020).  "Conservative discontinuous Galerkin scheme of a
+  gyro-averaged Dougherty collision operator", *Nuclear Fusion*,
+  **60**, (9). https://doi.org/10.1088%2F1741-4326%2Faba0c9
 
-- Hakim, A., Francisquez, M., Juno, J., & Hammett, G. W. (2020). 
-  "Conservative discontinuous Galerkin schemes for nonlinear Dougherty–Fokker–Planck collision operators",
-  *Journal of Plasma Physics*, **86**, (4). https://doi.org/10.1017/S0022377820000586
+- Hakim, A., Francisquez, M., Juno, J., & Hammett, G. W. (2020).
+  "Conservative discontinuous Galerkin schemes for nonlinear
+  Dougherty–Fokker–Planck collision operators", *Journal of Plasma
+  Physics*, **86**, (4). https://doi.org/10.1017/S0022377820000586
 
 - Wang, L., Hakim, A., Ng, J., Dong, C., & Germaschewski, K. (2020). 
   "Exact and locally implicit source term solvers for multifluid-Maxwell systems", 
