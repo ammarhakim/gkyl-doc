@@ -151,6 +151,10 @@ to compute the eigensystem. This allows great flexibility as there is
 no need to directly find complex nonlinear polynomial roots or even
 formulate the dispersion relation explicitly.
 
+A more careful set of benchmarks and applications are presented in
+this `document
+<http://ammar-hakim.org/sj/je/je34/je34-linear-dispersion.html#waves-in-a-uniform-plasma>`_.
+
 To run this tool prepare an input file with the species you wish to
 include, the field and the set of wave-numbers at which the dispersion
 relation should be computed. An example input file for cold electron
@@ -235,7 +239,7 @@ the dispersion relation from the output. Please see pgkyl help to
 understand what the ``val2coord`` and ``pl`` (short for ``plot``) do
 and how to use them.
 
-Example of the real freuqency for the cold plasma waves is shown below
+Example of the real frequency for the cold plasma waves is shown below
 
 .. figure:: figures/cold-plasma-disp.png
   :width: 100%

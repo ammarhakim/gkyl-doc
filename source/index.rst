@@ -4,7 +4,7 @@ The  Gkeyll 2.0 Code: Documentation Home
 .. epigraph::
 
    "Magic Chicken Software Framework"
-   -- 'Artificial' Intelligence view on Gkeyll
+   -- Artificial 'Intelligence' view on Gkeyll
 
 .. epigraph::
 
