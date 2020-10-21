@@ -30,4 +30,9 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 - "Gyrokinetic continuum simulations of plasma turbulence in the Texas Helimak", Tess Bernard, *Sherwood Fusion Theory Conference*, Princeton, April 2019.
 - "Gyrokinetic continuum simulations of plasma turbulence in the Texas Helimak", Tess Bernard, *24th Joint US-EU Transport Task Force Meeting*, Austin, March 2019.
 
+2016
+
+- "Full-F gyrokinetic simulations of the LAPD device with open field lines and sheath boundary conditions", Greg W. Hammett, Eric L. Shi, Ammar Hakim, Oxford Plasma Theory Group Seminar, Nov. 17, 2016. `pdf <https://drive.google.com/file/d/1xFwQNoF84L7l1y8lEco9rsWjNipSYpxw/view?usp=sharing>`_, `ppt <https://drive.google.com/file/d/1TDoA917RJKVAFNvQgAPjw0yYWNbQoXUY/view?usp=sharing>`_
+
+
 Not very complete. more to be added...
