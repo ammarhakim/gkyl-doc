@@ -9,13 +9,16 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 
 2020
 
+- "Alias-free, Matrix-free, and Quadrature-free Discontinuous Galerkin
+  Algorithms for (Plasma) Kinetic Equations", Ammar
+  Hakim. *SuperComputing 2020*, November 2020. `ppt
+  <https://drive.google.com/file/d/1sbv5aXAxX_RjAKTkCtIyU9PEpl47ac0X/view?usp=sharing>`_
+- "Investigating magnetic fluctuations in gyrokinetic simulations of tokamak SOL turbulence", Noah Mandell, *PPPL Theory Research & Review Seminar*, October 2020.
+  `pdf <https://drive.google.com/file/d/1rvaJXErv8kodO49wPAo5UOT0wEncFFDC/view?usp=sharing>`_,
+  `Keynote (with movies) <https://drive.google.com/file/d/1AHclLiQyMIeD6RPhj8lJcJ8oI21Om-Qw/view?usp=sharing>`_
 - "Investigating magnetic fluctuations in tokamak SOL turbulence using Gkeyll gyrokinetic simulations", Noah Mandell, *PPPL Monthly Research Meeting*, October 2020.
   `pdf <https://drive.google.com/file/d/16Hx7HTBrH7Va8pgXeOkPHMayIc6IJY7d/view?usp=sharing>`_,
   `Keynote (with movies) <https://drive.google.com/file/d/1df5wZ8Bq-UByiLGGqfL39xz7z-rAtT2Z/view?usp=sharing>`_
-- "Alias-free, Matrix-free, and Quadrature-free Discontinuous Galerkin
-  Algorithms for (Plasma) Kinetic Equations", Ammar
-  Hakim. *SuperComputing 2020, November 2020*. `ppt
-  <https://drive.google.com/file/d/1sbv5aXAxX_RjAKTkCtIyU9PEpl47ac0X/view?usp=sharing>`_
 - "Magnetic fluctuations in gyrokinetic simulations of tokamak SOL
   turbulence", Noah Mandell, *Journal of Plasma Physics Frontiers
   colloquium series*, April 2020. `pdf
