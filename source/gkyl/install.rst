@@ -93,7 +93,7 @@ simply call ``gkyl``.
 Note that if MPI was built as well as the part of the installation,
 ``~/gkylsoft/openmpi/bin/`` needs to be added to the ``PATH`` as
 well. Finally, on some distributions, it is required to add
-``~/gkylsoft/openmpi/bin/`` to the ``LD_LIBRARY_PATH`` environmental
+``~/gkylsoft/openmpi/lib/`` to the ``LD_LIBRARY_PATH`` environmental
 variable.
 
 .. _gkyl_install_machines_readme:
