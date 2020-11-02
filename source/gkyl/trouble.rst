@@ -84,3 +84,33 @@ This error indicates that ``waf`` cannot find LuaJIT. Possible reasons for this:
   ./mkdeps.sh CC=clang CXX=clang++ MPICC=$GKYLSOFT/openmpi-3.1.2/bin/mpicc MPICXX=$GKYLSOFT/openmpi-3.1.2/bin/mpicxx --build-luajit=yes --build-adios=no --build-eigen=no
 
 where we have specified to the system **NOT** to build openmpi, adios, and eigen by simply setting the ``--build-XX=no`` flag.
+
+Build failure: perl: warning: Setting locale failed.
+----------------------------------------------------
+
+- When building ``gkyl`` on a cluster that the user has remotely logged into (for example, with ``ssh``),
+  the user may get the following warning upon logging in:
+
+.. code-block:: bash
+
+  perl: warning: Setting locale failed.
+  perl: warning: Please check that your locale settings:
+  LANGUAGE = (unset),
+  LC_ALL = (unset),
+  LANG = "C.UTF-8"
+  are supported and installed on your system.
+  perl: warning: Falling back to the standard locale ("C").
+
+This warning can prevent successful builds by leading to errors in parsing input strings.
+
+- To fix this issue, on your *local* machine (in other words, the **host** machine) modify your ``.bashrc`` 
+  (or other source such as ``.zshrc``) to include the following lines:
+
+.. code:: bash
+
+  export LANGUAGE=en_US.UTF-8
+  export LANG=en_US.UTF-8
+  export LC_ALL=en_US.UTF-8
+
+then source this script and try logging into the cluster again. The perl warning should go away, and issues related to 
+parsing input strings as part of the configure and build process should be solved.
