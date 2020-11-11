@@ -9,6 +9,10 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 
 2020
 
+- "Investigating magnetic fluctuations in gyrokinetic simulations of tokamak SOL turbulence", Noah Mandell, *APS DPP Annual Meeting*, November 2020.
+  `pdf <https://drive.google.com/file/d/1OvSEj4yu36mz0ofswCGsgDQ22w7ObYsi/view?usp=sharing>`_,
+  `Keynote (with movies) <https://drive.google.com/file/d/1E4bwurZtNHwpDp6UzqeLiX_cB7JAx2Pb/view?usp=sharing>`_, 
+  `video recording of talk <https://drive.google.com/file/d/1MJiKjIi1TXU0K4CKph1uWrg4Y5Rqe-Co/view?usp=sharing>`_
 - "A Deep Dive into the Distribution Function: Understanding Phase 
   Space Dynamics Using Continuum Vlasov-Maxwell Simulations", Jimmy
   Juno, *APS DPP Annual Meeting*, November 2020. `Keynote 
