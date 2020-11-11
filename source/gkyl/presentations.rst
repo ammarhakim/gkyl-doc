@@ -9,6 +9,13 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 
 2020
 
+- "A Deep Dive into the Distribution Function: Understanding Phase 
+  Space Dynamics Using Continuum Vlasov-Maxwell Simulations", Jimmy
+  Juno, *APS DPP Annual Meeting*, November 2020. `Keynote 
+  <https://drive.google.com/file/d/15N1hVFhxUcJ5MGnlaFZLee5-wmz5r8_K/view?usp=sharing>`_
+- "Balancing Flexibility and Usability in the Gkeyll Simulation Framework",
+  Jimmy Juno, *APS DPP Annual Meeting*, November 2020 `Keynote
+  <https://drive.google.com/file/d/151FOoSqo0X8YRNH9wyrAhrAAQViFUl4m/view?usp=sharing>`_
 - "Studies of plasma sheaths using novel numerical schemes with
   self-consistent emitting walls and Fokker-Planck collisions", Petr
   Cagas, *APS DPP Annual Meeting*, November 2020. `pdf
