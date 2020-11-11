@@ -24,6 +24,9 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
   self-consistent emitting walls and Fokker-Planck collisions", Petr
   Cagas, *APS DPP Annual Meeting*, November 2020. `pdf
   <https://drive.google.com/file/d/11AIxfOuy3HRgr-FcACe18l4q1Bal_yNi/view?usp=sharing>`_
+- "Kinetic Boltzmann modeling of neutral transport for a continuum gyrokinetic code",
+  Tess Bernard, *APS DPP Annual Meeting*, November 2020. `pdf
+  <https://drive.google.com/file/d/16U4UXCABeBTfxe-OIjChAHjLFG0DQj3a/view?usp=sharing>`_
 - "Alias-free, Matrix-free, and Quadrature-free Discontinuous Galerkin
   Algorithms for (Plasma) Kinetic Equations", Ammar
   Hakim. *SuperComputing 2020*, November 2020. `ppt
