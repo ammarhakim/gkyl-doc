@@ -24,7 +24,7 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
   self-consistent emitting walls and Fokker-Planck collisions", Petr
   Cagas, *APS DPP Annual Meeting*, November 2020.
   `pdf <https://drive.google.com/file/d/11AIxfOuy3HRgr-FcACe18l4q1Bal_yNi/view?usp=sharing>`_,
-  `video recordign <https://drive.google.com/file/d/1AbGn3_Yn6oHarc_8WYmo1_a5E_MHJ79W/view?usp=sharing>`_,
+  `video recording <https://drive.google.com/file/d/1AbGn3_Yn6oHarc_8WYmo1_a5E_MHJ79W/view?usp=sharing>`_
 - "Kinetic Boltzmann modeling of neutral transport for a continuum gyrokinetic code",
   Tess Bernard, *APS DPP Annual Meeting*, November 2020. `pdf
   <https://drive.google.com/file/d/16U4UXCABeBTfxe-OIjChAHjLFG0DQj3a/view?usp=sharing>`_
