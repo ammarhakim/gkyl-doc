@@ -10,8 +10,8 @@ consider some of the following suggestions and lessons from past
 experiences.
 
 
-Build troubleshooting
----------------------
+General useful comments
+-----------------------
 
 - The ``./waf build install`` command fails on some systems
   due to a combination of the size of certain kernels, and the
@@ -20,9 +20,56 @@ Build troubleshooting
   If this causes compilation to take too long, you can use ``waf -h``
   to see the default number of threads used, and then try something
   smaller than that but larger than 1.
-- There seems to be a bug in ``clang`` version 12. When the build
-  fails on a Mac machine, it is good to double-check the ``clang``
-  version and potentially downgrade it to the version 11.
+- When installing on a cluster modules that you usually load for other
+  projects, or modules the cluster loads by default, may interfere with
+  the modules that you intend to use. To avoid this problem it is sometimes
+  useful to use ``module purge`` in order to unload all modules, and then
+  load just the modules you intend to use with Gkeyll. Managing different
+  modules for different projects may require you to be careful and organized
+  (e.g. using load/unload scripts or environments).
+
+
+clang error when installing on a Mac
+-----------------------------------
+
+There seems to be a bug in ``clang`` version 12. When the build
+fails on a Mac machine, for example due to a message like
+
+.. code-block:: bash
+
+  clang: error: unable to execute command: Illegal instruction: 4
+  clang: error: clang frontend command failed due to signal (use -v to see invocation)
+  Apple clang version 12.0.0 (clang-1200.0.32.27)
+  Target: x86_64-apple-darwin19.6.0
+  Thread model: posix
+  InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+  clang: note: diagnostic msg: PLEASE submit a bug report to http://developer.apple.com/bugreporter/ and include the crash backtrace, preprocessed source, and associated run script.
+  clang: note: diagnostic msg:
+  ********************
+  
+  PLEASE ATTACH THE FOLLOWING FILES TO THE BUG REPORT:
+  Preprocessed source(s) and associated run script(s) are located at:
+  clang: note: diagnostic msg: /var/folders/ww/5dw2lrj16w99gnxkrw4hj9300000gq/T/FemMatrices-486393.cpp
+  clang: note: diagnostic msg: /var/folders/ww/5dw2lrj16w99gnxkrw4hj9300000gq/T/FemMatrices-486393.sh
+  clang: note: diagnostic msg: Crash backtrace is located in
+  clang: note: diagnostic msg: /Users/userName/Library/Logs/DiagnosticReports/clang_<YYYY-MM-DD-HHMMSS>_<hostname>.crash
+  clang: note: diagnostic msg: (choose the .crash file that corresponds to your crash)
+  clang: note: diagnostic msg:
+  
+  ********************
+  
+  Waf: Leaving directory `/Users/userName/Documents/gkeyll/code/gkyl/build'
+  Build failed
+   -> task in 'updater' failed with exit status 254 (run with -v to display more information)
+
+it is good to double-check the ``clang`` version and potentially downgrade it
+to the version 11. One way to do this is to install older versions of "Command Line Tools"
+and/or Xcode. You may obtain these from [this site](https://developer.apple.com/download/more/?=for%20Xcode),
+by searching for "Command Line Tools" and downloading "Command Line Tools for Xcode 11.5" 
+(requires an Apple developer account, but there may be instructions elsewhere on the 
+internet on how to obtain this without such an account). You may also find a download for 
+Xcode 11 in the same site. If installing older Command Line Tools and you do not wish to
+keep the newer version, you can uninstalling by deleting the file ``/Library/Developer/CommandLineTools``. 
 
 Configuring gkyl with configure.[SYSTEM].sh script not finding dependency
 -------------------------------------------------------------------------
