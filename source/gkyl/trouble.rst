@@ -64,7 +64,7 @@ fails on a Mac machine, for example due to a message like
 
 it is good to double-check the ``clang`` version and potentially downgrade it
 to the version 11. One way to do this is to install older versions of "Command Line Tools"
-and/or Xcode. You may obtain these from [this site](https://developer.apple.com/download/more/?=for%20Xcode),
+and/or Xcode. You may obtain these from `this site <https://developer.apple.com/download/more/?=for%20Xcode>`_,
 by searching for "Command Line Tools" and downloading "Command Line Tools for Xcode 11.5" 
 (requires an Apple developer account, but there may be instructions elsewhere on the 
 internet on how to obtain this without such an account). You may also find a download for 
