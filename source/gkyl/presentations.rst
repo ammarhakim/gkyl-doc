@@ -9,9 +9,9 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 
 2020
 
-- "Electromagnetic full-f gyrokinetic simulation of ASDEX SOL turbulence with discontinuous Galerkin method", Rupak Mukherjee, *APS DPP Annual Meeting*, November 2020. `PDF (without movies) 
-  <https://drive.google.com/file/d/1EnLrDeidM6fKagoe3E-mIEGWH7X7gOw8/view?usp=sharing>`_,`Keynote (with movies) 
-  <https://drive.google.com/file/d/1Yw0wrn8VwjVurkfhkrHX-_CuPn6_ulb3/view?usp=sharing>`_,
+- "Electromagnetic full-f gyrokinetic simulation of ASDEX SOL turbulence with discontinuous Galerkin method", Rupak Mukherjee, *APS DPP Annual Meeting*, November 2020.
+  `pdf <https://drive.google.com/file/d/1EnLrDeidM6fKagoe3E-mIEGWH7X7gOw8/view?usp=sharing>`_,
+  `Keynote (with movies) <https://drive.google.com/file/d/1Yw0wrn8VwjVurkfhkrHX-_CuPn6_ulb3/view?usp=sharing>`_, 
   `video recording of talk <https://drive.google.com/file/d/1pR98P5MgP5iHoUu5iZmYQKnFJRL4y6eM/view?usp=sharing>`_
 - "Investigating magnetic fluctuations in gyrokinetic simulations of tokamak SOL turbulence", Noah Mandell, *APS DPP Annual Meeting*, November 2020.
   `pdf <https://drive.google.com/file/d/1OvSEj4yu36mz0ofswCGsgDQ22w7ObYsi/view?usp=sharing>`_,
