@@ -250,7 +250,7 @@ section is the most involved part of the input file, we will discuss various par
       -- Diagnostics
       diagnosticMoments = {"GkM0", "GkUpar", "GkTemp"},     
       diagnosticIntegratedMoments = {"intM0", "intM1", "intKE", "intHE", "intSrcKE"},
-      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkHamilEnergy"},
+      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkEnergy"},
       diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
    },
 
@@ -318,7 +318,7 @@ section is the most involved part of the input file, we will discuss various par
       -- Diagnostics
       diagnosticMoments = {"GkM0", "GkUpar", "GkTemp"},     
       diagnosticIntegratedMoments = {"intM0", "intM1", "intKE", "intHE", "intSrcKE"},
-      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkHamilEnergy"},
+      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkEnergy"},
       diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
    },
 
