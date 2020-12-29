@@ -171,7 +171,7 @@ plasmaApp = Plasma.App {
       -- Diagnostics
       diagnosticMoments = {"GkM0", "GkUpar", "GkTemp"},     
       diagnosticIntegratedMoments = {"intM0", "intM1", "intKE", "intHE", "intSrcKE"},
-      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkHamilEnergy"},
+      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkEnergy"},
       diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
    },
 
@@ -239,7 +239,7 @@ plasmaApp = Plasma.App {
       -- Diagnostics
       diagnosticMoments = {"GkM0", "GkUpar", "GkTemp"},     
       diagnosticIntegratedMoments = {"intM0", "intM1", "intKE", "intHE", "intSrcKE"},
-      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkHamilEnergy"},
+      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkEnergy"},
       diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
    },
 
