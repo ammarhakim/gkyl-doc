@@ -7,6 +7,14 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
    Google Drive often does not display the slides properly. Please
    download the slides on your local machine to view them properly.
 
+2021
+
+- "Initial Gkeyll simulations of Scrape-Off-Layer Turbulence in ASDEX-U", Rupak Mukherjee, *MPPC Meeting*, January 2021.
+  `pdf <https://drive.google.com/file/d/1X4tyMFxoEBimAdHmPjeYKKE243He4S6F/view?usp=sharing>`_,
+  `Keynote (with movies) <https://drive.google.com/file/d/1FYROZqG48558xMt4RXrEW9aQB8q29Ht7/view?usp=sharing>`_, 
+  `video recording of talk <>`_
+
+
 2020
 
 - "Electromagnetic full-f gyrokinetic simulation of ASDEX SOL turbulence with discontinuous Galerkin method", Rupak Mukherjee, *APS DPP Annual Meeting*, November 2020.
