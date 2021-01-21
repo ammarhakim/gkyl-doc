@@ -37,7 +37,7 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
-- Cagas, P and Hakim, A and Srinivasan, B. "A boundary value “reservoir
+- Cagas, P and Hakim, A and Srinivasan, B. (2021) "A boundary value “reservoir
   problem” and boundary conditions for multi-moment multifluid simulations
   of sheaths." *Physics of Plasmas* **28.1**. https://doi.org/10.1063/5.0024510
 
