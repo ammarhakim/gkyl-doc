@@ -1,53 +1,55 @@
 .. _pg_cmd_info:
 
 info
-++++
+====
 
-.. contents::
 
-Function description
---------------------
+``info`` is a function of the ``postgkyl.data.Data`` class that
+returns information about the current dataset (see :ref:`pg_loading`
+for more details about the class itself). The function doesn't take
+any arguments and it is wrapped into the ``info`` command.
+   
+.. raw:: html
+         
+   <details>
+   <summary><a>Command help</a></summary>
 
-The ``info`` command internally calls the ``info()`` method of the
-``GData`` class.
+.. code-block:: bash
+  :emphasize-lines: 1
+
+  pgkyl info --help
+    Usage: pgkyl info [OPTIONS]
+
+      Print info of the current top of stack
+
+    Options:
+      -a, --allsets  All data sets
+      -h, --help     Show this message and exit.
+      
+.. raw:: html
+         
+   </details>
+   <br>
+
+``info`` always prints information about time stamp, number of
+components (these are typically individual expansion coefficients
+and/or vector components), number of dimensions with number of cells 
+   
+.. raw:: html
+         
+  <details open>
+  <summary><a>Script</a></summary>
 
 .. code-block:: python
+  :emphasize-lines: 3
 
   import postgkyl as pg
-  
-  data = pg.data.GData('bgk_neut_0.bp')
+  data = pg.data.Data('two-stream_elc_0.bp')
   print(data.info())
+
+.. raw:: html
+         
+  </details>    
 
 Note that ``info()`` produces a single string output. Therefore, it is
 recommended to use the ``print()`` function for readable output.
-
-
-Command line usage
-------------------
-
-.. code-block:: bash
-
-   $ pgkyl info --help
-   Usage: pgkyl info [OPTIONS]
-
-     Print info of the current top of stack
-
-   Options:
-     -a, --allsets  All data sets
-     --help         Show this message and exit.
-
-``info`` prints an overview of the data. It outputs time (when
-available), number of components, number of dimensions, minimum and
-maximum (plus where they occur), and number of cells and bounds for
-each dimension.
-
-.. code-block:: bash
-
-   pgkyl -f bgk_neut_0.bp info
-   - Time: 0.000000e+00
-   - Number of components: 8
-   - Number of dimensions: 2
-     - Dim 0: Num. cells: 128; Lower: 0.000000e+00; Upper: 1.000000e+00
-     - Dim 1: Num. cells: 32; Lower: -6.000000e+00; Upper: 6.000000e+00
-   - Maximum: 7.795721e-01 at (0, 15) component 0
-   - Minimum: -5.179175e-02 at (0, 18) component 2

@@ -22,7 +22,7 @@ Output
 
    .. commands/animate
    .. commands/extractinput
-   .. commands/info
+   commands/info
    commands/plot
    .. commands/pr
    .. commands/trajectory
@@ -47,7 +47,7 @@ Data manipulation
    .. commands/agyro
    .. commands/differentiate
    .. commands/euler
-   .. commands/ev
+   commands/ev
    .. commands/fft
    .. commands/integrate
    .. commands/interpolate

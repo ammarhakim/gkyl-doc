@@ -4,7 +4,10 @@ plot
 ====
 
 ``postgkyl.output.plot`` plots 1D and 2D data using `Matplotlib
-<https://matplotlib.org/>`_
+<https://matplotlib.org/>`_.
+
+.. note::
+   This page uses the Postgkyl 1.6 syntax and features.
 
 .. raw:: html
          
@@ -163,8 +166,13 @@ two-stream instability simulation.
 
 .. raw:: html
          
-   <details open>
-   <summary><a>Script</a></summary>
+  <table>
+  <tr>
+  <th>Script</th>
+  <th>Command line</th>
+  </tr>
+  <tr>
+  <td>
 
 .. code-block:: python
   :emphasize-lines: 5
@@ -177,17 +185,19 @@ two-stream instability simulation.
 
 .. raw:: html
          
-   </details>    
-   <details open>
-   <summary><a>Command line</a></summary>
+  </td>
+  <td>
 
 .. code-block:: bash
 
-  pgkyl -f two-stream_elc_80.bp interpolate plot
+  pgkyl two-stream_elc_80.bp interpolate plot
 
 .. raw:: html
          
-   </details>
+  </td>
+  </tr>
+  </table>
+
 
 Note that in this case the data does not contain the values of the
 distribution function directly but rather the expansion components of
@@ -204,8 +214,13 @@ electron density correfponding to the figure above.
 
 .. raw:: html
          
-   <details open>
-   <summary><a>Script</a></summary>
+  <table>
+  <tr>
+  <th>Script</th>
+  <th>Command line</th>
+  </tr>
+  <tr>
+  <td>
 
 .. code-block:: python
   :emphasize-lines: 5
@@ -218,25 +233,26 @@ electron density correfponding to the figure above.
 
 .. raw:: html
          
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
+  </td>
+  <td>
   
 .. code-block:: bash
 
-  pgkyl -f two-stream_elc_M0_80.bp interpolate plot
+  pgkyl two-stream_elc_M0_80.bp interpolate plot
 
 .. raw:: html
          
-   </details>
+  </td>
+  </tr>
+  </table>
   
 .. figure:: ../fig/plot/default1D.png
   :align: center
         
   The default behavior of ``plot`` for 1D data
                 
-Plotting with multiple components
----------------------------------
+Plotting data with multiple components
+--------------------------------------
 
 Gkeyll data can contain multiple components. Typically, these are
 basis function expansion coefficients but can also correspond to
@@ -249,8 +265,13 @@ example and let Postgkyl plot the expansion coefficients.
 
 .. raw:: html
          
-   <details open>
-   <summary><a>Script</a></summary>
+  <table>
+  <tr>
+  <th>Script</th>
+  <th>Command line</th>
+  </tr>
+  <tr>
+  <td>
 
 .. code-block:: python
   :emphasize-lines: 5
@@ -261,17 +282,18 @@ example and let Postgkyl plot the expansion coefficients.
 
 .. raw:: html
          
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
+  </td>
+  <td>
   
 .. code-block:: bash
 
-  pgkyl -f two-stream_elc_M0_80.bp plot
+  pgkyl two-stream_elc_M0_80.bp plot
 
 .. raw:: html
          
-   </details>
+  </td>
+  </tr>
+  </table>
   
 .. figure:: ../fig/plot/multi_comp.png
   :align: center
@@ -293,8 +315,13 @@ not the best example of the functionality.
 
 .. raw:: html
          
-   <details open>
-   <summary><a>Script</a></summary>
+  <table>
+  <tr>
+  <th>Script</th>
+  <th>Command line</th>
+  </tr>
+  <tr>
+  <td>
 
 .. code-block:: python
   :emphasize-lines: 5
@@ -305,42 +332,49 @@ not the best example of the functionality.
 
 .. raw:: html
          
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
+  </td>
+  <td>
   
 .. code-block:: bash
 
-  pgkyl -f two-stream_elc_M0_80.bp plot --squeeze
+  pgkyl two-stream_elc_M0_80.bp plot --squeeze
 
 .. raw:: html
          
-   </details>
+  </td>
+  </tr>
+  </table>
   
 .. figure:: ../fig/plot/multi_comp_s.png
   :align: center
         
   Plotting data with multiple components with ``squeeze=True``
 
-Plotting with multiple data sets
---------------------------------
+Plotting multiple datasets
+--------------------------
 
 Postgkyl in a terminal can easily load multiple files (see
 :ref:`pg_loading` for more details). By default, each data set
 creates its own figure.
 
 .. raw:: html
-
-   <details open>
-   <summary><a>Command line</a></summary>
+         
+  <table>
+  <tr>
+  <th>Script</th>
+  </tr>
+  <tr>
+  <td>
    
 .. code-block:: bash
 
-  pgkyl -f two-stream_elc_70.bp -f two-stream_elc_80.bp interp plot
+  pgkyl two-stream_elc_70.bp two-stream_elc_80.bp interp plot
 
 .. raw:: html
-
-   </details>
+         
+  </td>
+  </tr>
+  </table>
 
 .. image:: ../fig/plot/multi_1.png
   :width: 49%
@@ -357,8 +391,13 @@ each other.
 
 .. raw:: html
          
-   <details open>
-   <summary><a>Script</a></summary>
+  <table>
+  <tr>
+  <th>Script</th>
+  <th>Command line</th>
+  </tr>
+  <tr>
+  <td>
 
 .. code-block:: python
   :emphasize-lines: 8, 9
@@ -375,51 +414,63 @@ each other.
 
 .. raw:: html
          
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
+  </td>
+  <td>
   
 .. code-block:: bash
   
-  pgkyl -f two-stream_elc_M0_70.bp -f two-stream_elc_M0_80.bp interp plot --figure=0
+  pgkyl two-stream_elc_M0_70.bp two-stream_elc_M0_80.bp \
+  interp plot -f0
 
 .. raw:: html
          
-   </details>
+  </td>
+  </tr>
+  </table>
   
 .. figure:: ../fig/plot/multi_f0.png
   :align: center
         
-  Plotting multiple data set with specifying ``figgure=0``
+  Plotting multiple data set with specifying ``figure=0``
 
 Finally, the data sets can be added into subplots.
 
 .. raw:: html
          
-   <details open>
-   <summary><a>Command line</a></summary>
+  <table>
+  <tr>
+  <th>Command line</th>
+  </tr>
+  <tr>
+  <td>
 
 .. code-block:: bash
   
-  pgkyl -f two-stream_elc_70.bp -f two-stream_elc_80.bp interp plot --figure=0 --subplots
+  pgkyl two-stream_elc_70.bp two-stream_elc_80.bp interp plot -f0 --subplots
 
 .. raw:: html
          
-   </details>
+  </td>
+  </tr>
+  </table>
   
 .. figure:: ../fig/plot/multi_subplots.png
   :align: center
         
-  Plotting multiple data set with specifying ``figgure=0`` and
+  Plotting multiple data set with specifying ``figure=0`` and
   ``subplots``
   
-The same behavior can be achieved in a script as well but requires
+The same behavior can be achieved in a script as well but it requires
 slightly more manual control.
 
 .. raw:: html
          
-   <details open>
-   <summary><a>Script</a></summary>
+  <table>
+  <tr>
+  <th>Script</th>
+  </tr>
+  <tr>
+  <td>
 
 .. code-block:: python
   :emphasize-lines: 8, 9
@@ -436,7 +487,9 @@ slightly more manual control.
 
 .. raw:: html
          
-   </details>
+  </td>
+  </tr>
+  </table>
 
 Plotting modes
 --------------
@@ -449,8 +502,13 @@ Countour
 
 .. raw:: html
          
-   <details open>
-   <summary><a>Script</a></summary>
+  <table>
+  <tr>
+  <th>Script</th>
+  <th>Command line</th>
+  </tr>
+  <tr>
+  <td>
 
 .. code-block:: python
   :emphasize-lines: 5
@@ -463,17 +521,18 @@ Countour
 
 .. raw:: html
          
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
+  </td>
+  <td>
   
 .. code-block:: bash
 
-  pgkyl -f two-stream_elc_80.bp interpolate plot --contour
+  pgkyl two-stream_elc_80.bp interpolate plot --contour
 
 .. raw:: html
          
-   </details>
+  </td>
+  </tr>
+  </table>
   
 .. figure:: ../fig/plot/contour.png
   :align: center
@@ -493,16 +552,22 @@ the initial conditions.
 
 .. raw:: html
          
-   <details open>
-   <summary><a>Command line</a></summary>
+  <table>
+  <tr>
+  <th>Command line</th>
+  </tr>
+  <tr>
+  <td>
 
 .. code-block:: bash
 
-  pgkyl -f two-stream_elc_0.bp -f two-stream_elc_80.bp interpolate ev 'f1 f0 -' plot --diverging
+  pgkyl two-stream_elc_0.bp two-stream_elc_80.bp interpolate ev 'f[1] f[0] -' plot --diverging
 
 .. raw:: html
          
-   </details>
+  </td>
+  </tr>
+  </table>
   
 .. figure:: ../fig/plot/diverging.png
   :align: center
@@ -526,8 +591,13 @@ would be too many lines). Then the plot with ``group=True`` is used.
 
 .. raw:: html
          
-   <details open>
-   <summary><a>Script</a></summary>
+  <table>
+  <tr>
+  <th>Script</th>
+  <th>Command line</th>
+  </tr>
+  <tr>
+  <td>
 
 .. code-block:: python
   :emphasize-lines: 6
@@ -541,17 +611,19 @@ would be too many lines). Then the plot with ``group=True`` is used.
 
 .. raw:: html
          
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
+  </td>
+  <td>
   
 .. code-block:: bash
 
-  pgkyl -f two-stream_elc_80.bp interpolate select --z0 1.5:2.0 lot --group 1
+  pgkyl two-stream_elc_80.bp interpolate \
+  select --z0 1.5:2.0 plot --group 1
 
 .. raw:: html
          
-   </details>
+  </td>
+  </tr>
+  </table>
   
 .. figure:: ../fig/plot/group.png
   :align: center
@@ -590,31 +662,40 @@ Postgkyl allows to specify all the axis labels and the plot title.
 
 .. raw:: html
          
-   <details open>
-   <summary><a>Script</a></summary>
+  <table>
+  <tr>
+  <th>Script</th>
+  <th>Command line</th>
+  </tr>
+  <tr>
+  <td>
 
 .. code-block:: python
-  :emphasize-lines: 5
+  :emphasize-lines: 5,6
 
   import postgkyl as pg
   data = pg.Data('two-stream_elc_80.bp')
   dg = pg.GInterpModal(data)
   dg.interpolate(stack=True)
-  pg.output.plot(data, xlabel=r'$x$', ylabel=r'$v_x$', title=r'Two-stream instability, $k=\frac{1}{2}$')                
+  pg.output.plot(data, xlabel=r'$x$', ylabel=r'$v_x$',
+                 title=r'$k=\frac{1}{2}$')                
 
 .. raw:: html
          
-   </details>    
-   <details open>
-   <summary><a>Command line</a></summary>
+  </td>
+  <td>
    
 .. code-block:: bash
 
-  pgkyl -f two-stream_elc_80.bp interpolate plot --xlabel '$x$' --ylabel '$v_x$' --title 'Two-stream instability, $k=\frac{1}{2}$'
+  pgkyl two-stream_elc_80.bp interpolate \
+  plot --xlabel '$x$' --ylabel '$v_x$' \
+  --title '$k=\frac{1}{2}$'
 
 .. raw:: html
          
-   </details>
+  </td>
+  </tr>
+  </table>
   
 .. figure:: ../fig/plot/labels.png
   :align: center
@@ -635,8 +716,13 @@ the :math:`E_x^2`, which is the only component growing in this case.
 
 .. raw:: html
          
-   <details open>
-   <summary><a>Script</a></summary>
+  <table>
+  <tr>
+  <th>Script</th>
+  <th>Command line</th>
+  </tr>
+  <tr>
+  <td>
 
 .. code-block:: python
   :emphasize-lines: 5
@@ -648,18 +734,19 @@ the :math:`E_x^2`, which is the only component growing in this case.
 
 .. raw:: html
          
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
+  </td>
+  <td>
    
 .. code-block:: bash
 
-  pgkyl -f two-stream_fieldEnergy.bp select -c0 plot --logy
+  pgkyl two-stream_fieldEnergy.bp select -c0 plot --logy
 
 .. raw:: html
          
-   </details>
-   <br>
+  </td>
+  </tr>
+  </table>
+  <br>
 
 .. figure:: ../fig/plot/logy.png
   :align: center
