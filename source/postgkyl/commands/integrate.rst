@@ -1,4 +1,4 @@
-.. _pg_cmd-integrate:
+.. _pg_cmd_integrate:
 
 integrate
 ---------

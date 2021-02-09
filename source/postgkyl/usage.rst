@@ -66,9 +66,8 @@ to write the full names of each command and the shortest unique
 sequence is good enough. Still, full names will be used through this
 documentation for clarity.
 
-
-Quickstart
-----------
+Examples
+--------
 
 For a quick set of examples, consider the output of a two-stream
 instability simulation [:doc:`two-stream.lua<input/two-stream>`].
@@ -151,7 +150,7 @@ and inspect it with ``info``, we get
 .. code-block:: bash
   :emphasize-lines: 1
      
-  pgkyl -f two-stream_elc_0.bp interpolate info
+  pgkyl two-stream_elc_0.bp interpolate info
   Set  (default#0)
   ├─ Time: 0.000000e+00
   ├─ Frame: 0
@@ -176,7 +175,6 @@ We can then plot the distribution function evaluated on this finer mesh
 with the :ref:`pg_cmd_plot` command
 
 .. code-block:: bash
-  :emphasize-lines: 1
      
   pgkyl two-stream_elc_0.bp interp plot
 
@@ -194,7 +192,6 @@ specific coefficients in all cells with the :ref:`pg_cmd_select` and the
 (times a factor) we would use
 
 .. code-block:: bash
-  :emphasize-lines: 1
 
   pgkyl two-stream_elc_0.bp select -c0 plot
 
@@ -212,15 +209,13 @@ The :ref:`pg_cmd_select` command introduced in the previous example can also be
 used with the ``--z`` flag in order to select a data slice which we may
 subsequently plot. In the two stream instability example, the electron initial
 condition is clearly independent of position, so we can plot as a function of
-velocity space at `x=-2.0` with
+velocity space at :math:`x=-2.0` with
 
 .. code-block:: bash
-  :emphasize-lines: 1
 
   pgkyl two-stream_elc_0.bp interp select --z0 -2. plot
 
 producing the following plot
-
 
 .. figure:: fig/default2D_z0eqm2p0_0.png
   :align: center
@@ -229,8 +224,184 @@ Postgkyl is currently limited to 1D and 2D plots, so in order to visualize
 datasets that have more than 3 dimensions one may need to select several slices
 at once. You can do that with multiple ``--z`` flags. For example, if we have a
 2x2v simulation producing four-dimensional distribution functions, we can select
-a slice at `vx=0.` and `vy=1.` with ``--z2 0. --z3 1.``. 
+a slice at :math:`v_x=0.` and :math:`v_y=1.` with ``--z2 0. --z3 1.``. 
 
+Create animations
+.................
+
+Another useful operation is to load multiple datasets consisting of consecutive
+frames in a time-dependent simulation, plot them and stitch them together into a
+movie. This can be accomplished by the :ref:`pg_cmd_animate` command. We first
+load all the frames containing the electron momentum densities in time
+(i.e. elc_M1i), then interpolate them onto a finer mesh, and put together all the
+frames with the ``animate`` command:
+
+.. code-block:: bash
+
+  pgkyl "two-stream_elc_M1i_[0-9]*.bp" interp animate -x 'x' -y 'Momentum'
+
+Here we are also using the ``-x`` and ``-y`` flags to the ``animate`` command in
+order to place labels in the figure. The product is the movie given below:
+
+.. raw:: html
+
+  <center>
+  <video controls height="300" width="450" loop autoplay muted>
+    <source src="../_static/default2D_elc_M1i.mp4" type="video/mp4">
+  </video>
+  </center>
+
+Of course, one can use command chaining to slice higher dimensional data prior to
+calling the ``animate`` command. For example, creating an animation of the
+distribution function along velocity-space at :math:`x=0` would be accomplished with
+
+.. code-block:: bash
+
+  pgkyl "two-stream_elc_[0-9]*.bp" interp sel --z0 0. animate
+
+Here we have used the abbreviations ``interp`` and ``sel`` in favor of
+``interpolate`` and ``select``, respectively. Such command produces this animation:
+
+.. raw:: html
+
+  <center>
+  <video controls height="300" width="450" loop autoplay muted>
+    <source src="../_static/default2D_elc_z0eq0p0.mp4" type="video/mp4">
+  </video>
+  </center>
+
+Averaging and integrating
+.........................
+
+A common diagnostic need is to perform averages and integrations over a
+dimension or over time. In general averages can be performed either by
+using the :ref:`pg_cmd_ev` command with the ``avg`` operation, or using
+the :ref:`pg_cmd_integrate` and later dividing by the corresponding
+space/time segment (with the :ref:`pg_cmd_ev` command).
+
+We use the final electron distribution function (frame 100) as an example.
+Let's first plot it in phase-space to get a sense of it:
+
+.. code-block:: bash
+
+  pgkyl two-stream_elc_100.bp interp pl
+
+.. figure:: fig/default2D_100.png
+  :align: center
+
+Suppose we wish to average over the central region :math:`x\in[-2,2]`
+where a velocity-space 'hole' forms. We can plot such :math:`x` integral
+as follows
+
+.. code-block:: bash
+
+  pgkyl two-stream_elc_100.bp interp sel --z0 -2.:2. ev 'f[0] 0 avg' pl  
+
+.. figure:: fig/default2D_100_z0inm2p0-2p0_z0Av.png
+  :align: center
+
+As mentioned above, we can also do this with the :ref:`pg_cmd_integrate`
+command. We accomplish that with
+
+.. code-block:: bash
+
+  pgkyl two-stream_elc_100.bp interp sel --z0 -2.:2. integrate 0 ev 'f[0] 4. /' pl
+
+Another useful application of ``ev`` (with ``avg``) and ``integrate``
+is to average or integrate quantities over time. Consider the evolution of
+the electron distribution function along velocity space at :math:`x=0` in
+the previous example. The action starts after the 60th frame approximately,
+so if we wish to time-average the distribution function
+at :math:`x=0` we could use the :ref:`pg_cmd_ev` command as follows:
+
+.. code-block:: bash
+
+  pgkyl "two-stream_elc_[0-9]*.bp" activate -i '59:' interp sel --z0 0. collect ev 'f[0] 0 avg' pl
+
+A different way to accomplish the same time average over frames 59-100 and
+dividing by the corresponding time period (:math:`\tau=50-29.5018=20.4982`):
+
+.. code-block:: bash
+
+  pgkyl "two-stream_elc_[0-9]*.bp" activate -i '59:' interp sel --z0 0. collect integrate 0 ev 'f[0] 20.4982 /' pl
+
+To break this last approach down, the command does the following (in order):
+
+- Load all frames of the electron distribution function.
+- Activate only frames 59-100.
+- Interpolate each frame onto a finer mesh and slice at :math:`x=0`.
+- Collect all the slices into a single dataset. This produces a 2D dataset with
+  time along the 0th dimension and velocity-space along the 1st dimension.
+- Use the :ref:`pg_cmd_integrate` command to integrate along the 0th dimension (time).
+- Use :ref:`pg_cmd_ev` to divide the time-integrated quantity by the appropriate time
+  window.
+- Plot.
+
+The product of either of these comands is shown below:
+
+.. figure:: fig/default2D_elc_z0eq0p0_fr59-100_tAv.png
+  :align: center
+
+Plot differences between datasets
+.................................
+
+It is common to have to evaluate the difference between two datasets.
+These could be two frames from the same simulation, or two datasets from
+different simulations. There are also various ways to discern differences,
+and below we show how to plot them in a single figure or how to plot
+their actual difference.
+
+Suppose we wish to see how the electron distribution function has changed
+along :math:`x` between :math:`t=0` (0th frame) and :math:`t=50` (100th
+frame) at :math:`v_x=0`. We can plot both of these datasets as follows
+
+.. code-block:: bash
+
+  pgkyl two-stream_elc_0.bp two-stream_elc_100.bp interp sel --z1 0. plot -f0 -x '$x$' -y '$f_e(x,v_x=0)$'
+
+where we have specified the figure with ``-f0`` so they are both plotted
+together, and we have used ``-x`` and ``-y`` to place labels. The plot
+produced is
+
+.. figure:: fig/default2D_elc_z1eq0p0_fr0a100.png
+  :align: center
+
+Another alternative is to compute the actual difference of the two data
+sets with :ref:`pg_cmd_ev`:
+
+.. code-block:: bash
+
+  pgkyl two-stream_elc_0.bp two-stream_elc_100.bp interp sel --z1 0. ev 'f[1] f[0] -' pl
+
+.. figure:: fig/default2D_elc_z1eq0p0_fr0m100.png
+  :align: center
+
+Note that these operations also work with 2D datasets. So we could've have
+taken the whole distribution function in phase space at :math:`t=0,50`,
+subtracted them and plot them with
+
+.. code-block:: bash
+
+  pgkyl two-stream_elc_0.bp two-stream_elc_100.bp interp ev 'f[1] f[0] -' plot --diverging
+
+which thanks to the ``--diverging`` flag, produces the following image:
+
+.. figure:: fig/default2D_elc_fr0m100.png
+  :align: center
+
+Saving plots to a file
+......................
+
+Any of the figures above can be saved to a file by appending either ``--save``,
+or ``--saveas`` followed by the desired filename. For example the diverging
+2D colorplot in the previous section can be saved to a file with
+
+.. code-block:: bash
+
+  pgkyl two-stream_elc_0.bp two-stream_elc_100.bp interp ev 'f[1] f[0] -' plot --diverging --saveas 'two-stream_elc_fr0m100.png'
+
+Fileformats supported depend on matplotlib, but likely include .png, .pdf
+and .eps.
 
 Extracting input file
 .....................
@@ -240,7 +411,6 @@ Lua input file used to produce that data. This input file can be
 extracted using the :ref:`pg_cmd_extractinput` command, as follows
 
 .. code-block:: bash
-  :emphasize-lines: 1
      
   pgkyl two-stream_elc_0.bp extractinput
 
@@ -248,9 +418,8 @@ By default, this commands simply prints the input file to screen.
 However, this could be easily piped into a new file with
 
 .. code-block:: bash
-  :emphasize-lines: 1
      
-  pgkyl -f two-stream_elc_0.bp extractinput > newInputFile.lua
+  pgkyl two-stream_elc_0.bp extractinput > newInputFile.lua
 
 
 
