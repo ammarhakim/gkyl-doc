@@ -24,9 +24,9 @@ dataset. Additionally, some commands can create new datasets during the
 flow.
 
 When files are loaded using wildcard characters, each match creates
-its own dates. Therefore, assuming there are two files, ``file1.bp``
+its own dataset. Therefore, assuming there are two files, ``file1.bp``
 and ``file2.bp``, located in the current directory, the two following
-commands will have same result; both will create two datasets:
+commands will have the same result; both will create two datasets:
 
 .. code-block:: bash
 
@@ -56,10 +56,14 @@ data.
 Commands that should not be applied on all the datasets can be further
 controlled using :ref:`tags <pg_pg_keyconcepts_tags>` and by
 designating some datasets as :ref:`inactive
-<pg_keyconcepts_active>`. Note that there are some commands, e.g.,
-:ref:`pg_cmd_ev` or :ref:`pg_cmd_collect`, which switch their inputs to
-inactive themselves.
+<pg_keyconcepts_active>`. **Note that there are some commands, e.g.,**
+:ref:`pg_cmd_ev` **or** :ref:`pg_cmd_collect`, **which switch their inputs to
+inactive themselves.**
 
+It is worth noting that there is no limit on how many commands can be
+chained. See, for example, the :ref:`particle balance
+<qs_gk1_balance>` section the the gyrokinetic :ref:`quickstart page
+<qs_gk1>`.
 
 Tags
 ----
@@ -112,8 +116,8 @@ When no tag is specified, the ``default`` tag is assigned.
       pgkyl 'file?.bp' --tag name
 
    Without the quotes, the string is replaced with all the matches,
-   ``pgkyl`` threats them as separate :ref:`load <pg_loading>`
-   commands, and the specified tag is applied only to the lats match.
+   ``pgkyl`` treats them as separate :ref:`load <pg_loading>`
+   commands, and the specified tag is applied only to the last match.
 
 
 Active and inactive datasets
@@ -126,11 +130,11 @@ of a ``pgkyl`` command chain can be controlled by :ref:`activating
 datasets. By default, all loaded datasets are active. This can be
 changed with the pair of :ref:`pg_cmd_activate` and
 :ref:`pg_cmd_deactivate` commands. In addition, some commands that
-possible change the nature of its inputs and create a new dataset,
+possibly change the nature of its inputs and create a new dataset,
 e.g., :ref:`pg_cmd_ev`, :ref:`pg_cmd_collect`, or various diagnostics,
 change their input datasets to inactive.
 
-:ref:`pg_cmd_activate` can use either take in indices, tags, or
+:ref:`pg_cmd_activate` can either take in indices, tags, or
 both. When no inputs are specified, everything is activated. The two
 following commands provide yet another way to to achieve the same as
 above:
@@ -140,7 +144,7 @@ above:
    pgkyl file1.bp --tag 'f1' file2.bp --tag 'f2' activate --tag f1 interpolate activate plot
    pgkyl file1.bp  file2.bp activate --index 0 interpolate activate plot
    
-The :ref:`pg_cmd_info` command can bu useful when working with
+The :ref:`pg_cmd_info` command can be useful when working with
 multiple active/inactive datasets. Its ``--compact`` option shows only
 identifiers for each dataset, thus removes some clatter, and
 ``--allsets`` adds even the currently inactive datasets.
@@ -163,7 +167,7 @@ on a finer uniform mesh, essentially creating finite-volume data.
    pgkyl file1.bp interpolate plot
 
 In this case the original information is lost after the
-:ref:`pg_cmd_interpolate` command (lost withing this command chain,
+:ref:`pg_cmd_interpolate` command (lost within this command chain,
 nothing happens to the data file itself).
 
 The other type does not overwrite its inputs but rather creates a new

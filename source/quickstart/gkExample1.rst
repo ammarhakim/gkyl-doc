@@ -512,6 +512,7 @@ We can also make an animation of the evolution of the sheath potential via
 
 Particle balance
 ^^^^^^^^^^^^^^^^
+.. _qs_gk1_balance:
 
 We can examine particle balance between the sources and sinks (from end losses to the wall via the sheath) by looking at the ``electron_intM0.bp`` (integrated electron density) file and other related files. By using the ``ev`` (:ref:`evaluate <pg_cmd_ev>`) command, we can combine various quantities. ``ev`` is extremely useful and flexible, but it can lead to some complicated ``pgkyl`` commands. For this plot, the full command that we'll use is
 
