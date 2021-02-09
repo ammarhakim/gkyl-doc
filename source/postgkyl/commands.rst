@@ -33,8 +33,9 @@ Data selection
 .. toctree::
    :maxdepth: 1
 
+   .. commands/activate
    .. commands/collect
-   .. commands/dataset
+   .. commands/deactivate
    .. commands/mask
    .. commands/select
    .. commands/val2coord

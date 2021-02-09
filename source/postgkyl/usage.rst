@@ -24,6 +24,7 @@ sections for more details.
    keyconcepts
    loading
    commands
+   colormaps
 
 What makes Postgkyl quite unique, is the wrapping of all the *functions*
 into command line *commands* using the `Click
