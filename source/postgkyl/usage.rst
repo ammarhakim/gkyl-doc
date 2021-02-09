@@ -21,6 +21,7 @@ sections for more details.
 .. toctree::
    :maxdepth: 1
 
+   keyconcepts
    loading
    commands
 
