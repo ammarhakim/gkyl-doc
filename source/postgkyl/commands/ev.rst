@@ -123,11 +123,11 @@ previous example can be reproduced:
 
 .. code-block:: bash
 
-  pgkyl two-stream_elc_M0_0.bp -t dens two-stream_elc_M1i_0.bp -t mom interp ev 't.mom t.dens /' plot
+  pgkyl two-stream_elc_M0_0.bp -t dens two-stream_elc_M1i_0.bp -t mom interp ev 'mom dens /' plot
 
 However, unlike the previous example, this can be naturally extended
 for batch loading and :ref:`pg_cmd_animate`:
 
 .. code-block:: bash
 
-  pgkyl 'two-stream_elc_M0_[0-9].bp' -t dens 'two-stream_elc_M1i_[0-9]*.bp' -t mom interp ev 't.mom t.dens /' animate
+  pgkyl 'two-stream_elc_M0_[0-9].bp' -t dens 'two-stream_elc_M1i_[0-9]*.bp' -t mom interp ev 'mom dens /' animate

@@ -82,14 +82,14 @@ example, the following two commands will lead to the same result:
    pgkyl file1.bp file2.bp plot
    pgkyl file1.bp --tag 'f1' file2.bp --tag 'f2' plot
 
-However, most of the commands can take the ``--tag`` flag to limit them
+However, most of the commands can take the ``--use`` flag to limit them
 only to all the datasets with the specified tag. Similar to the
 example above, this can be useful when working with different types of
 data:
 
 .. code-block:: bash
                 
-   pgkyl file1.bp --tag 'f1' file2.bp --tag 'f2' interpolate --tag f1 plot
+   pgkyl file1.bp --tag 'f1' file2.bp --tag 'f2' interpolate --use f1 plot
 
 Here, :ref:`pg_cmd_interpolate` will be used only on the ``file1.bp``
 even though it follows loading both of the files.
@@ -98,7 +98,7 @@ Note that multiple comma-separated tags can be used:
 
 .. code-block:: bash
                 
-   pgkyl file1.bp --tag 'f1' file2.bp --tag 'f2' file3.bp --tag 'f3' interpolate --tag f1,f2 plot
+   pgkyl file1.bp --tag 'f1' file2.bp --tag 'f2' file3.bp --tag 'f3' interpolate --use f1,f2 plot
 
 Additionally, there are some commands like :ref:`pg_cmd_collect` or
 :ref:`pg_cmd_animate` are by default tag-aware and separate datasets
@@ -187,11 +187,11 @@ the result of :ref:`pg_cmd_ev` will be active, so the
 There are instances when user does *not* want to overwrite the
 inputs. For example, when we want to use :ref:`pg_cmd_select` to
 create multiple slices of data. For this purpose, the commands that
-would normally overwrite data have the optional ``--outtag`` flag
+would normally overwrite data have the optional ``--tag`` flag
 which instead creates a new dataset with specified tag. Note that in
 this case, the resulting dataset will *not* be the only one active.
 
 .. code-block:: bash
 
-   pgkyl file1.bp --tag input select --tag input --z0 -1. --outtag planes \
-   select --tag input --z0 1. --outtag planes plot --tag planes
+   pgkyl file1.bp --tag input select --use input --z0 -1. --tag planes \
+   select --use input --z0 1. --tag planes plot --use planes
