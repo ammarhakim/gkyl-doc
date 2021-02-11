@@ -390,8 +390,8 @@ which thanks to the ``--diverging`` flag, produces the following image:
 .. figure:: fig/default2D_elc_fr0m100.png
   :align: center
 
-Saving plots to a file
-......................
+Saving plots/animations to a file
+.................................
 
 Any of the figures above can be saved to a file by appending either ``--save``,
 or ``--saveas`` followed by the desired filename. For example the diverging
@@ -403,6 +403,14 @@ or ``--saveas`` followed by the desired filename. For example the diverging
 
 Fileformats supported depend on matplotlib, but likely include .png, .pdf
 and .eps.
+
+The :ref:`animate` command is also capable of saving animations to a file. It
+requires an ffmpeg installation, and once that is available we can create an
+animation described earlier as
+
+.. code-block:: bash
+
+  pgkyl "two-stream_elc_[0-9]*.bp" interp sel --z0 0. animate --saveas 'two-stream_elc_z0eq0p0.mp4'
 
 Extracting input file
 .....................

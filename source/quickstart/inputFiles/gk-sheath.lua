@@ -104,6 +104,8 @@ plasmaApp = Plasma.App {
    -- (1-based indexing, so x-periodic = 1, y-periodic = 2, etc)
    periodicDirs = {2},     -- Periodic in y only (y = 2nd dimension)
 
+   decompCuts = {2,1,4},
+
    --------------------------------------------------------------------------------
    -- Species
    --------------------------------------------------------------------------------

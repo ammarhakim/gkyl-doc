@@ -300,13 +300,13 @@ We can compare the initial condition and final state of the magnetic field, :mat
 
 .. code-block:: bash
 
-  pgkyl -f vm-tsw-2x2v_field_0.bp -f vm-tsw-2x2v_field_1.bp interp sel --comp 5 plot -b --fix-aspect
+  pgkyl vm-tsw-2x2v_field_0.bp vm-tsw-2x2v_field_1.bp interp sel --comp 5 plot -b --fix-aspect
 
 .. figure:: figures/vm-tsw-2x2v_field.png
-   :scale: 40 %
-   :align: center
+  :scale: 40 %
+  :align: center
 
-   :math:`B_z` magnetic field at :math:`t=0 \omega_{pe}^{-1}` (left) and :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation (right).
+  :math:`B_z` magnetic field at :math:`t=0` (left) and :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation (right).
 
 The default postgkyl colorbar is sequential and useful for visualizing data such as distribution functions, which will vary from 0 (zero phase space density/no particles) to some number (corresponding to a local increase in phase space density).
 However, we can see that the colorbar for the magnetic field varies between roughly equal positive and negative numbers, and thus a diverging colormap may yield a more useful representation of the data.
@@ -314,13 +314,13 @@ In addition, we can utilize the flexibility of the :code:`interpolate` command t
 
 .. code-block:: bash
 
-  pgkyl -f vm-tsw-2x2v_field_0.bp -f vm-tsw-2x2v_field_1.bp interp -i 6 sel --comp 5 plot -b --fix-aspect --diverging --xlabel '$x (d_e) $' --ylabel '$y (d_e) $'
+  pgkyl vm-tsw-2x2v_field_0.bp vm-tsw-2x2v_field_1.bp interp -i 6 sel --comp 5 plot -b --fix-aspect --diverging --xlabel '$x (d_e) $' --ylabel '$y (d_e) $'
 
 .. figure:: figures/vm-tsw-2x2v_field_finer_interp.png
-   :scale: 40 %
-   :align: center
+  :scale: 40 %
+  :align: center
 
-   :math:`B_z` magnetic field at :math:`t=0 \omega_{pe}^{-1}` (left) and :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation (right), now with a diverging colorbar, finer interpolation, and labels.
+  :math:`B_z` magnetic field at :math:`t=0` (left) and :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation (right), now with a diverging colorbar, finer interpolation, and labels.
 
 where we have now added labels with the normalized units in :math:`x` and :math:`y`.
 Note that the default interpolation level for polynomial order 2 is 3 (:code:`polyOrder` + 1).
@@ -329,13 +329,13 @@ We can likewise visualize diagnostic moments such as the first velocity moment `
 
 .. code-block:: bash
 
-  pgkyl -f vm-tsw-2x2v_elc_M1i_1.bp interp -i 6 plot --fix-aspect --diverging --xlabel '$x (d_e) $' --ylabel '$y (d_e) $'
+  pgkyl vm-tsw-2x2v_elc_M1i_1.bp interp -i 6 plot --fix-aspect --diverging --xlabel '$x (d_e) $' --ylabel '$y (d_e) $'
 
 .. figure:: figures/vm-tsw-2x2v_elc_M1i.png
-   :scale: 40 %
-   :align: center
+  :scale: 40 %
+  :align: center
 
-   :math:`M1_x` first velocity moment (left) and :math:`M1_y` first velocity moment (right) at :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation.
+  :math:`\mathrm{M}1_x` first velocity moment (left) and :math:`\mathrm{M}1_y` first velocity moment (right) at :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation.
 
 Note that ``elc_M1i`` has two components due to the fact that this simulation has two velocity dimensions, and both components are visualized when this :code:`pgkyl` command is utilized.
 The left plot is the :math:`v_x` velocity moment and the right plot is the :math:`v_y` velocity moment.
@@ -348,11 +348,11 @@ For example, we can read-in a subset of the data and visualize the distribution 
 
 .. code-block:: bash
 
-  pgkyl -f vm-tsw-2x2v_elc_1.bp --z0 0 --z1 0 interp -i 6 sel --z0 0.0 --z1 0.0 plot --xlabel '$v_x (v_{th_e}) $' --ylabel '$v_y (v_{th_e}) $' --vmin 0.0
+  pgkyl vm-tsw-2x2v_elc_1.bp --z0 0 --z1 0 interp -i 6 sel --z0 0.0 --z1 0.0 plot --xlabel '$v_x (v_{th_e}) $' --ylabel '$v_y (v_{th_e}) $' --vmin 0.0
 
 .. figure:: figures/vm-tsw-2x2v_elc_vxvy.png
-   :scale: 40 %
-   :align: center
+  :scale: 40 %
+  :align: center
 
    Electron distribution function plotted at :math:`(x,y)=(0.0,0.0)` as a function of :math:`v_x-v_y` at :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation.
 
@@ -365,11 +365,11 @@ For example, we can use the :code:`integrate` command to integrate the distribut
 
 .. code-block:: bash
 
-  pgkyl -f vm-tsw-2x2v_elc_1.bp interp integrate 0,2 plot --xlabel '$y (d_e) $' --ylabel '$v_y (v_{th_e}) $' --vmin 0.0
+  pgkyl vm-tsw-2x2v_elc_1.bp interp integrate 0,2 plot --xlabel '$y (d_e) $' --ylabel '$v_y (v_{th_e}) $' --vmin 0.0
 
 .. figure:: figures/vm-tsw-2x2v_elc_yvy.png
-   :scale: 40 %
-   :align: center
+  :scale: 40 %
+  :align: center
 
    Electron distribution function integrated in :math:`x` and :math:`v_x`, plotted as a function of :math:`y-v_y` at :math:`t=50 \omega_{pe}^{-1}`, the end of the simulation.
 
@@ -379,13 +379,13 @@ Here, we are being agnostic on what a user might have named these two different 
 
 .. code-block:: bash
 
-  pgkyl -f res1/*fieldEnergy.bp -l '$16^2 \times 16^2$' -f res2/*fieldEnergy.bp -l '$32^2 \times 32^2$' select --comp 5 plot --logy --xlabel '$t (\omega_{pe}^{-1})$' --ylabel '$\int B_z^2$' -f0 
+  pgkyl res1/*fieldEnergy.bp -l '$16^2 \times 16^2$' res2/*fieldEnergy.bp -l '$32^2 \times 32^2$' select --comp 5 plot --logy --xlabel '$t (\omega_{pe}^{-1})$' --ylabel '$\int B_z^2$' -f0 
 
 .. figure:: figures/vm-tsw-2x2v_fieldEnergy.png
-   :scale: 40 %
-   :align: center
+  :scale: 40 %
+  :align: center
 
-   Integrated magnetic field energy, :math:`|B_z|^2`, plotted as a function of time comparing the lower resolution calculation, :math:`16^2 \times 16^2` (blue), and higher resolution calculation, :math:`32^2 \times 32^2` (orange).
+  Integrated magnetic field energy, :math:`|B_z|^2`, plotted as a function of time comparing the lower resolution calculation, :math:`16^2 \times 16^2` (blue), and higher resolution calculation, :math:`32^2 \times 32^2` (orange).
 
 References
 ----------

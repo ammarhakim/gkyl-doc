@@ -212,7 +212,7 @@ command as follows
 
 .. code-block:: bash
 
-  pgkyl -f vm-damp_elc_0.bp interpolate plot
+  pgkyl vm-damp_elc_0.bp interpolate plot
 
 This produces the 2D plot of the initial Maxwellian distribution given below.
 
@@ -229,7 +229,7 @@ x-component, and :ref:`pg_cmd-plot` can use a log scale, as well as add labels):
 
 .. code-block:: bash
 
-  pgkyl -f vm-damp_fieldEnergy.bp select -c0 plot --logy -x 'time' -y '$|E_x|^2$'
+  pgkyl vm-damp_fieldEnergy.bp select -c0 plot --logy -x 'time' -y '$|E_x|^2$'
 
 resulting in the following figure of the (normalized) electrostatic energy as a
 function of time

@@ -21,8 +21,9 @@ Output
    :maxdepth: 1
 
    .. commands/animate
-   .. commands/extractinput
+   commands/extractinput
    commands/info
+   commands/listoutputs
    commands/plot
    .. commands/pr
    .. commands/trajectory
@@ -46,11 +47,11 @@ Data manipulation
    :maxdepth: 1
 
    .. commands/agyro
-   .. commands/differentiate
+   commands/differentiate
    .. commands/euler
    commands/ev
    .. commands/fft
-   .. commands/integrate
+   commands/integrate
    .. commands/interpolate
    .. commands/norm
    .. commands/recovery
@@ -61,7 +62,7 @@ Diagnostics
 .. toctree::
    :maxdepth: 1
 
-   .. commands/growth
+   commands/growth
 
 Command control
 ---------------

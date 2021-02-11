@@ -6,12 +6,16 @@ Gyrokinetic example
 +++++++++++++++++++
 
 The gyrokinetic system is used to study turbulence in magnetized plasmas.
-Gkeyll's :ref:`Gyrokinetic App <app_gk>` is specialized to study the edge/scrape-off-layer region of fusion devices, which requires
+Gkeyll's :ref:`Gyrokinetic App <app_gk>` is specialized to study the
+edge/scrape-off-layer region of fusion devices, which requires
 handling of large fluctuations and open-field-line regions.
-In this example, we will set up a gyrokinetic problem on open magnetic field lines (e.g. in the tokamak scrape-off layer).
-Using specialized boundary conditions along the field line that model the sheath interaction between the plasma and 
-conducting end plates, we will see that we can model the self-consistent formation of the sheath 
-potential. This simple test case can then be used as a starting point for full nonlinear simulations of the tokamak SOL.
+In this example, we will set up a gyrokinetic problem on open magnetic
+field lines (e.g. in the tokamak scrape-off layer). Using specialized
+boundary conditions along the field line that model the sheath interaction
+between the plasma and conducting end plates, we will see that we can model
+the self-consistent formation of the sheath potential. This simple test
+case can then be used as a starting point for full nonlinear simulations of
+the tokamak SOL.
 
 .. contents::
 
@@ -23,12 +27,13 @@ Gyrokinetics intro?
 Input file
 ----------
 
-The full Lua input file (:doc:`gk-sheath.lua <inputFiles/gk-sheath>`) for this simulation
-is a bit longer than the one in :ref:`qs_intro`, 
-but not to worry, we will go through each part of the input file carefully.
+The full Lua input file (:doc:`gk-sheath.lua <inputFiles/gk-sheath>`) for
+this simulation is a bit longer than the one in :ref:`qs_intro`, but not 
+to worry, we will go through each part of the input file carefully.
 
-To set up a gyrokinetic simulation, we first need to load the ``Gyrokinetic`` App package and other
-dependencies. This should be done at the top of the input file, via
+To set up a gyrokinetic simulation, we first need to load the
+``Gyrokinetic`` App package and other dependencies. This should be done
+at the top of the input file, via
 
 .. code-block:: lua
 
@@ -41,7 +46,8 @@ dependencies. This should be done at the top of the input file, via
 Here we have also loaded the ``Constants`` library, which
 contains various physical constants that we will use later.
 
-The next block is the **Preamble**, containing input paramters and simple derived quantities:
+The next block is the **Preamble**, containing input paramters and simple
+derived quantities:
 
 .. code-block:: lua
 
@@ -90,9 +96,10 @@ The next block is the **Preamble**, containing input paramters and simple derive
   Ly = 100*rho_s                       -- y = binormal direction
   Lz = 4                               -- z = field-aligned direction
 
-This simulation also requires a source, which models plasma crossing the separatrix. 
-The next part of the **Preamble** initializes some source parameters, along with some functions 
-that will be used later to set up the source density and temperature profiles.
+This simulation also requires a source, which models plasma crossing the
+separatrix. The next part of the **Preamble** initializes some source parameters,
+along with some functions that will be used later to set up the source density
+and temperature profiles.
 
 .. code-block:: lua
 
@@ -123,8 +130,9 @@ that will be used later to set up the source density and temperature profiles.
      end
   end
 
-This concludes the **Preamble**. We now have everything we need to initialize the ``Gyrokinetic`` App.
-In this input file, the App initialization consists of 4 sections:
+This concludes the **Preamble**. We now have everything we need to initialize
+the ``Gyrokinetic`` App. In this input file, the App initialization consists
+of 4 sections:
 
 .. code-block:: lua
 
@@ -153,7 +161,10 @@ In this input file, the App initialization consists of 4 sections:
      ...
   }
   
-- The **Common** section includes a declaration of parameters that control the (configuration space) discretization, and time advancement. This first block of code in :code:`Plasma.App` may specify the periodic directions, the MPI decomposition, and the frequency with which to output certain diagnostics.
+- The **Common** section includes a declaration of parameters that control the
+(configuration space) discretization, and time advancement. This first block of
+code in :code:`Plasma.App` may specify the periodic directions, the MPI
+decomposition, and the frequency with which to output certain diagnostics.
 
 .. code-block:: lua
 
@@ -176,10 +187,14 @@ In this input file, the App initialization consists of 4 sections:
      -- (1-based indexing, so x-periodic = 1, y-periodic = 2, etc)
      periodicDirs = {2},     -- Periodic in y only (y = 2nd dimension)
 
-- The **Species** section sets up the species to be considered in the simulation. Each species gets its own Lua table, in which one provides the velocity-space domain and discretization of the species, initial conditions, sources, collisions, boundary conditions, and diagnostics.
+- The **Species** section sets up the species to be considered in the simulation.
+Each species gets its own Lua table, in which one provides the velocity-space domain
+and discretization of the species, initial conditions, sources, collisions, boundary
+conditions, and diagnostics.
 
 In this input file, we initialize gyrokinetic electron and ion species. Since this
-section is the most involved part of the input file, we will discuss various parts in detail below.
+section is the most involved part of the input file, we will discuss various parts
+in detail below.
 
 .. code-block:: lua
 
@@ -292,8 +307,73 @@ section is the most involved part of the input file, we will discuss various par
                     return 50*eV
                  else 
                     return 20*eV
-                 end
-              end,
+  nuIon = nuFrac*logLambdaIon*eV^4*n0/(12*math.pi^(3/2)*eps0^2*math.sqrt(mi)*(Ti0)^(3/2))
+  
+  -- Derived parameters
+  vti = math.sqrt(Ti0/mi)              -- ion thermal speed
+  vte = math.sqrt(Te0/me)              -- electron thermal speed
+  c_s = math.sqrt(Te0/mi)              -- ion sound speed
+  omega_ci = math.abs(qi*B0/mi)        -- ion gyrofrequency
+  rho_s = c_s/omega_ci                 -- ion sound gyroradius
+  
+  -- Simulation box size
+  Lx = 50*rho_s                        -- x = radial direction
+  Ly = 100*rho_s                       -- y = binormal direction
+  Lz = 4                               -- z = field-aligned direction
+
+This simulation also requires a source, which models plasma crossing the
+separatrix. The next part of the **Preamble** initializes some source parameters,
+along with some functions that will be used later to set up the source density
+and temperature profiles.
+
+.. code-block:: lua
+
+  -- Source parameters
+  P_SOL = 3.4e6                          -- total SOL power, from experimental heating power [W]
+  P_src = P_SOL*Ly*Lz/(2*math.pi*R*Lpol) -- fraction of total SOL power into flux tube domain [W]
+  xSource = R                            -- source peak radial location [m]
+  lambdaSource = 0.005                   -- source radial width [m]
+
+  -- Source density and temperature profiles. 
+  -- Note that source density will be scaled to achieve desired source power.
+  sourceDensity = function (t, xn)
+     local x, y, z = xn[1], xn[2], xn[3]
+     local sourceFloor = 1e-10
+     if math.abs(z) < Lz/4 then
+        -- near the midplane, the density source is a Gaussian
+        return math.max(math.exp(-(x-xSource)^2/(2*lambdaSource)^2), sourceFloor)
+     else
+        return 1e-40
+     end
+  end
+  sourceTemperature = function (t, xn)
+     local x, y, z = xn[1], xn[2], xn[3]
+     if math.abs(x-xSource) < 3*lambdaSource then
+        return 80*eV
+     else
+        return 30*eV
+     end
+  end
+
+This concludes the **Preamble**. We now have everything we need to initialize
+the ``Gyrokinetic`` App. In this input file, the App initialization consists
+of 4 sections:
+
+.. code-block:: lua
+
+  --------------------------------------------------------------------------------
+  -- App initialization
+  --------------------------------------------------------------------------------
+  plasmaApp = Plasma.App {
+     -----------------------------------------------------------------------------
+     -- Common
+     -----------------------------------------------------------------------------
+     ...
+
+     -----------------------------------------------------------------------------
+     -- Species
+     -----------------------------------------------------------------------------
+     ...
               scaleWithSourcePower = true,     -- when source is scaled to achieve desired power, scale initial density by same factor
       },
 
@@ -322,30 +402,43 @@ section is the most involved part of the input file, we will discuss various par
       diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
    },
 
-The initial condition for this problem is given by a Maxwellian. This is specified using ``init = Plasma.MaxwellianProjection { ... }``,
-which is a table with entries for the density and temperature profile functions (we could also specify the driftSpeed profile) to be
-used to initialze the Maxwellian. In this simulation, the initial density profile takes a particular form that 
-comes from a 1D single-fluid analysis (see [Shi2019]_), which derives quasi-steady-state initial profiles from the source parameters.
+The initial condition for this problem is given by a Maxwellian. This
+is specified using ``init = Plasma.MaxwellianProjection { ... }``,
+which is a table with entries for the density and temperature profile
+functions (we could also specify the driftSpeed profile) to be used
+to initialze the Maxwellian. In this simulation, the initial density
+profile takes a particular form that comes from a 1D single-fluid
+analysis (see [Shi2019]_), which derives quasi-steady-state initial
+profiles from the source parameters.
 
-The sources also take the form of Maxwellians, specified via ``source = Plasma.MaxwellianProjection { isSource = true, ... }``. 
-For the density and temperature profile functions,
-we use the sourceDensity and sourceTemperature functions defined in the Preamble. We also specify
-the desired source power. The source density is then scaled so that the integrated power in the source
-matches the desired power. Therefore, sourceDensity only controls the shape of the source density profile,
-not the amplitude. Since the initial conditions are related to the source, we also scale the initial
-species density by the same factor as the source via the ``scaleWithSourcePower = true`` flag in the initial conditions.
+The sources also take the form of Maxwellians, specified via
+``source = Plasma.MaxwellianProjection { isSource = true, ... }``. 
+For the density and temperature profile functions, we use the
+``sourceDensity`` and ``sourceTemperature`` functions defined in the
+Preamble. We also specify the desired source power. The source density
+is then scaled so that the integrated power in the source matches the
+desired power. Therefore, sourceDensity only controls the shape of the
+source density profile, not the amplitude. Since the initial conditions
+are related to the source, we also scale the initial species density
+by the same factor as the source via the ``scaleWithSourcePower = true``
+flag in the initial conditions.
 
-Self-species collisions are included using a Lenard-Bernstein model collision operator via the ``coll = Plasma.LBOCollisions { ... }`` table.
-For more details about collision models and options, see :ref:`Collisions <app_coll>`.
+Self-species collisions are included using a Lenard-Bernstein model
+collision operator via the ``coll = Plasma.LBOCollisions { ... }`` table.
+For more details about collision models and options, see
+:ref:`Collisions <app_coll>`.
 
-Non-periodic boundary conditions are specified via the ``bcx`` and ``bcz`` tables.
-For this simulation, we use zero-flux boundary conditions in the x (radial) direction, 
-and sheath-model boundary conditions in the z (field-aligned) direction.
+Non-periodic boundary conditions are specified via the ``bcx`` and ``bcz``
+tables. For this simulation, we use zero-flux boundary conditions in the
+:math:`x` (radial) direction, and sheath-model boundary conditions in the
+:math:`z` (field-aligned) direction.
 
-Finally, we specify the diagnostics that should be outputted for each species. These consist of various moments
-and integrated quantities. For more details about available diagnostics, see :ref:`app_gk`.
+Finally, we specify the diagnostics that should be outputted for each
+species. These consist of various moments and integrated quantities. For
+more details about available diagnostics, see :ref:`app_gk`.
 
-- The **Fields** section specifies parameters and options related to the field solvers for the gyrokinetic potential(s). 
+- The **Fields** section specifies parameters and options related to the
+field solvers for the gyrokinetic potential(s). 
 
 .. code-block:: lua
 
@@ -365,7 +458,8 @@ and integrated quantities. For more details about available diagnostics, see :re
       -- No BC required in z (Poisson solve is only in perpendicular x,y directions)
    },
 
-- The **Geometry** section specifies parameters related to the background magnetic field and other geometry parameters.
+- The **Geometry** section specifies parameters related to the
+background magnetic field and other geometry parameters.
 
 .. code-block:: lua
 
@@ -381,80 +475,28 @@ and integrated quantities. For more details about available diagnostics, see :re
          return B0*R/x
       end,
 
-      -- Geometry is not time-dependent.
-      evolve = false,
-   },
+quantity is controlled by the ``nFrame`` parameter in the input file.
 
-This concludes the App initialization section. The final thing to do in the input file is tell the simulation to run:
-
-.. code-block:: lua
-
-  --------------------------------------------------------------------------------
-  -- Run the App
-  --------------------------------------------------------------------------------
-  plasmaApp:run()
-
-Running the simulation
-----------------------
-
-The simulation can be run from the command line by navigating to the directory
-where the input file lives, and executing
-
-.. code-block:: bash
-
-  ~/gkylsoft/gkyl/bin/gkyl gk-sheath.lua
-
-You should see the program printing to the screen like this:
-
-.. code-block:: bash
-
-	bash$ ~/gkylsoft/gkyl/bin/gkyl gk-sheath.lua 
-	Fri Sep 18 2020 09:27:57.000000000
-	Gkyl built with 1b66bd4a21e5
-	Gkyl built on Sep 17 2020 11:59:51
-	Initializing Gyrokinetic simulation ...
-	Initializing completed in 2.33899 sec
-	
-	Starting main loop of Gyrokinetic simulation ...
-	
-	 Step 0 at time 0. Time step 5.4405e-09. Completed 0%
-	0123456789 Step   208 at time 1.00281e-06. Time step 4.90027e-09. Completed 10%
-	0123456789 Step   412 at time 2.00202e-06. Time step 4.90093e-09. Completed 20%
-	01234
-
-This simulation ran in ~256 seconds on a 2019 Macbook Pro. The full output to the screen 
-will look something like :doc:`this <inputFiles/gk-sheath-log>`.
-
-Diagnostic Output and Plotting
-------------------------------
-
-If you examine the contents of the simulation directory after the simulation finishes, you
-will see a large quantity of diagnostic output ``*.bp`` files.
-
-Some of the types of files are
-
-- Distribution functions for each species: ``gk-sheath_electron_#.bp`` and ``gk-sheath_ion_#.bp``
-- Moment quantities for each species, e.g. ``gk-sheath_electron_[MOM]_#.bp``, with ``MOM`` = ``GkM0`` (electron density), ``MOM`` = ``GkTemp`` (electron temperature), etc.
-- Electric potential, phi: ``gk-sheath_phi_#.bp``
-- Integrated moment quantities, e.g. ``gk-sheath_electron_intM0.bp`` (integrated electron density), etc.
-- Integrated field quantities, e.g. ``gk-sheath_esEnergy.bp`` (integrated electrostatic field energy), ``gk-sheath_phiSq.bp`` (integrated phi^2), etc.
-
-Here ``#`` is the frame number, where the total number of output frames for each quantity is controlled by the ``nFrame`` parameter in the input file.
-
-We can use the Gkeyll post-processing tool (:ref:`postgkyl <pg_main>`) to visualize the outputs.
+We can use the Gkeyll post-processing tool (:ref:`postgkyl <pg_main>`) to visualize
+the outputs.
 
 Electron density
 ^^^^^^^^^^^^^^^^
 
-First, let's examine the initial conditions, which are given in output files ending in ``_0.bp``. 
-The initial electron density :math:`n_e(x,y,z)` is found in ``gk-sheath_electron_GkM0_0.bp``, where ``GkM0`` is the label for the density moment.
-Let's look at this file as a function of the :math:`x` and :math:`z` coordintes by taking a line-out at :math:`y=0` via
+First, let's examine the initial conditions, which are given in output file
+sending in ``_0.bp``. The initial electron density :math:`n_e(x,y,z)` is
+found in ``gk-sheath_electron_GkM0_0.bp``, where ``GkM0`` is the label for
+the density moment. Let's look at this file as a function of the :math:`x`
+and :math:`z` coordintes by taking a line-out at :math:`y=0` via
 
 .. code-block:: bash
 
-   pgkyl -f gk-sheath_electron_GkM0_0.bp interp sel --z1 0. pl -x '$x$' -y '$z$'
+   pgkyl gk-sheath_electron_GkM0_0.bp interp sel --z1 0. pl -x '$x$' -y '$z$'
 
-where we have used the ``interp`` (:ref:`interpolate <pg_cmd_interpolate>`) command to interpolate the DG data onto the grid, and the ``sel --z1 0.`` (:ref:`select <pg_cmd_select>`) command to make the line-out at :math:`y=0` (``--z1`` refers to the :math:`y` coordinate here). The resulting plot looks like
+where we have used the ``interp`` (:ref:`interpolate <pg_cmd_interpolate>`)
+command to interpolate the DG data onto the grid, and the ``sel --z1 0.``
+(:ref:`select <pg_cmd_select>`) command to make the line-out at :math:`y=0`
+(``--z1`` refers to the :math:`y` coordinate here). The resulting plot looks like
 
 .. figure:: figures/gk-sheath_electron_GkM0_0.png
    :scale: 40 %
@@ -462,11 +504,13 @@ where we have used the ``interp`` (:ref:`interpolate <pg_cmd_interpolate>`) comm
 
    Initial electron density :math:`n_e(x,y=0,z,t=0)`
 
-We ran this simulation for 10 :math:`\mu\text{s}`, and since ``nframe=10`` we have an output frame for each :math:`\mu\text{s}` of the simulation. Let's look at the final state now, at :math:`t=10\mu\text{s}`. 
+We ran this simulation for 10 :math:`\mu\text{s}`, and since ``nframe=10``
+we have an output frame for each :math:`\mu\text{s}` of the simulation.
+Let's look at the final state now, at :math:`t=10\mu\text{s}`. 
 
 .. code-block:: bash
 
-   pgkyl -f gk-sheath_electron_GkM0_10.bp interp sel --z1 0. pl -x '$x$' -y '$z$'
+   pgkyl gk-sheath_electron_GkM0_10.bp interp sel --z1 0. pl -x '$x$' -y '$z$'
 
 gives
 
@@ -479,28 +523,32 @@ gives
 Sheath potential
 ^^^^^^^^^^^^^^^^
 
-Now let's look at the electrostatic potential, :math:`\phi`. We'd like to see if the sheath potential formed self-consistently due to our conducting-sheath boundary conditions.
-Let's look at :math:`\phi` along the field line (i.e. along the :math:`z` coordinate) by taking line-outs at :math:`x=1.0` and :math:`y=0`.
+Now let's look at the electrostatic potential, :math:`\phi`. We'd like to
+see if the sheath potential formed self-consistently due to our
+conducting-sheath boundary conditions. Let's look at :math:`\phi` along
+the field line (i.e. along the :math:`z` coordinate) by taking line-outs
+at :math:`x=1.0` and :math:`y=0`.
 
 .. code-block:: bash
 
-   pgkyl -f gk-sheath_phi_10.bp interp sel --z0 1. --z1 0. pl -x '$z$'
+  pgkyl gk-sheath_phi_10.bp interp sel --z0 1. --z1 0. pl -x '$z$'
 
 gives
 
 .. figure:: figures/gk-sheath_phi_z_10.png
-   :scale: 40 %
-   :align: center
+  :scale: 40 %
+  :align: center
 
-   Electrostatic potential :math:`\phi(x=1,y=0,z,t=10\mu\text{s})`
+  Electrostatic potential :math:`\phi(x=1,y=0,z,t=10\mu\text{s})`
 
-Indeed, at the domain ends in :math:`z`, we have a sheath potential :math:`\phi_{sh} = 90 \text{ V}`. 
+Indeed, at the domain ends in :math:`z`, we have a sheath potential
+:math:`\phi_{sh} = 90 \text{ V}`. 
 
 We can also make an animation of the evolution of the sheath potential via
 
 .. code-block:: bash
 
-   pgkyl -f "gk-sheath_phi_*.bp" interp sel --z0 1. --z1 0. anim -x '$z$'
+  pgkyl "gk-sheath_phi_[0-9]*.bp" interp sel --z0 1. --z1 0. anim -x '$z$'
 
 .. raw:: html
 
@@ -514,53 +562,86 @@ Particle balance
 ^^^^^^^^^^^^^^^^
 .. _qs_gk1_balance:
 
-We can examine particle balance between the sources and sinks (from end losses to the wall via the sheath) by looking at the ``electron_intM0.bp`` (integrated electron density) file and other related files. By using the ``ev`` (:ref:`evaluate <pg_cmd_ev>`) command, we can combine various quantities. ``ev`` is extremely useful and flexible, but it can lead to some complicated ``pgkyl`` commands. For this plot, the full command that we'll use is
+We can examine particle balance between the sources and sinks (from end losses
+to the wall via the sheath) by looking at the ``electron_intM0.bp`` (integrated
+electron density) file and other related files. By using the ``ev``
+(:ref:`evaluate <pg_cmd_ev>`) command, we can combine various quantities. ``ev``
+is extremely useful and flexible, but it can lead to some complicated ``pgkyl``
+commands. For this plot, the full command that we'll use is
 
 .. code-block:: bash
 
-  pgkyl -f gk-sheath_electron_intM0.bp -l 'total' -f gk-sheath_electron_intSrcM0.bp -l 'sources' \
-    -f gk-sheath_electron_intM0FluxZlower.bp -f gk-sheath_electron_intM0FluxZupper.bp \
-    ev -l 'sinks' 'f2 f3 + -1 *' dataset -i1,-1 ev -l 'sources + sinks' 'f0 f1 +' \
-    dataset -i0,-1 ev -l 'total - (sources + sinks)' 'f0 f1 -' \
-    dataset -i0,1,-3,-2,-1 pl -x 'time (s)' -f0
+  pgkyl gk-sheath_electron_intM0.bp -l 'total' gk-sheath_electron_intSrcM0.bp -l 'sources' \
+    gk-sheath_electron_intM0FluxZlower.bp gk-sheath_electron_intM0FluxZupper.bp \
+    ev -l 'sinks' 'f[2] f[3] + -1 *' ev -l 'sources + sinks' 'f[1] f[-1] +' \
+    ev -l 'total - (sources + sinks)' 'f[0] f[-1] -' activate -i0,1,-3,-2,-1 plot -x 'time (s)' -f0
+
+.. note::
+
+  The above ``pgkyl`` command could use tags instead of dataset indices as follows:
+  ::
+    pgkyl gk-sheath_electron_intM0.bp -l 'total' -t tot gk-sheath_electron_intSrcM0.bp -l 'sources' -t src \
+     gk-sheath_electron_intM0FluxZlower.bp -t fluxL gk-sheath_electron_intM0FluxZupper.bp -t fluxU \
+     ev -l 'sinks' -t sinks 'fluxL fluxU + -1 *' ev -l 'sources + sinks' -t srcPsinks 'src sinks +' \
+     ev -l 'total - (source + sinks)' -t bal 'tot srcPsinks -' activate -t tot,src,sinks,srcPsinks,bal pl -f0
 
 Let's break this command down a bit. We first load all the data files that we need: 
 
 .. code-block:: bash
    
-  pgkyl -f gk-sheath_electron_intM0.bp -l 'total' -f gk-sheath_electron_intSrcM0.bp -l 'sources' \
-    -f gk-sheath_electron_intM0FluxZlower.bp -f gk-sheath_electron_intM0FluxZupper.bp
+  pgkyl gk-sheath_electron_intM0.bp -l 'total' gk-sheath_electron_intSrcM0.bp -l 'sources' \
+    gk-sheath_electron_intM0FluxZlower.bp gk-sheath_electron_intM0FluxZupper.bp \
 
-``gk-sheath_electron_intM0.bp`` is the (total) integrated electron density, ``gk-sheath_electron_intSrcM0.bp`` is the integrated electron source density, ``gk-sheath_electron_intM0FluxZlower.bp`` is the integrated particle flux to the lower divertor plate, and ``gk-sheath_electron_intM0FluxZupper.bp`` is the integrated particle flux to the upper plate. We've used the ``-l`` flag to label the first two of these as ``'total'`` and ``'sources'``.
+Here ``gk-sheath_electron_intM0.bp`` is the (total) integrated electron density,
+``gk-sheath_electron_intSrcM0.bp`` is the integrated electron source density,
+``gk-sheath_electron_intM0FluxZlower.bp`` is the integrated particle flux to
+the lower divertor plate, and ``gk-sheath_electron_intM0FluxZupper.bp`` is the
+integrated particle flux to the upper plate. We've used the ``-l`` flag to label
+the first two of these as ``'total'`` and ``'sources'``.
 
-Next, we use the ``ev`` command to sum the fluxes and change the sign so that the result is negative:
-
-.. code-block:: bash
-   
-  ev -l 'sinks' 'f2 f3 + -1 *'
-
-Here, ``f2`` refers to the 3rd loaded file (active dataset 2, with 0-based indexing) and ``f3`` the 4th loaded file (active dataset 3); these are the two ``Flux`` files. The ``ev`` command uses `reverse Polish notation <https://en.wikipedia.org/wiki/Reverse_Polish_notation>`_, so that this command translates to ``-(f2 + f3)``. This creates a new dataset at the end of the stack, which can be indexed as dataset -1. We label this dataset as ``'sinks'``.
-
-Next, we want to sum the sources and the sinks. To do this, we activate the ``'source'`` dataset (dataset 1 from the original loading) and the ``'sinks'`` dataset (dataset -1, which we just created with ``ev``). We can then use ``ev`` to sum them, via
+Next, we use the ``ev`` command to sum the fluxes and change the sign so that
+the result is negative:
 
 .. code-block:: bash
 
-  dataset -i1,-1 ev -l 'sources + sinks' 'f0 f1 +'
+  ev -l 'sinks' 'f[2] f[3] + -1 *'  
 
-Note that the indexing for ``f0`` and ``f1`` in ``ev`` only references active datasets, so here, ``f0`` = dataset 1 and ``f1`` = dataset -1.
-This pushes another new dataset to the stack, which we label as ``'sources and sinks'``. This becomes dataset -1 and pushes the ``'sinks'`` dataset back to dataset -2. Next, we activate the ``'total'`` dataset (dataset 0) and the ``'sources + sinks'`` dataset (dataset -1), and use ``ev`` to compute the difference, via
+Here, ``f2`` refers to the 3rd loaded file (active dataset 2, with 0-based indexing)
+and ``f3`` the 4th loaded file (active dataset 3); these are the two ``Flux`` files.
+The ``ev`` command uses `reverse Polish notation
+<https://en.wikipedia.org/wiki/Reverse_Polish_notation>`_, so that this command
+translates to ``-(f2 + f3)``. This creates a new dataset at the end of the stack,
+which can be indexed as dataset -1. We label this dataset as ``'sinks'``.
+
+Next, we want to sum the sources and the sinks. To do this, we sum
+the ``'source'`` dataset (dataset 1 from the original loading) and the
+``'sinks'`` dataset (dataset -1, which we just created with ``ev``), via
 
 .. code-block:: bash
 
-  dataset -i0,-1 ev -l 'total - (sources + sinks)' 'f0 f1 -'
+  ev -l 'sources + sinks' 'f[1] f[-1] +'
 
-Again, this pushes another dataset to the stack, which we label as ``'total - (sources + sinks)'``. Now we have computed everything we need. We just need to activate all the datasets we would like to plot, and plot them. We do this with
+This pushes another, new dataset to the stack, which we label as
+``'sources and sinks'``. This becomes dataset -1 and pushes the
+``'sinks'`` dataset back to dataset -2. Next, we use ``ev`` to
+compute the difference between the ``'total'`` dataset (dataset 0)
+and the ``'sources + sinks'`` dataset (dataset -1), via
 
 .. code-block:: bash
 
-  dataset -i0,1,-3,-2,-1 pl -x 'time (s)' -f0
+  dev -l 'total - (sources + sinks)' 'f[0] f[-1] -'
 
-with the ``-f0`` flag to put all the lines on the same figure. The end result is
+Again, this pushes another dataset to the stack, which we label as
+``'total - (sources + sinks)'``. Now we have computed everything we
+need. We just need to activate all the datasets we would like to plot,
+and plot them. We do this with
+
+.. code-block:: bash
+
+  activate -i0,1,-3,-2,-1 pl -x 'time (s)' -f0
+
+with the ``-f0`` flag to put all the lines on the same figure. The
+end result is
 
 .. figure:: figures/gk-sheath_electron_intM0balance.png
    :scale: 40 %
@@ -568,59 +649,74 @@ with the ``-f0`` flag to put all the lines on the same figure. The end result is
 
    Electron particle balance
 
-The flat purple line shows that electron density is conserved after accounting for sources and sinks.
+The flat purple line shows that electron density is conserved after
+accounting for sources and sinks.
 
 .. Energy balance
 .. ^^^^^^^^^^^^^^
 .. 
 .. .. code-block:: bash
-.. 	pgkyl -f 'gk-sheath_electron_intKE.bp' -l 'electron kinetic' -f 'gk-sheath_ion_intKE.bp' -l 'ion kinetic' -f 'gk-sheath_esEnergy.bp' -l 'ES field' -f 'gk-sheath_electron_intSrcKE.bp' -l 'electron source' -f 'gk-sheath_ion_intSrcKE.bp' -l 'ion source' -f 'gk-sheath_electron_intHEFluxZlower.bp' -f 'gk-sheath_electron_intHEFluxZupper.bp' -f 'gk-sheath_ion_intHEFluxZlower.bp' -f 'gk-sheath_ion_intHEFluxZupper.bp' dataset -i5,6 ev -l 'electron sink' 'f0 f1 + -1 *' dataset -i7,8 ev -l 'ion sink' 'f0 f1 + -1 *' dataset -i3,-2 ev -l 'electron source + sink' 'f0 f1 +' dataset -i4,-2 ev -l 'ion source + sink' 'f0 f1 +' dataset -i0,1,2,-2,-1 ev -l 'total kinetic + ES field - (sources + sinks)' 'f0 f1 + f2 + f3 - f4 -' dataset -i0,1,2,-3,-2,-1 pl -f0 --ylim -1,9
 .. 
+..  pgkyl 'gk-sheath_electron_intKE.bp' -l 'electron kinetic' 'gk-sheath_ion_intKE.bp' \
+..    -l 'ion kinetic' 'gk-sheath_esEnergy.bp' -l 'ES field' 'gk-sheath_electron_intSrcKE.bp' \
+..    -l 'electron source' 'gk-sheath_ion_intSrcKE.bp' -l 'ion source' \
+..    'gk-sheath_electron_intHEFluxZlower.bp' 'gk-sheath_electron_intHEFluxZupper.bp' \
+..    'gk-sheath_ion_intHEFluxZlower.bp' 'gk-sheath_ion_intHEFluxZupper.bp' dataset -i5,6 \
+..    ev -l 'electron sink' 'f[5] f[6] + -1 *' ev -l 'ion sink' 'f[7] f[8] + -1 *' ev \
+..    -l 'electron source + sink' 'f[3] f[-2] +' ev -l 'ion source + sink' 'f[4] f[-2] +' \
+..    ev -l 'total kinetic + ES field - (sources + sinks)' 'f[0] f[1] + f[2] + f[-2] - f[-1] -' \
+..    activate -i0,1,2,-3,-2,-1 pl -f0 --ylim -1,9
+ 
 
 Divertor Fluxes
 ^^^^^^^^^^^^^^^
 
-We can also look at profiles of the particle and energy fluxes to the end-plates (i.e. boundary fluxes in the :math:`z` direction). These can be computed from files of the form ``*_[MOM]FluxZlower_#.bp`` and ``*_[MOM]FluxZupper_#.bp``. For example, to look at the ion particle flux to the lower divertor plate vs :math:`x`, averaged in :math:`y`, we use
-
 .. code-block:: bash
 
-  pgkyl -f gk-sheath_ion_GkM0FluxZlower_10.bp interp ev 'f0 1,2 avg' pl -x '$x$'
+  pgkyl gk-sheath_ion_GkM0FluxZlower_10.bp interp ev 'f[0] 1,2 avg' pl -x '$x$'
 
-Here we use ``ev`` to average in the :math:`y` and :math:`z` direction (for boundary fluxes, an average in the boundary direction is always required). This results in
+Here we use ``ev`` to average in the :math:`y` and :math:`z` direction
+(for boundary fluxes, an average in the boundary direction is always
+required). This results in
 
 .. figure:: figures/gk-sheath_ion_GkM0FluxZlower_10.png
-   :scale: 40 %
-   :align: center
+  :scale: 40 %
+  :align: center
 
-   Ion particle flux to lower divertor at t=10 :math:`\mu\text{s}`
+  Ion particle flux to lower divertor at t=10 :math:`\mu\text{s}`
 
 The ion energy (heat) flux profile can similarly be plotted via
 
 .. code-block:: bash
 
-  pgkyl -f gk-sheath_ion_GkEnergyFluxZlower_10.bp interp ev 'f0 1,2 avg' pl -x '$x$'
+  pgkyl gk-sheath_ion_GkEnergyFluxZlower_10.bp interp ev 'f[0] 1,2 avg' pl -x '$x$'
 
 .. figure:: figures/gk-sheath_ion_GkEnergyFluxZlower_10.png
-   :scale: 40 %
-   :align: center
+  :scale: 40 %
+  :align: center
 
-   Ion heat flux to lower divertor at t=10 :math:`\mu\text{s}`
+  Ion heat flux to lower divertor at t=10 :math:`\mu\text{s}`
 
-Suppose instead of the instantaneous flux, we want the time-averaged flux over some period of time, perhaps from 5-10 :math:`\mu\text{s}`. To compute this, we can use
+Suppose instead of the instantaneous flux, we want the time-averaged
+flux over some period of time, perhaps from 5-10 :math:`\mu\text{s}`.
+To compute this, we can use
 
 .. code-block:: bash
 
   pgkyl -f "gk-sheath_ion_GkEnergyFluxZlower_*.bp" interp collect \
-    sel --z0 5:10 ev 'f0 0,2,3 avg' pl -x '$x$'
+    sel --z0 5:10 ev 'f[0] 0,2,3 avg' pl -x '$x$'
 
-This uses the :ref:`collect <pg_cmd_collect>` command to aggregate the frames into a time dimension, which becomes coordinate 0. We then use ``sel --z0 5:10`` to select frames 5-10.
-Then we use ``ev 'f0 0,2,3 avg'`` to average the data in the 0th (time), 2nd (:math:`y`), and 3rd (:math:`z`) dimensions. This gives
+This uses the :ref:`collect <pg_cmd_collect>` command to aggregate the
+frames into a time dimension, which becomes coordinate 0. We then use
+``sel --z0 5:10`` to select frames 5-10. Then we use ``ev 'f0 0,2,3 avg'``
+to average the data in the 0th (time), 2nd (:math:`y`), and 3rd (:math:`z`)
+dimensions. This gives
 
 .. figure:: figures/gk-sheath_ion_GkEnergyFluxZlower_timeavg.png
-   :scale: 40 %
-   :align: center
+  :scale: 40 %
+  :align: center
 
-   Time-averaged ion heat flux to lower divertor (t= 5-10 :math:`\mu\text{s}`)
+  Time-averaged ion heat flux to lower divertor (t= 5-10 :math:`\mu\text{s}`)
 
 References
 ----------
@@ -629,3 +725,10 @@ References
   A. (2019). "Full-f gyrokinetic simulation of turbulence in a helical
   open-field-line plasma", *Physics of Plasmas*, **26**,
   012307. https://doi.org/10.1063/1.5074179
+
+.. highlight:: lua
+
+.. _qs_gk1:
+.. highlight:: lua
+
+.. _qs_gk1:
