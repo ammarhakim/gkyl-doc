@@ -53,6 +53,7 @@ Data manipulation
    .. commands/fft
    commands/integrate
    commands/interpolate
+   .. commands/magsq
    .. commands/norm
    .. commands/recovery
    .. commands/tenmoment
@@ -62,7 +63,9 @@ Diagnostics
 .. toctree::
    :maxdepth: 1
 
+   .. commands/current
    commands/growth
+   .. commands/velocity
 
 Command control
 ---------------

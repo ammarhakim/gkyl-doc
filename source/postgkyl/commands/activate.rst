@@ -3,6 +3,9 @@
 activate
 ========
 
+Command line
+^^^^^^^^^^^^
+
 .. raw:: html
 
    <details>
