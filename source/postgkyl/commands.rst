@@ -20,7 +20,7 @@ Output
 .. toctree::
    :maxdepth: 1
 
-   .. commands/animate
+   commands/animate
    commands/extractinput
    commands/info
    commands/listoutputs
