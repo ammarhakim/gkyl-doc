@@ -18,6 +18,6 @@ aspiration of Postgkyl is to create a postprocessing suit which would:
 .. toctree::
   :maxdepth: 2
 
-  install
   usage
   examples
+  commands

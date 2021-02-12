@@ -8,10 +8,70 @@ or multiplying datasets directly in a terminal. As these operations
 are generally simple to do in a script mode, ``ev`` is available only
 in the command line interface.
 
-.. note::
-   This page uses the Postgkyl 1.6 syntax and features.
-
 .. contents::
+
+.. raw:: html
+
+   <details>
+   <summary><a>Operations supported</a></summary>
+
+.. list-table:: ``ev`` supported operations
+  :widths: 10 70
+  :header-rows: 1
+
+  * - Operator
+    - Description
+  * - ``+``
+    - Sum datasets.
+  * - ``-``
+    - Subtract the second dataset from the first.
+  * - ``*``
+    - Multiply datasets.
+  * - ``/``
+    - Divide first dataset by the second.
+  * - ``sqrt``
+    - Square root of a dataset. 
+  * - ``sin``
+    - Compute :math:`sin(f)` where :math:`f` is a dataset.
+  * - ``cos``
+    - Compute :math:`cos(f)` where :math:`f` is a dataset.
+  * - ``tan``
+    - Compute :math:`tan(f)` where :math:`f` is a dataset.
+  * - ``abs``
+    - Absolute value of a dataset 
+  * - ``avg``
+    - Average of a dataset along one or more directions. 
+  * - ``log``
+    - Calculate the natural log of a dataset.
+  * - ``log10``
+    - Calculate the base-10 log of a dataset.
+  * - ``max``
+    - Calculate the maximum of a dataset (returns a single number)
+  * - ``min``
+    - Calculate the minimum of a dataset (returns a single number)
+  * - ``mean``
+    - Calculate the mean of a dataset (returns a single number)
+  * - ``len``
+    - 
+  * - ``pow``
+    - Raise a dataset to a given power. 
+  * - ``sq``
+    - Square a dataset. 
+  * - ``exp``
+    - Compute :math:`e^f` where :math:`f` is a dataset. 
+  * - ``grad``
+    - Compute the derivative of a dataset along a given direction.
+  * - ``int``
+    - Integrate a dataset along one or more directions.
+  * - ``div``
+    - 
+  * - ``curl``
+    - 
+
+.. raw:: html
+
+   </details>
+   <br>
 
 Reverse Polish notation
 -----------------------
@@ -131,3 +191,83 @@ for batch loading and :ref:`pg_cmd_animate`:
 .. code-block:: bash
 
   pgkyl 'two-stream_elc_M0_[0-9].bp' -t dens 'two-stream_elc_M1i_[0-9]*.bp' -t mom interp ev 'mom dens /' animate
+
+Examples of specific ``ev`` operations
+--------------------------------------
+
+In this section we provide examples of some ``ev`` operations that
+are less trivial or intuitive.
+
+grad
+^^^^
+
+This operation differentiates a along a direction given by the second
+operand. So, for example, given the data from an
+:doc:`ion sound wave gyrokinetic simulation<../input/gk-ionSound-1x2v-p1>`
+we can plot the initial electrostatic potential with
+
+.. code-block:: bash
+
+  pgkyl gk-ionSound-1x2v-p1_phi_0.bp interp pl -x '$x$' -y '$\phi$'
+
+and compute the parallel electric field by differentiating the potential
+along :math:`x` as follows:
+
+.. code-block:: bash
+
+  pgkyl gk-ionSound-1x2v-p1_phi_0.bp interp ev 'f[0] 0 grad -1 *' pl -x '$x$' -y '$\phi$'
+
+These produce the following plots:
+
+.. figure:: ../fig/ev/gk-ionSound-1x2v-p1_phi_0.png
+  :align: left
+  :figwidth: 46%
+.. figure:: ../fig/ev/gk-ionSound-1x2v-p1_Epar_0.png
+  :align: right
+  :figwidth: 46%
+
+int
+^^^
+
+Integrate a dataset along a direction specified by the second operand,
+or along multiple directions specified by a comma-separated list. If we
+once again take the 
+:doc:`ion sound wave gyrokinetic simulation<../input/gk-ionSound-1x2v-p1>`
+data, we can examine the number of particles in the simulation (should be
+conserved) by taking the time trace of the integrated ion number density
+(``intM0``) and taking its mean:
+
+.. code-block:: bash
+
+  pgkyl gk-ionSound-1x2v-p1_ion_intM0.bp ev 'f[0] mean' pr
+
+which prints out
+
+.. code-block:: bash
+
+  12.566370614358858
+
+If we instead use ``ev`` to integrate the initial and/or the final number
+density ``GkM0``, we should get roughly the same answer. We can check that
+this is the case by typing
+
+.. code-block:: bash
+
+  pgkyl gk-ionSound-1x2v-p1_ion_GkM0_10.bp interp ev 'f[0] 0 int' pr
+
+which produces
+
+.. code-block:: bash
+
+  12.566370614358522
+
+and we have shown that the number of particles at the end is roughly the
+same as the mean number of particles throughout the simulation.
+
+
+avg
+^^^
+
+Average a dataset along a direction specified by the second operand,
+or along multiple directions specified by a comma-separated list.
+

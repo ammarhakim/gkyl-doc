@@ -16,6 +16,9 @@ command.
 Note that differentiation is also possible with the :ref:`pg_cmd_ev`
 command and the ``grad`` operation.
 
+Command line
+^^^^^^^^^^^^
+
 .. raw:: html
 
    <details>
@@ -47,9 +50,6 @@ command and the ``grad`` operation.
 
    </details>
    <br>
-
-Examples
-========
 
 Let's take a :doc:`gyrokinetic ion acoustic wave simulation<../input/gk-ionSound-1x2v-p1>`
 as an example. We can examine the initial electrostatic potential generated

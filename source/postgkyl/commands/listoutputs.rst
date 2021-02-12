@@ -9,6 +9,9 @@ outputs were produced, or want to browse all possible files/diagnostics.
 This command doesn't take any arguments, and can be used with
 the appreviation ``list``
 
+Command line
+^^^^^^^^^^^^
+
 .. raw:: html
 
    <details>
@@ -30,9 +33,6 @@ the appreviation ``list``
 
    </details>
    <br>
-
-Example usage
--------------
 
 In the directory where the simulation was run type
 

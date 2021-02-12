@@ -1,4 +1,4 @@
-.. _pgscript_examples:
+.. _pg_scriptModeExamples:
 
 Script mode examples
 ++++++++++++++++++++

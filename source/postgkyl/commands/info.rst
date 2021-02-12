@@ -3,12 +3,14 @@
 info
 ====
 
-
 ``info`` is a function of the ``postgkyl.data.Data`` class that
 returns information about the current dataset (see :ref:`pg_loading`
 for more details about the class itself). The function doesn't take
 any arguments and it is wrapped into the ``info`` command.
    
+Command line
+^^^^^^^^^^^^
+
 .. raw:: html
          
    <details>
@@ -65,6 +67,9 @@ we would get the following output
 
 Showing the label, tag and index of each dataset.
    
+Script mode
+^^^^^^^^^^^
+
 .. raw:: html
          
   <details open>

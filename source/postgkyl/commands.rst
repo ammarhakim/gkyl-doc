@@ -35,10 +35,10 @@ Data selection
    :maxdepth: 1
 
    .. commands/activate
-   .. commands/collect
+   commands/collect
    .. commands/deactivate
    .. commands/mask
-   .. commands/select
+   commands/select
    .. commands/val2coord
 
 Data manipulation

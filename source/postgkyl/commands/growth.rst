@@ -11,6 +11,9 @@ would be off by a factor of two.
 The command works by fitting :math:`A e^(2\gamma t)` to the data and
 returning :math:`\gamma`.
 
+Command line
+^^^^^^^^^^^^
+
 .. raw:: html
 
    <details>
@@ -40,9 +43,6 @@ returning :math:`\gamma`.
 
    </details>
    <br>
-
-Examples
-========
 
 The :doc:`two tream instability simulation<../input/two-stream>` produces
 a field energy time trace that can be plotted with 

@@ -5,6 +5,9 @@ integrate
 
 Integrate a dataset over specified direction(s).
 
+Command line
+^^^^^^^^^^^^
+
 .. raw:: html
 
    <details>
@@ -26,9 +29,6 @@ Integrate a dataset over specified direction(s).
 
    </details>
    <br>
-
-Examples
-========
 
 Consider the :doc:`gyrokinetic simulation of an ion acoustic wave<../input/gk-ionSound-1x2v-p1>`
 as an example. It outputs the integrated particle density over

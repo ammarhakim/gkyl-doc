@@ -6,9 +6,6 @@ plot
 ``postgkyl.output.plot`` plots 1D and 2D data using `Matplotlib
 <https://matplotlib.org/>`_.
 
-.. note::
-   This page uses the Postgkyl 1.6 syntax and features.
-
 .. raw:: html
          
    <details>

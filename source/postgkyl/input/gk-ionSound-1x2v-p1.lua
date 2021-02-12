@@ -31,13 +31,13 @@ nElc    = n0         -- Background electron density.
 vtIon   = math.sqrt(Ti)                -- Ion thermal speed. 
 vtElc   = math.sqrt((mIon/mElc)*Te)    -- Electron thermal speed. 
 
-tFinal  = .10        -- Final simulation time.
+tFinal  = .50        -- Final simulation time.
 
 plasmaApp = Plasma.App {
    logToFile = true,
 
    tEnd        = tFinal,           -- End time.
-   nFrame      = 1,               -- Number of output frames.
+   nFrame      = 10,               -- Number of output frames.
    lower       = {xLower},         -- Configuration space lower left.
    upper       = {xUpper},         -- Configuration space upper right.
    cells       = {8},             -- Configuration space cells.
@@ -50,7 +50,7 @@ plasmaApp = Plasma.App {
    calcIntQuantEvery = 0.001,
 
    -- Decomposition for configuration space.
-   decompCuts = {8},    -- Cuts in each configuration direction.
+   decompCuts = {1},    -- Cuts in each configuration direction.
    useShared  = false,   -- If to use shared memory.
 
    -- Boundary conditions for configuration space.
