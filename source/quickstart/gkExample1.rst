@@ -703,12 +703,12 @@ To compute this, we can use
 
 .. code-block:: bash
 
-  pgkyl -f "gk-sheath_ion_GkEnergyFluxZlower_*.bp" interp collect \
-    sel --z0 5:10 ev 'f[0] 0,2,3 avg' pl -x '$x$'
+  pgkyl "gk-sheath_ion_GkEnergyFluxZlower_*.bp" interp collect \
+    sel --z0 5:10 ev 'f[-1] 0,2,3 avg' pl -x '$x$'
 
 This uses the :ref:`collect <pg_cmd_collect>` command to aggregate the
 frames into a time dimension, which becomes coordinate 0. We then use
-``sel --z0 5:10`` to select frames 5-10. Then we use ``ev 'f0 0,2,3 avg'``
+``sel --z0 5:10`` to select frames 5-10. Then we use ``ev 'f[-1] 0,2,3 avg'``
 to average the data in the 0th (time), 2nd (:math:`y`), and 3rd (:math:`z`)
 dimensions. This gives
 

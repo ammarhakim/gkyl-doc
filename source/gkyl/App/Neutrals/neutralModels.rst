@@ -269,7 +269,7 @@ A simple Vlasov-Maxwell test case in 1X1V with spatially constant fluid moments 
 
 .. code-block:: bash
 
-   pgkyl -f vlasovIz_ion_intM0.bp -f vlasovIz_neut_intM0.bp ev 'f0 f1 +' plot -x time -y particles
+   pgkyl vlasovIz_ion_intM0.bp vlasovIz_neut_intM0.bp ev 'f[0] f[1] +' plot -x 'time' -y 'particles'
 
 This produces the plot shown below, illustrating conservation of particle number. 
 
@@ -283,7 +283,7 @@ Next plot the sum of integrated thermal energy of ions and neutrals with the fol
 
 .. code-block:: bash
 
-   pgkyl -f vlasovIz_ion_intM2Thermal.bp -f vlasovIz_neut_intM2Thermal.bp ev 'f0 f1 +' plot -x time -y 'thermal energy'
+   pgkyl vlasovIz_ion_intM2Thermal.bp vlasovIz_neut_intM2Thermal.bp ev 'f[0] f[1] +' plot -x 'time' -y 'thermal energy'
 
 This produces the plot shown below which demonstrates the conservation of thermal energy.
    
@@ -302,7 +302,7 @@ The simulation can be run with the input file :doc:`1x2vSOL.lua <inputFiles/1x2v
 
 .. code-block:: bash
 
-    pgkyl -f "1x2vSOL_elc_GkM0_[0-9]*.bp" interp anim -x '$x$' -y '$n_e$'
+    pgkyl "1x2vSOL_elc_GkM0_[0-9]*.bp" interp anim -x '$x$' -y '$n_e$'
 
 This command produces the following animation of the evolution of the electron density profile in time.
 

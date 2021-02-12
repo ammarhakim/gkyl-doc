@@ -124,7 +124,7 @@ The following command plot all five moment term in the 5th electron output frame
 
 .. code-block:: bash
 
-  pgkyl -f rt-5m-gem_elc_5.bp plot  --fix-aspect
+  pgkyl rt-5m-gem_elc_5.bp plot --fix-aspect
 
 .. figure:: figures/rt-5m-gem_elc_frame5.png
    :scale: 100 %
@@ -139,7 +139,7 @@ The following command plot the 3rd moment term in the 5th electron output frame.
 
 .. code-block:: bash
 
-  pgkyl -f rt-5m-gem_elc_5.bp --comp 3 plot  --fix-aspect
+  pgkyl rt-5m-gem_elc_5.bp -c 3 plot --fix-aspect
 
 .. figure:: figures/rt-5m-gem_elc_frame5_rhovze.png
    :scale: 100 %
@@ -155,13 +155,13 @@ Here, we are being agnostic on what a user might have named these two different 
 
 .. code-block:: bash
 
-  pgkyl -f inputFiles/rt-5m-gem_fieldEnergy.bp  select --comp 5 plot --logy
+  pgkyl rt-5m-gem_fieldEnergy.bp select -c 5 plot --logy
 
 .. figure:: figures/rt-5m-gem_fieldEnergy.png
-   :scale: 60 %
-   :align: center
+  :scale: 60 %
+  :align: center
 
-   Integrated magnetic field energy, :math:`|B_z|^2`, plotted as a function of time.
+  Integrated magnetic field energy, :math:`|B_z|^2`, plotted as a function of time.
 
 
 References
