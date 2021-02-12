@@ -52,7 +52,7 @@ Data manipulation
    commands/ev
    .. commands/fft
    commands/integrate
-   .. commands/interpolate
+   commands/interpolate
    .. commands/norm
    .. commands/recovery
    .. commands/tenmoment
