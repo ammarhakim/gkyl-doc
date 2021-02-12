@@ -25,7 +25,7 @@ Output
    commands/info
    commands/listoutputs
    commands/plot
-   .. commands/pr
+   commands/pr
    .. commands/trajectory
    .. commands/write
 
