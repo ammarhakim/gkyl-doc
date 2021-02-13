@@ -85,3 +85,9 @@ producing the following three plots
 
 Clearly the field amplitude averaged over 30 frame intervals is
 increasing as the instability develops.
+
+Finally, ``collect`` allows a transformation of the time dimension
+so that instead of time ``t`` it instead becomes ``(t-offset)/period``
+via the ``--offset`` and ``--period flags``. This is used,
+for example, in astronomy for variable stars and in creating
+Poincare plots (see `<http://ammar-hakim.org/sj/je/je32/je32-vlasov-test-ptcl.html>`_).
