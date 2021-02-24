@@ -30,7 +30,11 @@ ionDensityData = pg.data.GData(ionDensity)
 
 x_vals,y_vals,X,Y,ionDensityGrid = func_data(ionDensityData)
 
+++++++++++++++++++++
+
 Evaluating derivative of data on grids: 
+
+import postgkyl as pg
 
 def func_data(phiData):
 	phiInterp = pg.data.GInterpModal(phiData, 1, 'ms')
