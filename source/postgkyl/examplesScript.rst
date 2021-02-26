@@ -7,6 +7,8 @@ Examples of using the script mode of postgkyl.
 
 Simple loading of data in grids:
 
+.. code-block:: python
+
 import postgkyl as pg
 
 def func_data(ionDensityData):
@@ -33,6 +35,8 @@ x_vals,y_vals,X,Y,ionDensityGrid = func_data(ionDensityData)
 ++++++++++++++++++++
 
 Evaluating derivative of data on grids: 
+
+.. code-block:: python
 
 import postgkyl as pg
 
