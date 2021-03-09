@@ -46,6 +46,7 @@ And finally, set WSL 2 as the default (again using PowerShell as Administrator).
 
 .. code-block:: powershell
 
+  wsl --set-version <distribution name> 2
   wsl --set-default-version 2
 
 With or without WSL 2 enabled, the Linux distribution itself is
