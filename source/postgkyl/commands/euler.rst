@@ -3,24 +3,37 @@
 euler
 -----
 
-.. contents::
+Command line
+^^^^^^^^^^^^
 
-Function description
-^^^^^^^^^^^^^^^^^^^^
+.. raw:: html
 
-Command line usage
-^^^^^^^^^^^^^^^^^^
+  <details>
+  <summary><a>Command help</a></summary>
 
 .. code-block:: bash
+  :emphasize-lines: 1
 
-   $ pgkyl euler --help
-   Usage: pgkyl euler [OPTIONS]
+  pgkyl euler --help
+    Usage: pgkyl euler [OPTIONS]
+    
+      Compute Euler (five-moment) primitive and some derived variables from
+      fluid conserved variables.
+    
+    Options:
+      -u, --use TEXT                  Specify a 'tag' to apply to (default all
+                                      tags).
+    
+      -g, --gas_gamma FLOAT           Gas adiabatic constant
+      -v, --variable_name [density|xvel|yvel|zvel|vel|pressure|ke|mach]
+                                      Variable to extract
+      -h, --help                      Show this message and exit.
 
-     Extract Euler (five-moment) primitive variables from fluid simulation
+.. raw:: html
 
-   Options:
-     -g, --gas_gamma FLOAT           Gas adiabatic constant
-     -v, --variable_name [density|xvel|yvel|zvel|vel|pressure]
-                                     Variable to plot
-     --help                          Show this message and exit.
+  </details>
+  <br>
 
+
+Script mode
+^^^^^^^^^^^

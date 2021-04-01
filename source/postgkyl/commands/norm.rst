@@ -3,23 +3,29 @@
 norm
 ----
 
-.. contents::
+Command line
+^^^^^^^^^^^^
 
-Function description
-^^^^^^^^^^^^^^^^^^^^
+.. raw:: html
 
-Command line usage
-^^^^^^^^^^^^^^^^^^
+  <details>
+  <summary><a>Command help</a></summary>
 
 .. code-block:: bash
-                
-   $ pgkyl norm -h
-   Usage: pgkyl norm [OPTIONS]
+ :emphasize-lines: 1
 
-     Normalize data
+  pgkyl norm -h
+    Usage: pgkyl norm [OPTIONS]
 
-   Options:
-     --shift / --no-shift  Shift minimal value to zero (default: False).
-     --usefirst            Normalize to first value in field
-     -h, --help            Show this message and exit.
+      Normalize data
+
+    Options:
+      --shift / --no-shift  Shift minimal value to zero (default: False).
+      --usefirst            Normalize to first value in field
+      -h, --help            Show this message and exit.
+
+.. raw:: html
+
+  </details>
+  <br>
 

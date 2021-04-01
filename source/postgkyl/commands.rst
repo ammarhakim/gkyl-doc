@@ -20,11 +20,12 @@ Output
 .. toctree::
    :maxdepth: 1
 
-   .. commands/animate
-   .. commands/extractinput
-   .. commands/info
+   commands/animate
+   commands/extractinput
+   commands/info
+   commands/listoutputs
    commands/plot
-   .. commands/pr
+   commands/pr
    .. commands/trajectory
    .. commands/write
 
@@ -33,10 +34,11 @@ Data selection
 .. toctree::
    :maxdepth: 1
 
-   .. commands/collect
-   .. commands/dataset
+   .. commands/activate
+   commands/collect
+   .. commands/deactivate
    .. commands/mask
-   .. commands/select
+   commands/select
    .. commands/val2coord
 
 Data manipulation
@@ -45,12 +47,13 @@ Data manipulation
    :maxdepth: 1
 
    .. commands/agyro
-   .. commands/differentiate
+   commands/differentiate
    .. commands/euler
-   .. commands/ev
+   commands/ev
    .. commands/fft
-   .. commands/integrate
-   .. commands/interpolate
+   commands/integrate
+   commands/interpolate
+   .. commands/magsq
    .. commands/norm
    .. commands/recovery
    .. commands/tenmoment
@@ -60,7 +63,9 @@ Diagnostics
 .. toctree::
    :maxdepth: 1
 
-   .. commands/growth
+   .. commands/current
+   commands/growth
+   .. commands/velocity
 
 Command control
 ---------------

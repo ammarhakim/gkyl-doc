@@ -201,6 +201,7 @@ Sample submit scripts:
 
 - :doc:`NERSC's Cori <inputFiles/jobscript_cori>`.
 - :doc:`TACC's Stampede2 <inputFiles/jobscript_stampede2>`.
+- :doc:`TACC's Frontera <inputFiles/jobscript_frontera>`.
 - :doc:`MIT's Engaging <inputFiles/jobscript_engaging>`.
 - :doc:`Princeton's Eddy <inputFiles/jobscript_eddy>`.
 - :doc:`Princeton's Adroit <inputFiles/jobscript_adroitCPU>`.

@@ -46,6 +46,7 @@ And finally, set WSL 2 as the default (again using PowerShell as Administrator).
 
 .. code-block:: powershell
 
+  wsl --set-version <distribution name> 2
   wsl --set-default-version 2
 
 With or without WSL 2 enabled, the Linux distribution itself is
@@ -113,6 +114,6 @@ Known issues
 
 There is currently a known issue where Windows and Linux clocks might
 get desynchronized when the computer sleeps. This might cause issues
-with Git and update installation using `sudo apt update`. There is a
+with Git and update installation using ``sudo apt update``. There is a
 workaround that works until this issue gets patched and that is
-manually calling `sudo hwclock -s` to manually synchronize the time.
+manually calling ``sudo hwclock -s`` to manually synchronize the time.

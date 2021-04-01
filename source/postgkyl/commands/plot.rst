@@ -4,7 +4,7 @@ plot
 ====
 
 ``postgkyl.output.plot`` plots 1D and 2D data using `Matplotlib
-<https://matplotlib.org/>`_
+<https://matplotlib.org/>`_.
 
 .. raw:: html
          
@@ -161,33 +161,21 @@ style file (Inferno color map).
 Here is an example of 2D particle distribution function from the
 two-stream instability simulation.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
 .. code-block:: python
-  :emphasize-lines: 5
+   :emphasize-lines: 5
+   :caption: Script
 
-  import postgkyl as pg
-  data = pg.Data('two-stream_elc_80.bp')
-  dg = pg.GInterpModal(data)
-  dg.interpolate(stack=True)
-  pg.output.plot(data)
+   import postgkyl as pg
+   data = pg.Data('two-stream_elc_80.bp')
+   dg = pg.GInterpModal(data)
+   dg.interpolate(stack=True)
+   pg.output.plot(data)
 
-.. raw:: html
-         
-   </details>    
-   <details open>
-   <summary><a>Command line</a></summary>
 
 .. code-block:: bash
-
-  pgkyl -f two-stream_elc_80.bp interpolate plot
-
-.. raw:: html
-         
-   </details>
+   :caption: Command line
+             
+   pgkyl two-stream_elc_80.bp interpolate plot
 
 Note that in this case the data does not contain the values of the
 distribution function directly but rather the expansion components of
@@ -202,41 +190,29 @@ the flow to show the distribution function itself.
 1D plots are created in a similar manner. For example, here is the
 electron density correfponding to the figure above.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
 .. code-block:: python
-  :emphasize-lines: 5
+   :emphasize-lines: 5
+   :caption: Script
+                
+   import postgkyl as pg
+   data = pg.Data('two-stream_elc_M0_80.bp')
+   dg = pg.GInterpModal(data)
+   dg.interpolate(stack=True)
+   pg.output.plot(data)
 
-  import postgkyl as pg
-  data = pg.Data('two-stream_elc_M0_80.bp')
-  dg = pg.GInterpModal(data)
-  dg.interpolate(stack=True)
-  pg.output.plot(data)
-
-.. raw:: html
-         
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
-  
 .. code-block:: bash
+   :caption: Command line
 
-  pgkyl -f two-stream_elc_M0_80.bp interpolate plot
-
-.. raw:: html
-         
-   </details>
+   pgkyl two-stream_elc_M0_80.bp interpolate plot
   
 .. figure:: ../fig/plot/default1D.png
-  :align: center
+   :align: center
         
-  The default behavior of ``plot`` for 1D data
-                
-Plotting with multiple components
----------------------------------
+   The default behavior of ``plot`` for 1D data
+
+
+Plotting data with multiple components
+--------------------------------------
 
 Gkeyll data can contain multiple components. Typically, these are
 basis function expansion coefficients but can also correspond to
@@ -247,36 +223,23 @@ subplot.
 This can be seen if we do not use the interpolation from the previous
 example and let Postgkyl plot the expansion coefficients.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
 .. code-block:: python
-  :emphasize-lines: 5
+   :emphasize-lines: 5
+   :caption: Script
 
-  import postgkyl as pg
-  data = pg.Data('two-stream_elc_M0_80.bp')
-  pg.output.plot(data)
+   import postgkyl as pg
+   data = pg.Data('two-stream_elc_M0_80.bp')
+   pg.output.plot(data)
 
-.. raw:: html
-         
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
-  
 .. code-block:: bash
+   :caption: Command line
 
-  pgkyl -f two-stream_elc_M0_80.bp plot
-
-.. raw:: html
-         
-   </details>
+   pgkyl two-stream_elc_M0_80.bp plot
   
 .. figure:: ../fig/plot/multi_comp.png
-  :align: center
+   :align: center
         
-  Plotting data with multiple components
+   Plotting data with multiple components
 
 Postgkyl automatically adds labels with component indices to each
 subplot. If there are some labels already (either custom or when
@@ -291,61 +254,40 @@ useful, for example, for comparing magnitudes.  Note that the
 magnitues of the expansion coefficients are quite different so this is
 not the best example of the functionality.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
 .. code-block:: python
-  :emphasize-lines: 5
+   :emphasize-lines: 5
+   :caption: Script
 
-  import postgkyl as pg
-  data = pg.Data('two-stream_elc_M0_80.bp')
-  pg.output.plot(data, squeeze=True)
-
-.. raw:: html
-         
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
+   import postgkyl as pg
+   data = pg.Data('two-stream_elc_M0_80.bp')
+   pg.output.plot(data, squeeze=True)
   
 .. code-block:: bash
-
-  pgkyl -f two-stream_elc_M0_80.bp plot --squeeze
-
-.. raw:: html
-         
-   </details>
+   :caption: Command line
+             
+   pgkyl two-stream_elc_M0_80.bp plot --squeeze
   
 .. figure:: ../fig/plot/multi_comp_s.png
-  :align: center
+   :align: center
         
-  Plotting data with multiple components with ``squeeze=True``
+   Plotting data with multiple components with ``squeeze=True``
 
-Plotting with multiple data sets
---------------------------------
+Plotting multiple datasets
+--------------------------
 
 Postgkyl in a terminal can easily load multiple files (see
 :ref:`pg_loading` for more details). By default, each data set
 creates its own figure.
-
-.. raw:: html
-
-   <details open>
-   <summary><a>Command line</a></summary>
    
 .. code-block:: bash
+   :caption: Command line
 
-  pgkyl -f two-stream_elc_70.bp -f two-stream_elc_80.bp interp plot
-
-.. raw:: html
-
-   </details>
+   pgkyl two-stream_elc_70.bp two-stream_elc_80.bp interp plot
 
 .. image:: ../fig/plot/multi_1.png
-  :width: 49%
+   :width: 49%
 .. image:: ../fig/plot/multi_2.png
-  :width: 49%
+   :width: 49%
           
 Postgkyl automatically parses the names of the files and creates
 labels from the unique part of each one. Note that the labels can
@@ -355,88 +297,59 @@ This behavior can be supressed by specifying the figure to plot
 in. When the same figure is specified, data sets are plotted on top of
 each other.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
 .. code-block:: python
-  :emphasize-lines: 8, 9
+   :emphasize-lines: 8, 9
+   :caption: Script
                     
-  import postgkyl as pg
-  data1 = pg.Data('two-stream_elc_M0_70.bp')
-  dg = pg.GInterpModal(data1)
-  dg.interpolate(stack=True)
-  data2 = pg.Data('two-stream_elc_M0_80.bp')
-  dg = pg.GInterpModal(data2)
-  dg.interpolate(stack=True)
-  pg.output.plot(data1, figure=0)
-  pg.output.plot(data2, figure=0)
-
-.. raw:: html
-         
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
+   import postgkyl as pg
+   data1 = pg.Data('two-stream_elc_M0_70.bp')
+   dg = pg.GInterpModal(data1)
+   dg.interpolate(stack=True)
+   data2 = pg.Data('two-stream_elc_M0_80.bp')
+   dg = pg.GInterpModal(data2)
+   dg.interpolate(stack=True)
+   pg.output.plot(data1, figure=0)
+   pg.output.plot(data2, figure=0)
   
 .. code-block:: bash
+   :caption: Command line
   
-  pgkyl -f two-stream_elc_M0_70.bp -f two-stream_elc_M0_80.bp interp plot --figure=0
-
-.. raw:: html
-         
-   </details>
+   pgkyl two-stream_elc_M0_70.bp two-stream_elc_M0_80.bp interp plot -f0
   
 .. figure:: ../fig/plot/multi_f0.png
-  :align: center
+   :align: center
         
-  Plotting multiple data set with specifying ``figgure=0``
+   Plotting multiple data set with specifying ``figure=0``
 
 Finally, the data sets can be added into subplots.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Command line</a></summary>
-
 .. code-block:: bash
+   :caption: Command line
   
-  pgkyl -f two-stream_elc_70.bp -f two-stream_elc_80.bp interp plot --figure=0 --subplots
-
-.. raw:: html
-         
-   </details>
+   pgkyl two-stream_elc_70.bp two-stream_elc_80.bp interp plot -f0 --subplots
   
 .. figure:: ../fig/plot/multi_subplots.png
-  :align: center
+   :align: center
         
-  Plotting multiple data set with specifying ``figgure=0`` and
-  ``subplots``
+   Plotting multiple data set with specifying ``figure=0`` and
+   ``subplots``
   
-The same behavior can be achieved in a script as well but requires
+The same behavior can be achieved in a script as well but it requires
 slightly more manual control.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
 .. code-block:: python
-  :emphasize-lines: 8, 9
+   :emphasize-lines: 8, 9
+   :caption: Script
                     
-  import postgkyl as pg
-  data1 = pg.Data('two-stream_elc_M0_70.bp')
-  dg = pg.GInterpModal(data1)
-  dg.interpolate(stack=True)
-  data2 = pg.Data('two-stream_elc_M0_80.bp')
-  dg = pg.GInterpModal(data2)
-  dg.interpolate(stack=True)
-  pg.output.plot(data1, figure=0, numAxes=2)
-  pg.output.plot(data2, figure=0, numAxes=2, startAxes=1)
-
-.. raw:: html
-         
-   </details>
+   import postgkyl as pg
+   data1 = pg.Data('two-stream_elc_M0_70.bp')
+   dg = pg.GInterpModal(data1)
+   dg.interpolate(stack=True)
+   data2 = pg.Data('two-stream_elc_M0_80.bp')
+   dg = pg.GInterpModal(data2)
+   dg.interpolate(stack=True)
+   pg.output.plot(data1, figure=0, numAxes=2)
+   pg.output.plot(data2, figure=0, numAxes=2, startAxes=1)
 
 Plotting modes
 --------------
@@ -447,38 +360,25 @@ Postgkyl offers some additional modes.
 Countour
 ^^^^^^^^
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
 .. code-block:: python
-  :emphasize-lines: 5
+   :emphasize-lines: 5
+   :caption: Script
                     
-  import postgkyl as pg
-  data = pg.Data('two-stream_elc_80.bp')
-  dg = pg.GInterpModal(data)
-  dg.interpolate(stack=True)
-  pg.output.plot(data, contour=True)
-
-.. raw:: html
-         
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
+   import postgkyl as pg
+   data = pg.Data('two-stream_elc_80.bp')
+   dg = pg.GInterpModal(data)
+   dg.interpolate(stack=True)
+   pg.output.plot(data, contour=True)
   
 .. code-block:: bash
+   :caption: Command line
 
-  pgkyl -f two-stream_elc_80.bp interpolate plot --contour
-
-.. raw:: html
-         
-   </details>
+   pgkyl two-stream_elc_80.bp interpolate plot --contour
   
 .. figure:: ../fig/plot/contour.png
-  :align: center
+   :align: center
         
-  Plotting multiple data set with ``contour=True``
+   Plotting multiple data set with ``contour=True``
 
 Diverging
 ^^^^^^^^^
@@ -491,23 +391,15 @@ visualizing changes, both in time and around a mean value.
 Here we use the :ref:`pg_cmd_ev` command to visualize the change from
 the initial conditions.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Command line</a></summary>
-
 .. code-block:: bash
+   :caption: Command line
 
-  pgkyl -f two-stream_elc_0.bp -f two-stream_elc_80.bp interpolate ev 'f1 f0 -' plot --diverging
-
-.. raw:: html
-         
-   </details>
+  pgkyl two-stream_elc_0.bp two-stream_elc_80.bp interpolate ev 'f[1] f[0] -' plot --diverging
   
 .. figure:: ../fig/plot/diverging.png
-  :align: center
+   :align: center
         
-  ``diverging`` mode is used to visualize changes from the initial conditions
+   ``diverging`` mode is used to visualize changes from the initial conditions
 
 Group
 ^^^^^
@@ -524,39 +416,26 @@ first coordinate, ``z0`` (in this case corresponding to ``x``), from
 1.5 to 2.0 using the :ref:`pg_cmd_select` command (otherwise there
 would be too many lines). Then the plot with ``group=True`` is used.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
 .. code-block:: python
-  :emphasize-lines: 6
+   :emphasize-lines: 6
+   :caption: Script
 
-  import postgkyl as pg
-  data = pg.Data('two-stream_elc_80.bp')
-  dg = pg.GInterpModal(data)
-  dg.interpolate(stack=True)
-  pg.data.select(data, z0='1.5:2.0', stack=True)
-  pg.output.plot(data, group=1)
+   import postgkyl as pg
+   data = pg.Data('two-stream_elc_80.bp')
+   dg = pg.GInterpModal(data)
+   dg.interpolate(stack=True)
+   pg.data.select(data, z0='1.5:2.0', stack=True)
+   pg.output.plot(data, group=1)
 
-.. raw:: html
-         
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
-  
 .. code-block:: bash
+   :caption: Script
 
-  pgkyl -f two-stream_elc_80.bp interpolate select --z0 1.5:2.0 lot --group 1
-
-.. raw:: html
-         
-   </details>
+   pgkyl two-stream_elc_80.bp interpolate select --z0 1.5:2.0 plot --group 1
   
 .. figure:: ../fig/plot/group.png
-  :align: center
+   :align: center
         
-  Plotting the distribution function limited to 1.5<x<2.0 with ``group=1``
+   Plotting the distribution function limited to 1.5<x<2.0 with ``group=1``
 
 Formating
 ---------
@@ -572,54 +451,44 @@ style is the following:
 
 .. code-block:: bash
 
-  figure.facecolor : white
-  lines.linewidth : 2
-  font.size : 12
-  axes.labelsize : large
-  axes.titlesize : 14
-  image.interpolation : none
-  image.cmap : inferno
-  image.origin : lower
-  grid.linewidth : 0.5
-  grid.linestyle : :
+   figure.facecolor : white
+   lines.linewidth : 2
+   font.size : 12
+   axes.labelsize : large
+   axes.titlesize : 14
+   image.interpolation : none
+   image.cmap : inferno
+   image.origin : lower
+   grid.linewidth : 0.5
+   grid.linestyle : :
 
 Labels
 ^^^^^^
                 
 Postgkyl allows to specify all the axis labels and the plot title.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
 .. code-block:: python
-  :emphasize-lines: 5
+   :emphasize-lines: 5,6
+   :caption: Script
 
-  import postgkyl as pg
-  data = pg.Data('two-stream_elc_80.bp')
-  dg = pg.GInterpModal(data)
-  dg.interpolate(stack=True)
-  pg.output.plot(data, xlabel=r'$x$', ylabel=r'$v_x$', title=r'Two-stream instability, $k=\frac{1}{2}$')                
-
-.. raw:: html
-         
-   </details>    
-   <details open>
-   <summary><a>Command line</a></summary>
+   import postgkyl as pg
+   data = pg.Data('two-stream_elc_80.bp')
+   dg = pg.GInterpModal(data)
+   dg.interpolate(stack=True)
+   pg.output.plot(data, xlabel=r'$x$', ylabel=r'$v_x$',
+                  title=r'$k=\frac{1}{2}$')                
    
 .. code-block:: bash
+   :caption: Command line
 
-  pgkyl -f two-stream_elc_80.bp interpolate plot --xlabel '$x$' --ylabel '$v_x$' --title 'Two-stream instability, $k=\frac{1}{2}$'
-
-.. raw:: html
-         
-   </details>
+   pgkyl two-stream_elc_80.bp interpolate \
+   plot --xlabel '$x$' --ylabel '$v_x$' \
+   --title '$k=\frac{1}{2}$'
   
 .. figure:: ../fig/plot/labels.png
-  :align: center
+   :align: center
         
-  Postgkyl allows to specify axis labels and the figure title
+   Postgkyl allows to specify axis labels and the figure title
 
 Axes and values
 ^^^^^^^^^^^^^^^
@@ -633,38 +502,24 @@ of the two stream instability.  Note that Gkeyll stores :math:`E_x^2`,
 file. Therefore, the :ref:`pg_cmd_select` command is used to plot only
 the :math:`E_x^2`, which is the only component growing in this case.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
 .. code-block:: python
-  :emphasize-lines: 5
+   :emphasize-lines: 5
+   :caption: Script
 
-  import postgkyl as pg
-  data = pg.Data('two-stream_fieldEnergy.bp')
-  pg.data.select(data, comp=0, stack=True)
-  pg.output.plot(data, logy=True)                
-
-.. raw:: html
-         
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
+   import postgkyl as pg
+   data = pg.Data('two-stream_fieldEnergy.bp')
+   pg.data.select(data, comp=0, stack=True)
+   pg.output.plot(data, logy=True)                
    
 .. code-block:: bash
+   :caption: Command line
 
-  pgkyl -f two-stream_fieldEnergy.bp select -c0 plot --logy
-
-.. raw:: html
-         
-   </details>
-   <br>
+   pgkyl two-stream_fieldEnergy.bp select -c0 plot --logy
 
 .. figure:: ../fig/plot/logy.png
-  :align: center
+   :align: center
         
-  Plotting field energy with ``logy``
+   Plotting field energy with ``logy``
 
 Note that Postgkyl also incudes a diagnostic :ref:`pg_cmd_growth`
 command that allows to fit the data with an exponential to get the

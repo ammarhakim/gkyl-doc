@@ -264,6 +264,8 @@ The supported diagnostic moments are, "M0", "M1i", "M2ij", "M2" and
 In these diagnostics, the index :math:`i,j` run over :math:`1\ldots
 VDIM`.
 
+Additionally, Gkeyll can calculate the weak moments: bulk velocity "u" and the square of thermal velocity "vtSq".
+
 The boundary conditions (if not periodic) are specified with the
 ``bcx`` etc. tables. Each table must have exactly two entries, one for
 BC on the lower edge and one for the upper edge. The supported values

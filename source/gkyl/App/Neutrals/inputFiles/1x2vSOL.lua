@@ -3,7 +3,6 @@
 ----------------------------------------------------------------------
 
 local Plasma = require("App.PlasmaOnCartGrid").Gyrokinetic()
-local Vlasov = require("App.PlasmaOnCartGrid").VlasovMaxwell()
 local Constants = require "Lib.Constants"
 
 function sech(x)
@@ -120,8 +119,10 @@ plasmaApp = Plasma.App {
       },
 
       -- Source parameters
-      source = {"maxwellian", density = sourceDensity,
-		temperature = sourceTemperatureElc},
+      source = Plasma.MaxwellianProjection {
+	 density = sourceDensity,
+	 temperature = sourceTemperatureElc,
+      },  
 
       -- Collisions
       coll = Plasma.LBOCollisions {
@@ -179,8 +180,10 @@ plasmaApp = Plasma.App {
       },
 
       -- Source Parameters
-      source = {"maxwellian", density = sourceDensity,
-		temperature = sourceTemperatureIon},
+      source = Plasma.MaxwellianProjection {
+	 density = sourceDensity,
+	 temperature = sourceTemperatureIon,
+      },   
 
       -- Collisions
       coll = Plasma.LBOCollisions {
@@ -217,7 +220,7 @@ plasmaApp = Plasma.App {
    },
 
    -- Vlasov neutrals
-   neut = Vlasov.Species {
+   neut = Plasma.Vlasov {
       evolve = true,
       charge = 0.0, mass = mi,
       
@@ -228,9 +231,9 @@ plasmaApp = Plasma.App {
       decompCuts = {1},
 
       -- Initial conditions
-      init = Vlasov.MaxwellianProjection {
+      init = Plasma.VmMaxwellianProjection {
          density = function (t, xn)
-            local x, vpar = xn[1], xn[2]
+            local x = xn[1]
             local n_n = n0
 	    local x0 = 1.0
 	    local flr = 0.01
@@ -241,18 +244,23 @@ plasmaApp = Plasma.App {
 	    end
          end,
          driftSpeed = function (t, xn)
-            local x, vpar = xn[1], xn[2]
-            return {0,0,0} --uPari
+	    return {0,0,0}
          end,
          temperature = function (t, xn)
-            local x, vpar = xn[1], xn[2]
-            return 2*eV
+            return 5*eV
          end,
       },
 
       -- Source parameters
-      source = {"maxwellian", density = sourceDensityNeut,
-		driftSpeed = {0, 0, 0}, temperature = 2*eV},      
+      source = Plasma.VmMaxwellianProjection {
+	 density = sourceDensityNeut,
+	 driftSpeed = function (t, xn)
+            return {0,0,0}
+         end,
+	 temperature = function (t, xn)
+	    return 5*eV
+	 end,
+      },      
 
       -- Neutral interactions
       ionization = Plasma.Ionization {
@@ -274,7 +282,7 @@ plasmaApp = Plasma.App {
       },
 
       -- Boundary conditions
-      bcx = {Vlasov.Species.bcReflect, Vlasov.Species.bcReflect},
+      bcx = {Plasma.Vlasov.bcReflect, Plasma.Vlasov.bcReflect},
 
       -- Diagnostics
       diagnosticMoments = {"M0", "u", "vtSq"},
