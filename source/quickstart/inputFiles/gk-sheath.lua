@@ -104,6 +104,8 @@ plasmaApp = Plasma.App {
    -- (1-based indexing, so x-periodic = 1, y-periodic = 2, etc)
    periodicDirs = {2},     -- Periodic in y only (y = 2nd dimension)
 
+   decompCuts = {2,1,4},
+
    --------------------------------------------------------------------------------
    -- Species
    --------------------------------------------------------------------------------
@@ -171,7 +173,7 @@ plasmaApp = Plasma.App {
       -- Diagnostics
       diagnosticMoments = {"GkM0", "GkUpar", "GkTemp"},     
       diagnosticIntegratedMoments = {"intM0", "intM1", "intKE", "intHE", "intSrcKE"},
-      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkHamilEnergy"},
+      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkEnergy"},
       diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
    },
 
@@ -239,7 +241,7 @@ plasmaApp = Plasma.App {
       -- Diagnostics
       diagnosticMoments = {"GkM0", "GkUpar", "GkTemp"},     
       diagnosticIntegratedMoments = {"intM0", "intM1", "intKE", "intHE", "intSrcKE"},
-      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkHamilEnergy"},
+      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkEnergy"},
       diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
    },
 

@@ -3,22 +3,25 @@
 recovery
 --------
 
-.. contents::
+Command line
+^^^^^^^^^^^^
 
-Function description
-^^^^^^^^^^^^^^^^^^^^
+.. raw:: html
 
-Command line usage
-^^^^^^^^^^^^^^^^^^
+  <details>
+  <summary><a>Command help</a></summary>
 
 .. code-block:: bash
-                
-   $ pgkyl recovery -h
-   Usage: pgkyl recovery [OPTIONS]
+  :emphasize-lines: 1
 
+  pgkyl recovery -h
+   Usage: pgkyl recov [OPTIONS]
+   
      Interpolate DG data on a uniform mesh
-
+   
    Options:
+     -u, --use TEXT              Specify a 'tag' to apply to (default all tags).
+     -t, --tag TEXT              Optional tag for the resulting array
      -b, --basistype [ms|ns|mo]  Specify DG basis
      -p, --polyorder INTEGER     Specify polynomial order
      -i, --interp INTEGER        Number of poins to evaluate on
@@ -26,3 +29,10 @@ Command line usage
      -c, --c1                    Enforce continuous first derivatives
      -h, --help                  Show this message and exit.
 
+.. raw:: html
+
+  </details>
+  <br>
+
+Script mode
+^^^^^^^^^^^

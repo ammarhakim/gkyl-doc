@@ -7,8 +7,39 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
    Google Drive often does not display the slides properly. Please
    download the slides on your local machine to view them properly.
 
+2021
+
+- "Initial Gkeyll simulations of Scrape-Off-Layer Turbulence in ASDEX-U", Rupak Mukherjee, *MPPC Meeting*, January 2021.
+  `pdf <https://drive.google.com/file/d/1X4tyMFxoEBimAdHmPjeYKKE243He4S6F/view?usp=sharing>`_,
+  `Keynote (with movies) <https://drive.google.com/file/d/1FYROZqG48558xMt4RXrEW9aQB8q29Ht7/view?usp=sharing>`_, 
+  `video recording of talk <https://drive.google.com/file/d/1c8RVXsXn6wzSrFWEVSaw_Q2qs_wGKjGJ/view>`_
+
+
 2020
 
+- "Electromagnetic full-f gyrokinetic simulation of ASDEX SOL turbulence with discontinuous Galerkin method", Rupak Mukherjee, *APS DPP Annual Meeting*, November 2020.
+  `pdf <https://drive.google.com/file/d/1EnLrDeidM6fKagoe3E-mIEGWH7X7gOw8/view?usp=sharing>`_,
+  `Keynote (with movies) <https://drive.google.com/file/d/1Yw0wrn8VwjVurkfhkrHX-_CuPn6_ulb3/view?usp=sharing>`_, 
+  `video recording of talk <https://drive.google.com/file/d/1pR98P5MgP5iHoUu5iZmYQKnFJRL4y6eM/view?usp=sharing>`_
+- "Investigating magnetic fluctuations in gyrokinetic simulations of tokamak SOL turbulence", Noah Mandell, *APS DPP Annual Meeting*, November 2020.
+  `pdf <https://drive.google.com/file/d/1OvSEj4yu36mz0ofswCGsgDQ22w7ObYsi/view?usp=sharing>`_,
+  `Keynote (with movies) <https://drive.google.com/file/d/1E4bwurZtNHwpDp6UzqeLiX_cB7JAx2Pb/view?usp=sharing>`_, 
+  `video recording of talk <https://drive.google.com/file/d/1xuEkR-6UseCujgGZvm3gye1nH4H7jejT/view?usp=sharing>`_
+- "A Deep Dive into the Distribution Function: Understanding Phase 
+  Space Dynamics Using Continuum Vlasov-Maxwell Simulations", Jimmy
+  Juno, *APS DPP Annual Meeting*, November 2020. `Keynote 
+  <https://drive.google.com/file/d/15N1hVFhxUcJ5MGnlaFZLee5-wmz5r8_K/view?usp=sharing>`_
+- "Balancing Flexibility and Usability in the Gkeyll Simulation Framework",
+  Jimmy Juno, *APS DPP Annual Meeting*, November 2020 `Keynote
+  <https://drive.google.com/file/d/151FOoSqo0X8YRNH9wyrAhrAAQViFUl4m/view?usp=sharing>`_
+- "Studies of plasma sheaths using novel numerical schemes with
+  self-consistent emitting walls and Fokker-Planck collisions", Petr
+  Cagas, *APS DPP Annual Meeting*, November 2020.
+  `pdf <https://drive.google.com/file/d/11AIxfOuy3HRgr-FcACe18l4q1Bal_yNi/view?usp=sharing>`_,
+  `video recording <https://drive.google.com/file/d/1AbGn3_Yn6oHarc_8WYmo1_a5E_MHJ79W/view?usp=sharing>`_
+- "Kinetic Boltzmann modeling of neutral transport for a continuum gyrokinetic code",
+  Tess Bernard, *APS DPP Annual Meeting*, November 2020. `pdf
+  <https://drive.google.com/file/d/16U4UXCABeBTfxe-OIjChAHjLFG0DQj3a/view?usp=sharing>`_
 - "Alias-free, Matrix-free, and Quadrature-free Discontinuous Galerkin
   Algorithms for (Plasma) Kinetic Equations", Ammar
   Hakim. *SuperComputing 2020*, November 2020. `ppt

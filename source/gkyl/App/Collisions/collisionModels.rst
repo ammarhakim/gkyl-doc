@@ -437,7 +437,7 @@ of the distribution function as function of time with ``pgkyl``:
 
 .. code-block:: bash
 
-  pgkyl -f "lboRelax_bump_[0-9]*.bp" interp sel --z0 0. anim -x '$v$' -y '$f(x=0,v,t)$'
+  pgkyl "lboRelax_bump_[0-9]*.bp" interp sel --z0 0. anim -x '$v$' -y '$f(x=0,v,t)$'
 
 (note that :ref:`postgkyl <pg_usage>` allows abbreviations,
 so ``interp`` = :ref:`pg_cmd_interpolate`, ``sel`` = :ref:`pg_cmd_select`,
@@ -460,7 +460,7 @@ it as a function of time. This is achieved in ``pgkyl`` via:
 
 .. code-block:: bash
 
-  pgkyl -f lboRelax_bump_intM2Flow.bp -f lboRelax_bump_intM2Thermal.bp ev 'f0 f1 +' pl -x 'time' -y 'energy'
+  pgkyl lboRelax_bump_intM2Flow.bp lboRelax_bump_intM2Thermal.bp ev 'f[0] f[1] +' pl -x 'time' -y 'energy'
 
 As we can see in the figure below, and in particular in the :math:`10^{-14}`
 scale of it, the total particle energy is conserved very well. The changes
@@ -577,7 +577,7 @@ We can plot this fluctuation along :math:`v_\parallel` at :math:`$t=5$` with
 
 .. code:: bash
 
-  pgkyl -f "ionSound_ion_f1_10.bp" interp sel --z0 0.0 --z2 0.0 pl -x '$v_\parallel$' -y '$f_{i1}(x=0,v_\parallel,\mu=0,t=5)$'
+  pgkyl "ionSound_ion_f1_10.bp" interp sel --z0 0.0 --z2 0.0 pl -x '$v_\parallel$' -y '$f_{i1}(x=0,v_\parallel,\mu=0,t=5)$'
 
 (note that :ref:`postgkyl <pg_usage>` allows abbreviations,
 so ``interp`` = :ref:`pg_cmd_interpolate`, ``sel`` = :ref:`pg_cmd_select`,
@@ -601,7 +601,7 @@ energies in time with the following ``pgkyl`` command:
 
 .. code:: bash
 
-  pgkyl -f ionSound_phi2.bp -l '$\nu=0.005$' -f ionSoundH_phi2.bp -l '$\nu=0.05$' pl --logy -f0 -x 'time' -y 'Integrated $|\phi|^2$'
+  pgkyl ionSound_phi2.bp -l '$\nu=0.005$' ionSoundH_phi2.bp -l '$\nu=0.05$' pl --logy -f0 -x 'time' -y 'Integrated $|\phi|^2$'
 
 Notice that we are giving each file a label to use in the plot with the ``-l`` flag. Postgkyl
 then produces the following figure

@@ -113,7 +113,7 @@ Riemann problem::
 You can now use postgkyl to plot the solution. For example, to plot
 all the files in a single figure do::
 
-  pgkyl -f "sod-shock_*.bp" pl  -b
+  pgkyl "sod-shock_*.bp" pl  -b
 
 to produce the following plot.
 
@@ -209,7 +209,7 @@ to compute the dispersion are specified in the ``kvector`` table,
 which is a list of three element tables (with components :math:`k_x,
 k_y, k_z`).
 
-To run this input file (say it is saved in `cold-plasma.lua`)::
+To run this input file (say it is saved in :doc:`cold-plasma.lua<inputFiles/cold-plasma>`)::
 
   gkyl multimomlinear -i cold-plasma.lua
 
@@ -222,16 +222,16 @@ components of the wave-vector and the rest the corresponding
 separately (next to each other). You can plot the real part of the
 frequencies as function of wave-vector (say :math:`k_x`) as::
 
-  pgkyl -f cold-plasma_frequencies.bp val2coord -x0 -y 3::2 pl -s -f0 --xlabel "k" --ylabel '$\omega_r$' --markersize=2
+  pgkyl cold-plasma_frequencies.bp val2coord -x0 -y 3::2 pl -s -f0 --xlabel "k" --ylabel '$\omega_r$' --markersize=2
 
 And the imaginary parts as::
 
-  pgkyl -f cold-plasma_frequencies.bp val2coord -x0 -y 4::2 pl -s -f0 --xlabel "k" --ylabel '$\omega_r$' --markersize=2  
+  pgkyl cold-plasma_frequencies.bp val2coord -x0 -y 4::2 pl -s -f0 --xlabel "k" --ylabel '$\omega_r$' --markersize=2  
 
 Often, it is useful to plot the eigenvalues in the complex plane (real
 part on X-axis and imaginary part on the Y-axis). For this do::
 
-  pgkyl -f cold-plasma_frequencies.bp val2coord -x3::2 -y 4::2 pl -s -f0 --xlabel '$\omega_r$' --ylabel '$\omega_i$' --markersize=2  
+  pgkyl cold-plasma_frequencies.bp val2coord -x3::2 -y 4::2 pl -s -f0 --xlabel '$\omega_r$' --ylabel '$\omega_i$' --markersize=2  
 
 Note that the frequencies are not outputed in any particular
 order. Hence it is not possible to easily extract a single "branch" of

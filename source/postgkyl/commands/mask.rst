@@ -3,24 +3,33 @@
 mask
 ----
 
-.. contents::
+Command line
+^^^^^^^^^^^^
 
-Function description
-^^^^^^^^^^^^^^^^^^^^
+.. raw:: html
 
-Command line usage
-^^^^^^^^^^^^^^^^^^
+  <details>
+  <summary><a>Command help</a></summary>
 
 .. code-block:: bash
+  :emphasize-lines: 1
 
-   $ pgkyl mask -h
-   Usage: pgkyl mask [OPTIONS]
+  pgkyl mask -h
+    Usage: pgkyl mask [OPTIONS]
+    
+      Mask data with specified Gkeyll mask file.
+    
+    Options:
+      -u, --use TEXT       Specify a 'tag' to apply to (default all tags).
+      -f, --filename TEXT  Specify the file with a mask
+      -l, --lower FLOAT    Specify the lower theshold to be masked out.
+      -u, --upper FLOAT    Specify the upper theshold to be masked out.
+      -h, --help           Show this message and exit.
 
-     Mask data with specified Gkeyll mask file.
+.. raw:: html
 
-   Options:
-     -f, --filename TEXT  Specify the file with a mask
-     -l, --lower FLOAT    Specify the lower theshold to be masked out.
-     -u, --upper FLOAT    Specify the upper theshold to be masked out.
-     -h, --help           Show this message and exit.
+  </details>
+  <br>
 
+Script mode
+^^^^^^^^^^^
