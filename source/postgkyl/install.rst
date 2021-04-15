@@ -76,7 +76,7 @@ the ``postgkyl`` repository and running
 .. raw:: html
          
    <details>
-   <summary><a>Alternative: adding postgkyl to ``PYTHONPATH``</a></summary>
+   <summary><a>Alternative: adding postgkyl to PYTHONPATH </a></summary>
 
 Alternatively, the ``postgkyl`` repository can be added to the
 ``PYTHONPATH`` directly and, if one wants to use Postgkyl directly from a
