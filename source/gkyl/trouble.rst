@@ -28,6 +28,39 @@ General useful comments
   modules for different projects may require you to be careful and organized
   (e.g. using load/unload scripts or environments).
 
+Installing on Mac OS Big Sur (version 11.x)
+-------------------------------------------
+
+Apple's Big Sur operating system (version 11.x) may encounter some issues when
+installing gkyl. There are two issues we have witnessed. One is potential clang
+errors because the latest Macs may have clang 12 (see the
+:ref:`clang error section <gkyl_trouble_clang12>` below). Once you've made sure
+you have clang/Xcode/CommandlineTools 11 (note that installing Xcode may not be
+strictly necessary), the second potential error may first manifest as not being
+able to install LuaJIT, so when running the `machines/mkdeps.macosx.sh` script
+you may see (although it may just appear on the screen for a second before it
+gets lost in thousands of messages)
+
+.. figure:: figures/BigSurLuaJITbuildError.png
+   :align: center
+
+Even if you didn't notice this message because it disappeared too quickly, you
+may get the following error when running the `machines/configure.macosx.sh` script
+
+.. figure:: figures/BigSurLuaJITconfigError.png
+   :align: center
+
+A temporary hack to this problem may be as simple as going into `mkdeps.macosx.sh`
+and editing the line that declares the environment variable ``MACOSX_DEPLOYMENT_TARGET``
+to an earlier version. So for example, edit that line so it reads
+
+.. code-block:: bash
+
+   export MACOSX_DEPLOYMENT_TARGET=10.15.7
+
+and run the mkdeps.macosx.sh and configure.macosx.sh scripts again.
+
+.. _gkyl_trouble_clang12:
 
 clang error when installing on a Mac
 -----------------------------------
