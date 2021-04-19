@@ -13,7 +13,7 @@ has an advantage of always having the most up-to-date version and is
 generally required for users that want to contribute to the code.
 
 
-Installing with Conda (preferred)
+Installing with Conda (preferred for non-developers)
 ---------------------------------
 
 Postgkyl can be installed with Conda with literally a single command:
@@ -42,7 +42,7 @@ create a Conda `environment
 <https://conda.io/docs/user-guide/tasks/manage-environments.html>`_ or
 install Conda into the ``$HOME`` directory.
 
-Installing from source
+Installing from source (preferred for developers)
 ----------------------
   
 Postgkyl source code is hosted in a `GitHub
@@ -66,32 +66,16 @@ All these dependencies can be easily obtained from the Gkeyll Conda channel, via
 
   conda install -c gkyl postgkyl --only-deps
 
-Once the dependencies are installed, postgkyl can be built by navigating into
+Once the dependencies are installed, postgkyl can be installed by navigating into
 the ``postgkyl`` repository and running
 
 .. code-block:: bash
                 
-  python setup.py install
+  python setup.py develop
 
-.. raw:: html
-         
-   <details>
-   <summary><a>Alternative: adding postgkyl to PYTHONPATH </a></summary>
-
-Alternatively, the ``postgkyl`` repository can be added to the
-``PYTHONPATH`` directly and, if one wants to use Postgkyl directly from a
-terminal, to the ``PATH``. Warning, doing this could cause issues if postgkyl has
-already been installed via conda, and so one should first uninstall the conda version
-using
-
-.. code-block:: bash
-
-  conda uninstall postgkyl
-
-.. raw:: html
-
-  </details>
-  <br>
+Note that this command only ever needs to be run once (even if one is modifying source code). 
+Changes to the source code will be automatically included because we have installed in 
+`development mode <https://setuptools.readthedocs.io/en/latest/userguide/development_mode.html>`_.
   
 .. raw:: html
          
@@ -130,7 +114,7 @@ Switching from Conda version to repository
 
 While the Conda build of Postgkyl is the suggested version for the
 majority of users, the source code repository is required for any code
-contributions.  We should stress out that when switching between the
+contributions.  We should stress that when switching between the
 different version, it is strongly advised to remove the other
 version. Having both may lead to an unforeseen behavior based on the
 relative order of components in the ``PATH`` and ``PYTHONPATH``.
