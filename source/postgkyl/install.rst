@@ -49,6 +49,13 @@ Postgkyl source code is hosted in a `GitHub
 <https://github.com/ammarhakim/postgkyl>`_ repository. To get Postgkyl
 running, one first needs to clone the repository and install dependencies.
 
+First, clone the repository using:
+
+.. code-block:: bash
+
+  git clone https://github.com/ammarhakim/postgkyl
+
+
 Postgkyl has these dependencies, which are readily available thru Conda:
 
 * `Click <https://click.palletsprojects.com/en/7.x/>`_
