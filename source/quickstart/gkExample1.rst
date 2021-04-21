@@ -573,8 +573,8 @@ commands. For this plot, the full command that we'll use is
 
   pgkyl gk-sheath_electron_intM0.bp -l 'total' gk-sheath_electron_intSrcM0.bp -l 'sources' \
     gk-sheath_electron_intM0FluxZlower.bp gk-sheath_electron_intM0FluxZupper.bp \
-    ev -l 'sinks' 'f[2] f[3] + -1 *' ev -l 'sources + sinks' 'f[1] f[-1] +' \
-    ev -l 'total - (sources + sinks)' 'f[0] f[-1] -' activate -i0,1,-3,-2,-1 plot -x 'time (s)' -f0
+    ev -g -l 'sinks' 'f[2] f[3] + -1 *' ev -g -l 'sources + sinks' 'f[1] f[-1] +' \
+    ev -g -l 'total - (sources + sinks)' 'f[0] f[-1] -' activate -i0,1,-3,-2,-1 plot -x 'time (s)' -f0
 
 .. note::
 
@@ -582,8 +582,8 @@ commands. For this plot, the full command that we'll use is
   ::
     pgkyl gk-sheath_electron_intM0.bp -l 'total' -t tot gk-sheath_electron_intSrcM0.bp -l 'sources' -t src \
      gk-sheath_electron_intM0FluxZlower.bp -t fluxL gk-sheath_electron_intM0FluxZupper.bp -t fluxU \
-     ev -l 'sinks' -t sinks 'fluxL fluxU + -1 *' ev -l 'sources + sinks' -t srcPsinks 'src sinks +' \
-     ev -l 'total - (source + sinks)' -t bal 'tot srcPsinks -' activate -t tot,src,sinks,srcPsinks,bal pl -f0
+     ev -g -l 'sinks' -t sinks 'fluxL fluxU + -1 *' ev -g -l 'sources + sinks' -t srcPsinks 'src sinks +' \
+     ev -g -l 'total - (source + sinks)' -t bal 'tot srcPsinks -' activate -t tot,src,sinks,srcPsinks,bal pl -f0
 
 Let's break this command down a bit. We first load all the data files that we need: 
 
@@ -604,7 +604,7 @@ the result is negative:
 
 .. code-block:: bash
 
-  ev -l 'sinks' 'f[2] f[3] + -1 *'  
+  ev -g -l 'sinks' 'f[2] f[3] + -1 *'  
 
 Here, ``f2`` refers to the 3rd loaded file (active dataset 2, with 0-based indexing)
 and ``f3`` the 4th loaded file (active dataset 3); these are the two ``Flux`` files.
@@ -619,7 +619,7 @@ the ``'source'`` dataset (dataset 1 from the original loading) and the
 
 .. code-block:: bash
 
-  ev -l 'sources + sinks' 'f[1] f[-1] +'
+  ev -g -l 'sources + sinks' 'f[1] f[-1] +'
 
 This pushes another, new dataset to the stack, which we label as
 ``'sources and sinks'``. This becomes dataset -1 and pushes the
@@ -629,7 +629,7 @@ and the ``'sources + sinks'`` dataset (dataset -1), via
 
 .. code-block:: bash
 
-  dev -l 'total - (sources + sinks)' 'f[0] f[-1] -'
+  ev -g -l 'total - (sources + sinks)' 'f[0] f[-1] -'
 
 Again, this pushes another dataset to the stack, which we label as
 ``'total - (sources + sinks)'``. Now we have computed everything we
@@ -704,7 +704,7 @@ To compute this, we can use
 .. code-block:: bash
 
   pgkyl "gk-sheath_ion_GkEnergyFluxZlower_*.bp" interp collect \
-    sel --z0 5:10 ev 'f[-1] 0,2,3 avg' pl -x '$x$'
+    sel --z0 5:10 ev 'f[0] 0,2,3 avg' pl -x '$x$'
 
 This uses the :ref:`collect <pg_cmd_collect>` command to aggregate the
 frames into a time dimension, which becomes coordinate 0. We then use
