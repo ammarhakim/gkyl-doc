@@ -726,9 +726,3 @@ References
   open-field-line plasma", *Physics of Plasmas*, **26**,
   012307. https://doi.org/10.1063/1.5074179
 
-.. highlight:: lua
-
-.. _qs_gk1:
-.. highlight:: lua
-
-.. _qs_gk1:
