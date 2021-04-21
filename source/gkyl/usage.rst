@@ -154,7 +154,7 @@ installations typically are.
 
 Suppose one wishes to run the kinetic ballooning mode (KBM) calculation in
 :ref:`the previous section <gkyl_usage_run_serial>` on a node with 16 cores,
-using 4 MPI processes along :math:`y` and 4 along :math:`z`. In this case one must edit the
+using 2 MPI processes along :math:`y` and 8 along :math:`z`. In this case one must edit the
 variable ``decompCuts`` in the Common of the input file to reflect this decomposition:
 
 .. code:: Lua
