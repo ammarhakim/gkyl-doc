@@ -161,7 +161,7 @@ variable ``decompCuts`` in the Common of the input file to reflect this decompos
 
   plasmaApp = Plasma.App {
      ...
-     decompCuts = {1, 4, 4},   -- Cuts in each configuration direction.
+     decompCuts = {1, 2, 8},   -- Cuts in each configuration direction.
      useShared  = false,       -- If to use shared memory.
      ...
   }
@@ -175,8 +175,19 @@ the simulation with the MPI executable provided by your cluster or MPI implement
   mpirun -n 16 gkyl kbm.lua
 
 The argument following ``-n`` is the total number of MPI processes to launch, in this case
-:math:`4\times4=16`. This clearly requires that your computer/node/job has access to
+:math:`2\times8=16`. This clearly requires that your computer/node/job has access to
 at least 16 cores.
+
+.. note::
+
+   The number of ``decompCuts`` in any dimension should not exceed the number of cells in that dimension.
+
+.. tip::
+
+   For 5D :ref:`gyrokinetic <app_gk>` simulations, it is recommended to maximize the number of processors
+   in the third (z) dimension before decomposing in the other (x and y) dimensions. Thus for
+   the kbm test above, we used 8 processors in the z dimension, which is the maximum possible value
+   since we have 8 cells in that dimension. 
 
 .. note::
 
@@ -279,6 +290,15 @@ This second, restart simulation will use the ``_restart.bp`` files of the first 
 construct an initial condition. **Note** that it will look for the restart files in the same
 directory in which the restart simulation is being run, so typically we run restarts in the same
 directory as the first simulation.
+
+Using the ``fromFile`` option
+-----------------------------
+
+The ``fromFile`` option can be used to read data from a file on initialization. This can be used
+for initial conditions, sources, and geometry data. The file to be read must have the same prefix
+as the input file but can otherwise be named as desired, including the extension (it might be useful
+to use a different extension, such as ``.read``, to avoid accidentally deleting needed files if one
+does ``rm *.bp``). 
 
 Handy perks
 -----------
