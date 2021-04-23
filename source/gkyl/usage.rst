@@ -154,14 +154,14 @@ installations typically are.
 
 Suppose one wishes to run the kinetic ballooning mode (KBM) calculation in
 :ref:`the previous section <gkyl_usage_run_serial>` on a node with 16 cores,
-using 2 MPI processes along :math:`y` and 8 along :math:`z`. In this case one must edit the
+using 4 MPI processes along :math:`y` and 4 along :math:`z`. In this case one must edit the
 variable ``decompCuts`` in the Common of the input file to reflect this decomposition:
 
 .. code:: Lua
 
   plasmaApp = Plasma.App {
      ...
-     decompCuts = {1, 2, 8},   -- Cuts in each configuration direction.
+     decompCuts = {1, 4, 4},   -- Cuts in each configuration direction.
      useShared  = false,       -- If to use shared memory.
      ...
   }
@@ -175,19 +175,12 @@ the simulation with the MPI executable provided by your cluster or MPI implement
   mpirun -n 16 gkyl kbm.lua
 
 The argument following ``-n`` is the total number of MPI processes to launch, in this case
-:math:`2\times8=16`. This clearly requires that your computer/node/job has access to
+:math:`4\times4=16`. This clearly requires that your computer/node/job has access to
 at least 16 cores.
 
 .. note::
 
    The number of ``decompCuts`` in any dimension should not exceed the number of cells in that dimension.
-
-.. tip::
-
-   For 5D :ref:`gyrokinetic <app_gk>` simulations, it is recommended to maximize the number of processors
-   in the third (z) dimension before decomposing in the other (x and y) dimensions. Thus for
-   the kbm test above, we used 8 processors in the z dimension, which is the maximum possible value
-   since we have 8 cells in that dimension. 
 
 .. note::
 
