@@ -99,7 +99,9 @@ The ``ev`` command has one required argument, which is the operation
 sequence. Datasets are specified in the sequence with
 ``f[set_index][component]``. Note that Python indexing conventions are
 used. Specifically, when no indices are specified, everything is used,
-i.e., ``f[0][:]`` and ``f[0]`` are treated as identical calls. Python
+i.e., ``f[0][:]`` and ``f[0]`` are treated as identical calls. The
+indices need to be integers unless a global indexing mode ``-g`` is
+used, which ignores active and inactive sets. Then, Python
 slice syntax can be used as well including negative indices and
 strides. For example, ``f[2:-1:2]`` will select every other dataset,
 starting with the third one (zero-indexed), and ending with one before
@@ -116,7 +118,7 @@ of the stride).
   .. code-block:: bash
 
      pgkyl two-stream_elc_?.bp activate -i '2:-1:2'
-     pgkyl two-stream_elc_?.bp ev 'f[2:-1:2]'
+     pgkyl two-stream_elc_?.bp ev -g 'f[2:-1:2]'
 
   However, this is probably a fringe application of ``ev``.
 
@@ -143,7 +145,7 @@ apply on multiple datasets and create an animation using the
 
 .. code-block:: bash
 
-   pgkyl '5m_fluid_elc_[0-9]*.bp' ev 'f[:][0] f[:].mass /' animate
+   pgkyl '5m_fluid_elc_[0-9]*.bp' ev -g 'f[:][0] f[:].mass /' animate
 
 The capabilities are not limited to operations with float factors. As
 an example, ``ev`` can be used to visualize differences
@@ -183,14 +185,14 @@ previous example can be reproduced:
 
 .. code-block:: bash
 
-  pgkyl two-stream_elc_M0_0.bp -t dens two-stream_elc_M1i_0.bp -t mom interp ev 'mom dens /' plot
+  pgkyl two-stream_elc_M0_0.bp -t dens two-stream_elc_M1i_0.bp -t mom interp ev 'mom[0] dens[0] /' plot
 
 However, unlike the previous example, this can be naturally extended
 for batch loading and :ref:`pg_cmd_animate`:
 
 .. code-block:: bash
 
-  pgkyl 'two-stream_elc_M0_[0-9].bp' -t dens 'two-stream_elc_M1i_[0-9]*.bp' -t mom interp ev 'mom dens /' animate
+  pgkyl 'two-stream_elc_M0_[0-9].bp' -t dens 'two-stream_elc_M1i_[0-9]*.bp' -t mom interp ev -g 'mom dens /' animate
 
 Examples of specific ``ev`` operations
 --------------------------------------
