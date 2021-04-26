@@ -66,6 +66,7 @@ Postgkyl has these dependencies, which are readily available thru Conda:
 * `SymPy <https://www.sympy.org/en/index.html>`_
 * `Bokeh <https://docs.bokeh.org/en/latest/index.html>`_
 * `Adios <https://www.olcf.ornl.gov/center-projects/adios/>`_ 
+* `MessagePack for python (msgpack-python) <https://github.com/msgpack/msgpack-python>`_
 
 All these dependencies can be easily obtained from the Gkeyll Conda channel, via
 
