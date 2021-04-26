@@ -180,6 +180,10 @@ at least 16 cores.
 
 .. note::
 
+   The number of ``decompCuts`` in any dimension should not exceed the number of cells in that dimension.
+
+.. note::
+
    - (**This feature may be superseeded soon**) One can request additional
      parallelism in velocity space for kinetic simulations by setting ``useShared = true``.
      This enables MPI shared memory. In this case the ``decompCuts`` must specify the
@@ -201,6 +205,7 @@ Sample submit scripts:
 
 - :doc:`NERSC's Cori <inputFiles/jobscript_cori>`.
 - :doc:`TACC's Stampede2 <inputFiles/jobscript_stampede2>`.
+- :doc:`TACC's Frontera <inputFiles/jobscript_frontera>`.
 - :doc:`MIT's Engaging <inputFiles/jobscript_engaging>`.
 - :doc:`Princeton's Eddy <inputFiles/jobscript_eddy>`.
 - :doc:`Princeton's Adroit <inputFiles/jobscript_adroitCPU>`.
@@ -278,6 +283,15 @@ This second, restart simulation will use the ``_restart.bp`` files of the first 
 construct an initial condition. **Note** that it will look for the restart files in the same
 directory in which the restart simulation is being run, so typically we run restarts in the same
 directory as the first simulation.
+
+Using the ``fromFile`` option
+-----------------------------
+
+The ``fromFile`` option can be used to read data from a file on initialization. This can be used
+for initial conditions, sources, and geometry data. The file to be read must have the same prefix
+as the input file but can otherwise be named as desired, including the extension (it might be useful
+to use a different extension, such as ``.read``, to avoid accidentally deleting needed files if one
+does ``rm *.bp``). 
 
 Handy perks
 -----------

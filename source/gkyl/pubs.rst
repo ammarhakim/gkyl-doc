@@ -11,6 +11,9 @@ publications in `this repository <https://github.com/ammarhakim/gkyl-paper-inp>`
 Doctoral Dissertations
 ----------------------
 
+- Mandell, N. R. (2021, March 26) "Magnetic Fluctuations in Gyrokinetic Simulations of Scrape-Off Layer Turbulence".
+  Ph.D. dissertation, Princeton University, 2021. `arXiv:2103.16062 <https://arxiv.org/abs/2103.16062>`_
+  
 - Juno, J. (2020, March 27) "A Deep Dive into the Distribution Function: Understanding
   Phase Space Dynamics Using Continuum Vlasov-Maxwell Simulations". Ph. D. 
   dissertation, University of Maryland, College Park, 2020. `arXiv:2005.13539 

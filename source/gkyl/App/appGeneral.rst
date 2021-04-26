@@ -244,10 +244,10 @@ that **the user must provide this parameter**).
      - Basis functions to use. One of ``"serendipity"``, ``"tensor"`` or ``"maximal-order"``.
      - ``"serendipity"``
    * - decompCuts
-     - Table with number of processors to use in each configuration space direction.
+     - For :ref:`parallel <gkyl_usage_run_parallel>` simulations: Table with number of processors to use in each configuration space direction.
      - ``{ }``
    * - useShared
-     - Set to ``true`` to use MPI shared memory.
+     - For :ref:`parallel <gkyl_usage_run_parallel>` simulations: Set to ``true`` to use MPI shared memory.
      - ``false``
    * - maximumDt
      - Largest time step size allowed.

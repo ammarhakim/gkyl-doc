@@ -13,7 +13,7 @@ has an advantage of always having the most up-to-date version and is
 generally required for users that want to contribute to the code.
 
 
-Installing with Conda (preferred)
+Installing with Conda (preferred for non-developers)
 ---------------------------------
 
 Postgkyl can be installed with Conda with literally a single command:
@@ -42,21 +42,19 @@ create a Conda `environment
 <https://conda.io/docs/user-guide/tasks/manage-environments.html>`_ or
 install Conda into the ``$HOME`` directory.
 
-The Gkeyll Conda channel is recommended for installing the
-dependencies even if Postgkyl source code repository is used (see
-bellow)
-
-.. code-block:: bash
-
-  conda install -c gkyl postgkyl --only-deps
-
-Installing from source
+Installing from source (preferred for developers)
 ----------------------
   
 Postgkyl source code is hosted in a `GitHub
 <https://github.com/ammarhakim/postgkyl>`_ repository. To get Postgkyl
-running, one needs to clone the repository, install dependencies, and
-modify the ``PATH`` and ``PYTHONPATH`` environmental variables.
+running, one first needs to clone the repository and install dependencies.
+
+First, clone the repository using:
+
+.. code-block:: bash
+
+  git clone https://github.com/ammarhakim/postgkyl
+
 
 Postgkyl has these dependencies, which are readily available thru Conda:
 
@@ -67,34 +65,45 @@ Postgkyl has these dependencies, which are readily available thru Conda:
 * `SciPy <https://www.scipy.org/>`_
 * `SymPy <https://www.sympy.org/en/index.html>`_
 * `Bokeh <https://docs.bokeh.org/en/latest/index.html>`_
+* `Adios <https://www.olcf.ornl.gov/center-projects/adios/>`_ 
+* `MessagePack for python (msgpack-python) <https://github.com/msgpack/msgpack-python>`_
 
-Additionally, to read the Gkeyll 2 output files, the Python wrapper of
-`Adios <https://www.olcf.ornl.gov/center-projects/adios/>`_ is
-required. It can be either obtained from the Gkeyll Conda channel,
+All these dependencies can be easily obtained from the Gkeyll Conda channel, via
+
+.. code-block:: bash
+
+  conda install -c gkyl postgkyl --only-deps
+
+Once the dependencies are installed, postgkyl can be installed by navigating into
+the ``postgkyl`` repository and running
 
 .. code-block:: bash
                 
-  conda install -c gkyl adiospy
+  python setup.py develop
 
-or build manually from the source code. Note that for the manual
+Note that this command only ever needs to be run once (even if one is modifying source code). 
+Changes to the source code will be automatically included because we have installed in 
+`development mode <https://setuptools.readthedocs.io/en/latest/userguide/development_mode.html>`_.
+  
+.. raw:: html
+         
+   <details>
+   <summary><a>Building adiospy from source</a></summary>
+
+Adios can also be built manually from the source code. Note that for the manual
 build, Adios needs to be already installed and its ``bin`` directory
 added to the ``PATH`` (the default Gkeyll location is
 ``~/gkylsoft/adios/bin/``). The standard location for the
 wrapper in the Gkeyll installation is
-``gkyl/install-deps/adios-x.x.x/wrappers/numpy/``. Then to build and
-install:
+``gkyl/install-deps/adios-x.x.x/wrappers/numpy/``. After navigating to that directory,
+build and install adiospy via
 
 .. code-block:: bash
                 
   make python
   python setup.py install
   
-.. raw:: html
-         
-   <details>
-   <summary><a>Note on building the wrapper with clang</a></summary>
-  
-The build currently does not work out of the box with the ``clang``
+This currently does not work out of the box with the ``clang``
 compiler because of a deprecated library. This can be overcome
 removing the ``-lrt`` flag from the line 33 of the ``Makefile``. The
 edited lines 32 and 33 should look like this:
@@ -104,24 +113,16 @@ edited lines 32 and 33 should look like this:
   adios.so:
           python setup.py build_ext
 
-This will allow to complete the build successfully and it has no know
+This will allow to complete the adiospy build successfully and it has no know
 consequences for Postgkyl.
           
-.. raw:: html
-
-  </details>
-  <br>
-
-Finally, the ``postgkyl`` repository must be added to the
-``PYTHONPATH`` and, if one wants to use Postgkyl directly from a
-terminal, to the ``PATH``.
 
 Switching from Conda version to repository
 ------------------------------------------
 
 While the Conda build of Postgkyl is the suggested version for the
 majority of users, the source code repository is required for any code
-contributions.  We should stress out that when switching between the
+contributions.  We should stress that when switching between the
 different version, it is strongly advised to remove the other
 version. Having both may lead to an unforeseen behavior based on the
 relative order of components in the ``PATH`` and ``PYTHONPATH``.
