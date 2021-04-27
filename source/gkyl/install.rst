@@ -32,7 +32,7 @@ The full list of dependencies is:
 * LuaJIT 2.1.0
 * ADIOS 1.13.1 (**But NOT >=ADIOS 2.0**)
 * Eigen 3.3.7
-* CUDA Toolkit >=10.2 (**if building with GPU support**)
+* CUDA Toolkit >=10.2 (**if building with GPU support, NOT FULLY SUPPORTED**)
 
 The following instructions assume that at minimum the user has both a C/C++ compiler with C++17 support and Python 3.
 
@@ -104,6 +104,11 @@ Machine files for non-native systems
 For systems that do not already have corresponding files in the
 ``machines/`` directory, we encourage you to add files for your
 machine. Instructions can be found in ``machines/README.md``.
+
+.. note::
+
+   Using Gkeyll on IBM Power9 systems (like `Summit <https://www.olcf.ornl.gov/olcf-resources/compute-systems/summit/>`_ or `Traverse <https://researchcomputing.princeton.edu/systems/traverse>`_) is not recommended. This is due to incomplete support
+   for the LuaJIT compiler on Power9.
 
   
 Installing from source manually 
