@@ -42,7 +42,7 @@ Currently the ionization rate :math:`\langle v_{e} \sigma_{iz}\rangle` is approx
 
 where :math:`A`, :math:`K`, :math:`P` and :math:`X` are tabulated for elements up to :math:`Z=28`. To avoid unphysical negative temperatures, when :math:`v^2_{th,iz} < 0` the ionization rate is set to zero in the code.
 
-A similar model of ionization was previously used in Gkeyll and was presented in [Cagas2017]_ 
+A similar model of ionization was previously used in Gkeyll and was presented in [Cagas2017]_.
    
 Charge exchange
 ---------------
@@ -52,7 +52,7 @@ This process is given by :math:`i^{+} + n \rightarrow n + i^{+}`, and the simpli
 ..  math:: \frac{d f_i}{dt} =  \sigma_{cx} V_{cx}( n_i f_n - n_n f_i ),
     :label: cxIon
 
-..  math:: \frac{d f_n}{dt} = -\frac{m_i}{m_n}\sigma_{cx} V_{cx} (n_i f_n - n_n f_i),
+..  math:: \frac{d f_n}{dt} = -\sigma_{cx} V_{cx} (n_i f_n - n_n f_i),
     :label: cxNeut
  
 where
@@ -70,6 +70,16 @@ The cross section is approximated by a fitting function. For hydrogen and Deuter
     \sigma_{cx, D} = 1.09 \times 10^{-18} - 7.15 \times 10^{-20} \ln(V_{cx}).
 
 
+Wall recycling boundary conditions
+----------------------------------
+
+A model for wall recycling has been implemented at the boundaries where field lines terminate. These boundary conditions provide a source of neutrals from the targets that depends on the flux of outgoing ions. Consider a simulation with one configuration space dimension, parallel to the magnetic field, and three velocity space dimensions (1x3v). Since :math:`x` is parallel to the magnetic field, :math:`v_x` is the parallel velocity for neutrals. We define the neutral distribution function in the ghost cell at the lower ($x_\min$) boundary as
+
+.. math::
+    f_n(v_x,v_y,v_z,x=x_{ghost}) = C_{rec} f_{M,rec}(T= T_{n,rec}).
+
+The Maxwellian function for recycled neutrals :math:`f_{M,rec}` is defined by a zero mean flow and a temperature that is set in the user input file to model the Franck-Condon atoms coming from the wall. The Maxwellian is scaled such that the magnitude of the flux of incoming neutrals is equal to the magnitude of the flux of outgoing ions. At this time, angular dependency is not included in the model of wall recycling.
+    
 Neutral species and gyrokinetic plasma species coupling
 -------------------------------------------------------
 
@@ -96,7 +106,7 @@ The collision terms in this gyrokinetic-Vlasov coupling become
 .. math::
 
    \frac{d}{dt}\mathcal{J}f_i(\mathbf{R}, v_\parallel, \mu, t) &= n_e  \langle \sigma_{iz} v_e \rangle \mathcal{J} f_{M,gk}(n_n, u_{z,n}, v_{th,n}^2) + \sigma_{cx} V_{cx}[ n_i \mathcal{J} f_{M,gk}(n_n, u_{z,n}, v_{th,n}^2) - n_n \mathcal{J} f_i], \\
-   \frac{d}{dt}f_n(\mathbf{x}, \mathbf{v}, t) &= n_e f_n \langle \sigma_{iz} v_e \rangle - \frac{m_i}{m_n}\sigma_{cx} V_{cx} [n_i f_n - n_n f_{M,vm}(n_i, u_{\parallel,i}, v_{th,i}^2)], 
+   \frac{d}{dt}f_n(\mathbf{x}, \mathbf{v}, t) &= n_e f_n \langle \sigma_{iz} v_e \rangle - \sigma_{cx} V_{cx} [n_i f_n - n_n f_{M,vm}(n_i, u_{\parallel,i}, v_{th,i}^2)], 
 
 where :math:`\mathcal{J}` is the Jacobian for the gyrokinetic model.
    
@@ -180,22 +190,15 @@ Below is an example of adding ionization to a Vlasov-Maxwell simulation:
      },
   },
 
-In order to add ionization to a gyrokinetic simulation, the ``VlasovMaxwell`` App must be included in the App dependencies.
-
-.. code-block:: lua
-		
-  local Plasma = (require "App.PlasmaOnCartGrid").Gyrokinetic()
-  local Vlasov = (require "App.PlasmaOnCartGrid").VlasovMaxwell()
-
-Then replace the neutral Lua table above with
+In order to add ionization to a gyrokinetic simulation and include neutral particles which are evolved using the Vlasov solver, define the ``Gyrokinetic`` App in the dependencies as :code:`local Plasma = (require "App.PlasmaOnCartGrid").Gyrokinetic()`. Then replace the neutral Lua table above with
 
 .. code-block:: lua
 
-     neut = Vlasov.Species {
+     neut = Plasma.Vlasov {
        evolve = true,
        charge = 0,
        mass = mi,
-       init = Vlasov.MaxwellianProjection { ... }   -- initial conditions (and source) defined using Vlasov app
+       init = Plasma.VmMaxwellianProjection { ... }   -- initial conditions (and source) defined using Vlasov app
        ...
        -- Ionization
        ionization = Plasma.Ionization {
@@ -210,11 +213,11 @@ Then replace the neutral Lua table above with
        bcx = {Vlasov.Species.bcReflect, Vlasov.Species.bcReflect}  -- boundary conditions defined using Vlasov app
      },  
 
-Note that the ionization Lua table remains :code:`ionization = Plasma.Ionization` since the ionization calculation is carried out from within the ``Gyrokinetic`` App but other parameters such as initial conditions, source, and boundary conditions are defined using the ``Vlasov`` App. 
+Note that :code:`Plasma.Species` became :code:`Plasma.Vlasov` and :code:`Plasma.MaxwellianProjection` became :code:`Plasma.VmMaxwellianProjection` but the ionization Lua table remains :code:`ionization = Plasma.Ionization`. The latter remains as is since the ionization calculation is carried out from within the ``Gyrokinetic`` App but other parameters such as initial conditions, source, and boundary conditions are defined using the ``Vlasov`` App, which gets called from within the ``Gyrokinetic`` App. 
 
 Charge exchange
 ```````````````
-Charge exchange can be added much in the same way as ionization was included above, though the former only affects the ion and neutral species. For the case of gyrokinetic plasma species with Vlasov neutrals, define both the ``Gyrokinetic`` and ``VlasovMaxwell`` Apps in the dependencies as before. Then include the following in the **Species** sectionof the input file.
+Charge exchange can be added much in the same way as ionization was included above, though the former only affects the ion and neutral species. For the case of gyrokinetic plasma species with Vlasov neutrals, include the following in the **Species** section of the input file.
 
 .. code-block:: lua
 
@@ -238,7 +241,7 @@ Charge exchange can be added much in the same way as ionization was included abo
    },
    
    -- Vlasov neutrals
-   neut = Plasma.Species {
+   neut = Plasma.Vlasov {
       evolve = true,
       charge = 0,
       mass = mi,
@@ -256,7 +259,44 @@ Charge exchange can be added much in the same way as ionization was included abo
       ...
    },
 
+Wall recycling
+``````````````
 
+Wall recycling boundary conditions can be included for the neutral Vlasov species by including the following in the neutral table for a simulation in one configuration-space dimension. 
+
+.. code-block:: lua
+
+   ...
+
+   -- Gyrokinetic ions
+   ion = Plasma.Species {
+      evolve = true,
+      ...
+   }
+		
+   -- Vlasov neutrals
+   neut = Plasma.Vlasov {
+      evolve = true,
+      charge = 0,
+      mass = mi,
+      ...
+      bcx = {Plasma.Vlasov.bcRecycle, Plasma.Vlasov.bcRecycle},
+
+      -- Recycle elements
+      recycleTemp = 10*eV,
+      recycleFrac = 0.5,
+      recycleIon = "ion",
+      recycleTime = 100e-6,
+      ...
+   },
+
+Additional flags are required including :code:`recycleTemp` which defines :math:`T_{n,rec}`, :code:`recycleFrac` which defines the wall recycling fraction :math:`\alpha_{rec}`, and :code:`recycleIon` which defines the ion species name in the input file. An opptional flag :code:`recycleTime` provides a time dependency for the wall recycling fraction, which gradually ramps up to the desired value :math:`\alpha_{rec,0}` according to the equation
+
+.. math::
+   \frac{1}{2}(1 + \tanh(t/\tau_{rec}-1))\alpha_{rec},
+
+where :math:`\tau_{rec}` is given by :code:`recycleTime`.
+   
 Examples
 --------
 
