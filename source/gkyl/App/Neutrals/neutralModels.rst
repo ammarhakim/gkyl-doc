@@ -262,16 +262,24 @@ Charge exchange can be added much in the same way as ionization was included abo
 Wall recycling
 ``````````````
 
-Wall recycling boundary conditions can be included for the neutral Vlasov species by including the following in the neutral table for a simulation in one configuration-space dimension. 
+Wall recycling boundary conditions can be included for the neutral Vlasov species by including the following in the neutral table for a simulation in one configuration-space dimension. Since particle fluxes necessary for wall recycling are stored in boundary flux diagnostics, :code:`diagnosticBoundaryFluxMoments` must be included in all species table as shown below. 
 
 .. code-block:: lua
 
    ...
 
+   -- Gyrokinetic electrons
+   elc = Plasma.Species {
+      evolve = true,
+      ...
+      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkEnergy"},
+   }
+   
    -- Gyrokinetic ions
    ion = Plasma.Species {
       evolve = true,
       ...
+      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkEnergy"},
    }
 		
    -- Vlasov neutrals
@@ -288,6 +296,8 @@ Wall recycling boundary conditions can be included for the neutral Vlasov specie
       recycleIon = "ion",
       recycleTime = 100e-6,
       ...
+
+      diagnosticBoundaryFluxMoments = {"M0", "u", "M2Flow", "M2Thermal"},
    },
 
 Additional flags are required including :code:`recycleTemp` which defines :math:`T_{n,rec}`, :code:`recycleFrac` which defines the wall recycling fraction :math:`\alpha_{rec}`, and :code:`recycleIon` which defines the ion species name in the input file. An opptional flag :code:`recycleTime` provides a time dependency for the wall recycling fraction, which gradually ramps up to the desired value :math:`\alpha_{rec,0}` according to the equation
