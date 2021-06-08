@@ -33,23 +33,7 @@ as an Administrator):
 
   dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 
-It is strongly recommended to then enable WSL 2 for much better
-performance. First, enable virtualization in Administrator PowerShell
-
-.. code-block:: powershell
-
-  dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-
-Download and install the kernel update `package
-<https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi>`_.
-And finally, set WSL 2 as the default (again using PowerShell as Administrator).
-
-.. code-block:: powershell
-
-  wsl --set-version <distribution name> 2
-  wsl --set-default-version 2
-
-With or without WSL 2 enabled, the Linux distribution itself is
+The Linux distribution itself is
 available thru Microsoft Store.  Currently, the following flavors are
 available:
 
@@ -65,6 +49,23 @@ available:
 * `Pengwin <https://www.microsoft.com/store/apps/9NV1GV1PXZ6P>`_
 * `Pengwin Enterprise <https://www.microsoft.com/store/apps/9N8LP0X93VCP>`_
 * `Alpine WSL <https://www.microsoft.com/store/apps/9p804crf0395>`_
+
+
+It is strongly recommended to then enable WSL 2 for much better
+performance. First, enable virtualization in Administrator PowerShell
+
+.. code-block:: powershell
+
+  dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+Download and install the kernel update `package
+<https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi>`_.
+And finally, set WSL 2 as the default (again using PowerShell as Administrator).
+
+.. code-block:: powershell
+
+  wsl --set-version <distribution name> 2
+  wsl --set-default-version 2
 
   
 Interaction between Windows and Linux; GUI
