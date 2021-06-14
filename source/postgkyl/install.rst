@@ -79,9 +79,10 @@ the ``postgkyl`` repository and running
 
 .. code-block:: bash
                 
+  python setup.py install
   python setup.py develop
 
-Note that this command only ever needs to be run once (even if one is modifying source code). 
+Note that these commands only ever need to be run once (even if one is modifying source code). 
 Changes to the source code will be automatically included because we have installed in 
 `development mode <https://setuptools.readthedocs.io/en/latest/userguide/development_mode.html>`_.
   
