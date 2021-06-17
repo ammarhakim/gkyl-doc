@@ -74,7 +74,9 @@ Interaction between Windows and Linux; GUI
 As of September 2020, WSL2 does not directly support GUI; however,
 this is currently supposed to be in the works. Until the official
 release, this can be overcome with a 3rd party X-server like `VcXsrv
-<https://sourceforge.net/projects/vcxsrv/>`_ or `Xming
+<https://sourceforge.net/projects/vcxsrv/>`_ (this is our
+**recommended** option as the other option does not seem to work on
+some configurations) or `Xming
 <https://sourceforge.net/projects/xming/>`_. Note that when using
 VcXsrv, the `Disable access control` checkbox needs to be marked when
 setting *XLaunch*. Otherwise, the X11 forwarding would not work
