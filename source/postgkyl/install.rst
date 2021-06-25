@@ -36,11 +36,31 @@ Updates can be downloaded with:
 
   conda update -c gkyl postgkyl
 
-Note that to install a new package, users need the write permission
-for the Anaconda directory. If this is not the case, one can either
-create a Conda `environment
-<https://conda.io/docs/user-guide/tasks/manage-environments.html>`_ or
-install Conda into the ``$HOME`` directory.
+.. note::
+
+  To install a new package, users need the write permission
+  for the Anaconda directory. If this is not the case (e.g. on a computing cluster), one can either
+  create a Conda `environment
+  <https://conda.io/docs/user-guide/tasks/manage-environments.html>`_ (see tip below) or
+  install Conda into the ``$HOME`` directory.
+
+.. tip::
+
+  To create a Conda environment for postgkyl, use
+  
+  .. code-block:: bash
+  
+    conda create -n pgkylenv python=3
+  
+  Then activate the environment with
+  
+  .. code-block:: bash
+  
+    conda activate pgkylenv
+  
+  and install postgkyl using the commands above (or the ones below to install from source).
+
+  After install, one must always have the ``pgkylenv`` environment activated in order to use postgkyl. 
 
 Installing from source (preferred for developers)
 ----------------------
