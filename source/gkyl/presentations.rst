@@ -9,10 +9,16 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 
 2021
 
+- "Simulation of AUG scrape-off-layer plasma with full-f continuum Electromagnetic Gyrokinetic simulation", Rupak Mukherjee, *Sherwood Fusion Theory conference*, August 2021.
+  `pdf <https://drive.google.com/file/d/1jyBMdboS9w1_jJUgRimmGrkp7upizZCJ/view?usp=sharing>`_,
+  `Keynote (with movies) <https://drive.google.com/file/d/1z1vfYOyZy7e0FJNy5T10MUuV1OxDzOqk/view?usp=sharing>`_, 
+  `video recording of talk <https://www.youtube.com/watch?v=j5yN-pyH-Rw>`_
+
+
 - "Initial Gkeyll simulations of Scrape-Off-Layer Turbulence in ASDEX-U", Rupak Mukherjee, *MPPC Meeting*, January 2021.
   `pdf <https://drive.google.com/file/d/1X4tyMFxoEBimAdHmPjeYKKE243He4S6F/view?usp=sharing>`_,
   `Keynote (with movies) <https://drive.google.com/file/d/1FYROZqG48558xMt4RXrEW9aQB8q29Ht7/view?usp=sharing>`_, 
-  `video recording of talk <https://drive.google.com/file/d/1c8RVXsXn6wzSrFWEVSaw_Q2qs_wGKjGJ/view>`_
+  `video recording of talk <https://www.youtube.com/watch?v=fRMQGiVrWmQ>`_
 
 
 2020
@@ -20,7 +26,7 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 - "Electromagnetic full-f gyrokinetic simulation of ASDEX SOL turbulence with discontinuous Galerkin method", Rupak Mukherjee, *APS DPP Annual Meeting*, November 2020.
   `pdf <https://drive.google.com/file/d/1EnLrDeidM6fKagoe3E-mIEGWH7X7gOw8/view?usp=sharing>`_,
   `Keynote (with movies) <https://drive.google.com/file/d/1Yw0wrn8VwjVurkfhkrHX-_CuPn6_ulb3/view?usp=sharing>`_, 
-  `video recording of talk <https://drive.google.com/file/d/1pR98P5MgP5iHoUu5iZmYQKnFJRL4y6eM/view?usp=sharing>`_
+  `video recording of talk <https://www.youtube.com/watch?v=pCeu-yv45Z4>`_
 - "Investigating magnetic fluctuations in gyrokinetic simulations of tokamak SOL turbulence", Noah Mandell, *APS DPP Annual Meeting*, November 2020.
   `pdf <https://drive.google.com/file/d/1OvSEj4yu36mz0ofswCGsgDQ22w7ObYsi/view?usp=sharing>`_,
   `Keynote (with movies) <https://drive.google.com/file/d/1E4bwurZtNHwpDp6UzqeLiX_cB7JAx2Pb/view?usp=sharing>`_, 
