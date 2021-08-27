@@ -11,3 +11,12 @@
       overflow: visible !important;
    }
 }
+
+iframe {
+  height: 50em;
+  width: 100%;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  border-left: #808080 1px solid;
+}

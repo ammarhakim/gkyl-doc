@@ -14,9 +14,18 @@ postprocessing tool. In Postgkyl, it is handled by the
 shortcut). It load data on initialization and serves as an input for
 all the other parts of Postgkyl.
 
+.. raw:: html
+
+   <details closed>
+   <summary><a>Docstrings</a></summary>
+   <iframe src="../_static/postgkyl/data/data.html"></iframe>
+   </details>
+   <br>
+
 Examples are provided simultaneously for scripting and command line
 using output files of an electrostatic two-stream instability
 simulation [:doc:`two-stream.lua<input/two-stream>`].
+
 
 
 
@@ -25,6 +34,7 @@ Loading a Gkeyll file
 
 Gkeyll files are loaded in Postgkyl by creating a new instance of the
 ``Data`` class with the file name as the parameter.
+
 
 .. raw:: html
          
