@@ -3,75 +3,21 @@
 Data loading
 ++++++++++++
 
-``postgkyl.data.Data`` is the central class to the Postgkyl
-package. It is used to load and access data and serves as an input to
-the most of the Postgkyl functions. ``postgkyl.Data`` is a shortcut
-that can be uses interchangeably.
+.. epigraph::
+
+   "I disagree strongly with whatever work this quote is attached to."
+   -- Randall Munroe
+
+One can argue that loading data is the most important part of a
+postprocessing tool. In Postgkyl, it is handled by the
+``postgkyl.data.Data`` class (there is a ``postgkyl.Data``
+shortcut). It load data on initialization and serves as an input for
+all the other parts of Postgkyl.
 
 Examples are provided simultaneously for scripting and command line
 using output files of an electrostatic two-stream instability
 simulation [:doc:`two-stream.lua<input/two-stream>`].
 
-.. raw:: html
-         
-   <details>
-   <summary><a>Arguments and parameters</a></summary>
-
-.. list-table::
-   :widths: 20, 60, 20
-   :header-rows: 1
-
-   * - Parameter
-     - Description
-     - Default
-   * - fileName (str)
-     - Name of the file to be loaded or a name root for the history
-       sequence load.
-     - 
-   * - z0 (int or str)
-     - Load only the specified index or indices in the first
-       dimension. Either integer or Python slice (e.g., '2:5' for 2,
-       3, and 4).
-     - None
-   * - z1 (int or str)
-     - Load only the specified index or indices in the second
-       dimension. Either integer or Python slice (e.g., '2:5' for 2,
-       3, and 4).
-     - None
-   * - z2 (int or str)
-     - Load only the specified index or indices in the third
-       dimension. Either integer or Python slice (e.g., '2:5' for 2,
-       3, and 4).
-     - None
-   * - z3 (int or str)
-     - Load only the specified index or indices in the fourth
-       dimension. Either integer or Python slice (e.g., '2:5' for 2,
-       3, and 4).
-     - None
-   * - z4 (int or str)
-     - Load only the specified index or indices in the fifth
-       dimension. Either integer or Python slice (e.g., '2:5' for 2,
-       3, and 4).
-     - None
-   * - z5 (int or str)
-     - Load only the specified index or indices in the sixth
-       dimension. Either integer or Python slice (e.g., '2:5' for 2,
-       3, and 4).
-     - None
-   * - comp (int or str)
-     - Load only the specified component or components. Either integer
-       or Python slice (e.g., '2:5' for 2, 3, and 4).
-     - None
-   * - stack (bool)
-     - Turns the internal data stack on and off.
-     - True
-
-.. raw:: html
-         
-   </details>
-   <br>
-
-.. contents::
 
 
 Loading a Gkeyll file
