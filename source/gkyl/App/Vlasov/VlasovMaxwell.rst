@@ -50,7 +50,7 @@ The overall structure of the app is as follows
 
 .. code-block:: lua
 
-  local Vlasov = require "App.VlasovOnCartGrid"
+  local Vlasov = (require "App.PlasmaOnCartGrid").VlasovMaxwell()
 
   vlasovApp = Vlasov.App {  
     -- basic parameters
@@ -61,7 +61,7 @@ The overall structure of the app is as follows
     },
 
     -- fields (optional, can be omitted for neutral particles)
-    field = Vlasov.EmField {
+    field = Vlasov.Field {
       -- field parameters
     },
   }
@@ -78,7 +78,7 @@ Basic parameters
 The app takes the following basic parameters. Parameters that have
 default values can be omitted.
 
-.. list-table:: Basic Parameters for ``VlasovOnCartGrid``
+.. list-table:: Basic Parameters for ``VlasovMaxwell()``
    :widths: 20, 60, 20
    :header-rows: 1
 
@@ -279,7 +279,7 @@ are
      - Description
    * - Vlasov.Species.bcAbsorb
      - All outgoing particles leave the domain, and none reenter.
-   * - Vlasov.Species.bcOpen
+   * - Vlasov.Species.bcCopy
      - A zero-gradient BC, approximating an open domain
    * - Vlasov.Species.bcReflect
      - Particles are specularly reflected (i.e. billiard ball reflection)
@@ -301,7 +301,7 @@ The EM field object is used as follows
 
 .. code-block:: lua
 
-    field = Vlasov.EmField {
+    field = Vlasov.Field {
       -- field parameters
     },
 
@@ -362,15 +362,15 @@ The boundary conditions (if not periodic) are specified with the
 BC on the lower edge and one for the upper edge. The supported values
 are
 
-.. list-table:: Boundary conditions for ``Vlasov.EmField``
+.. list-table:: Boundary conditions for ``Vlasov.Field``
    :widths: 30, 70
    :header-rows: 1
 
    * - Parameter
      - Description
-   * - Vlasov.EmField.bcOpen
+   * - Vlasov.Field.bcCopy
      - A zero-gradient BC, approximating an open domain
-   * - Vlasov.EmField.bcReflect
+   * - Vlasov.Field.bcReflect
      - Perfect electrical conductor wall
 
 Functional field parameters
@@ -381,7 +381,7 @@ electromagnetic field which does not react to particle currents.
 
 .. code-block:: lua
 
-    field = Vlasov.FuncField {
+    externalField = Vlasov.ExternalField {
       -- field parameters
     },
 
@@ -451,7 +451,7 @@ For the field, the electromagnetic energy components :math:`E_x^2`,
 :math:`B_z^2` (integrated over configuration space) are stored in the
 file:
 
-- ``vlasov_fieldEnergy_N.bp``
+- ``vlasov_fieldEnergy.bp``
 
 These can be plotted using postgkyl in the usual way.
 

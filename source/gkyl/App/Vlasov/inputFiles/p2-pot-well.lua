@@ -1,5 +1,5 @@
 -- Gkyl ------------------------------------------------------------------------
-local Vlasov = require "App.VlasovOnCartGrid"
+local Vlasov = (require "App.PlasmaOnCartGrid").VlasovMaxwell()
 
 vlasovApp = Vlasov.App {
    logToFile = true,
@@ -37,7 +37,7 @@ vlasovApp = Vlasov.App {
    },
 
    -- field solver
-   field = Vlasov.EmField {
+   field = Vlasov.Field {
       epsilon0 = 1.0, mu0 = 1.0,
       init = function (t, xn)
 	 local Ex = -math.sin(xn[1])
