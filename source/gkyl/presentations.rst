@@ -71,6 +71,7 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 2019
 
 - "Continuum Electromagnetic Gyrokinetic Simulations of Turbulence in the Tokamak Scrape-Off Layer and Laboratory Devices", Ammar Hakim, *APS Division of Plasma Physics*, Fort Lauderdale, 2019.
+- "Tests of a Discontinuous Galerkin scheme for Hamiltonian systems in non-canonical coordinates", Rupak Mukherjee, *APS Division of Plasma Physics*, Fort Lauderdale, 2019. `pdf <https://drive.google.com/file/d/19GT5dRGGSK-0eSWwxV2IKLpezMdnuowp/view?usp=sharing>`_
 - "Gyrokinetic continuum simulations of plasma turbulence in the Texas Helimak", Tess Bernard, *Sherwood Fusion Theory Conference*, Princeton, April 2019.
 - "Gyrokinetic continuum simulations of plasma turbulence in the Texas Helimak", Tess Bernard, *24th Joint US-EU Transport Task Force Meeting*, Austin, March 2019.
 
