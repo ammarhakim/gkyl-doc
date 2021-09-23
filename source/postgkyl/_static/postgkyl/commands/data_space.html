@@ -12,210 +12,218 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="k">class</span> <span class="nc">DataSpace</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="c1">#end</span>
+
+  <span class="c1">#-----------------------------------------------------------------</span>
+  <span class="c1">#-- Iterators ----------------------------------------------------</span>
+
+  <span class="k">def</span> <span class="nf">_getIterableIdx</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_int</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+      <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">i</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
+      <span class="c1">#end</span>
     <span class="c1">#end</span>
 
-    <span class="c1">#-----------------------------------------------------------------</span>
-    <span class="c1">#-- Iterators ----------------------------------------------------</span>
+    <span class="k">if</span> <span class="n">idx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="s1">&#39;,&#39;</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+      <span class="k">return</span> <span class="p">[</span><span class="n">_int</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+      <span class="n">si</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">si</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">_int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">length</span><span class="p">)</span>
+      <span class="c1">#end</span>
+      <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">si</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">_int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">length</span><span class="p">)</span>
+      <span class="c1">#end</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">si</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+      <span class="c1">#end</span>
+      <span class="k">return</span> <span class="nb">range</span><span class="p">(</span><span class="n">si</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">si</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">si</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="p">[</span><span class="n">_int</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">length</span><span class="p">)]</span>
+    <span class="c1">#end</span>
+  <span class="c1">#end</span>
+    
+  <span class="k">def</span> <span class="nf">iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># Process &#39;select&#39;</span>
+    <span class="k">if</span> <span class="n">enum</span> <span class="ow">and</span> <span class="n">select</span><span class="p">:</span>
+      <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+        <span class="s2">&quot;Error: &#39;select&#39; and &#39;enum&#39; cannot be selected simultaneously&quot;</span><span class="p">,</span>
+        <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+      <span class="n">quit</span><span class="p">()</span>
+    <span class="c1">#end</span>
+    <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+      <span class="n">idxSel</span> <span class="o">=</span> <span class="p">[</span><span class="n">select</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+      <span class="n">idxSel</span> <span class="o">=</span> <span class="n">select</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+      <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">select</span><span class="p">:</span>
+        <span class="n">lo</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">up</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+          <span class="n">lo</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1">#end</span>
+        <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+          <span class="n">up</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1">#end</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+          <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="c1">#end</span>
+        <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">list</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)])</span>
+      <span class="c1">#end</span>
+    <span class="c1">#end</span>
 
-    <span class="k">def</span> <span class="nf">_getIterableIdx</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">_int</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">i</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
-            <span class="c1">#end</span>
-        <span class="c1">#end</span>
-    
-        <span class="k">if</span> <span class="n">idx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="s1">&#39;,&#39;</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">_int</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-            <span class="n">si</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                <span class="n">si</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">_int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">length</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-                <span class="n">si</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">_int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">length</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">si</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-            <span class="k">return</span> <span class="nb">range</span><span class="p">(</span><span class="n">si</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">si</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">si</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">_int</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">length</span><span class="p">)]</span>
-        <span class="c1">#end</span>
+    <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
+      <span class="n">tags</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">tags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">)</span>
     <span class="c1">#end</span>
-    
-    <span class="k">def</span> <span class="nf">iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="c1"># Process &#39;select&#39;</span>
-        <span class="k">if</span> <span class="n">enum</span> <span class="ow">and</span> <span class="n">select</span><span class="p">:</span>
-            <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;Error: &#39;select&#39; and &#39;enum&#39; cannot be selected simultaneously&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
-            <span class="n">quit</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">select</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">idxSel</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+          <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dat</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">idxSel</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">onlyActive</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">():</span> <span class="c1"># implication</span>
+              <span class="k">if</span> <span class="n">enum</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">i</span><span class="p">,</span> <span class="n">dat</span> 
+              <span class="k">else</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">dat</span>
+              <span class="c1">#end</span>
+            <span class="c1">#end    </span>
+          <span class="c1">#end</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1">#isinstance(idxSel, list)</span>
+          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idxSel</span><span class="p">:</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">onlyActive</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">():</span> <span class="c1"># implication</span>
+              <span class="k">yield</span> <span class="n">dat</span>
+            <span class="c1">#end    </span>
+          <span class="c1">#end</span>
         <span class="c1">#end</span>
-        <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">idxSel</span> <span class="o">=</span> <span class="p">[</span><span class="n">select</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-            <span class="n">idxSel</span> <span class="o">=</span> <span class="n">select</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">select</span><span class="p">:</span>
-                <span class="n">lo</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">up</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">step</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">s</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                    <span class="n">lo</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="c1">#end</span>
-                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-                    <span class="n">up</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                <span class="c1">#end</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-                    <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-                <span class="c1">#end</span>
-                <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">list</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)])</span>
-        <span class="c1">#end</span>
-
-        <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
-            <span class="n">tags</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">tags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">)</span>
-        <span class="c1">#end</span>
-        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">select</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">idxSel</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dat</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">idxSel</span><span class="p">]):</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">onlyActive</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">():</span> <span class="c1"># implication</span>
-                            <span class="k">if</span> <span class="n">enum</span><span class="p">:</span>
-                                <span class="k">yield</span> <span class="n">i</span><span class="p">,</span> <span class="n">dat</span> 
-                            <span class="k">else</span><span class="p">:</span>
-                                <span class="k">yield</span> <span class="n">dat</span>
-                            <span class="c1">#end</span>
-                        <span class="c1">#end    </span>
-                    <span class="c1">#end</span>
-                <span class="k">else</span><span class="p">:</span> <span class="c1">#isinstance(idxSel, list)</span>
-                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idxSel</span><span class="p">:</span>
-                        <span class="n">dat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">onlyActive</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">():</span> <span class="c1"># implication</span>
-                            <span class="k">yield</span> <span class="n">dat</span>
-                        <span class="c1">#end    </span>
-                    <span class="c1">#end</span>
-                <span class="c1">#end</span>
-            <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-                <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;ERROR: Failed to load the specified/default tag </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">),</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
-                <span class="n">quit</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-                <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;ERROR: Index out of the dataset range&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
-                <span class="n">quit</span><span class="p">()</span>
-            <span class="c1">#end</span>
-            <span class="c1">#end</span>
-        <span class="c1">#end</span>
+      <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+          <span class="s2">&quot;ERROR: Failed to load the specified/default tag </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">),</span>
+          <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+        <span class="n">quit</span><span class="p">()</span>
+      <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+          <span class="s2">&quot;ERROR: Index out of the dataset range&quot;</span><span class="p">,</span>
+          <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+        <span class="n">quit</span><span class="p">()</span>
+      <span class="c1">#end</span>
     <span class="c1">#end</span>
+  <span class="c1">#end</span>
     
-    <span class="k">def</span> <span class="nf">tagIterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">onlyActive</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">:</span>
-                <span class="k">if</span> <span class="kc">True</span> <span class="ow">in</span> <span class="p">(</span><span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">()</span> <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-                <span class="c1">#end</span>
-            <span class="c1">#end</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">tagIterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">onlyActive</span><span class="p">:</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">:</span>
+        <span class="k">if</span> <span class="kc">True</span> <span class="ow">in</span> <span class="p">(</span><span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">()</span> <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+          <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
         <span class="c1">#end</span>
-        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+      <span class="c1">#end</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">)</span>
     <span class="c1">#end</span>
+    <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+  <span class="c1">#end</span>
         
-
-    <span class="c1">#-----------------------------------------------------------------</span>
-    <span class="c1">#-- Labels -------------------------------------------------------</span>
-    <span class="k">def</span> <span class="nf">setUniqueLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">numComps</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
-            <span class="n">fileName</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">fileName</span>
-            <span class="n">extensionLen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fileName</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-            <span class="n">fileName</span> <span class="o">=</span> <span class="n">fileName</span><span class="p">[:</span><span class="o">-</span><span class="p">(</span><span class="n">extensionLen</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
-            <span class="c1"># only remove the file extension but take into account</span>
-            <span class="c1"># that the file name might start with &#39;../&#39;</span>
-            <span class="n">sp</span> <span class="o">=</span> <span class="n">fileName</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
-            <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
-            <span class="n">numComps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sp</span><span class="p">)))</span>
-            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+  <span class="c1">#-----------------------------------------------------------------</span>
+  <span class="c1">#-- Labels -------------------------------------------------------</span>
+  <span class="k">def</span> <span class="nf">setUniqueLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">numComps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
+      <span class="n">file_name</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">file_name</span>
+      <span class="n">extensionLen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+      <span class="n">file_name</span> <span class="o">=</span> <span class="n">file_name</span><span class="p">[:</span><span class="o">-</span><span class="p">(</span><span class="n">extensionLen</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+      <span class="c1"># only remove the file extension but take into account</span>
+      <span class="c1"># that the file name might start with &#39;../&#39;</span>
+      <span class="n">sp</span> <span class="o">=</span> <span class="n">file_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+      <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+      <span class="n">numComps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sp</span><span class="p">)))</span>
+      <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="c1">#end</span>
+    <span class="n">maxElem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">numComps</span><span class="p">)</span>
+    <span class="n">idxMax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">numComps</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">maxElem</span><span class="p">):</span> 
+      <span class="n">include</span> <span class="o">=</span> <span class="kc">False</span>
+      <span class="n">reference</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">idxMax</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+      <span class="k">for</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span> <span class="ow">and</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">reference</span><span class="p">:</span>
+          <span class="n">include</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="c1">#end</span>
-        <span class="n">maxElem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">numComps</span><span class="p">)</span>
-        <span class="n">idxMax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">numComps</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">maxElem</span><span class="p">):</span> 
-            <span class="n">include</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">reference</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">idxMax</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span> <span class="ow">and</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">reference</span><span class="p">:</span>
-                    <span class="n">include</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="c1">#end</span>
+      <span class="c1">#end</span>
+      <span class="k">if</span> <span class="n">include</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">nm</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+          <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nm</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+              <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+              <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;_</span><span class="si">{:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="c1">#end</span>
-            <span class="k">if</span> <span class="n">include</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">nm</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nm</span><span class="p">):</span>
-                        <span class="k">if</span> <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-                            <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;_</span><span class="si">{:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-                        <span class="c1">#end</span>
-                    <span class="c1">#end</span>
-                <span class="c1">#end</span>
-            <span class="c1">#end</span>
+          <span class="c1">#end</span>
         <span class="c1">#end</span>
-        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
-            <span class="n">dat</span><span class="o">.</span><span class="n">setLabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">cnt</span><span class="p">])</span>
-            <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="c1">#end</span>
+      <span class="c1">#end</span>
     <span class="c1">#end</span>
+    <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
+      <span class="n">dat</span><span class="o">.</span><span class="n">setLabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">cnt</span><span class="p">])</span>
+      <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1">#end</span>
+  <span class="c1">#end</span>
     
-    <span class="c1">#-----------------------------------------------------------------</span>
-    <span class="c1">#-- Adding datasets ----------------------------------------------</span>
-    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="n">tagNm</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">getTag</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">tagNm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tagNm</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tagNm</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">]</span>
-        <span class="c1">#end</span>
+  <span class="c1">#-----------------------------------------------------------------</span>
+  <span class="c1">#-- Adding datasets ----------------------------------------------</span>
+  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">tagNm</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">getTag</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">tagNm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tagNm</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tagNm</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">]</span>
     <span class="c1">#end</span>
+  <span class="c1">#end</span>
 
-    <span class="c1">#-----------------------------------------------------------------</span>
-    <span class="c1">#-- Staus control ------------------------------------------------</span>
-    <span class="k">def</span> <span class="nf">activateAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="n">dat</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
-        <span class="c1">#end</span>
+  <span class="c1">#-----------------------------------------------------------------</span>
+  <span class="c1">#-- Staus control ------------------------------------------------</span>
+  <span class="k">def</span> <span class="nf">activateAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+      <span class="n">dat</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
     <span class="c1">#end</span>
-    <span class="k">def</span> <span class="nf">deactivateAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="n">dat</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
-        <span class="c1">#end</span>
+  <span class="c1">#end</span>
+  <span class="k">def</span> <span class="nf">deactivateAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+      <span class="n">dat</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
     <span class="c1">#end</span>
+  <span class="c1">#end</span>
     
-    <span class="c1">#-----------------------------------------------------------------</span>
-    <span class="c1">#-- Stuff :-P ----------------------------------------------------</span>
-    <span class="k">def</span> <span class="nf">getDataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tag</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>
-    <span class="c1">#end</span>
+  <span class="c1">#-----------------------------------------------------------------</span>
+  <span class="c1">#-- Stuff :-P ----------------------------------------------------</span>
+  <span class="k">def</span> <span class="nf">getDataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tag</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>
+  <span class="c1">#end</span>
         
-    <span class="k">def</span> <span class="nf">getNumDatasets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="n">numSets</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="n">onlyActive</span><span class="p">):</span>
-            <span class="n">numSets</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="c1">#end</span>
-        <span class="k">return</span> <span class="n">numSets</span>
+  <span class="k">def</span> <span class="nf">getNumDatasets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">numSets</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="n">onlyActive</span><span class="p">):</span>
+      <span class="n">numSets</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="c1">#end</span>
+    <span class="k">return</span> <span class="n">numSets</span>
+  <span class="c1">#end</span>
 <span class="c1">#end</span>
 </pre></div>
 
@@ -234,210 +242,218 @@
                 <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">DataSpace</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="c1">#end</span>
+
+  <span class="c1">#-----------------------------------------------------------------</span>
+  <span class="c1">#-- Iterators ----------------------------------------------------</span>
+
+  <span class="k">def</span> <span class="nf">_getIterableIdx</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_int</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
+      <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">i</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
+      <span class="c1">#end</span>
     <span class="c1">#end</span>
 
-    <span class="c1">#-----------------------------------------------------------------</span>
-    <span class="c1">#-- Iterators ----------------------------------------------------</span>
+    <span class="k">if</span> <span class="n">idx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="s1">&#39;,&#39;</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+      <span class="k">return</span> <span class="p">[</span><span class="n">_int</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+      <span class="n">si</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">si</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">_int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">length</span><span class="p">)</span>
+      <span class="c1">#end</span>
+      <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">si</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">_int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">length</span><span class="p">)</span>
+      <span class="c1">#end</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">si</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+      <span class="c1">#end</span>
+      <span class="k">return</span> <span class="nb">range</span><span class="p">(</span><span class="n">si</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">si</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">si</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="p">[</span><span class="n">_int</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">length</span><span class="p">)]</span>
+    <span class="c1">#end</span>
+  <span class="c1">#end</span>
+    
+  <span class="k">def</span> <span class="nf">iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># Process &#39;select&#39;</span>
+    <span class="k">if</span> <span class="n">enum</span> <span class="ow">and</span> <span class="n">select</span><span class="p">:</span>
+      <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+        <span class="s2">&quot;Error: &#39;select&#39; and &#39;enum&#39; cannot be selected simultaneously&quot;</span><span class="p">,</span>
+        <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+      <span class="n">quit</span><span class="p">()</span>
+    <span class="c1">#end</span>
+    <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+      <span class="n">idxSel</span> <span class="o">=</span> <span class="p">[</span><span class="n">select</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+      <span class="n">idxSel</span> <span class="o">=</span> <span class="n">select</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+      <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">select</span><span class="p">:</span>
+        <span class="n">lo</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">up</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+          <span class="n">lo</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1">#end</span>
+        <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+          <span class="n">up</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="c1">#end</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+          <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="c1">#end</span>
+        <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">list</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)])</span>
+      <span class="c1">#end</span>
+    <span class="c1">#end</span>
 
-    <span class="k">def</span> <span class="nf">_getIterableIdx</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">_int</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">i</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
-            <span class="c1">#end</span>
-        <span class="c1">#end</span>
-    
-        <span class="k">if</span> <span class="n">idx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="s1">&#39;,&#39;</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">_int</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">idx</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-            <span class="n">si</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                <span class="n">si</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">_int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">length</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-                <span class="n">si</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">_int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">length</span><span class="p">)</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-                <span class="n">si</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-            <span class="k">return</span> <span class="nb">range</span><span class="p">(</span><span class="n">si</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">si</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">si</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="n">_int</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">length</span><span class="p">)]</span>
-        <span class="c1">#end</span>
+    <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
+      <span class="n">tags</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">tags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">)</span>
     <span class="c1">#end</span>
-    
-    <span class="k">def</span> <span class="nf">iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="c1"># Process &#39;select&#39;</span>
-        <span class="k">if</span> <span class="n">enum</span> <span class="ow">and</span> <span class="n">select</span><span class="p">:</span>
-            <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;Error: &#39;select&#39; and &#39;enum&#39; cannot be selected simultaneously&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
-            <span class="n">quit</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">select</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">idxSel</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+          <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dat</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">idxSel</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">onlyActive</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">():</span> <span class="c1"># implication</span>
+              <span class="k">if</span> <span class="n">enum</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">i</span><span class="p">,</span> <span class="n">dat</span> 
+              <span class="k">else</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">dat</span>
+              <span class="c1">#end</span>
+            <span class="c1">#end    </span>
+          <span class="c1">#end</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1">#isinstance(idxSel, list)</span>
+          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idxSel</span><span class="p">:</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">onlyActive</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">():</span> <span class="c1"># implication</span>
+              <span class="k">yield</span> <span class="n">dat</span>
+            <span class="c1">#end    </span>
+          <span class="c1">#end</span>
         <span class="c1">#end</span>
-        <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">idxSel</span> <span class="o">=</span> <span class="p">[</span><span class="n">select</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-            <span class="n">idxSel</span> <span class="o">=</span> <span class="n">select</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">select</span><span class="p">:</span>
-                <span class="n">lo</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">up</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">step</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">s</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                    <span class="n">lo</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="c1">#end</span>
-                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-                    <span class="n">up</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                <span class="c1">#end</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-                    <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-                <span class="c1">#end</span>
-                <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">list</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)])</span>
-        <span class="c1">#end</span>
-
-        <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
-            <span class="n">tags</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">tags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">)</span>
-        <span class="c1">#end</span>
-        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">select</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">idxSel</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dat</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">idxSel</span><span class="p">]):</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">onlyActive</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">():</span> <span class="c1"># implication</span>
-                            <span class="k">if</span> <span class="n">enum</span><span class="p">:</span>
-                                <span class="k">yield</span> <span class="n">i</span><span class="p">,</span> <span class="n">dat</span> 
-                            <span class="k">else</span><span class="p">:</span>
-                                <span class="k">yield</span> <span class="n">dat</span>
-                            <span class="c1">#end</span>
-                        <span class="c1">#end    </span>
-                    <span class="c1">#end</span>
-                <span class="k">else</span><span class="p">:</span> <span class="c1">#isinstance(idxSel, list)</span>
-                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idxSel</span><span class="p">:</span>
-                        <span class="n">dat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">onlyActive</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">():</span> <span class="c1"># implication</span>
-                            <span class="k">yield</span> <span class="n">dat</span>
-                        <span class="c1">#end    </span>
-                    <span class="c1">#end</span>
-                <span class="c1">#end</span>
-            <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-                <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;ERROR: Failed to load the specified/default tag </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">),</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
-                <span class="n">quit</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-                <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;ERROR: Index out of the dataset range&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
-                <span class="n">quit</span><span class="p">()</span>
-            <span class="c1">#end</span>
-            <span class="c1">#end</span>
-        <span class="c1">#end</span>
+      <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+          <span class="s2">&quot;ERROR: Failed to load the specified/default tag </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">),</span>
+          <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+        <span class="n">quit</span><span class="p">()</span>
+      <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+          <span class="s2">&quot;ERROR: Index out of the dataset range&quot;</span><span class="p">,</span>
+          <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+        <span class="n">quit</span><span class="p">()</span>
+      <span class="c1">#end</span>
     <span class="c1">#end</span>
+  <span class="c1">#end</span>
     
-    <span class="k">def</span> <span class="nf">tagIterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">onlyActive</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">:</span>
-                <span class="k">if</span> <span class="kc">True</span> <span class="ow">in</span> <span class="p">(</span><span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">()</span> <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-                <span class="c1">#end</span>
-            <span class="c1">#end</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">tagIterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">onlyActive</span><span class="p">:</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">:</span>
+        <span class="k">if</span> <span class="kc">True</span> <span class="ow">in</span> <span class="p">(</span><span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">()</span> <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+          <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
         <span class="c1">#end</span>
-        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+      <span class="c1">#end</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">)</span>
     <span class="c1">#end</span>
+    <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+  <span class="c1">#end</span>
         
-
-    <span class="c1">#-----------------------------------------------------------------</span>
-    <span class="c1">#-- Labels -------------------------------------------------------</span>
-    <span class="k">def</span> <span class="nf">setUniqueLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">numComps</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
-            <span class="n">fileName</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">fileName</span>
-            <span class="n">extensionLen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fileName</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-            <span class="n">fileName</span> <span class="o">=</span> <span class="n">fileName</span><span class="p">[:</span><span class="o">-</span><span class="p">(</span><span class="n">extensionLen</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
-            <span class="c1"># only remove the file extension but take into account</span>
-            <span class="c1"># that the file name might start with &#39;../&#39;</span>
-            <span class="n">sp</span> <span class="o">=</span> <span class="n">fileName</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
-            <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
-            <span class="n">numComps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sp</span><span class="p">)))</span>
-            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+  <span class="c1">#-----------------------------------------------------------------</span>
+  <span class="c1">#-- Labels -------------------------------------------------------</span>
+  <span class="k">def</span> <span class="nf">setUniqueLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">numComps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
+      <span class="n">file_name</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">file_name</span>
+      <span class="n">extensionLen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+      <span class="n">file_name</span> <span class="o">=</span> <span class="n">file_name</span><span class="p">[:</span><span class="o">-</span><span class="p">(</span><span class="n">extensionLen</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+      <span class="c1"># only remove the file extension but take into account</span>
+      <span class="c1"># that the file name might start with &#39;../&#39;</span>
+      <span class="n">sp</span> <span class="o">=</span> <span class="n">file_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+      <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+      <span class="n">numComps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sp</span><span class="p">)))</span>
+      <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="c1">#end</span>
+    <span class="n">maxElem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">numComps</span><span class="p">)</span>
+    <span class="n">idxMax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">numComps</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">maxElem</span><span class="p">):</span> 
+      <span class="n">include</span> <span class="o">=</span> <span class="kc">False</span>
+      <span class="n">reference</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">idxMax</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+      <span class="k">for</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span> <span class="ow">and</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">reference</span><span class="p">:</span>
+          <span class="n">include</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="c1">#end</span>
-        <span class="n">maxElem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">numComps</span><span class="p">)</span>
-        <span class="n">idxMax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">numComps</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">maxElem</span><span class="p">):</span> 
-            <span class="n">include</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">reference</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">idxMax</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span> <span class="ow">and</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">reference</span><span class="p">:</span>
-                    <span class="n">include</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="c1">#end</span>
+      <span class="c1">#end</span>
+      <span class="k">if</span> <span class="n">include</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">nm</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+          <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nm</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+              <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+              <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;_</span><span class="si">{:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="c1">#end</span>
-            <span class="k">if</span> <span class="n">include</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">nm</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nm</span><span class="p">):</span>
-                        <span class="k">if</span> <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-                            <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;_</span><span class="si">{:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-                        <span class="c1">#end</span>
-                    <span class="c1">#end</span>
-                <span class="c1">#end</span>
-            <span class="c1">#end</span>
+          <span class="c1">#end</span>
         <span class="c1">#end</span>
-        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
-            <span class="n">dat</span><span class="o">.</span><span class="n">setLabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">cnt</span><span class="p">])</span>
-            <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="c1">#end</span>
+      <span class="c1">#end</span>
     <span class="c1">#end</span>
+    <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
+      <span class="n">dat</span><span class="o">.</span><span class="n">setLabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">cnt</span><span class="p">])</span>
+      <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1">#end</span>
+  <span class="c1">#end</span>
     
-    <span class="c1">#-----------------------------------------------------------------</span>
-    <span class="c1">#-- Adding datasets ----------------------------------------------</span>
-    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="n">tagNm</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">getTag</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">tagNm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tagNm</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tagNm</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">]</span>
-        <span class="c1">#end</span>
+  <span class="c1">#-----------------------------------------------------------------</span>
+  <span class="c1">#-- Adding datasets ----------------------------------------------</span>
+  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">tagNm</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">getTag</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">tagNm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tagNm</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tagNm</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">]</span>
     <span class="c1">#end</span>
+  <span class="c1">#end</span>
 
-    <span class="c1">#-----------------------------------------------------------------</span>
-    <span class="c1">#-- Staus control ------------------------------------------------</span>
-    <span class="k">def</span> <span class="nf">activateAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="n">dat</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
-        <span class="c1">#end</span>
+  <span class="c1">#-----------------------------------------------------------------</span>
+  <span class="c1">#-- Staus control ------------------------------------------------</span>
+  <span class="k">def</span> <span class="nf">activateAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+      <span class="n">dat</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
     <span class="c1">#end</span>
-    <span class="k">def</span> <span class="nf">deactivateAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="n">dat</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
-        <span class="c1">#end</span>
+  <span class="c1">#end</span>
+  <span class="k">def</span> <span class="nf">deactivateAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+      <span class="n">dat</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
     <span class="c1">#end</span>
+  <span class="c1">#end</span>
     
-    <span class="c1">#-----------------------------------------------------------------</span>
-    <span class="c1">#-- Stuff :-P ----------------------------------------------------</span>
-    <span class="k">def</span> <span class="nf">getDataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tag</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>
-    <span class="c1">#end</span>
+  <span class="c1">#-----------------------------------------------------------------</span>
+  <span class="c1">#-- Stuff :-P ----------------------------------------------------</span>
+  <span class="k">def</span> <span class="nf">getDataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tag</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>
+  <span class="c1">#end</span>
         
-    <span class="k">def</span> <span class="nf">getNumDatasets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="n">numSets</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="n">onlyActive</span><span class="p">):</span>
-            <span class="n">numSets</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="c1">#end</span>
-        <span class="k">return</span> <span class="n">numSets</span>
+  <span class="k">def</span> <span class="nf">getNumDatasets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">numSets</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="n">onlyActive</span><span class="p">):</span>
+      <span class="n">numSets</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="c1">#end</span>
+    <span class="k">return</span> <span class="n">numSets</span>
+  <span class="c1">#end</span>
 </pre></div>
 
         </details>
@@ -453,8 +469,8 @@
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span> <span class="o">=</span> <span class="p">{}</span>
+            <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span> <span class="o">=</span> <span class="p">{}</span>
 </pre></div>
 
         </details>
@@ -472,71 +488,77 @@
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="c1"># Process &#39;select&#39;</span>
-        <span class="k">if</span> <span class="n">enum</span> <span class="ow">and</span> <span class="n">select</span><span class="p">:</span>
-            <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;Error: &#39;select&#39; and &#39;enum&#39; cannot be selected simultaneously&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
-            <span class="n">quit</span><span class="p">()</span>
+            <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="nf">iterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">enum</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="c1"># Process &#39;select&#39;</span>
+    <span class="k">if</span> <span class="n">enum</span> <span class="ow">and</span> <span class="n">select</span><span class="p">:</span>
+      <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+        <span class="s2">&quot;Error: &#39;select&#39; and &#39;enum&#39; cannot be selected simultaneously&quot;</span><span class="p">,</span>
+        <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+      <span class="n">quit</span><span class="p">()</span>
+    <span class="c1">#end</span>
+    <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+      <span class="n">idxSel</span> <span class="o">=</span> <span class="p">[</span><span class="n">select</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+      <span class="n">idxSel</span> <span class="o">=</span> <span class="n">select</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+      <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">select</span><span class="p">:</span>
+        <span class="n">lo</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">up</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">step</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+          <span class="n">lo</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
         <span class="c1">#end</span>
-        <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">idxSel</span> <span class="o">=</span> <span class="p">[</span><span class="n">select</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-            <span class="n">idxSel</span> <span class="o">=</span> <span class="n">select</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">select</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">if</span> <span class="s1">&#39;:&#39;</span> <span class="ow">in</span> <span class="n">select</span><span class="p">:</span>
-                <span class="n">lo</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">up</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">step</span> <span class="o">=</span> <span class="kc">None</span>
-                <span class="n">s</span> <span class="o">=</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                    <span class="n">lo</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="c1">#end</span>
-                <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
-                    <span class="n">up</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-                <span class="c1">#end</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-                    <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-                <span class="c1">#end</span>
-                <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">list</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)])</span>
+        <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+          <span class="n">up</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         <span class="c1">#end</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+          <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="c1">#end</span>
+        <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">idxSel</span> <span class="o">=</span> <span class="nb">list</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">select</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)])</span>
+      <span class="c1">#end</span>
+    <span class="c1">#end</span>
 
-        <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
-            <span class="n">tags</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">tags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
+      <span class="n">tags</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">tags</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">)</span>
+    <span class="c1">#end</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">select</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">idxSel</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+          <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dat</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">idxSel</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">onlyActive</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">():</span> <span class="c1"># implication</span>
+              <span class="k">if</span> <span class="n">enum</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">i</span><span class="p">,</span> <span class="n">dat</span> 
+              <span class="k">else</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">dat</span>
+              <span class="c1">#end</span>
+            <span class="c1">#end    </span>
+          <span class="c1">#end</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1">#isinstance(idxSel, list)</span>
+          <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idxSel</span><span class="p">:</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">onlyActive</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">():</span> <span class="c1"># implication</span>
+              <span class="k">yield</span> <span class="n">dat</span>
+            <span class="c1">#end    </span>
+          <span class="c1">#end</span>
         <span class="c1">#end</span>
-        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">select</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">idxSel</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
-                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dat</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">idxSel</span><span class="p">]):</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">onlyActive</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">():</span> <span class="c1"># implication</span>
-                            <span class="k">if</span> <span class="n">enum</span><span class="p">:</span>
-                                <span class="k">yield</span> <span class="n">i</span><span class="p">,</span> <span class="n">dat</span> 
-                            <span class="k">else</span><span class="p">:</span>
-                                <span class="k">yield</span> <span class="n">dat</span>
-                            <span class="c1">#end</span>
-                        <span class="c1">#end    </span>
-                    <span class="c1">#end</span>
-                <span class="k">else</span><span class="p">:</span> <span class="c1">#isinstance(idxSel, list)</span>
-                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idxSel</span><span class="p">:</span>
-                        <span class="n">dat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">t</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">onlyActive</span><span class="p">)</span> <span class="ow">or</span> <span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">():</span> <span class="c1"># implication</span>
-                            <span class="k">yield</span> <span class="n">dat</span>
-                        <span class="c1">#end    </span>
-                    <span class="c1">#end</span>
-                <span class="c1">#end</span>
-            <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-                <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;ERROR: Failed to load the specified/default tag </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">),</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
-                <span class="n">quit</span><span class="p">()</span>
-            <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
-                <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;ERROR: Index out of the dataset range&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
-                <span class="n">quit</span><span class="p">()</span>
-            <span class="c1">#end</span>
-            <span class="c1">#end</span>
-        <span class="c1">#end</span>
+      <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+          <span class="s2">&quot;ERROR: Failed to load the specified/default tag </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">),</span>
+          <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+        <span class="n">quit</span><span class="p">()</span>
+      <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+          <span class="s2">&quot;ERROR: Index out of the dataset range&quot;</span><span class="p">,</span>
+          <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+        <span class="n">quit</span><span class="p">()</span>
+      <span class="c1">#end</span>
+    <span class="c1">#end</span>
 </pre></div>
 
         </details>
@@ -554,20 +576,20 @@
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">tagIterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">onlyActive</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">:</span>
-                <span class="k">if</span> <span class="kc">True</span> <span class="ow">in</span> <span class="p">(</span><span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">()</span> <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
-                    <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-                <span class="c1">#end</span>
-            <span class="c1">#end</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">out</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">)</span>
+            <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="nf">tagIterator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tag</span><span class="p">:</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">onlyActive</span><span class="p">:</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">:</span>
+        <span class="k">if</span> <span class="kc">True</span> <span class="ow">in</span> <span class="p">(</span><span class="n">dat</span><span class="o">.</span><span class="n">getStatus</span><span class="p">()</span> <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">t</span><span class="p">)):</span>
+          <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
         <span class="c1">#end</span>
-        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+      <span class="c1">#end</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">)</span>
+    <span class="c1">#end</span>
+    <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
 </pre></div>
 
         </details>
@@ -585,48 +607,48 @@
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">setUniqueLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">numComps</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
-            <span class="n">fileName</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">fileName</span>
-            <span class="n">extensionLen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">fileName</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-            <span class="n">fileName</span> <span class="o">=</span> <span class="n">fileName</span><span class="p">[:</span><span class="o">-</span><span class="p">(</span><span class="n">extensionLen</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
-            <span class="c1"># only remove the file extension but take into account</span>
-            <span class="c1"># that the file name might start with &#39;../&#39;</span>
-            <span class="n">sp</span> <span class="o">=</span> <span class="n">fileName</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
-            <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
-            <span class="n">numComps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sp</span><span class="p">)))</span>
-            <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="nf">setUniqueLabels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">numComps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
+      <span class="n">file_name</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">file_name</span>
+      <span class="n">extensionLen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+      <span class="n">file_name</span> <span class="o">=</span> <span class="n">file_name</span><span class="p">[:</span><span class="o">-</span><span class="p">(</span><span class="n">extensionLen</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+      <span class="c1"># only remove the file extension but take into account</span>
+      <span class="c1"># that the file name might start with &#39;../&#39;</span>
+      <span class="n">sp</span> <span class="o">=</span> <span class="n">file_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+      <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+      <span class="n">numComps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sp</span><span class="p">)))</span>
+      <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="c1">#end</span>
+    <span class="n">maxElem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">numComps</span><span class="p">)</span>
+    <span class="n">idxMax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">numComps</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">maxElem</span><span class="p">):</span> 
+      <span class="n">include</span> <span class="o">=</span> <span class="kc">False</span>
+      <span class="n">reference</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">idxMax</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+      <span class="k">for</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span> <span class="ow">and</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">reference</span><span class="p">:</span>
+          <span class="n">include</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="c1">#end</span>
-        <span class="n">maxElem</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">numComps</span><span class="p">)</span>
-        <span class="n">idxMax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">numComps</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">maxElem</span><span class="p">):</span> 
-            <span class="n">include</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">reference</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="n">idxMax</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">nm</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span> <span class="ow">and</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">reference</span><span class="p">:</span>
-                    <span class="n">include</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="c1">#end</span>
+      <span class="c1">#end</span>
+      <span class="k">if</span> <span class="n">include</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">nm</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+          <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nm</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+              <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+              <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;_</span><span class="si">{:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="c1">#end</span>
-            <span class="k">if</span> <span class="n">include</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">nm</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">nm</span><span class="p">):</span>
-                        <span class="k">if</span> <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
-                            <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="s1">&#39;_</span><span class="si">{:s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nm</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-                        <span class="c1">#end</span>
-                    <span class="c1">#end</span>
-                <span class="c1">#end</span>
-            <span class="c1">#end</span>
+          <span class="c1">#end</span>
         <span class="c1">#end</span>
-        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
-            <span class="n">dat</span><span class="o">.</span><span class="n">setLabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">cnt</span><span class="p">])</span>
-            <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="c1">#end</span>
+      <span class="c1">#end</span>
+    <span class="c1">#end</span>
+    <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
+      <span class="n">dat</span><span class="o">.</span><span class="n">setLabel</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">cnt</span><span class="p">])</span>
+      <span class="n">cnt</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1">#end</span>
 </pre></div>
 
         </details>
@@ -644,13 +666,13 @@
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-        <span class="n">tagNm</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">getTag</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">tagNm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tagNm</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tagNm</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">]</span>
-        <span class="c1">#end</span>
+            <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">tagNm</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">getTag</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">tagNm</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tagNm</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tagNm</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">data</span><span class="p">]</span>
+    <span class="c1">#end</span>
 </pre></div>
 
         </details>
@@ -668,10 +690,10 @@
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">activateAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="n">dat</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
-        <span class="c1">#end</span>
+            <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="nf">activateAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+      <span class="n">dat</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
+    <span class="c1">#end</span>
 </pre></div>
 
         </details>
@@ -689,10 +711,10 @@
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">deactivateAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-            <span class="n">dat</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
-        <span class="c1">#end</span>
+            <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="nf">deactivateAll</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+      <span class="n">dat</span><span class="o">.</span><span class="n">deactivate</span><span class="p">()</span>
+    <span class="c1">#end</span>
 </pre></div>
 
         </details>
@@ -710,8 +732,8 @@
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">getDataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tag</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>
+            <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="nf">getDataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_datasetDict</span><span class="p">[</span><span class="n">tag</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>
 </pre></div>
 
         </details>
@@ -729,12 +751,12 @@
 
                 <details>
             <summary>View Source</summary>
-            <div class="codehilite"><pre><span></span>    <span class="k">def</span> <span class="nf">getNumDatasets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-        <span class="n">numSets</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="n">onlyActive</span><span class="p">):</span>
-            <span class="n">numSets</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="c1">#end</span>
-        <span class="k">return</span> <span class="n">numSets</span>
+            <div class="codehilite"><pre><span></span>  <span class="k">def</span> <span class="nf">getNumDatasets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">numSets</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">dat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">iterator</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">onlyActive</span><span class="o">=</span><span class="n">onlyActive</span><span class="p">):</span>
+      <span class="n">numSets</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1">#end</span>
+    <span class="k">return</span> <span class="n">numSets</span>
 </pre></div>
 
         </details>

@@ -9,117 +9,149 @@
                         <details>
             <summary>View Source</summary>
             <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">click</span>
-<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">postgkyl.commands.util</span> <span class="kn">import</span> <span class="n">vlog</span><span class="p">,</span> <span class="n">pushChain</span>
 <span class="kn">from</span> <span class="nn">postgkyl.data</span> <span class="kn">import</span> <span class="n">Data</span>
+<span class="kn">from</span> <span class="nn">postgkyl.data</span> <span class="kn">import</span> <span class="n">GInterpModal</span>
 
 <span class="k">def</span> <span class="nf">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">zn</span><span class="p">):</span>
-    <span class="n">nm</span> <span class="o">=</span> <span class="s1">&#39;z</span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zn</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">zn</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span> <span class="c1"># This little hack allows to apply the same function for components as well</span>
-        <span class="n">nm</span> <span class="o">=</span> <span class="s1">&#39;component&#39;</span>
-    <span class="c1">#end</span>
-    <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;globalCuts&#39;</span><span class="p">][</span><span class="n">zn</span><span class="p">]:</span>
-        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;WARNING: The local &#39;</span><span class="si">{:s}</span><span class="s2">&#39; is overwriting the global &#39;</span><span class="si">{:s}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nm</span><span class="p">,</span> <span class="n">nm</span><span class="p">),</span>
-                               <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span>
-    <span class="k">elif</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">nm</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span>
-    <span class="k">elif</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;globalCuts&#39;</span><span class="p">][</span><span class="n">zn</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;globalCuts&#39;</span><span class="p">][</span><span class="n">zn</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
-    <span class="c1">#end</span>
+  <span class="n">nm</span> <span class="o">=</span> <span class="s1">&#39;z</span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">zn</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">zn</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span> <span class="c1"># This little hack allows to apply the same function for</span>
+              <span class="c1"># components as well</span>
+    <span class="n">nm</span> <span class="o">=</span> <span class="s1">&#39;component&#39;</span>
+  <span class="c1">#end</span>
+  <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;globalCuts&#39;</span><span class="p">][</span><span class="n">zn</span><span class="p">]:</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+      <span class="s1">&#39;WARNING: The local </span><span class="se">\&#39;</span><span class="si">{:s}</span><span class="se">\&#39;</span><span class="s1"> is overwriting the global </span><span class="se">\&#39;</span><span class="si">{:s}</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nm</span><span class="p">,</span> <span class="n">nm</span><span class="p">),</span>
+      <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span>
+  <span class="k">elif</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">nm</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">nm</span><span class="p">]</span>
+  <span class="k">elif</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;globalCuts&#39;</span><span class="p">][</span><span class="n">zn</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;globalCuts&#39;</span><span class="p">][</span><span class="n">zn</span><span class="p">]</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="kc">None</span>
+  <span class="c1">#end</span>
 <span class="c1">#end</span>
 
 <span class="k">def</span> <span class="nf">_crush</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="c1"># Temp function used as a sorting key</span>
-    <span class="n">splitted</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
-    <span class="n">tmp</span> <span class="o">=</span> <span class="n">splitted</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-    <span class="n">splitted</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">splitted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">splitted</span><span class="p">)</span>
+  <span class="n">splitted</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+  <span class="n">tmp</span> <span class="o">=</span> <span class="n">splitted</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+  <span class="n">splitted</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+  <span class="n">splitted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+  <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">splitted</span><span class="p">)</span>
 <span class="c1">#end</span>
 
 <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="n">hidden</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--z0&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Partial file load: 0th coord (either int or slice)&quot;</span><span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--z1&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Partial file load: 1st coord (either int or slice)&quot;</span><span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--z2&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Partial file load: 2nd coord (either int or slice)&quot;</span><span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--z3&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Partial file load: 3rd coord (either int or slice)&quot;</span><span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--z4&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Partial file load: 4th coord (either int or slice)&quot;</span><span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--z5&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Partial file load: 5th coord (either int or slice)&quot;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--z0&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Partial file load: 0th coord (either int or slice)&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--z1&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Partial file load: 1st coord (either int or slice)&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--z2&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Partial file load: 2nd coord (either int or slice)&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--z3&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Partial file load: 3rd coord (either int or slice)&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--z4&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Partial file load: 4th coord (either int or slice)&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--z5&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Partial file load: 5th coord (either int or slice)&#39;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--component&#39;</span><span class="p">,</span> <span class="s1">&#39;-c&#39;</span><span class="p">,</span>
-              <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Partial file load: comps (either int or slice)&quot;</span><span class="p">)</span>
-<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--tag&#39;</span><span class="p">,</span> <span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
-              <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Specily tag for data (default: </span><span class="se">\&quot;</span><span class="s2">default</span><span class="se">\&quot;</span><span class="s2">)&quot;</span><span class="p">)</span>
+              <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Partial file load: comps (either int or slice)&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--tag&#39;</span><span class="p">,</span> <span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
+              <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Specily tag for data (default: </span><span class="se">\&#39;</span><span class="s1">default</span><span class="se">\&#39;</span><span class="s1">)&#39;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--compgrid&#39;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-              <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Disregard the mapped grid information&quot;</span><span class="p">)</span>
+              <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Disregard the mapped grid information&#39;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--varname&#39;</span><span class="p">,</span> <span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="n">multiple</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-              <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Allows to specify the Adios variable name (default is &#39;CartGridField&#39;)&quot;</span><span class="p">)</span>
+              <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Allows to specify the Adios variable name (default is </span><span class="se">\&#39;</span><span class="s1">CartGridField</span><span class="se">\&#39;</span><span class="s1">)&#39;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--label&#39;</span><span class="p">,</span> <span class="s1">&#39;-l&#39;</span><span class="p">,</span>
-              <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Allows to specify the custom label&quot;</span><span class="p">)</span>
+              <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Allows to specify the custom label&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--c2p&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="n">click</span><span class="o">.</span><span class="n">STRING</span><span class="p">,</span>
+              <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Specify the file name containing c2p mapped coordinates&#39;</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="s1">&#39;--fv&#39;</span><span class="p">,</span> <span class="n">is_flag</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+              <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Tag finite volume data when using c2p mapped coordinates&#39;</span><span class="p">)</span>
 <span class="nd">@click</span><span class="o">.</span><span class="n">pass_context</span>
 <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">vlog</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;Starting load&#39;</span><span class="p">)</span>
-    <span class="n">pushChain</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
-    
-    <span class="n">idx</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;inDataStringsLoaded&#39;</span><span class="p">]</span>
-    <span class="n">inDataString</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;inDataStrings&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>
+  <span class="n">vlog</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;Starting load&#39;</span><span class="p">)</span>
+  <span class="n">pushChain</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span>
 
-    <span class="c1"># Handling the wildcard characters</span>
-    <span class="k">if</span> <span class="s2">&quot;*&quot;</span> <span class="ow">in</span> <span class="n">inDataString</span> <span class="ow">or</span> <span class="s2">&quot;?&quot;</span> <span class="ow">in</span> <span class="n">inDataString</span> <span class="ow">or</span> <span class="s2">&quot;!&quot;</span>  <span class="ow">in</span> <span class="n">inDataString</span><span class="p">:</span>
-        <span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">inDataString</span><span class="p">))</span>
-        <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;restart&quot;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">_crush</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;WARNING: The loaded files appear to be of different types. Sorting is turned off.&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">))</span>
+  <span class="n">idx</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;inDataStringsLoaded&#39;</span><span class="p">]</span>
+  <span class="n">inDataString</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;inDataStrings&#39;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>
+
+  <span class="c1"># Handling the wildcard characters</span>
+  <span class="k">if</span> <span class="s1">&#39;*&#39;</span> <span class="ow">in</span> <span class="n">inDataString</span> <span class="ow">or</span> <span class="s1">&#39;?&#39;</span> <span class="ow">in</span> <span class="n">inDataString</span> <span class="ow">or</span> <span class="s1">&#39;!&#39;</span>  <span class="ow">in</span> <span class="n">inDataString</span><span class="p">:</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">inDataString</span><span class="p">))</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;restart&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">files</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">_crush</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+      <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+        <span class="s1">&#39;WARNING: The loaded files appear to be of different types. Sorting is turned off.&#39;</span><span class="p">,</span>
+        <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">))</span>
+    <span class="c1">#end</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">inDataString</span><span class="p">]</span>
+  <span class="c1">#end</span>
+
+  <span class="c1"># Resolve the local/global variable names and partial loading</span>
+  <span class="c1"># The local settings take a precedents but a warning is going to appear</span>
+  <span class="n">z0</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="n">z1</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="n">z2</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="n">z3</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+  <span class="n">z4</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+  <span class="n">z5</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+  <span class="n">comp</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;varname&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;globalVarNames&#39;</span><span class="p">]:</span>
+    <span class="n">varNames</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;varname&#39;</span><span class="p">]</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+      <span class="s1">&#39;WARNING: The local </span><span class="se">\&#39;</span><span class="s1">varname</span><span class="se">\&#39;</span><span class="s1"> is overwriting the global </span><span class="se">\&#39;</span><span class="s1">varname</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">,</span>
+      <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">))</span>
+  <span class="k">elif</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;varname&#39;</span><span class="p">]:</span>
+    <span class="n">varNames</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;varname&#39;</span><span class="p">]</span>
+  <span class="k">elif</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;globalVarNames&#39;</span><span class="p">]:</span>
+    <span class="n">varNames</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;globalVarNames&#39;</span><span class="p">]</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">varNames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CartGridField&#39;</span><span class="p">]</span>
+  <span class="c1">#end</span>
+
+  <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;c2p&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;global_c2p&#39;</span><span class="p">]:</span>
+    <span class="n">mapc2p_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;c2p&#39;</span><span class="p">]</span>
+    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+      <span class="s1">&#39;WARNING: The local </span><span class="se">\&#39;</span><span class="s1">c2p</span><span class="se">\&#39;</span><span class="s1"> is overwriting the global </span><span class="se">\&#39;</span><span class="s1">c2p</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="p">,</span>
+      <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">))</span>
+  <span class="k">elif</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;c2p&#39;</span><span class="p">]:</span>
+    <span class="n">mapc2p_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;c2p&#39;</span><span class="p">]</span>
+  <span class="k">elif</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;global_c2p&#39;</span><span class="p">]:</span>
+    <span class="n">mapc2p_name</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;global_c2p&#39;</span><span class="p">]</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">mapc2p_name</span> <span class="o">=</span> <span class="kc">None</span>
+  <span class="c1">#end</span>
+
+  <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">varNames</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="n">dat</span> <span class="o">=</span> <span class="n">Data</span><span class="p">(</span><span class="n">file_name</span><span class="o">=</span><span class="n">fn</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;tag&#39;</span><span class="p">],</span>
+                    <span class="n">compgrid</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;compgrid&#39;</span><span class="p">],</span>
+                    <span class="n">z0</span><span class="o">=</span><span class="n">z0</span><span class="p">,</span> <span class="n">z1</span><span class="o">=</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="o">=</span><span class="n">z2</span><span class="p">,</span>
+                    <span class="n">z3</span><span class="o">=</span><span class="n">z3</span><span class="p">,</span> <span class="n">z4</span><span class="o">=</span><span class="n">z4</span><span class="p">,</span> <span class="n">z5</span><span class="o">=</span><span class="n">z5</span><span class="p">,</span>
+                    <span class="n">comp</span><span class="o">=</span><span class="n">comp</span><span class="p">,</span> <span class="n">varName</span><span class="o">=</span><span class="n">var</span><span class="p">,</span>
+                    <span class="n">label</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">],</span>
+                    <span class="n">mapc2p_name</span> <span class="o">=</span> <span class="n">mapc2p_name</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;fv&#39;</span><span class="p">]:</span>
+          <span class="n">dg</span> <span class="o">=</span> <span class="n">GInterpModal</span><span class="p">(</span><span class="n">dat</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
+          <span class="n">dg</span><span class="o">.</span><span class="n">interpolateGrid</span><span class="p">(</span><span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="c1">#end</span>
-    <span class="k">else</span><span class="p">:</span>
-         <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">inDataString</span><span class="p">]</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span>
+      <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span>
+          <span class="s1">&#39;Failed to load the variable </span><span class="se">\&#39;</span><span class="si">{:s}</span><span class="se">\&#39;</span><span class="s1"> from </span><span class="se">\&#39;</span><span class="si">{:s}</span><span class="se">\&#39;</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span>
+          <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+      <span class="c1">#end</span>
     <span class="c1">#end</span>
+  <span class="c1">#end</span>
 
-    <span class="c1"># Resolve the local/global variable names and partial loading</span>
-    <span class="c1"># The local settings take a precedents but a warning is going to appear</span>
-    <span class="n">z0</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">z1</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">z2</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">z3</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-    <span class="n">z4</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-    <span class="n">z5</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-    <span class="n">comp</span> <span class="o">=</span> <span class="n">_pickCut</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;varname&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;globalVarNames&#39;</span><span class="p">]:</span>
-        <span class="n">varNames</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;varname&#39;</span><span class="p">]</span>
-        <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;WARNING: The local &#39;varname&#39; is overwriting the global &#39;varname&#39;&quot;</span><span class="p">,</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;yellow&#39;</span><span class="p">))</span>
-    <span class="k">elif</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;varname&#39;</span><span class="p">]:</span>
-        <span class="n">varNames</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;varname&#39;</span><span class="p">]</span>
-    <span class="k">elif</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;globalVarNames&#39;</span><span class="p">]:</span>
-        <span class="n">varNames</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;globalVarNames&#39;</span><span class="p">]</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">varNames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;CartGridField&#39;</span><span class="p">]</span>
-    <span class="c1">#end</span>
-    
-    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">varNames</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">data</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Data</span><span class="p">(</span><span class="n">fileName</span><span class="o">=</span><span class="n">fn</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;tag&#39;</span><span class="p">],</span>
-                              <span class="n">compgrid</span><span class="o">=</span><span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;compgrid&#39;</span><span class="p">],</span>
-                              <span class="n">z0</span><span class="o">=</span><span class="n">z0</span><span class="p">,</span> <span class="n">z1</span><span class="o">=</span><span class="n">z1</span><span class="p">,</span> <span class="n">z2</span><span class="o">=</span><span class="n">z2</span><span class="p">,</span>
-                              <span class="n">z3</span><span class="o">=</span><span class="n">z3</span><span class="p">,</span> <span class="n">z4</span><span class="o">=</span><span class="n">z4</span><span class="p">,</span> <span class="n">z5</span><span class="o">=</span><span class="n">z5</span><span class="p">,</span>
-                              <span class="n">comp</span><span class="o">=</span><span class="n">comp</span><span class="p">,</span> <span class="n">varName</span><span class="o">=</span><span class="n">var</span><span class="p">,</span>
-                              <span class="n">label</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]))</span>
-            <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
-                <span class="n">ctx</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="n">click</span><span class="o">.</span><span class="n">style</span><span class="p">(</span><span class="s2">&quot;Failed to load the variable &#39;</span><span class="si">{:s}</span><span class="s2">&#39; from &#39;</span><span class="si">{:s}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">fn</span><span class="p">),</span> <span class="n">fg</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
-            <span class="c1">#end</span>
-        <span class="c1">#end</span>
-    <span class="c1">#end</span>
+  <span class="n">data</span><span class="o">.</span><span class="n">setUniqueLabels</span><span class="p">()</span>
 
-    <span class="n">data</span><span class="o">.</span><span class="n">setUniqueLabels</span><span class="p">()</span>
-
-    <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;inDataStringsLoaded&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">vlog</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;Finishing load&#39;</span><span class="p">)</span>
+  <span class="n">ctx</span><span class="o">.</span><span class="n">obj</span><span class="p">[</span><span class="s1">&#39;inDataStringsLoaded&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="n">vlog</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="s1">&#39;Finishing load&#39;</span><span class="p">)</span>
 <span class="c1">#end</span>
 </pre></div>
 

@@ -26,217 +26,32 @@ Examples are provided simultaneously for scripting and command line
 using output files of an electrostatic two-stream instability
 simulation [:doc:`two-stream.lua<input/two-stream>`].
 
+.. contents::
 
 
-
-Loading a Gkeyll file
+Accessing a Gkeyll file
 ---------------------
 
 Gkeyll files are loaded in Postgkyl by creating a new instance of the
 ``Data`` class with the file name as the parameter.
 
-
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
 .. code-block:: python
+  :caption: Script
 
   import postgkyl as pg
-  data = pg.Data(filename)
+  data = pg.Data('filename')
 
-.. raw:: html
-         
-   </details>
-
-In a command line mode, a data file is loaded using the ``-f`` flag
-of the ``pgkyl`` script.
-
-.. raw:: html
-         
-   <details open>
-   <summary><a>Command line</a></summary>
-
-.. code-block:: bash
-
-  pgkyl -f filename
-
-.. raw:: html
-         
-   </details>
-
-Note that the syntax is the same for the newer Adios and older HDF5
-file; however, some of the newer additions like information about
-Gkeyll build, polynomial order, and basis functions are not available
-for HDF5 files. Postgkyl also treats the data that are functions of
-phase space coordinates the same way as the time-dependent quantities
-of the integrated diagnostics.
-
-Note that it is also possible to create an empty instance and store
-data into it manually.
-
-.. _pg_loading_stack:
-
-Internal stack
---------------
-
-With the command line interface utilizing the `Click
-<http://click.pocoo.org>`_ Python package, an internal *stack* was
-added to the the ``Data`` class. This means that instead of just including
-a NumPy array for values, ``Data`` class includes a ``list`` of NumPy
-arrays. Each command or function that can add and remove things from
-the stack. As this might be quite memory intensive, Postgkyl
-allows to turn this off.
-
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
-.. code-block:: python
-
-  import postgkyl as pg
-  data = pg.Data(filename, stack=False)
-
-.. raw:: html
-         
-   </details>       
-   <details open>
-   <summary><a>Command line</a></summary>
-
-.. code-block:: bash
-
-  pgkyl -f filename --no-stack
-
-.. raw:: html
-
-  </details>
-
-Note that even with the stack off, ``Data`` still contains a list of
-NumPy arrays but this list always contain only one element which gets
-overwritten.
-
-The ``Data`` class serves as an input to the most of the Postgkyl
-functions. The function themselves then have an option to either
-return the result or add it to the stack of the input. We can use the
-:ref:`pg_cmd_interpolate` as an example. It can return new grid
-and values.
-
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script not using the stack</a></summary>
-
-.. code-block:: python
-  :emphasize-lines: 4
-
-  import postgkyl as pg
-  data = pg.Data('two-stream_elc_0.bp')
-  dg = pg.GInterpModal(data)
-  grid, values = dg.interpolate()
-
-.. raw:: html
-         
-   </details>
-
-Alternatively, it can put the new results back to the stack of the
-``data`` object. This has an advantage that ``data`` can be easily
-passed to other Postgkyl functions which take a ``Data`` class as an
-input.
-
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script using the stack</a></summary>
-
-.. code-block:: python
-  :emphasize-lines: 4
-
-  import postgkyl as pg
-  data = pg.Data('two-stream_elc_0.bp')
-  dg = pg.GInterpModal(data)
-  dg.interpolate(stack=True)
-  pg.output.plot(data)
-
-.. raw:: html
-         
-   </details>
-
-Member functions
-----------------
-
-In a script, data can be accessed using the member functions. 
-
-.. list-table::
-   :widths: 30, 70
-   :header-rows: 1
-
-   * - Function
-     - Description
-   * - getBounds() -> narray, narray
-     - Returns the upper and lower bounds for the current top of the
-       stack.
-   * - getNumCells() -> narray
-     - Returns a Numpy array with numbers of cells.
-   * - getNumComps() -> int
-     - Returns the number of components (i.e., the last data index).
-   * - getNumDims() -> int
-     - Returns the number of dimensions. Note that this includes the
-       squeezed dimensions as well.
-   * - getGrid() -> [narray, ...]
-     - Returns a list of 1D Numpy array slices of the grid.
-   * - getValues() -> narray
-     - Returns a NumPy array of values with (N+1) dimensions.
-   * - pop() -> [narray, ...], narray
-     - Returns a list of NumPy arrays for grid and a NumPy array of
-       values with (N+1) dimensions and removes it from the stack
-       (disabled when the stack is off).
-   * - push(narray values, list grid=None) -> None
-     - Pushes the specified values and grid to the stack.
-   * - info() -> str
-     - Returns a string with information about the data
-   * - getInputFile() -> str
-     - Returns an emended Lua input file for the simulation.
-   * - write(int buffersize, str outName, bool txt) -> None
-     - Writes data into ADIOS ``bp`` file or ASCII ``txt`` file
-
-The first few functions, ``getBounds()``, ``getNumCells()``, ``getNumComps()``,
-and ``getNumDims()``, return a number NumPy array(s) or a single
-integer number. 
-
-.. raw:: html
-         
-   <details>
-   <summary><a>Script example</a></summary>
-
-.. code-block:: python
-  :emphasize-lines: 1,2,3,5,7,9
-
-  import postgkyl as pg
-  data = pg.Data('two-stream_elc_0.bp')
-  print(data.getBounds())
-    (array([-6.283185307179586, -6.]), array([6.283185307179586, 6.]))
-  print(data.getNumCells())
-    [64 64]
-  print(data.getNumComps())
-    8
-  print(data.getNumDims())
-    2
-  
-.. raw:: html
-         
-   </details>
-   <br>
-
-``getGrid()`` and ``getValues()`` return the grid and values array
-respectively. For structured meshes, the ``getGrid()`` return a Python
-``list`` of 1D NumPy arrays which represent the nodal points of the
-grid in each dimension. Note that since these are nodal points, these
-arrays will always have one more cell in each dimension in comparison
-to the value array. Another important note is that the **value array
-always have one extra dimension for components**. This extra dimension
-is always retained even if there is just one component.
+Next, ``getGrid()`` and ``getValues()`` can be used to return the grid
+and values as NumPy arrays. For structured meshes, the ``getGrid()``
+return a Python ``list`` of 1D NumPy arrays which represent the nodal
+points of the grid in each dimension. Note that since these are nodal
+points, these arrays will always have one more cell in each dimension
+in comparison to the value array. Another important note is that the
+**value array always have one extra dimension for
+components**. Components can represent many things from vector
+elements to discontinuous Galerkin expansion coefficients. As a rule,
+this extra dimension is always retained even if there is just one
+component.
 
 .. raw:: html
          
@@ -304,289 +119,253 @@ is always retained even if there is just one component.
    </details>
    <br>
 
-``pop()`` behaves very similarly to ``getGrid()`` and ``getValues()``
-with the difference that it returns grid and values simultaneously
-and removes them from the :ref:`pg_loading_stack`. Analogously,
-``push(values, grid=None)`` allows to add new values and grid to the
-stack. The ``grid`` is optional for ``push``. If it is not specified,
-the previous ``grid`` is reused in the stack. This is useful for many
-operations that modify only the values and not the grid.
+It is also possible to create an empty instance and fill it using the
+``push`` function.
+   
+In the command line mode, a data file is loaded by simply adding it to
+the ``pgkyl`` script chain at any position.
 
-``info()`` returns information about grid, minimum and maximum values
-and some meta data like the Gkyl build number and date that was used
-to create the output file. Note that the information is returned as a
-string and, therefore, ``print()`` is required to visualize it with
-proper line breaks. This is also the function that the
-:ref:`pg_cmd_info` command calls for each data set.
-
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
-.. code-block:: python
-  :emphasize-lines: 3
-
-  import postgkyl as pg
-  data = pg.Data('two-stream_elc_0.bp')
-  print(data.info())
-    - Time: 0.000000e+00
-    - Frame: 0
-    - Number of components: 8
-    - Number of dimensions: 2
-    - Grid: (uniform)
-      - Dim 0: Num. cells: 64; Lower: -6.283185e+00; Upper: 6.283185e+00
-      - Dim 1: Num. cells: 64; Lower: -6.000000e+00; Upper: 6.000000e+00
-    - Maximum: 3.804653e+00 at (31, 26) component 0
-    - Minimum: -6.239745e-01 at (31, 38) component 2
-    - DG info:
-      - Polynomial Order: 2
-      - Basis Type: serendipity (modal)
-    - Created with Gkeyll:
-      - Changeset: 9e81ededec52+
-      - Build Date: Sep 21 2020 06:07:17
-
-.. raw:: html
-         
-   </details>
-   <details>
-   <summary><a>Command line</a></summary>
-  
 .. code-block:: bash
-  :emphasize-lines: 1
-                    
-  pgkyl -f two-stream_elc_0.bp info
-    - Time: 0.000000e+00
-    - Frame: 0
-    - Number of components: 8
-    - Number of dimensions: 2
-    - Grid: (uniform)
-      - Dim 0: Num. cells: 64; Lower: -6.283185e+00; Upper: 6.283185e+00
-      - Dim 1: Num. cells: 64; Lower: -6.000000e+00; Upper: 6.000000e+00
-    - Maximum: 3.804653e+00 at (31, 26) component 0
-    - Minimum: -6.239745e-01 at (31, 38) component 2
-    - DG info:
-      - Polynomial Order: 2
-      - Basis Type: serendipity (modal)
-    - Created with Gkeyll:
-      - Changeset: 9e81ededec52+
-      - Build Date: Sep 21 2020 06:07:17
+  :caption: Command line
+            
+  pgkyl filename
 
-.. raw:: html
-         
-   </details>
+.. note::
 
-Gkeyll output files also in most cases include the Lua input file which
-was used for the run. This improves reproducibility and helps with
-book keeping. ``getInputFile()`` returns a string with the file. This
-is particularly useful in the command line mode with the
-:ref:`pg_cmd_extractinput` command and Linux piping. This can create
-an input file which is immediately usable with ``gkyl``
+   Under the hood, Postgkyl calls a hidden ``load`` command to load
+   the file. When provided string does not match any command but is
+   matching a file, the load command is invoked and the file name is
+   passed to it. The load command should *not* be called manually but
+   it can be used to access the help.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Command line</a></summary>
-  
-.. code-block:: bash
-  :emphasize-lines: 1,2
-                    
-  pgkyl -f two-stream_elc_0.bp extractinput > input.lua
-  gkyl input.lua
-    Fri Oct 02 2020 12:30:48.000000000
-    Gkyl built with 4aad9d94863f+
-    Gkyl built on Oct  1 2020 09:44:52
-    Initializing Vlasov-Maxwell simulation ...
-    Initializing completed in 0.0575099 sec
+   .. code-block:: bash
 
-    Starting main loop of Vlasov-Maxwell simulation ...
-    
-.. raw:: html
-         
-   </details>
+     pgkyl load --help
 
-Finally, the ``write`` function allows to write data either to a Adios
-``bp`` file or to a simple text file. It is called by the
-:ref:`pg_cmd_write` command. The default behavior is to write a ``bp``
-file, but this can be changed with setting ``txt=True``. The
-``outName`` can be specified manually but can be also left blank, in
-which Postgkyl constructs a new name. When using the ``bp`` mode, the
-function allows to set the Adios parameter ``bufferSize``. By default,
-it is set to 1000 (default Adios value) but can be increased if
-needed. Apart from storing the data post-process with a command line
-chain, it is useful for users that want to different post-processing
-tool, e.g. Matlab, but want to use Postgkyl to read Gkeyll data and
-interpolate them to a finite-volume-like format.
+Currently, Postgkyl supports ``h5`` file that were used in Gkeyll 1,
+Gkeyll 2 ADIOS ``bp`` files, and Gkeyll 0 ``gkyl`` binary files. Many
+of the advanced functions like loading only partial data and some
+quality of life features like storing the polynomial order of DG
+representation are currently available only for the ADIOS ``bp``
+files.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Command line example</a></summary>
-  
-.. code-block:: bash
-  :emphasize-lines: 1
-                    
-  pgkyl -f two-stream_elc_0.bp interpolate write -f new_file.bp
-  
-.. raw:: html
-         
-   </details>
 
-Loading multiple files in a terminal
-------------------------------------
 
-Loading multiple files in a script is simple; one creates more
-instances of the ``Data`` class. Postgkyl does support loading
-multiple files in the command line mode as well by simply using
-multiple ``-f`` flags.
+Loading multiple datasets
+-------------------------
+
+Loading multiple files in a script is straightforward; one creates more
+instances of the ``Data`` class. Postgkyl does naturally support loading
+any number of files.
 
 .. code-block:: bash
 
-  pgkyl -f two-stream_elc_0.bp -f two-stream_ion_0.bp
+  pgkyl two-stream_elc_0.bp two-stream_elc_1.bp
 
-Loading multiple files is the reason why is the ``-f`` flag always
-mandatory rather than taking an argument without any flags. Postgkyl
-makes no assumptions about the number of data files.
+All the commands are then generally batch performed on all the data
+sets and the :ref:`pg_cmd_plot` command creates a separate figure for
+each data set (this can be modified with :ref:`pg_cmd_plot` options
+like ``-f0``).
 
-All the following commands are then generally performed on all the
-data sets. Commands like :ref:`pg_cmd_interpolate` are performed in
-parallel on all the data. This is also the default behavior of the
-:ref:`pg_cmd_plot` command; it creates a separate figure for each data
-set. This can, however, be altered with :ref:`pg_cmd_plot` options to
-allow, for example, a direct comparison of data. See the
-:ref:`pg_cmd_plot` page for more details.
+When batch application of commands is *not* the desired behavior, some
+data files can be loaded later in the chain, loaded dataset can be
+changed from active to inactive
+(:ref:`pg_cmd_activate`/:ref:`pg_cmd_deactivate`), or the command
+scope can be limmited by specifying :ref:`tags
+<pg_keyconcepts_tags>`. The :ref:`pg_keyconcepts` section provides
+examples where one desired behavior is achieved in multiple ways. It
+is left up to the user to chose the preferred one.
 
-Performing commands on all the data sets in parallel is not always
-desired. An example of that might be a comparison of kinetic (DG) and
-fluid (finite-volume) results. There, a user wants to
-:ref:`pg_cmd_interpolate` only the kinetic DG data. For these cases,
-Postgkyl has the :ref:`pg_cmd_dataset` command, which allows to select
-only some data sets, perform some commands, and then select all
-data sets again. Note that for this, all the data set are numbered from
-zero up in the order they were loaded.
-
-.. raw:: html
-         
-   <details open>
-   <summary><a>Command line</a></summary>
-  
-.. code-block:: bash
-  :emphasize-lines: 1
-                    
-  pgkyl -f kinetic.bp -f fluid.bp dataset -i 0 interpolate dataset -a plot -f0
-    
-.. raw:: html
-         
-   </details>
-
-There are also some commands like :ref:`pg_cmd_collect` and
-:ref:`pg_cmd_ev` which create a new data set out of existing
-ones. These commands then set the newly created data set as the only
-active one. However, the other data sets are still available through
-the :ref:`pg_cmd_dataset` command.
-
-When in doubt about a data set index, one can always use the
-:ref:`pg_cmd_info` command. By default, it shows only the active data
-sets but can show all with the ``-a`` flag.
 
 Postgkyl also allows for loading with a wild card characters:
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Command line</a></summary>
+.. code-block:: bash
+
+  pgkyl 'two-stream*.bp'
+
+.. warning::
+
+   While the quotes are entirely optional when loading a single file,
+   they change behavior when used with wild card characters. With
+   quotes, a single load command is performed and the wild cart
+   matching is done internally by Postgkyl. Without quotes, the wild
+   cart is replaced before calling Postgkyl which results in several
+   load command calls. This leads to several key differences:
+
+   1. With quotes, Postgkyl orders files correctly, i.e., ``file_2`` will be before
+      ``file_10``.
+
+   2. With quotes, tags, labels, etc., are applied to all the matching
+      files, not just the last one.
+
+   3. Some wildcard characters like ``[0-9]`` are not supported by
+      every shell.
+
+Using wild card characters might lead to unexpected situations. For
+example in the two-stream case, the query ``two-stream_elc_*`` is
+going to return ``two-stream_elc_0.bp`` but also the moment files like
+``two-stream_elc_M0_0.bp``. If we want to load just the distribution
+functions, we can limit the query. For example:
 
 .. code-block:: bash
 
-  pgkyl -f 'two-stream*.bp'
+  pgkyl 'two-stream_elc_[0-9]*.bp'
 
-.. raw:: html
-         
-   </details>
+This requires the first character to be a number between 0 and 9,
+which effectively eliminates all the outputs except for the
+distribution functions themselves.
 
-It is important to stress out that the **quotes are required** in this
-case. Without the quotes, the command line interpreter simply
-"unrolls" the expression creating something like 
-
-Note that the quotes are mandatory in this case because the whole
-``file*.bp`` string needs to be pasted into the Postgkyl rather that
-"unrolling" it directly on the command line:
+Following are details on load parameters which alter the
+behavior. Here, we would like to mention that these can be specified
+individually for each file of as the global options of the ``pgkyl``
+script itself.  For example, the partial loading flag ``--z0`` (see
+bellow) can be applied to one file (``file_0``):
 
 .. code-block:: bash
 
-  -> pgkyl -f two-stream_elc_0.bp two-stream_elc_1.bp ...
+  pgkyl file_0 --z0 0 file_1
 
-Without the ``-f``, ``two-stream_elc_1.bp`` gets interpreted as the
-first commands and ``pgkyl`` ends up with an unknown command
-error. When the file name is passed with quotes, the wild card
-characters are nor resolved but the whole string is passed to
-Postgkyl and the names are then properly resolved inside. They are
-also properly sorted so a file name ``two-stream_elc_2.bp`` will come
-after ``two-stream_elc_100.bp``.
-
-Finally, it is worth pointing out that using wild card characters might
-lead to unexpected situations. For example in the two-stream case,
-the query ``two-stream_elc_*`` is going to return
-``two-stream_elc_0.bp`` but also ``two-stream_elc_M0_0.bp`` which is
-in most cases not desirable. As the diagnostic outputs are adding to
-the name, their names are usually unique enough so this does not cause
-any problems. This, however, complicates loading all distribution
-functions. One way to overcome this is to be more specific.
-
-.. raw:: html
-         
-   <details open>
-   <summary><a>Command line</a></summary>
+Or it can be applied globally to all the files:
 
 .. code-block:: bash
 
-  pgkyl -f 'two-stream_elc_[0-9]*.bp'
+  pgkyl --z0 0 file_0 file_1
 
-.. raw:: html
-         
-   </details>
+This is analogous to:
 
-This requires the first character of the wild card string to be a
-number between 0 and 9, which effectively eliminates all the outputs
-except for the distribution functions themselves.
+.. code-block:: bash
+
+  pgkyl file_0 --z0 0 file_1 --z0 0
+
+  
 
 Partial loading
 ---------------
 
-Gkeyll output files, especially the higher dimensionality ones, can be
+Gkeyll output files, especially the higher dimensional ones, can be
 large. Therefore, Postgkyl allows to load just a smaller subsection of
 each file. This is done with the optional ``z0`` to ``z5`` parameters
 for coordinates and ``comp`` for components. Each can be either an
 integer number or a string in the form of ``start:end``. Note that
-this does follow the Python conventions so **the last index is
+this does follow the Python convention so **the last index is
 excluded**, i.e., ``1:5`` will load only the indices/components 1, 2,
 3, and 4. This functionality is supported both in the script mode and
 the command line mode.
 
-.. raw:: html
-         
-   <details open>
-   <summary><a>Script</a></summary>
-
 .. code-block:: python
   :emphasize-lines: 5
+  :caption: Script
 
   import postgkyl as pg
   data = pg.Data('two-stream_elc_0.bp', z1='1:3', comp=0)
-.. raw:: html
-         
-   </details>
-   <details open>
-   <summary><a>Command line</a></summary>
-  
+
 .. code-block:: bash
+  :caption: Command line
+            
+  pgkyl two-stream_elc_0.bp --z1 1:3 -c 0
 
-  pgkyl -f two-stream_elc_0.bp --z1 1:3 --comp 0
+Note that the :ref:`pg_cmd_select` command has a similar use. In
+addition, it allows to specify a coordinate value instead of an
+index. However, it requires the whole file to be loaded into memory.
 
-.. raw:: html
-         
-   </details>
 
-Note that the :ref:`pg_cmd_select` command does a similar thing but
-also allows extra options like specifying a coordinate value instead
-of an index. However, it requires the whole file to be loaded.
+
+Tags and labels
+---------------
+
+Datasets can be decorated with tags and labels. The former serve
+mostly to specify the scope of commands (see :ref:`tags
+<pg_keyconcepts_tags>`) in the command line mode while the later one
+allows to add custom labels for plots and print-outs.
+
+When no labels are specified, Postgkyl attempts to find the shortest
+unique identifier and uses it as a label. For example:
+
+.. code-block:: bash
+                
+  pgkyl two-stream_elc_0.bp two-stream_elc_1.bp info -c
+  0 (default#0)
+  1 (default#1)
+
+.. code-block:: bash
+                
+  pgkyl two-stream_elc_0.bp two-stream_field_0.bp info -c
+  elc (default#0)
+  field (default#1)
+
+.. code-block:: bash
+                
+  pgkyl two-stream_elc_0.bp two-stream_field_1.bp info -c
+  elc_0 (default#0)
+  field_1 (default#1)
+
+These labels, can be customized and can include LaTeX syntax, which
+will be properly rendered in a plot legend.
+
+.. code-block:: bash
+                
+  pgkyl two-stream_elc_0.bp -l '$t\omega_{pe}=0$' two-stream_elc_1.bp -l '$t\omega_{pe}=0.5$' info -c
+  $t\omega_{pe}=0$ (default#0)
+  $t\omega_{pe}=0.5$ (default#1)
+
+Note, the in all these examples, both datasets have the ``default``
+tag and are indexed ``0`` and ``1``. These can be manually specified.
+
+.. code-block:: bash
+                
+  pgkyl two-stream_elc_0.bp -t 'el' two-stream_field_0.bp -t 'em' info -c
+  elc (el#0)
+  field (em#0)
+
+
+Loading data with c2p mapping
+-----------------------------
+
+.. warning::
+
+   This feature was introduced in 1.6.7 and currently only works with
+   ``gkyl`` binary files.
+
+Postgkyl supports the c2p mapping used in Gkeyll. The file with the
+map can be specified using the ``--c2p`` keyword. Following are two
+plots where a Maxwellian particle distribution is evaluated in
+cylindrical coordinates with and without c2p map provided to Postgkyl.
+
+.. code-block:: bash
+                
+  pgkyl rt_eval_on_nodes_f-ser.gkyl interpolate -bms -p2 plot -a
+   
+.. figure:: fig/load/comp.png
+  :align: center
+        
+  Plot of Maxwellian distribution in cylindrical coordinates without a
+  c2p map.
+
+.. code-block:: bash
+                
+  pgkyl rt_eval_on_nodes_f-ser.gkyl --c2p rt_eval_on_nodes_rtheta-ten.gkyl interpolate -bms -p2 plot -a
+   
+.. figure:: fig/load/c2p.png
+  :align: center
+        
+  Plot of Maxwellian distribution in cylindrical coordinates with a
+  c2p map provided with ``--c2p``.
+
+Gkeyll stores the c2p coordinate information as expansion coefficients
+of a finite element representation independent of the representation of
+the data itself. It is converted to plotting nodal points during the
+:ref:`pg_cmd_interpolate` command when the information about the data
+is provided. However, the :ref:`pg_cmd_interpolate` command is never
+used when working with finite-volume data. For this instance, the
+``--fv`` flag is available which converts the expansion coefficients
+to nodal values immediately after loading.
+
+.. code-block:: bash
+                
+  pgkyl euler_axis_sodshock-euler_0.gkyl --c2p euler_axis_sodshock-mapc2p.gkyl --fv select -c0 plot -a
+
+.. figure:: fig/load/fv.png
+  :align: center
+
+  Plot of finite-volume data with ``--c2p`` provided and the ``--fv``
+  flag on.
