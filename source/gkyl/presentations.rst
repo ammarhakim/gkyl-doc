@@ -9,6 +9,10 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 
 2021
 
+- "Modelling AUG scrape-off-layer plasma with full-f continuum Electromagnetic Gyrokinetic simulation", Rupak Mukherjee, *Virtual 25th Joint EU-US TTF Meeting*, September 2021. 
+  `pdf <https://drive.google.com/file/d/1rJ_TMfHznEGjCmm2H1E8ZmP9pl_eTCZj/view?usp=sharing>`_
+
+
 - "Simulation of AUG scrape-off-layer plasma with full-f continuum Electromagnetic Gyrokinetic simulation", Rupak Mukherjee, *Sherwood Fusion Theory conference*, August 2021.
   `pdf <https://drive.google.com/file/d/1jyBMdboS9w1_jJUgRimmGrkp7upizZCJ/view?usp=sharing>`_,
   `Keynote (with movies) <https://drive.google.com/file/d/1z1vfYOyZy7e0FJNy5T10MUuV1OxDzOqk/view?usp=sharing>`_, 
@@ -67,6 +71,7 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 2019
 
 - "Continuum Electromagnetic Gyrokinetic Simulations of Turbulence in the Tokamak Scrape-Off Layer and Laboratory Devices", Ammar Hakim, *APS Division of Plasma Physics*, Fort Lauderdale, 2019.
+- "Tests of a Discontinuous Galerkin scheme for Hamiltonian systems in non-canonical coordinates", Rupak Mukherjee, *APS Division of Plasma Physics*, Fort Lauderdale, 2019. `pdf <https://drive.google.com/file/d/19GT5dRGGSK-0eSWwxV2IKLpezMdnuowp/view?usp=sharing>`_
 - "Gyrokinetic continuum simulations of plasma turbulence in the Texas Helimak", Tess Bernard, *Sherwood Fusion Theory Conference*, Princeton, April 2019.
 - "Gyrokinetic continuum simulations of plasma turbulence in the Texas Helimak", Tess Bernard, *24th Joint US-EU Transport Task Force Meeting*, Austin, March 2019.
 

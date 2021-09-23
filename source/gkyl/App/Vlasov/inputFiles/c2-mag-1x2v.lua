@@ -1,5 +1,5 @@
 -- Gkyl ------------------------------------------------------------------------
-local Vlasov = require "App.VlasovOnCartGrid"
+local Plasma = require ("App.PlasmaOnCartGrid").VlasovMaxwell()
 
 -- Constants
 chargeElc = -1.0
@@ -18,7 +18,7 @@ uzElc20 = 0.0
 TElc10 = 0.01
 TElc20 = 0.01
 nIon0 = 1.0
--- IC automatically calculated
+
 vthElc10 = math.sqrt(TElc10/massElc)
 vthElc20 = math.sqrt(TElc20/massElc)
 
@@ -33,11 +33,11 @@ local function maxwellian2D(n, vx, vy, ux, uy, vth)
    return n/(2*math.pi*vth^2)*math.exp(-v2/(2*vth^2))
 end
 
-vlasovApp = Vlasov.App {
+vlasovApp = Plasma.App {
    logToFile = true,
 
-   tEnd = 2*2*math.pi/B0, -- end time
-   nFrame = 10, -- number of output frames
+   tEnd = 2*math.pi/B0, -- end time
+   nFrame = 1, -- number of output frames
    lower = { -1.0 }, -- configuration space lower left
    upper = { 1.0 }, -- configuration space upper right
    cells = {4}, -- configuration space cells
@@ -53,13 +53,12 @@ vlasovApp = Vlasov.App {
    periodicDirs = {1}, -- periodic directions
 
    -- electrons
-   elc = Vlasov.Species {
+   elc = Plasma.Species {
       charge = -1.0, mass = 1.0,
       -- velocity space grid
       lower = {-1.0, -1.0},
       upper = {1.0, 1.0},
       cells = {16, 16},
-      decompCuts = {1, 1},
       -- initial conditions
       init = function (t, xn)
 	 local x, vx, vy = xn[1], xn[2], xn[3]
@@ -68,11 +67,11 @@ vlasovApp = Vlasov.App {
       end,
       evolve = true, -- evolve species?
 
-      diagnosticMoments = { "M0", "M1i", "M2" }
+      diagnostics = { "M0", "M1i", "M2" }
    },
 
    -- field solver
-   field = Vlasov.EmField {
+   field = Plasma.Field {
       epsilon0 = 1.0, mu0 = 1.0,
       init = function (t, xn)
 	 local x = xn[1]
