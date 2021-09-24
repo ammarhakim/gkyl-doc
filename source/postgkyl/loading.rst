@@ -187,9 +187,9 @@ Postgkyl also allows for loading with a wild card characters:
 
    While the quotes are entirely optional when loading a single file,
    they change behavior when used with wild card characters. With
-   quotes, a single load command is performed and the wild cart
+   quotes, a single load command is performed and the wild card
    matching is done internally by Postgkyl. Without quotes, the wild
-   cart is replaced before calling Postgkyl which results in several
+   card is replaced before calling Postgkyl which results in several
    load command calls. This leads to several key differences:
 
    1. With quotes, Postgkyl orders files correctly, i.e., ``file_2`` will be before
