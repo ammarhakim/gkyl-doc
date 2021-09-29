@@ -11,7 +11,7 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 
 - "Electromagnetic full-f continuum gyrokinetic simulation of plasma turbulence in scrape-off layer of ASDEX Upgrade tokamak", Rupak Mukherjee, *5th Asia Pacific Conference on Plasma Physics (Virtual)*, September 2021. 
   `pdf <https://drive.google.com/file/d/1Qjtth7PtyATH1-NdfUyHeWMzDEYOFGDb/view?usp=sharing>`_,
-
+  `Keynote (with movies) <https://drive.google.com/file/d/1J-eGc7lqUjP3_J6Zg-y-7kwx9kl-6VX0/view?usp=sharing>`_
 
 - "Modelling AUG scrape-off-layer plasma with full-f continuum Electromagnetic Gyrokinetic simulation", Rupak Mukherjee, *Virtual 25th Joint EU-US TTF Meeting*, September 2021. 
   `pdf <https://drive.google.com/file/d/1rJ_TMfHznEGjCmm2H1E8ZmP9pl_eTCZj/view?usp=sharing>`_
