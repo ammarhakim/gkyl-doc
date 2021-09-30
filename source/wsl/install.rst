@@ -109,7 +109,7 @@ Windows browser.
 
 Finally, it is often useful to access the Linux files from
 Windows. Using WLS 2, the Linux root, ``/``, is located at
-``\wsl$\<DISTRIBUTION_NAME>``.
+``\\wsl$\<DISTRIBUTION_NAME>``.
 
 
 Known issues
