@@ -210,6 +210,7 @@ Sample submit scripts:
 - :doc:`Princeton's Eddy <inputFiles/jobscript_eddy>`.
 - :doc:`Princeton's Adroit <inputFiles/jobscript_adroitCPU>`.
 - :doc:`Princeton's Stellar <inputFiles/jobscript_stellar>`.
+- :doc:`PPPL's Portal <inputFiles/jobscript_portal>`.
 
 .. _gkyl_usage_run_gpu:
 

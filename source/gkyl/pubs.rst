@@ -40,6 +40,10 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
+- Francisquez, M., Mandell, N. R., Hakim, A., Hammett, G. W. (2021) "Mapped
+  discontinuous Galerkin interpolations and sheared boundary conditions"
+  `arXiv`.
+
 - Cagas, P and Hakim, A and Srinivasan, B. (2021) "A boundary value “reservoir
   problem” and boundary conditions for multi-moment multifluid simulations
   of sheaths." *Physics of Plasmas* **28.1**. https://doi.org/10.1063/5.0024510
@@ -84,6 +88,9 @@ Algorithms papers
 
 Physics papers
 --------------
+
+- Francisquez, M., Juno, J., Hakim, A., Hammett, G. W., Ernst, D. R. (2021). "Improved
+  multispecies Dougherty collisions", `arXiv:2109.10381 <https://arxiv.org/abs/2109.10381>`_.
 
 - Ng, J., Hakim, A., Wang, L., & Bhattacharjee, A. (2020). "An improved ten-moment closure for 
   reconnection and instabilities", *Physics of Plasmas*, **27**, 082106. https://doi.org/10.1063/5.0012067
