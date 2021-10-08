@@ -112,13 +112,8 @@ site that it does not let you install Command Line Tools, perhaps due to an erro
 your version of Mac OS is "too new". In this case we have found the following to be helpful:
 
 1. Remove the old CLT folder, if there is one: ``sudo -rf /Library/Developer/CommandLineTools``.
-
-2. Download Xcode 11: go to Apple developer site download the last stable Xcode 11 `.dmg`
-(e.g. Xcode 11.5) and install it. Make sure Xcode in the Applications folder has the correct
-version.
-
-3. Install CLT through the terminal indicating which Xcode to use with
-``sudo xcode-select -s /Applications/Xcode.app/ --install``.
+2. Download Xcode 11: go to Apple developer site download the last stable Xcode 11 `.dmg` (e.g. Xcode 11.5) and install it. Make sure Xcode in the Applications folder has the correct version.
+3. Install CLT through the terminal indicating which Xcode to use with ``sudo xcode-select -s /Applications/Xcode.app/ --install``.
 
 After these steps you can check that ``clang --version`` is 11, and you can proceed with the
 regular `gkyl` installation instructions.
