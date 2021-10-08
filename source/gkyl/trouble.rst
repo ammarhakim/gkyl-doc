@@ -104,6 +104,25 @@ internet on how to obtain this without such an account). You may also find a dow
 Xcode 11 in the same site. If installing older Command Line Tools and you do not wish to
 keep the newer version, you can uninstalling by deleting the file ``/Library/Developer/CommandLineTools``. 
 
+Installing clang 11 on Big Sur
+..............................
+
+You may find that when you try to execute the `.dmg` downloaded from the Apple developer's
+site that it does not let you install Command Line Tools, perhaps due to an error like
+your version of Mac OS is "too new". In this case we have found the following to be helpful:
+
+1. Remove the old CLT folder, if there is one: ``sudo -rf /Library/Developer/CommandLineTools``.
+
+2. Download Xcode 11: go to Apple developer site download the last stable Xcode 11 `.dmg`
+(e.g. Xcode 11.5) and install it. Make sure Xcode in the Applications folder has the correct
+version.
+
+3. Install CLT through the terminal indicating which Xcode to use with
+``sudo xcode-select -s /Applications/Xcode.app/ --install``.
+
+After these steps you can check that ``clang --version`` is 11, and you can proceed with the
+regular `gkyl` installation instructions.
+
 Configuring gkyl with configure.[SYSTEM].sh script not finding dependency
 -------------------------------------------------------------------------
 
