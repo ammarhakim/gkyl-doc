@@ -1,12 +1,25 @@
 Publications and theses
 +++++++++++++++++++++++
 
+.. note::
+
+   We acknowledge funding from the Department of Energy SciDAC
+   programs (MGK, PI David Hatch and HPBS, PI CS Chang) as well as
+   National Science Foundation via various grants to PPPL and Virgina
+   Tech, the Air-Force Office of Scientific Research, National
+   Aeronautics and Space Administration, DOE's APRA-E program,
+   graduate student fellowships via DOE's CSGF and postdoctoral
+   fellowship via DOE's ORISE program.
+
 A good source of various benchmarks and other tests is A. Hakim's
 `Simulation Journal <http://ammar-hakim.org/sj/>`_ and its `github
 webpage <https://github.com/ammarhakim/ammar-simjournal>`_.
 
-We have also started compiling input files for the simulations reported in
-publications in `this repository <https://github.com/ammarhakim/gkyl-paper-inp>`_.
+We have also compiled input files for the simulations reported in
+publications in `this repository
+<https://github.com/ammarhakim/gkyl-paper-inp>`_. Note that this
+collection is incomplete as not all authors have desposited they input
+files with us.
 
 Doctoral Dissertations
 ----------------------
@@ -42,7 +55,7 @@ Algorithms papers
 
 - Francisquez, M., Mandell, N. R., Hakim, A., Hammett, G. W. (2021) "Mapped
   discontinuous Galerkin interpolations and sheared boundary conditions"
-  `arXiv`.
+  `arXiv2110.02249 <https://arxiv.org/abs/2110.02249>`_
 
 - Cagas, P and Hakim, A and Srinivasan, B. (2021) "A boundary value “reservoir
   problem” and boundary conditions for multi-moment multifluid simulations
