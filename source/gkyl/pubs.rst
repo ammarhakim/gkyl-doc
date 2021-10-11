@@ -6,8 +6,10 @@ Publications and theses
    We acknowledge funding from the Department of Energy SciDAC
    programs (MGK, PI David Hatch and HPBS, PI CS Chang) as well as
    National Science Foundation via various grants to PPPL and Virgina
-   Tech, the Air-Force Office of Scientific Research, NASA and
-   DOE's APRA-E program.
+   Tech, the Air-Force Office of Scientific Research, National
+   Aeronautics and Space Administration, DOE's APRA-E program,
+   graduate student fellowships via DOE's CSGF and postdoctoral
+   fellowship via DOE's ORISE program.
 
 A good source of various benchmarks and other tests is A. Hakim's
 `Simulation Journal <http://ammar-hakim.org/sj/>`_ and its `github
