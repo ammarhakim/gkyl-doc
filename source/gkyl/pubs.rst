@@ -92,6 +92,15 @@ Physics papers
 - Francisquez, M., Juno, J., Hakim, A., Hammett, G. W., Ernst, D. R. (2021). "Improved
   multispecies Dougherty collisions", `arXiv:2109.10381 <https://arxiv.org/abs/2109.10381>`_.
 
+- Mathews, A., Mandell, M., Francisquez, M., Hughes, J., Hakim, A. (2021).
+  "Turbulent field fluctuations in gyrokinetic and fluid plasmas",
+  `arXiv:2107.09744 <https://arxiv.org/abs/2107.09744>`_. Accepted for publication in
+  Physics of Plasmas.
+
+- Wang, L., Hakim, A., Srinivasan, B., Juno, J. (2021). "Electron cyclotron drift instability
+  and anomalous transport: two-fluid moment theory and modeling",
+  `arXiv:2107.09874 <https://arxiv.org/abs/2107.09874>`_.
+
 - Ng, J., Hakim, A., Wang, L., & Bhattacharjee, A. (2020). "An improved ten-moment closure for 
   reconnection and instabilities", *Physics of Plasmas*, **27**, 082106. https://doi.org/10.1063/5.0012067
 
