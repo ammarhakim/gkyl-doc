@@ -8,8 +8,8 @@ Publications and theses
    National Science Foundation via various grants to PPPL and Virgina
    Tech, the Air-Force Office of Scientific Research, National
    Aeronautics and Space Administration, DOE's APRA-E program,
-   graduate student fellowships via DOE's CSGF and postdoctoral
-   fellowship via DOE's ORISE program.
+   graduate student fellowships via DOE's CSGF and NASA's FINESST programs,
+   and postdoctoral fellowships via DOE's ORISE and NSF AGS PRF programs.
 
 A good source of various benchmarks and other tests is A. Hakim's
 `Simulation Journal <http://ammar-hakim.org/sj/>`_ and its `github
@@ -61,10 +61,11 @@ Algorithms papers
   problem” and boundary conditions for multi-moment multifluid simulations
   of sheaths." *Physics of Plasmas* **28.1**. https://doi.org/10.1063/5.0024510
 
-- Hakim, A and Juno, J. "Alias-free, Matrix-free, and Quadrature-free
+- Hakim, A and Juno, J. (2020). "Alias-free, Matrix-free, and Quadrature-free
   Discontinuous Galerkin Algorithms for (Plasma) Kinetic
-  Equations". *Accepted to Supercomputing 2020* `arXiv:2004.09019
-  <https://arxiv.org/abs/2004.09019>`_
+  Equations". *SC20: Proceedings of the International Conference for High
+  Performance Computing, Networking, Storage and Analysis*, IEEE
+  Press. https://doi.org/10.1109/SC41405.2020.00077
 
 - Francisquez, M., Bernard, T. N., Mandell, N. R., Hammett, G. W.,
   Hakim, A. (2020).  "Conservative discontinuous Galerkin scheme of a
@@ -113,6 +114,23 @@ Physics papers
 - Wang, L., Hakim, A., Srinivasan, B., Juno, J. (2021). "Electron cyclotron drift instability
   and anomalous transport: two-fluid moment theory and modeling",
   `arXiv:2107.09874 <https://arxiv.org/abs/2107.09874>`_.
+
+- Jenab, S. M., Brodin, G., Juno, J., Kourakis, I. (2021). "Ultrafast
+  Electron Holes in Plasma Phase Space Dynamics", *Scientific
+  Reports*, **11**. https://doi.org/10.1038/s41598-021-95652-w
+
+- Juno, J., Howes, G. G., TenBarge, J. M., Wilson III, L. B.,
+  Spitkovsky, A., Caprioli, D., Klein, K. G., Hakim, A. (2021). "A
+  field-particle correlation analysis of a perpendicular magnetized
+  collisionless shock", *Journal of Plasma Physics*, **87**, (3).
+  https://doi.org/10.1017/S0022377821000623
+
+- Pezzi, O., Liang, H.,  Juno, J. L., Cassak, P. A., Vásconez, C. L.,
+  Sorriso-Valvo, L., Perrone, D., Servidio, S., Roytershteyn, V.,
+  TenBarge, J.M., & Matthaeus, W. H. (2021). "Dissipation measures in
+  weakly collisional plasmas", *Monthly Notices of the Royal
+  Astronomical Society*, **505**, (4), Pages 4857–4873.
+  https://doi.org/10.1093/mnras/stab1516
 
 - Ng, J., Hakim, A., Wang, L., & Bhattacharjee, A. (2020). "An improved ten-moment closure for 
   reconnection and instabilities", *Physics of Plasmas*, **27**, 082106. https://doi.org/10.1063/5.0012067
