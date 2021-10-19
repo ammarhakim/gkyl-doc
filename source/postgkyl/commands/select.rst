@@ -259,3 +259,18 @@ it as a grid value and automatically finds and index of a grid point
 with the closest value.  This works both for the single index and for
 specifying a slice.
 
+In order to use select in a Python script one must interpolate the
+nodal/modal dataset in-place (normally it produces a new dataset, i.e. out-of-place)
+and pass the original Gkeyll data to the ``select`` command. For example, in order to
+select the 0-th coordinate at the value 0.0 we would use:
+
+.. code-block:: python
+
+  import postgkyl as pg
+
+  pgData   = pg.GData(fileName)
+  pgInterp = pg.GInterpModal(pgData, polyOrder, basisType)
+  pgInterp.interpolate(overwrite=True)
+  x, f_z0eq0p0 = pg.data.select(pgData, z0=0.0)
+
+where ``pg.data.select`` returns the new grid (`x`) and the new field (`f_z0eq0p0`).
