@@ -9,6 +9,10 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 
 2021
 
+- "Electromagnetic full-f continuum gyrokinetic simulation of plasma turbulence in scrape-off layer of ASDEX Upgrade", Rupak Mukherjee, *19th European Fusion Theory Conference (Virtual in Consorzio RFX)*, October 2021. 
+  `pdf <https://drive.google.com/file/d/1xyPpsxGfCRaTlPk2l4tCfKvAvkMt2xdY/view?usp=sharing>`_,
+  `Keynote (with movies) <https://drive.google.com/file/d/1l_WziKy4QLZsxh1WrYsJGZuBYa5wN9IM/view?usp=sharing>`_
+
 - "Electromagnetic full-f continuum gyrokinetic simulation of plasma turbulence in scrape-off layer of ASDEX Upgrade tokamak", Rupak Mukherjee, *5th Asia Pacific Conference on Plasma Physics (Virtual)*, September 2021. 
   `pdf <https://drive.google.com/file/d/1Qjtth7PtyATH1-NdfUyHeWMzDEYOFGDb/view?usp=sharing>`_,
   `Keynote (with movies) <https://drive.google.com/file/d/1J-eGc7lqUjP3_J6Zg-y-7kwx9kl-6VX0/view?usp=sharing>`_, 
