@@ -17,4 +17,4 @@ simulation [:doc:`two-stream.lua<input/two-stream>`].
   :titlesonly:
   :glob:
      
-  commands/*.rst
+  commands/*
