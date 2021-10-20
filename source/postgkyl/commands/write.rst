@@ -1,12 +1,20 @@
 .. _pg_cmd_write:
 
 write
------
+=====
 
 Postgkyl can store data into a new ADIOS ``bp`` file (default; useful
 for storing partially processed data) or into a ASCII ``txt`` file
 (useful when one wants to open the data in a program that does not
 support ``bp`` or ``h5``).
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../_static/postgkyl/commands/write.html"></iframe>
+   </details>
+   <br>
 
 Command line usage
 ^^^^^^^^^^^^^^^^^^

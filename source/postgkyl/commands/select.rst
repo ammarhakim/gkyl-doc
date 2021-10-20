@@ -1,9 +1,19 @@
 .. _pg_cmd_select:
 
 select
-------
+======
 
-Select a subset of one or multiple datasets. This subset can
+Select a subset of one or multiple datasets.
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../_static/postgkyl/commands/select.html"></iframe>
+   </details>
+   <br>
+
+This subset can
 can be created by 
 
 - Choosing a cell along a direction (``--z#`` with an integer).

@@ -7,6 +7,14 @@ info
 returns information about the current dataset (see :ref:`pg_loading`
 for more details about the class itself). The function doesn't take
 any arguments and it is wrapped into the ``info`` command.
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../../_static/postgkyl/commands/info.html"></iframe>
+   </details>
+   <br>
    
 Command line
 ^^^^^^^^^^^^

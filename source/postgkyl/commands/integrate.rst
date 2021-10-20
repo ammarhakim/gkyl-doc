@@ -1,9 +1,17 @@
 .. _pg_cmd_integrate:
 
 integrate
----------
+=========
 
 Integrate a dataset over specified direction(s).
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../../_static/postgkyl/commands/integrate.html"></iframe>
+   </details>
+   <br>
 
 Command line
 ^^^^^^^^^^^^

@@ -1,7 +1,7 @@
 .. _pg_cmd_differentiate:
 
 differentiate
--------------
+=============
 
 Compute the derivatives of a function along each direction.
 This returns a dataset with as many components as there are
@@ -15,6 +15,14 @@ command.
 
 Note that differentiation is also possible with the :ref:`pg_cmd_ev`
 command and the ``grad`` operation.
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../../_static/postgkyl/commands/differentiate.html"></iframe>
+   </details>
+   <br>
 
 Command line
 ^^^^^^^^^^^^

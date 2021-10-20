@@ -1,9 +1,17 @@
 .. _pg_cmd_pr:
 
 pr
---
+===
 
 Print data to screen.
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../_static/postgkyl/commands/pr.html"></iframe>
+   </details>
+   <br>
 
 Command line
 ^^^^^^^^^^^^

@@ -1,7 +1,15 @@
 .. _pg_cmd_val2coord:
 
 val2coord
----------
+=========
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../_static/postgkyl/commands/val2coord.html"></iframe>
+   </details>
+   <br>
 
 Command line
 ^^^^^^^^^^^^

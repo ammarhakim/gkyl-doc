@@ -7,150 +7,18 @@ plot
 <https://matplotlib.org/>`_.
 
 .. raw:: html
-         
-   <details>
-   <summary><a>Arguments and parameters</a></summary>
-   
-.. list-table:: ``plot`` arguments and parameters
-  :widths: 10 70
-  :header-rows: 1
 
-  * - Parameter
-    - Description
-  * - ``data``
-    - Gkeyll ``Data`` object to be plotted
-  * - ``args``
-    - An optional tuple of additional Matplotlib parameters, .e.g.,
-      ``--`` for dashed lines
-  * - ``scatter``
-    - (1D mode) Only shows points without lines
-  * - ``streamline``
-    - (2D mode) Shows streamlines of vector data
-  * - ``quiver``
-    - (2D mode) Shows vector arrows
-  * - ``countour``
-    - (2D mode) Shows contours instead of area
-  * - ``diverging``
-    - (2D mode) Changes colormap to diverging (red to blue) and
-      centers value range around 0
-  * - ``group``
-    - (2D mode) Splits 2D data into 1D lines and plots them on top of
-      each other
-  * - ``xscale``
-    - Multiply x-axis by the set number (default: 1.0)
-  * - ``yscale``
-    - Multiply y-axis by the set number (default: 1.0)
-  * - ``logx``
-    - Changes x-axis to logaritmic
-  * - ``logy``
-    - Changes y-axis to logaritmic
-  * - ``logz``
-    - Changes 2D value axis to logaritmic
-  * - ``style``
-    - Chages the Matplotlib style file
-  * - ``legend``
-    - Turns the legend on and off (default: on)
-  * - ``labelPrefix``
-    - Allows to pass a prefix for the automated label
-  * - ``xlabel``
-    - Sets the lable for the x-axis (accepts LaTeX)
-  * - ``ylabel``
-    - Sets the label for the y-axis (accepts LaTeX)
-  * - ``title``
-    - Sets the plot title (accepts LaTeX)
-  * - ``fixaspect``
-    - Fixes the aspect ratio between the x and y axies
-  * - ``vmin``
-    - Sets the minimum value for a 2D plot
-  * - ``vmax``
-    - Sets the maximum value for a 2D plot
-  * - ``xlim``
-    - Manually sets the x-axis limits
-  * - ``ylim``
-    - Manually sets the y-axis limits
-  * - ``showgrid``
-    - Turns the grid on and off (default: on)
-  * - ``hashtag``
-    - Adds a little ``#pgkyl`` label to the bottom right corner
-  * - ``xkcd``
-    - Turns on the *xkcd* mode
-  * - ``color``
-    - Manually sets the color for 1D plots
-  * - ``markersize``
-    - Overwrites the marker size value
-      
-.. raw:: html
-         
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../_static/postgkyl/commands/plot.html"></iframe>
    </details>
    <br>
 
 The Python function is wrapped into the ``plot`` command.
-   
-.. raw:: html
-         
-   <details>
-   <summary><a>Command help</a></summary>
-
-.. code-block:: bash
-  :emphasize-lines: 1
-
-  $ pgkyl plot -h
-    Usage: pgkyl plot [OPTIONS]
-
-      Plot active datasets, optionally displaying the plot and/or saving it to
-      PNG files. Plot labels can use a sub-set of LaTeX math commands placed
-      between dollar ($) signs.
-
-    Options:
-      -f, --figure TEXT           Specify figure (integer) to plot in.
-      -s, --squeeze               Squeeze the components into one panel.
-      -b, --subplots              Make subplots from multiple datasets.
-      --arg TEXT                  Additional plotting arguments like '*--'.
-      -c, --contour               Draw contour plot.
-      -q, --quiver                Draw quiver plot.
-      -l, --streamline            Make streamline plot.
-      -s, --scatter               Plot data in scatter-plot mode.
-      --markersize FLOAT          Set marker size for scatter plots.
-      -d, --diverging             Switch to inverted color mode.
-      -g, --group [0|1]           Switch to group mode.
-      --style TEXT                Specify Matplotlib style file (default:
-                                  Postgkyl).
-      -a, --fix-aspect            Enforce the same scaling on both axes.
-      --logx                      Set x-axis to log scale.
-      --logy                      Set y-axis to log scale.
-      --logz                      Set values of 2D plot to log scale.
-      --xscale FLOAT              Value to scale the x-axis (default: 1.0).
-      --yscale FLOAT              Value to scale the y-axis (default: 1.0).
-      --vmax FLOAT                Set maximal value of data for plots.
-      --vmin FLOAT                Set minimal value of data for plots.
-      --xlim TEXT                 Set limits for the x-coordinate (lower,upper)
-      --ylim TEXT                 Set limits for the y-coordinate (lower,upper).
-      --legend / --no-legend      Show legend.
-      --force-legend              Force legend even when plotting a single
-                                  dataset.
-      --show / --no-show          Turn showing of the plot ON and OFF (default:
-                                  ON).
-      --color TEXT                Set color when available.
-      -x, --xlabel TEXT           Specify a x-axis label.
-      -y, --ylabel TEXT           Specify a y-axis label.
-      -t, --title TEXT            Specify a title.
-      --save                      Save figure as PNG file.
-      --saveas TEXT               Name of figure file.
-      --dpi INTEGER               DPI (resolution) for output
-      -e, --edgecolors TEXT       Set color for cell edges to show grid outline
-                                  (default: None)
-      --showgrid / --no-showgrid  Show grid-lines (default: True)
-      --xkcd                      Turns on the xkcd style!
-      --hashtag                   Turns on the pgkyl hashtag!
-      -h, --help                  Show this message and exit.
-      
-.. raw:: html
-         
-   </details>
-   <br>
 
 .. contents::
 
+   
 Default plotting
 ----------------
 
@@ -272,6 +140,7 @@ not the best example of the functionality.
         
    Plotting data with multiple components with ``squeeze=True``
 
+   
 Plotting multiple datasets
 --------------------------
 
@@ -351,11 +220,13 @@ slightly more manual control.
    pg.output.plot(data1, figure=0, numAxes=2)
    pg.output.plot(data2, figure=0, numAxes=2, startAxes=1)
 
+   
 Plotting modes
 --------------
 
 Appart from the default line 1D plots and continuous 2D plots,
 Postgkyl offers some additional modes.
+
 
 Countour
 ^^^^^^^^
@@ -380,6 +251,7 @@ Countour
         
    Plotting multiple data set with ``contour=True``
 
+   
 Diverging
 ^^^^^^^^^
 
@@ -401,6 +273,7 @@ the initial conditions.
         
    ``diverging`` mode is used to visualize changes from the initial conditions
 
+   
 Group
 ^^^^^
 
@@ -437,6 +310,7 @@ would be too many lines). Then the plot with ``group=True`` is used.
         
    Plotting the distribution function limited to 1.5<x<2.0 with ``group=1``
 
+
 Formating
 ---------
 
@@ -462,9 +336,10 @@ style is the following:
    grid.linewidth : 0.5
    grid.linestyle : :
 
+   
 Labels
 ^^^^^^
-                
+           
 Postgkyl allows to specify all the axis labels and the plot title.
 
 .. code-block:: python
@@ -490,6 +365,7 @@ Postgkyl allows to specify all the axis labels and the plot title.
         
    Postgkyl allows to specify axis labels and the figure title
 
+   
 Axes and values
 ^^^^^^^^^^^^^^^
   

@@ -1,7 +1,15 @@
 .. _pg_cmd-fft:
 
 fft
----
+===
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../../_static/postgkyl/commands/fft.html"></iframe>
+   </details>
+   <br>
 
 Command line
 ^^^^^^^^^^^^

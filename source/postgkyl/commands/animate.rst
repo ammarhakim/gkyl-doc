@@ -1,13 +1,21 @@
 .. _pg_cmd_animate:
 
 animate
--------
+=======
 
-  Create movies (animations) by stitching together figures created
-  by plotting multiple datasets, typically originating from a data
-  load with wildcard/regex.
+Create movies (animations) by stitching together figures created
+by plotting multiple datasets, typically originating from a data
+load with wildcard/regex.
 
-  Saving the animation to a file requires an ffmpeg installation.
+Saving the animation to a file requires an ffmpeg installation.
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../../_static/postgkyl/commands/animate.html"></iframe>
+   </details>
+   <br>
 
 Command line
 ^^^^^^^^^^^^

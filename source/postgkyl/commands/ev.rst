@@ -8,70 +8,16 @@ or multiplying datasets directly in a terminal. As these operations
 are generally simple to do in a script mode, ``ev`` is available only
 in the command line interface.
 
-.. contents::
-
 .. raw:: html
 
-   <details>
-   <summary><a>Operations supported</a></summary>
-
-.. list-table:: ``ev`` supported operations
-  :widths: 10 70
-  :header-rows: 1
-
-  * - Operator
-    - Description
-  * - ``+``
-    - Sum datasets.
-  * - ``-``
-    - Subtract the second dataset from the first.
-  * - ``*``
-    - Multiply datasets.
-  * - ``/``
-    - Divide first dataset by the second.
-  * - ``sqrt``
-    - Square root of a dataset. 
-  * - ``sin``
-    - Compute :math:`sin(f)` where :math:`f` is a dataset.
-  * - ``cos``
-    - Compute :math:`cos(f)` where :math:`f` is a dataset.
-  * - ``tan``
-    - Compute :math:`tan(f)` where :math:`f` is a dataset.
-  * - ``abs``
-    - Absolute value of a dataset 
-  * - ``avg``
-    - Average of a dataset along one or more directions. 
-  * - ``log``
-    - Calculate the natural log of a dataset.
-  * - ``log10``
-    - Calculate the base-10 log of a dataset.
-  * - ``max``
-    - Calculate the maximum of a dataset (returns a single number)
-  * - ``min``
-    - Calculate the minimum of a dataset (returns a single number)
-  * - ``mean``
-    - Calculate the mean of a dataset (returns a single number)
-  * - ``len``
-    - 
-  * - ``pow``
-    - Raise a dataset to a given power. 
-  * - ``sq``
-    - Square a dataset. 
-  * - ``exp``
-    - Compute :math:`e^f` where :math:`f` is a dataset. 
-  * - ``grad``
-    - Compute the derivative of a dataset along a given direction.
-  * - ``int``
-    - Integrate a dataset along one or more directions.
-  * - ``div``
-    - 
-  * - ``curl``
-    - 
-
-.. raw:: html
-
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../../_static/postgkyl/commands/ev.html"></iframe>
    </details>
    <br>
+
+.. contents::
+
 
 Reverse Polish notation
 -----------------------
@@ -194,6 +140,7 @@ for batch loading and :ref:`pg_cmd_animate`:
 
   pgkyl 'two-stream_elc_M0_[0-9].bp' -t dens 'two-stream_elc_M1i_[0-9]*.bp' -t mom interp ev -g 'mom dens /' animate
 
+  
 Examples of specific ``ev`` operations
 --------------------------------------
 

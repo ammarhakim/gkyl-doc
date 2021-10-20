@@ -9,6 +9,14 @@ outputs were produced, or want to browse all possible files/diagnostics.
 This command doesn't take any arguments, and can be used with
 the appreviation ``list``
 
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../../_static/postgkyl/commands/listoutputs.html"></iframe>
+   </details>
+   <br>
+
 Command line
 ^^^^^^^^^^^^
 

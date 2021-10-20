@@ -1,7 +1,15 @@
 .. _pg_cmd_mask:
 
 mask
-----
+====
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../_static/postgkyl/commands/mask.html"></iframe>
+   </details>
+   <br>
 
 Command line
 ^^^^^^^^^^^^

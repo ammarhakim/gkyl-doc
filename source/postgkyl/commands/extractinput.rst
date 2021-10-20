@@ -1,12 +1,20 @@
 .. _pg_cmd_extractinput:
 
 extractinput
-------------
+============
 
 Data files produced by Gkeyll may have the input file used
 to generate that data saved in them as an attribute. We can
 extract the input file and print it to screen or to a new
 file with ``extractinput``.
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../../_static/postgkyl/commands/extractinput.html"></iframe>
+   </details>
+   <br>
 
 Certain versions of ADIOS (the I/O library Gkeyll uses) have
 trouble saving very long files. For this reason saving the

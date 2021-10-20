@@ -1,7 +1,15 @@
 .. _pg_cmd_tenmoment:
 
 tenmoment
----------
+=========
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../_static/postgkyl/commands/tenmoment.html"></iframe>
+   </details>
+   <br>
 
 Command line
 ^^^^^^^^^^^^

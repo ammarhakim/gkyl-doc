@@ -1,12 +1,20 @@
 .. _pg_cmd_collect:
 
 collect
--------
+=======
 
 Assemble multiple active datasets into a new, single dataset.
 
 It is also possible to collect datasets into chunks (multiple
 datasets) of a specified size rather than into a single dataset.
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../../_static/postgkyl/commands/collect.html"></iframe>
+   </details>
+   <br>
 
 Command line
 ^^^^^^^^^^^^

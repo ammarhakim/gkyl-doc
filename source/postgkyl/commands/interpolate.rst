@@ -1,7 +1,7 @@
 .. _pg_cmd_interpolate:
 
 interpolate
-+++++++++++
+===========
 
 Gkeyll's simulation may employ higher-order methods with more
 than one degree of freedom per cell, typically expansion
@@ -9,6 +9,14 @@ coefficients or nodal values. The `interpolate` command
 interpolates this higher-order representation onto a finer mesh
 with more points than the number of cells in the Gkeyll
 simulation.
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../_static/postgkyl/commands/interpolate.html"></iframe>
+   </details>
+   <br>
 
 Command line
 ^^^^^^^^^^^^

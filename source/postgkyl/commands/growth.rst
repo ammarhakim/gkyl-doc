@@ -1,12 +1,20 @@
 .. _pg_cmd_growth:
 
 growth
-------
+======
 
 Measure the growth rate in the time trace of a quantity, assuming that
 it is a squared quantity (e.g. :math:`\phi^2`, :math:`|\mathbf{E}|^2`).
 If one applies this to a non-squared quantity then the growth-rate
 would be off by a factor of two.
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../../_static/postgkyl/commands/growth.html"></iframe>
+   </details>
+   <br>
 
 The command works by fitting :math:`A e^(2\gamma t)` to the data and
 returning :math:`\gamma`.

@@ -1,7 +1,15 @@
 .. _pg_cmd_runchain:
 
 runchain
---------
+========
+
+.. raw:: html
+
+   <details closed>
+   <summary><a>Command Docstrings</a></summary>
+   <iframe src="../_static/postgkyl/commands/runchain.html"></iframe>
+   </details>
+   <br>
 
 Command line usage
 ^^^^^^^^^^^^^^^^^^
