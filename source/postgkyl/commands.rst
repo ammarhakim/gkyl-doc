@@ -15,32 +15,6 @@ simulation [:doc:`two-stream.lua<input/two-stream>`].
 
 .. toctree::
   :titlesonly:
-
-  commands/activate
-  commands/animate
-  commands/collect
-  commands/current
-  commands/differentiate
-  commands/energetics
-  commands/euler
-  commands/ev
-  commands/extractinput
-  commands/fft
-  commands/growth
-  commands/info
-  commands/integrate
-  commands/interpolate
-  commands/listoutputs
-  commands/magsq
-  commands/mask
-  commands/plot
-  commands/pr
-  commands/recovery
-  commands/relchange
-  commands/runchain
-  commands/select
-  commands/tenmoment
-  commands/trajectory
-  commands/val2coord
-  commands/velocity
-  commands/write
+  :glob:
+     
+  commands/*.rst
