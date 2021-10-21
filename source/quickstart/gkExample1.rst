@@ -493,8 +493,8 @@ quantity is controlled by the ``nFrame`` parameter in the input file.
 We can use the Gkeyll post-processing tool (:ref:`postgkyl <pg_main>`) to visualize
 the outputs.
 
-Electron density
-^^^^^^^^^^^^^^^^
+Electron density and distribution function
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 First, let's examine the initial conditions, which are given in output file
 sending in ``_0.bp``. The initial electron density :math:`n_e(x,y,z)` is
@@ -532,6 +532,26 @@ gives
    :align: center
 
    Electron density :math:`n_e(x,y=0,z,t=10\mu\text{s})`
+
+Seeing as we have run a kinetic calculation, we may wish to examine the velocity-space
+structure of the distribution function. From postgkyl's point of view distribution
+functions are just another dataset, albeit a higher dimensional one. Since we
+can only produce 1D and 2D plots at the moment we have to select at least 3 of
+the 5 coordinates at specific values. We will make a 2D plot of velocity-space
+at `t=0` by selecting `(x,y,z)=(1.,0,0)`, which is near the center of the domain,
+with the following command:
+
+.. code-block:: bash
+
+   pgkyl gk-sheath_electron_0.bp interp sel --z0 1. --z1 0. --z2 0. pl -x '$v_\parallel$' -y '$\mu$' --clabel '$f_e(x=1,y=0,z=0,v_\parallel,\mu,t=0)$'
+
+.. figure:: figures/gk-sheath_elc_z0eq1_z12eq0_0.png
+   :scale: 40 %
+   :align: center
+
+This plot shows that the initial :math:`f_e` is Maxwellian. In this example the
+distribution remains essentially Maxwellian throughout time, so if we were to plot
+the last frame we would obtain a similar picture.
 
 Sheath potential
 ^^^^^^^^^^^^^^^^
