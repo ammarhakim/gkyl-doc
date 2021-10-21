@@ -213,8 +213,7 @@ More discussion of diagnostic capabilities can be found in :ref:`app_vlasov`.
       return fv
     end,
     evolve = true,
-    diagnosticMoments = {"M0","M1i","M2ij","M3i"},
-    diagnosticIntegratedMoments = {"intM0","intM1i","intM2Flow","intM2Thermal"},
+    diagnostics = {"M0","M1i","M2ij","M3i","intM0","intM1i","intM2Flow","intM2Thermal"},
   },
 
 Note that for this particular simulation the ions are a stationary, neutralizing background that does not contribute to the plasma current, so we only require a species table for the electrons.
@@ -288,11 +287,11 @@ The output of this simulation is the following set of files:
 
 - Distribution functions: ``vm-tsw-2x2v_elc_#.bp``.
 - Electromagnetic fields: ``vm-tsw-2x2v_field_#.bp``.
-- Diagnostic moments: ``vm-tsw-2x2v_elc_M0_#.bp``, ``vm-tsw-2x2v_elc_M1i_#.bp``, ``vm-tsw-2x2v_elc_M2ij_#.bp``, and ``vm-tsw-2x2v_elc_M3i_#.bp``.
+- Velocity moments: ``vm-tsw-2x2v_elc_M0_#.bp``, ``vm-tsw-2x2v_elc_M1i_#.bp``, ``vm-tsw-2x2v_elc_M2ij_#.bp``, and ``vm-tsw-2x2v_elc_M3i_#.bp``.
 - Field energy: ``vm-tsw-2x2v_fieldEnergy.bp``.
-- Diagnostic integrated moments: ``vm-tsw-2x2v_elc_intM0.bp``,  ``vm-tsw-2x2v_elc_intM1i.bp``, ``vm-tsw-2x2v_elc_intM2Flow.bp``, and ``vm-tsw-2x2v_elc_intM2Thermal.bp``.
+- Volume integrated moments: ``vm-tsw-2x2v_elc_intM0.bp``,  ``vm-tsw-2x2v_elc_intM1i.bp``, ``vm-tsw-2x2v_elc_intM2Flow.bp``, and ``vm-tsw-2x2v_elc_intM2Thermal.bp``.
 
-Snapshots (frames) are labeled by the number ``#`` at the end of the file name, while integrated diagnostics that are computed as a time-series, such as the field energy, are written out as a single file.
+Snapshots (frames) are labeled by the number ``#`` at the end of the file name, while volume integrated diagnostics that are computed as a time-series, such as the field energy, are written out as a single file.
 Since :code:`nFrame=1` in the input file, the only frames that are output are ``0``, corresponding to the initial condition, and ``1``, corresponding to the end of the simulation.
 
 Since this simulation has two configuration space dimensions, postgkyl creates pcolor plots when run from the command line with :code:`pgkyl`. 

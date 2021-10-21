@@ -90,7 +90,7 @@ plasmaApp = Plasma.App {
    --------------------------------------------------------------------------------
    logToFile = true,                    -- will write simulation output log to gk-sheath_0.log
    tEnd = 10e-6,                        -- simulation end time [s]
-   nFrame = 10,                          -- number of output frames for diagnostics
+   nFrame = 10,                         -- number of output frames for diagnostics
    lower = {R - Lx/2, -Ly/2, -Lz/2},    -- configuration space domain lower bounds, {x_min, y_min, z_min} 
    upper = {R + Lx/2, Ly/2, Lz/2},      -- configuration space domain upper bounds, {x_max, y_max, z_max}
    cells = {4, 1, 8},                   -- number of configuration space cells, {nx, ny, nz}
@@ -104,7 +104,7 @@ plasmaApp = Plasma.App {
    -- (1-based indexing, so x-periodic = 1, y-periodic = 2, etc)
    periodicDirs = {2},     -- Periodic in y only (y = 2nd dimension)
 
-   decompCuts = {2,1,4},
+--   decompCuts = {2,1,4},
 
    --------------------------------------------------------------------------------
    -- Species
@@ -122,34 +122,34 @@ plasmaApp = Plasma.App {
 
       -- Initial conditions
       init = Plasma.MaxwellianProjection {    -- initialize a Maxwellian with the specified density and temperature profiles
-              -- density profile
-              density = function (t, xn)
-                 -- The particular functional form of the initial density profile 
-                 -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
-                 -- quasi-steady-state initial profiles from the source parameters.
-                 local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
-                 local Ls = Lz/4
-                 local floor = 0.1
-                 local effectiveSource = math.max(sourceDensity(t,{x,y,0}), floor)
-                 local c_ss = math.sqrt(5/3*sourceTemperature(t,{x,y,0})/mi)
-                 local nPeak = 4*math.sqrt(5)/3/c_ss*Ls*effectiveSource/2
-                 local perturb = 0 
-                 if math.abs(z) <= Ls then
-                    return nPeak*(1+math.sqrt(1-(z/Ls)^2))/2*(1+perturb)
-                 else
-                    return nPeak/2*(1+perturb)
-                 end
-              end,
-              -- temperature profile
-              temperature = function (t, xn)
-                 local x = xn[1]
-                 if math.abs(x-xSource) < 3*lambdaSource then
-                    return 50*eV
-                 else 
-                    return 20*eV
-                 end
-              end,
-              scaleWithSourcePower = true,     -- when source is scaled to achieve desired power, scale initial density by same factor
+         -- density profile
+         density = function (t, xn)
+            -- The particular functional form of the initial density profile 
+            -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
+            -- quasi-steady-state initial profiles from the source parameters.
+            local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
+            local Ls = Lz/4
+            local floor = 0.1
+            local effectiveSource = math.max(sourceDensity(t,{x,y,0}), floor)
+            local c_ss = math.sqrt(5/3*sourceTemperature(t,{x,y,0})/mi)
+            local nPeak = 4*math.sqrt(5)/3/c_ss*Ls*effectiveSource/2
+            local perturb = 0 
+            if math.abs(z) <= Ls then
+               return nPeak*(1+math.sqrt(1-(z/Ls)^2))/2*(1+perturb)
+            else
+               return nPeak/2*(1+perturb)
+            end
+         end,
+         -- temperature profile
+         temperature = function (t, xn)
+            local x = xn[1]
+            if math.abs(x-xSource) < 3*lambdaSource then
+               return 50*eV
+            else 
+               return 20*eV
+            end
+         end,
+         scaleWithSourcePower = true,     -- when source is scaled to achieve desired power, scale initial density by same factor
       },
 
       -- Collisions parameters
@@ -159,22 +159,21 @@ plasmaApp = Plasma.App {
       },
 
       -- Source parameters
-      source = Plasma.MaxwellianProjection {       -- source is a Maxwellian with the specified density and temperature profiles
-                isSource = true,                   -- designate as source
-                density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
-                temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
-                power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
+      source = Plasma.Source {       -- source is a Maxwellian with the specified density and temperature profiles
+         density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
+         temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
+         power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
+         diagnostics = {"intKE"},
       },
 
       -- Non-periodic boundary condition specification
-      bcx = {Plasma.Species.bcZeroFlux, Plasma.Species.bcZeroFlux},   -- use zero-flux boundary condition in x direction
-      bcz = {Plasma.Species.bcSheath, Plasma.Species.bcSheath},       -- use sheath-model boundary condition in z direction
+      bcx = {Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},   -- use zero-flux boundary condition in x direction
+      bcz = {Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},       -- use sheath-model boundary condition in z direction
 
       -- Diagnostics
-      diagnosticMoments = {"GkM0", "GkUpar", "GkTemp"},     
-      diagnosticIntegratedMoments = {"intM0", "intM1", "intKE", "intHE", "intSrcKE"},
-      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkEnergy"},
-      diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
+      diagnostics = {"M0", "Upar", "Temp", "intM0", "intM1", "intKE", "intEnergy"}, 
    },
 
    -- Gyrokinetic ions
@@ -190,34 +189,34 @@ plasmaApp = Plasma.App {
 
       -- Initial conditions
       init = Plasma.MaxwellianProjection {    -- initialize a Maxwellian with the specified density and temperature profiles
-              -- density profile
-              density = function (t, xn)
-                 -- The particular functional form of the initial density profile 
-                 -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
-                 -- quasi-steady-state initial profiles from the source parameters.
-                 local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
-                 local Ls = Lz/4
-                 local floor = 0.1
-                 local effectiveSource = math.max(sourceDensity(t,{x,y,0}), floor)
-                 local c_ss = math.sqrt(5/3*sourceTemperature(t,{x,y,0})/mi)
-                 local nPeak = 4*math.sqrt(5)/3/c_ss*Ls*effectiveSource/2
-                 local perturb = 0 
-                 if math.abs(z) <= Ls then
-                    return nPeak*(1+math.sqrt(1-(z/Ls)^2))/2*(1+perturb)
-                 else
-                    return nPeak/2*(1+perturb)
-                 end
-              end,
-              -- temperature profile
-              temperature = function (t, xn)
-                 local x = xn[1]
-                 if math.abs(x-xSource) < 3*lambdaSource then
-                    return 50*eV
-                 else 
-                    return 20*eV
-                 end
-              end,
-              scaleWithSourcePower = true,     -- when source is scaled to achieve desired power, scale initial density by same factor
+         -- density profile
+         density = function (t, xn)
+            -- The particular functional form of the initial density profile 
+            -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
+            -- quasi-steady-state initial profiles from the source parameters.
+            local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
+            local Ls = Lz/4
+            local floor = 0.1
+            local effectiveSource = math.max(sourceDensity(t,{x,y,0}), floor)
+            local c_ss = math.sqrt(5/3*sourceTemperature(t,{x,y,0})/mi)
+            local nPeak = 4*math.sqrt(5)/3/c_ss*Ls*effectiveSource/2
+            local perturb = 0 
+            if math.abs(z) <= Ls then
+               return nPeak*(1+math.sqrt(1-(z/Ls)^2))/2*(1+perturb)
+            else
+               return nPeak/2*(1+perturb)
+            end
+         end,
+         -- temperature profile
+         temperature = function (t, xn)
+            local x = xn[1]
+            if math.abs(x-xSource) < 3*lambdaSource then
+               return 50*eV
+            else 
+               return 20*eV
+            end
+         end,
+         scaleWithSourcePower = true,     -- when source is scaled to achieve desired power, scale initial density by same factor
       },
 
       -- Collisions parameters
@@ -227,22 +226,21 @@ plasmaApp = Plasma.App {
       },
 
       -- Source parameters
-      source = Plasma.MaxwellianProjection {       -- source is a Maxwellian with the specified density and temperature profiles
-                isSource = true,                   -- designate as source
-                density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
-                temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
-                power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
+      source = Plasma.Source {       -- source is a Maxwellian with the specified density and temperature profiles
+         density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
+         temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
+         power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
+         diagnostics = {"intKE"},
       },
 
       -- Non-periodic boundary condition specification
-      bcx = {Plasma.Species.bcZeroFlux, Plasma.Species.bcZeroFlux},   -- use zero-flux boundary condition in x direction
-      bcz = {Plasma.Species.bcSheath, Plasma.Species.bcSheath},       -- use sheath-model boundary condition in z direction
+      bcx = {Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},   -- use zero-flux boundary condition in x direction
+      bcz = {Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},       -- use sheath-model boundary condition in z direction
 
       -- Diagnostics
-      diagnosticMoments = {"GkM0", "GkUpar", "GkTemp"},     
-      diagnosticIntegratedMoments = {"intM0", "intM1", "intKE", "intHE", "intSrcKE"},
-      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkEnergy"},
-      diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
+      diagnostics = {"M0", "Upar", "Temp", "intM0", "intM1", "intKE", "intEnergy"}, 
    },
 
    --------------------------------------------------------------------------------
@@ -255,8 +253,8 @@ plasmaApp = Plasma.App {
 
       -- Non-periodic boundary condition specification for electrostatic potential phi
       -- Dirichlet in x.
-      phiBcLeft = { T ="D", V = 0.0},
-      phiBcRight = { T ="D", V = 0.0},
+      bcLowerPhi = {{ T ="D", V = 0.0}, {T="P"}},
+      bcUpperPhi = {{ T ="D", V = 0.0}, {T="P"}},
       -- Periodic in y. --
       -- No BC required in z (Poisson solve is only in perpendicular x,y directions)
    },

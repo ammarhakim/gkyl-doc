@@ -214,34 +214,34 @@ in detail below.
 
       -- Initial conditions
       init = Plasma.MaxwellianProjection {    -- initialize a Maxwellian with the specified density and temperature profiles
-              -- density profile
-              density = function (t, xn)
-                 -- The particular functional form of the initial density profile 
-                 -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
-                 -- quasi-steady-state initial profiles from the source parameters.
-                 local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
-                 local Ls = Lz/4
-                 local floor = 0.1
-                 local effectiveSource = math.max(sourceDensity(t,{x,y,0}), floor)
-                 local c_ss = math.sqrt(5/3*sourceTemperature(t,{x,y,0})/mi)
-                 local nPeak = 4*math.sqrt(5)/3/c_ss*Ls*effectiveSource/2
-                 local perturb = 0 
-                 if math.abs(z) <= Ls then
-                    return nPeak*(1+math.sqrt(1-(z/Ls)^2))/2*(1+perturb)
-                 else
-                    return nPeak/2*(1+perturb)
-                 end
-              end,
-              -- temperature profile
-              temperature = function (t, xn)
-                 local x = xn[1]
-                 if math.abs(x-xSource) < 3*lambdaSource then
-                    return 50*eV
-                 else 
-                    return 20*eV
-                 end
-              end,
-              scaleWithSourcePower = true,     -- when source is scaled to achieve desired power, scale initial density by same factor
+         -- density profile
+         density = function (t, xn)
+            -- The particular functional form of the initial density profile 
+            -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
+            -- quasi-steady-state initial profiles from the source parameters.
+            local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
+            local Ls = Lz/4
+            local floor = 0.1
+            local effectiveSource = math.max(sourceDensity(t,{x,y,0}), floor)
+            local c_ss = math.sqrt(5/3*sourceTemperature(t,{x,y,0})/mi)
+            local nPeak = 4*math.sqrt(5)/3/c_ss*Ls*effectiveSource/2
+            local perturb = 0 
+            if math.abs(z) <= Ls then
+               return nPeak*(1+math.sqrt(1-(z/Ls)^2))/2*(1+perturb)
+            else
+               return nPeak/2*(1+perturb)
+            end
+         end,
+         -- temperature profile
+         temperature = function (t, xn)
+            local x = xn[1]
+            if math.abs(x-xSource) < 3*lambdaSource then
+               return 50*eV
+            else 
+               return 20*eV
+            end
+         end,
+         scaleWithSourcePower = true,     -- when source is scaled to achieve desired power, scale initial density by same factor
       },
 
       -- Collisions parameters
@@ -251,22 +251,21 @@ in detail below.
       },
 
       -- Source parameters
-      source = Plasma.MaxwellianProjection {       -- source is a Maxwellian with the specified density and temperature profiles
-                isSource = true,                   -- designate as source
-                density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
-                temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
-                power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
+      source = Plasma.Source {       -- source is a Maxwellian with the specified density and temperature profiles
+         density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
+         temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
+         power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
+         diagnostics = {"intKE"},
       },
 
       -- Non-periodic boundary condition specification
-      bcx = {Plasma.Species.bcZeroFlux, Plasma.Species.bcZeroFlux},   -- use zero-flux boundary condition in x direction
-      bcz = {Plasma.Species.bcSheath, Plasma.Species.bcSheath},       -- use sheath-model boundary condition in z direction
+      bcx = {Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},   -- use zero-flux boundary condition in x direction
+      bcz = {Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},       -- use sheath-model boundary condition in z direction
 
       -- Diagnostics
-      diagnosticMoments = {"GkM0", "GkUpar", "GkTemp"},     
-      diagnosticIntegratedMoments = {"intM0", "intM1", "intKE", "intHE", "intSrcKE"},
-      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkEnergy"},
-      diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
+      diagnostics = {"M0", "Upar", "Temp", "intM0", "intM1", "intKE", "intEnergy"},
    },
 
    -- Gyrokinetic ions
@@ -282,44 +281,59 @@ in detail below.
 
       -- Initial conditions
       init = Plasma.MaxwellianProjection {    -- initialize a Maxwellian with the specified density and temperature profiles
-              -- density profile
-              density = function (t, xn)
-                 -- The particular functional form of the initial density profile 
-                 -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
-                 -- quasi-steady-state initial profiles from the source parameters.
-                 local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
-                 local Ls = Lz/4
-                 local floor = 0.1
-                 local effectiveSource = math.max(sourceDensity(t,{x,y,0}), floor)
-                 local c_ss = math.sqrt(5/3*sourceTemperature(t,{x,y,0})/mi)
-                 local nPeak = 4*math.sqrt(5)/3/c_ss*Ls*effectiveSource/2
-                 local perturb = 0 
-                 if math.abs(z) <= Ls then
-                    return nPeak*(1+math.sqrt(1-(z/Ls)^2))/2*(1+perturb)
-                 else
-                    return nPeak/2*(1+perturb)
-                 end
-              end,
-              -- temperature profile
-              temperature = function (t, xn)
-                 local x = xn[1]
-                 if math.abs(x-xSource) < 3*lambdaSource then
-                    return 50*eV
-                 else 
-                    return 20*eV
-  nuIon = nuFrac*logLambdaIon*eV^4*n0/(12*math.pi^(3/2)*eps0^2*math.sqrt(mi)*(Ti0)^(3/2))
-  
-  -- Derived parameters
-  vti = math.sqrt(Ti0/mi)              -- ion thermal speed
-  vte = math.sqrt(Te0/me)              -- electron thermal speed
-  c_s = math.sqrt(Te0/mi)              -- ion sound speed
-  omega_ci = math.abs(qi*B0/mi)        -- ion gyrofrequency
-  rho_s = c_s/omega_ci                 -- ion sound gyroradius
-  
-  -- Simulation box size
-  Lx = 50*rho_s                        -- x = radial direction
-  Ly = 100*rho_s                       -- y = binormal direction
-  Lz = 4                               -- z = field-aligned direction
+         -- density profile
+         density = function (t, xn)
+            -- The particular functional form of the initial density profile 
+            -- comes from a 1D single-fluid analysis (see Shi thesis), which derives
+            -- quasi-steady-state initial profiles from the source parameters.
+            local x, y, z, vpar, mu = xn[1], xn[2], xn[3], xn[4], xn[5]
+            local Ls = Lz/4
+            local floor = 0.1
+            local effectiveSource = math.max(sourceDensity(t,{x,y,0}), floor)
+            local c_ss = math.sqrt(5/3*sourceTemperature(t,{x,y,0})/mi)
+            local nPeak = 4*math.sqrt(5)/3/c_ss*Ls*effectiveSource/2
+            local perturb = 0 
+            if math.abs(z) <= Ls then
+               return nPeak*(1+math.sqrt(1-(z/Ls)^2))/2*(1+perturb)
+            else
+               return nPeak/2*(1+perturb)
+            end
+         end,
+         -- temperature profile
+         temperature = function (t, xn)
+            local x = xn[1]
+            if math.abs(x-xSource) < 3*lambdaSource then
+               return 50*eV
+            else 
+               return 20*eV
+            end
+         end,
+         scaleWithSourcePower = true,     -- when source is scaled to achieve desired power, scale initial density by same factor
+      },
+
+      -- Collisions parameters
+      coll = Plasma.LBOCollisions {     -- Lenard-Bernstein model collision operator
+         collideWith = {'ion'},         -- only include self-collisions with ions
+         frequencies = {nuIon},         -- use a constant (in space and time) collision freq. (calculated in Preamble)
+      },
+
+      -- Source parameters
+      source = Plasma.Source {       -- source is a Maxwellian with the specified density and temperature profiles
+         density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
+         temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
+         power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
+         diagnostics = {"intKE"},
+      },
+
+      -- Non-periodic boundary condition specification
+      bcx = {Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},   -- use zero-flux boundary condition in x direction
+      bcz = {Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},       -- use sheath-model boundary condition in z direction
+
+      -- Diagnostics
+      diagnostics = {"M0", "Upar", "Temp", "intM0", "intM1", "intKE", "intEnergy"},
+   },
 
 This simulation also requires a source, which models plasma crossing the
 separatrix. The next part of the **Preamble** initializes some source parameters,
@@ -385,21 +399,20 @@ of 4 sections:
 
       -- Source parameters
       source = Plasma.MaxwellianProjection {       -- source is a Maxwellian with the specified density and temperature profiles
-                isSource = true,                   -- designate as source
-                density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
-                temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
-                power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
+         isSource = true,                   -- designate as source
+         density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
+         temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
+         power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
       },
 
       -- Non-periodic boundary condition specification
-      bcx = {Plasma.Species.bcZeroFlux, Plasma.Species.bcZeroFlux},   -- use zero-flux boundary condition in x direction
-      bcz = {Plasma.Species.bcSheath, Plasma.Species.bcSheath},       -- use sheath-model boundary condition in z direction
+      bcx = {Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},   -- use zero-flux boundary condition in x direction
+      bcz = {Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},       -- use sheath-model boundary condition in z direction
 
       -- Diagnostics
-      diagnosticMoments = {"GkM0", "GkUpar", "GkTemp"},     
-      diagnosticIntegratedMoments = {"intM0", "intM1", "intKE", "intHE", "intSrcKE"},
-      diagnosticBoundaryFluxMoments = {"GkM0", "GkUpar", "GkEnergy"},
-      diagnosticIntegratedBoundaryFluxMoments = {"intM0", "intM1", "intKE", "intHE"},
+      diagnostics = {"M0", "Upar", "Temp", "intM0", "intM1", "intKE", "intEnergy"},
    },
 
 The initial condition for this problem is given by a Maxwellian. This
@@ -411,8 +424,8 @@ profile takes a particular form that comes from a 1D single-fluid
 analysis (see [Shi2019]_), which derives quasi-steady-state initial
 profiles from the source parameters.
 
-The sources also take the form of Maxwellians, specified via
-``source = Plasma.MaxwellianProjection { isSource = true, ... }``. 
+By default the sources, specified via
+``source = Plasma.Source { ... }``, also take the form of Maxwellians. 
 For the density and temperature profile functions, we use the
 ``sourceDensity`` and ``sourceTemperature`` functions defined in the
 Preamble. We also specify the desired source power. The source density
@@ -485,20 +498,20 @@ Electron density
 
 First, let's examine the initial conditions, which are given in output file
 sending in ``_0.bp``. The initial electron density :math:`n_e(x,y,z)` is
-found in ``gk-sheath_electron_GkM0_0.bp``, where ``GkM0`` is the label for
+found in ``gk-sheath_electron_M0_0.bp``, where ``M0`` is the label for
 the density moment. Let's look at this file as a function of the :math:`x`
 and :math:`z` coordintes by taking a line-out at :math:`y=0` via
 
 .. code-block:: bash
 
-   pgkyl gk-sheath_electron_GkM0_0.bp interp sel --z1 0. pl -x '$x$' -y '$z$'
+   pgkyl gk-sheath_electron_M0_0.bp interp sel --z1 0. pl -x '$x$' -y '$z$'
 
 where we have used the ``interp`` (:ref:`interpolate <pg_cmd_interpolate>`)
 command to interpolate the DG data onto the grid, and the ``sel --z1 0.``
 (:ref:`select <pg_cmd_select>`) command to make the line-out at :math:`y=0`
 (``--z1`` refers to the :math:`y` coordinate here). The resulting plot looks like
 
-.. figure:: figures/gk-sheath_electron_GkM0_0.png
+.. figure:: figures/gk-sheath_electron_M0_0.png
    :scale: 40 %
    :align: center
 
@@ -510,11 +523,11 @@ Let's look at the final state now, at :math:`t=10\mu\text{s}`.
 
 .. code-block:: bash
 
-   pgkyl gk-sheath_electron_GkM0_10.bp interp sel --z1 0. pl -x '$x$' -y '$z$'
+   pgkyl gk-sheath_electron_M0_10.bp interp sel --z1 0. pl -x '$x$' -y '$z$'
 
 gives
 
-.. figure:: figures/gk-sheath_electron_GkM0_10.png
+.. figure:: figures/gk-sheath_electron_M0_10.png
    :scale: 40 %
    :align: center
 
@@ -571,8 +584,8 @@ commands. For this plot, the full command that we'll use is
 
 .. code-block:: bash
 
-  pgkyl gk-sheath_electron_intM0.bp -l 'total' gk-sheath_electron_intSrcM0.bp -l 'sources' \
-    gk-sheath_electron_intM0FluxZlower.bp gk-sheath_electron_intM0FluxZupper.bp \
+  pgkyl gk-sheath_electron_intM0.bp -l 'total' gk-sheath_electron_source_intM0.bp -l 'sources' \
+    gk-sheath_electron_bcZlower_flux_intM0.bp gk-sheath_electron_bcZupper_flux_intM0.bp \
     ev -g -l 'sinks' 'f[2] f[3] + -1 *' ev -g -l 'sources + sinks' 'f[1] f[-1] +' \
     ev -g -l 'total - (sources + sinks)' 'f[0] f[-1] -' activate -i0,1,-3,-2,-1 plot -x 'time (s)' -f0
 
@@ -580,8 +593,8 @@ commands. For this plot, the full command that we'll use is
 
   The above ``pgkyl`` command could use tags instead of dataset indices as follows:
   ::
-    pgkyl gk-sheath_electron_intM0.bp -l 'total' -t tot gk-sheath_electron_intSrcM0.bp -l 'sources' -t src \
-     gk-sheath_electron_intM0FluxZlower.bp -t fluxL gk-sheath_electron_intM0FluxZupper.bp -t fluxU \
+    pgkyl gk-sheath_electron_intM0.bp -l 'total' -t tot gk-sheath_electron_source_intM0.bp -l 'sources' -t src \
+     gk-sheath_electron_bcZlower_flux_intM0.bp -t fluxL gk-sheath_electron_bcZupper_flux_intM0.bp -t fluxU \
      ev -g -l 'sinks' -t sinks 'fluxL fluxU + -1 *' ev -g -l 'sources + sinks' -t srcPsinks 'src sinks +' \
      ev -g -l 'total - (source + sinks)' -t bal 'tot srcPsinks -' activate -t tot,src,sinks,srcPsinks,bal pl -f0
 
@@ -589,13 +602,13 @@ Let's break this command down a bit. We first load all the data files that we ne
 
 .. code-block:: bash
    
-  pgkyl gk-sheath_electron_intM0.bp -l 'total' gk-sheath_electron_intSrcM0.bp -l 'sources' \
-    gk-sheath_electron_intM0FluxZlower.bp gk-sheath_electron_intM0FluxZupper.bp \
+  pgkyl gk-sheath_electron_intM0.bp -l 'total' gk-sheath_electron_source_intM0.bp -l 'sources' \
+    gk-sheath_electron_bcZlower_flux_intM0.bp gk-sheath_electron_bcZupper_flux_intM0.bp \
 
 Here ``gk-sheath_electron_intM0.bp`` is the (total) integrated electron density,
-``gk-sheath_electron_intSrcM0.bp`` is the integrated electron source density,
-``gk-sheath_electron_intM0FluxZlower.bp`` is the integrated particle flux to
-the lower divertor plate, and ``gk-sheath_electron_intM0FluxZupper.bp`` is the
+``gk-sheath_electron_source_intM0.bp`` is the integrated electron source density,
+``gk-sheath_electron_bcZlower_flux_intM0.bp`` is the integrated particle flux to
+the lower divertor plate, and ``gk-sheath_electron_bcZupper_flux_intM0.bp`` is the
 integrated particle flux to the upper plate. We've used the ``-l`` flag to label
 the first two of these as ``'total'`` and ``'sources'``.
 
@@ -607,7 +620,7 @@ the result is negative:
   ev -g -l 'sinks' 'f[2] f[3] + -1 *'  
 
 Here, ``f2`` refers to the 3rd loaded file (active dataset 2, with 0-based indexing)
-and ``f3`` the 4th loaded file (active dataset 3); these are the two ``Flux`` files.
+and ``f3`` the 4th loaded file (active dataset 3); these are the two ``_flux_`` files.
 The ``ev`` command uses `reverse Polish notation
 <https://en.wikipedia.org/wiki/Reverse_Polish_notation>`_, so that this command
 translates to ``-(f2 + f3)``. This creates a new dataset at the end of the stack,
@@ -658,10 +671,10 @@ accounting for sources and sinks.
 .. .. code-block:: bash
 .. 
 ..  pgkyl 'gk-sheath_electron_intKE.bp' -l 'electron kinetic' 'gk-sheath_ion_intKE.bp' \
-..    -l 'ion kinetic' 'gk-sheath_esEnergy.bp' -l 'ES field' 'gk-sheath_electron_intSrcKE.bp' \
-..    -l 'electron source' 'gk-sheath_ion_intSrcKE.bp' -l 'ion source' \
-..    'gk-sheath_electron_intHEFluxZlower.bp' 'gk-sheath_electron_intHEFluxZupper.bp' \
-..    'gk-sheath_ion_intHEFluxZlower.bp' 'gk-sheath_ion_intHEFluxZupper.bp' dataset -i5,6 \
+..    -l 'ion kinetic' 'gk-sheath_esEnergy.bp' -l 'ES field' 'gk-sheath_electron_source_intKE.bp' \
+..    -l 'electron source' 'gk-sheath_ion_source_intKE.bp' -l 'ion source' \
+..    'gk-sheath_electron_bcZlower_flux_intEnergy.bp' 'gk-sheath_electron_bcZupper_flux_intEnergy.bp' \
+..    'gk-sheath_ion_bcZlower_flux_intEnergy.bp' 'gk-sheath_ion_bcZupper_flux_intEnergy.bp' dataset -i5,6 \
 ..    ev -l 'electron sink' 'f[5] f[6] + -1 *' ev -l 'ion sink' 'f[7] f[8] + -1 *' ev \
 ..    -l 'electron source + sink' 'f[3] f[-2] +' ev -l 'ion source + sink' 'f[4] f[-2] +' \
 ..    ev -l 'total kinetic + ES field - (sources + sinks)' 'f[0] f[1] + f[2] + f[-2] - f[-1] -' \
@@ -673,13 +686,13 @@ Divertor Fluxes
 
 .. code-block:: bash
 
-  pgkyl gk-sheath_ion_GkM0FluxZlower_10.bp interp ev 'f[0] 1,2 avg' pl -x '$x$'
+  pgkyl gk-sheath_ion_bcZlower_flux_M0_10.bp interp ev 'f[0] 1,2 avg' pl -x '$x$'
 
 Here we use ``ev`` to average in the :math:`y` and :math:`z` direction
 (for boundary fluxes, an average in the boundary direction is always
 required). This results in
 
-.. figure:: figures/gk-sheath_ion_GkM0FluxZlower_10.png
+.. figure:: figures/gk-sheath_ion_M0FluxZlower_10.png
   :scale: 40 %
   :align: center
 
@@ -689,7 +702,7 @@ The ion energy (heat) flux profile can similarly be plotted via
 
 .. code-block:: bash
 
-  pgkyl gk-sheath_ion_GkEnergyFluxZlower_10.bp interp ev 'f[0] 1,2 avg' pl -x '$x$'
+  pgkyl gk-sheath_ion_bcZlower_flux_Energy_10.bp interp ev 'f[0] 1,2 avg' pl -x '$x$'
 
 .. figure:: figures/gk-sheath_ion_GkEnergyFluxZlower_10.png
   :scale: 40 %
@@ -703,7 +716,7 @@ To compute this, we can use
 
 .. code-block:: bash
 
-  pgkyl "gk-sheath_ion_GkEnergyFluxZlower_*.bp" interp collect \
+  pgkyl "gk-sheath_ion_bcZlower_flux_Energy_*.bp" interp collect \
     sel --z0 5:10 ev 'f[0] 0,2,3 avg' pl -x '$x$'
 
 This uses the :ref:`collect <pg_cmd_collect>` command to aggregate the

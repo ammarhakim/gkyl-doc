@@ -123,8 +123,7 @@ plasmaApp = Plasma.App {
          return fv
       end,
       evolve = true,
-      diagnosticMoments = {"M0","M1i","M2ij","M3i"},
-      diagnosticIntegratedMoments = {"intM0","intM1i","intM2Flow","intM2Thermal"},
+      diagnostics = {"M0","M1i","M2ij","M3i","intM0","intM1i","intM2Flow","intM2Thermal"},
    },
    --------------------------------------------------------------------------------
    -- Field solver
