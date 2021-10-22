@@ -98,7 +98,7 @@ Command line
   <br>
 
 Suppose we extend the simulation time of the
-:doc:`gyrokinetic ion acoustic wave :simulation<../input/gk-ionSound-1x2v-p1.lua>`
+:doc:`gyrokinetic ion acoustic wave simulation<../input/gk-ionSound-1x2v-p1>`
 to ``tEnd=50`` and the number of frames to ``nFrame=100``, and run it
 with
 

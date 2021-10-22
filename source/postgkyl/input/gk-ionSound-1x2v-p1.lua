@@ -67,15 +67,11 @@ plasmaApp = Plasma.App {
       decompCuts = {1, 1},
       -- Initial conditions.
       -- Specify background so that we can plot perturbed distribution and moments.
-      initBackground = {"maxwellian",
-         density = function (t, xn)
-            return nIon
-         end,
-         temperature = function (t, xn)
-            return Ti
-         end,
+      background = Plasma.MaxwellianProjection {
+         density     = function (t, xn) return nIon end,
+         temperature = function (t, xn) return Ti end,
       },
-      init = {"maxwellian",
+      init = Plasma.MaxwellianProjection {
          density = function (t, xn)
             local x, v, mu = xn[1], xn[2], xn[3]
             local k        = knumber
@@ -83,17 +79,14 @@ plasmaApp = Plasma.App {
             local perturb  = alpha*math.cos(k*x)
             return nIon*(1.0+perturb)
          end,
-         temperature = function (t, xn)
-            return Ti
-         end,
+         temperature = function (t, xn) return Ti end,
       },
       coll = Plasma.LBOCollisions{
          collideWith = { 'ion' },
          frequencies = { nuIon },
       }, 
       evolve = true, -- Evolve species?
-      diagnosticMoments = {"GkM0", "GkM2", perturbed = false},
-      diagnosticIntegratedMoments = {"intM0", perturbed = false},
+      diagnostics = {"M0", "M2", "intM0", "perturbed"},
    },
 
    adiabaticElectron = Plasma.AdiabaticSpecies {
@@ -101,9 +94,7 @@ plasmaApp = Plasma.App {
       mass   = mElc,
       temp   = Te,
       -- Initial conditions.. use ion background so that background is exactly neutral.
-      init = function (t, xn)
-         return nElc
-      end,
+      init = function (t, xn) return nElc end,
       evolve = false, -- Evolve species?
    },
 
@@ -116,9 +107,7 @@ plasmaApp = Plasma.App {
    -- Magnetic geometry.
    funcField = Plasma.Geometry {
       -- Background magnetic field.
-      bmag = function (t, xn)
-         return B0
-      end,
+      bmag = function (t, xn) return B0 end,
       -- Geometry is not time-dependent.
       evolve = false,
    },
