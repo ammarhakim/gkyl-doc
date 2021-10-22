@@ -81,7 +81,7 @@ plasmaApp = Plasma.App {
       cells = {N_VPAR, N_MU},
       -- Initial conditions.
       -- Specify an equilibrium/background Maxwellian distribution.
-      initBackground = Plasma.MaxwellianProjection {
+      background = Plasma.MaxwellianProjection {
          density = function (t, xn)
             local x = xn[1]
             return n0*(1-(x-r0)/L_n)
@@ -92,7 +92,6 @@ plasmaApp = Plasma.App {
             return Te0*(1-(x-r0)/L_Te)
          end,
          exactScaleM012 = true,
-         isBackground   = true,
       },
       -- The full initial distribution is a combination of the
       -- equilibrium plus an initial perturbation.
@@ -109,10 +108,9 @@ plasmaApp = Plasma.App {
          end,
          exactScaleM012 = true,
       },
-      fluctuationBCs    = true,   -- Only apply (periodic) BCs to fluctuations.
-      evolve            = true,   -- Evolve species?
-      diagnosticMoments = {"GkM0", "GkBeta"},
-      diagnosticIntegratedMoments = {"intM0", "intM2"},
+      fluctuationBCs = true,   -- Only apply (periodic) BCs to fluctuations.
+      evolve         = true,   -- Evolve species?
+      diagnostics    = {"M0", "Beta", "intM0", "intM2"},
    },
 
    -- Gyrokinetic ions.
@@ -124,7 +122,7 @@ plasmaApp = Plasma.App {
       cells = {N_VPAR, N_MU},
       -- Initial conditions.
       -- Specify an equilibrium/background Maxwellian distribution.
-      initBackground = Plasma.MaxwellianProjection {
+      background = Plasma.MaxwellianProjection {
          density = function (t, xn)
             local x = xn[1]
             return n0*(1-(x-r0)/L_n)
@@ -135,7 +133,6 @@ plasmaApp = Plasma.App {
             return Ti0*(1-(x-r0)/L_Ti)
          end,
          exactScaleM012 = true,
-         isBackground  = true,
       },
       -- The full initial distribution is a combination of the
       -- equilibrium plus an initial perturbation.
@@ -152,10 +149,9 @@ plasmaApp = Plasma.App {
          end,
          exactScaleM012 = true,
       },
-      fluctuationBCs    = true,   -- Only apply (periodic) BCs to fluctuations.
-      evolve            = true,   -- Evolve species?
-      diagnosticMoments = {"GkM0", "GkBeta"},
-      diagnosticIntegratedMoments = {"intM0", "intM2"},
+      fluctuationBCs = true,   -- Only apply (periodic) BCs to fluctuations.
+      evolve         = true,   -- Evolve species?
+      diagnostics    = {"M0", "Beta", "intM0", "intM2"},
    },
 
    -- Field solver.

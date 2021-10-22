@@ -245,9 +245,9 @@ output data files, reasonable names should be used.
        evolved. In this case, only initial conditions for this species
        will be written to file.
      - true
-   * - diagnosticMoments
-     - List of moments to compute for diagnostics. See below for list
-       of moments supported.
+   * - diagnostics
+     - List of moments (and integrated moments) to compute for diagnostics.
+       See below for list of moments supported.
      - { }
 
 The supported diagnostic moments are, "M0", "M1i", "M2ij", "M2" and
@@ -436,7 +436,7 @@ written. For example, the moments files are named:
 - ``vlasov_elc_M1i_N.bp``
 - ``vlasov_ion_M1i_N.bp``
 
-etc, depending on the entries in the ``diagnosticMoments`` table for
+etc, depending on the entries in the ``diagnostics`` table for
 each species. In addition, integrated moments for each species are
 written:
 

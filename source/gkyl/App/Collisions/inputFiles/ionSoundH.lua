@@ -56,7 +56,7 @@ plasmaApp = Plasma.App {
       decompCuts = {1, 1},
       -- Initial conditions.
       -- Specify background so that we can plot perturbed distribution and moments.
-      initBackground = {"maxwellian",
+      background = Plasma.MaxwellianProjection {
          density = function (t, xn)
             return nIon
          end,
@@ -64,7 +64,7 @@ plasmaApp = Plasma.App {
             return Ti
          end,
       },
-      init = {"maxwellian",
+      init = Plasma.MaxwellianProjection {
          density = function (t, xn)
             local x, v, mu = xn[1], xn[2], xn[3]
             local k        = knumber
@@ -81,7 +81,7 @@ plasmaApp = Plasma.App {
          frequencies = { nuIon },
       }, 
       evolve = true, -- Evolve species?
-      diagnosticMoments = {"GkM0", "GkM2", perturbed = false},
+      diagnostics = {"M0", "M2", "perturbed"},
    },
 
    adiabaticElectron = Plasma.AdiabaticSpecies {

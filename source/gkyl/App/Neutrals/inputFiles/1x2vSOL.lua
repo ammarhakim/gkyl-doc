@@ -119,7 +119,7 @@ plasmaApp = Plasma.App {
       },
 
       -- Source parameters
-      source = Plasma.MaxwellianProjection {
+      source = Plasma.Source {
 	 density = sourceDensity,
 	 temperature = sourceTemperatureElc,
       },  
@@ -144,8 +144,7 @@ plasmaApp = Plasma.App {
       bcx = {Plasma.Species.bcSheath, Plasma.Species.bcSheath},
 
       -- Diagnostics
-      diagnosticMoments = {"GkM0", "GkM1", "GkM2", "GkUpar", "GkVtSq"},
-      diagnosticIntegratedMoments = {"intM0", "intM1", "intM2"},
+      diagnostics = {"M0", "M1", "M2", "Upar", "VtSq", "intM0", "intM1", "intM2"},
    },
 
    -- Gyrokinetic ions
@@ -180,7 +179,7 @@ plasmaApp = Plasma.App {
       },
 
       -- Source Parameters
-      source = Plasma.MaxwellianProjection {
+      source = Plasma.Source {
 	 density = sourceDensity,
 	 temperature = sourceTemperatureIon,
       },   
@@ -214,8 +213,7 @@ plasmaApp = Plasma.App {
       bcx = {Plasma.Species.bcSheath, Plasma.Species.bcSheath},
 
       -- Diagnostics
-      diagnosticMoments = {"GkM0", "GkM1", "GkM2", "GkUpar", "GkVtSq"},
-      diagnosticIntegratedMoments = {"intM0", "intM1", "intM2"},
+      diagnostics = {"M0", "M1", "M2", "Upar", "VtSq", "intM0", "intM1", "intM2"},
 
    },
 
@@ -252,7 +250,7 @@ plasmaApp = Plasma.App {
       },
 
       -- Source parameters
-      source = Plasma.VmMaxwellianProjection {
+      source = Plasma.VmSource {
 	 density = sourceDensityNeut,
 	 driftSpeed = function (t, xn)
             return {0,0,0}
@@ -285,9 +283,7 @@ plasmaApp = Plasma.App {
       bcx = {Plasma.Vlasov.bcReflect, Plasma.Vlasov.bcReflect},
 
       -- Diagnostics
-      diagnosticMoments = {"M0", "u", "vtSq"},
-      diagnosticIntegratedMoments = {"intM0", "intM1i",
-      				     "intM2Flow", "intM2Thermal" },
+      diagnostics = {"M0", "Udrift", "vtSq", "intM0", "intM1i", "intM2Flow", "intM2Thermal"},
  
    },
    

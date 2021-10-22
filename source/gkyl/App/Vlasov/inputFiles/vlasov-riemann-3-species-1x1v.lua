@@ -78,7 +78,7 @@ vlasovApp = Vlasov.App {
 	  return fv
       end,
       evolve = true, -- evolve species?
-      diagnosticMoments = { "M0", "M1i", "M2" }
+      diagnostics = { "M0", "M1i", "M2" }
    },
    -- protons
    ion = Vlasov.Species {
@@ -100,7 +100,7 @@ vlasovApp = Vlasov.App {
 	  return fv
       end,
       evolve = true, -- evolve species?
-      diagnosticMoments = { "M0", "M1i", "M2" }
+      diagnostics = { "M0", "M1i", "M2" }
    },
    -- Aluminum
    Al = Vlasov.Species {
@@ -122,7 +122,7 @@ vlasovApp = Vlasov.App {
 	  return fv
       end,
       evolve = true, -- evolve species?
-      diagnosticMoments = { "M0", "M1i", "M2" }
+      diagnostics = { "M0", "M1i", "M2" }
    },
 
    -- field solver

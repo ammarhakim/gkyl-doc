@@ -61,9 +61,7 @@ plasmaApp = Plasma.App {
          return maxwellian(ne, 0, vte, v)
       end,
       evolve = true,
-      diagnosticMoments = { "M0", "M1i", "M2", "vtSq"},
-      diagnosticIntegratedMoments = {"intM0", "intM1i",
-				     "intM2Flow", "intM2Thermal" },
+      diagnostics = { "M0", "M1i", "M2", "vtSq", "intM0", "intM1i", "intM2Flow", "intM2Thermal" },
       ionization = Plasma.Ionization {
          collideWith = {"neut"},        -- species to collide with
       	 electrons = "elc",             -- define name for electron species
@@ -88,9 +86,7 @@ plasmaApp = Plasma.App {
          return maxwellian(ni, 0, vti, v)
       end,
       evolve = true,
-      diagnosticMoments = { "M0", "M1i", "M2" },
-      diagnosticIntegratedMoments = {"intM0", "intM1i",
-      				     "intM2Flow", "intM2Thermal" },
+      diagnostics = { "M0", "M1i", "M2", "intM0", "intM1i", "intM2Flow", "intM2Thermal" },
       ionization = Plasma.Ionization {
          collideWith = {"neut"},        -- species to collide with
       	 electrons = "elc",             -- define name for electron species
@@ -115,9 +111,7 @@ plasmaApp = Plasma.App {
          return maxwellian(nn, 0, vti, v)
       end,
       evolve = true,
-      diagnosticMoments = { "M0", "M1i", "M2" },
-      diagnosticIntegratedMoments = {"intM0", "intM1i",
-      				     "intM2Flow", "intM2Thermal" },
+      diagnostics = { "M0", "M1i", "M2", "intM0", "intM1i", "intM2Flow", "intM2Thermal" },
       ionization = Plasma.Ionization {
          collideWith = {"elc"},         -- species to collide with
       	 electrons = "elc",             -- define name for electron species
