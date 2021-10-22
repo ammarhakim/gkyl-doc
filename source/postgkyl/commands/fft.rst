@@ -11,6 +11,8 @@ fft
    </details>
    <br>
 
+.. _pg_cmd-fft_commandLine:
+
 Command line
 ^^^^^^^^^^^^
 
@@ -116,3 +118,34 @@ a fully filled spectrum when turbulence sets in.
 
 Script mode
 ^^^^^^^^^^^
+
+Although it is possible to call `postgkyl`'s fft command from a script, we recommend
+that you instead use SciPy's fft package directly (or alternatively NumPy's fft package).
+Here's an example of how to perform the same FFT described in the
+:ref:`command line section above<pg_cmd-fft_commandLine>_` 
+
+.. code-block:: python
+
+  import postgkyl as pg
+  from scipy.fft import fft, fftfreq
+  import matplotlib.pyplot as plt
+  import numpy as np
+
+  fileName = 'incompEuler-KH-2x-p1_fluid_0.bp'
+  polyOrder, basisType = 1, 'ms'
+
+  pgData   = pg.GData(fileName)
+  pgInterp = pg.GInterpModal(pgData, polyOrder, basisType)
+  pgInterp.interpolate(overwrite=True)
+  yInt, psi_z0eq5p0 = pg.data.select(pgData, z0=5.0)
+
+  y = 0.5*(yInt[1][:-1]+yInt[1][1:])
+
+  ky, psi_z0eq5p0_ky = 2.*np.pi*fftfreq(np.size(y)), fft(np.squeeze(psi_z0eq5p0))
+
+  plt.semilogy(ky, np.abs(psi_z0eq5p0_ky))
+  plt.show()
+
+where we used the :ref:`select<pg_cmd_select>_` command to pick the data at :math:`x=5`,
+transformed the :math:`y` coordinates from nodal to cell-center coordinates, and squeezed
+the data to remove redundant dimensions.
