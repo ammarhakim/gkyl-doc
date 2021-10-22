@@ -122,7 +122,7 @@ Script mode
 Although it is possible to call `postgkyl`'s fft command from a script, we recommend
 that you instead use SciPy's fft package directly (or alternatively NumPy's fft package).
 Here's an example of how to perform the same FFT described in the
-:ref:`command line section above<pg_cmd-fft_commandLine>_` 
+:ref:`command line section above<pg_cmd-fft_commandLine>` 
 
 .. code-block:: python
 
@@ -146,6 +146,6 @@ Here's an example of how to perform the same FFT described in the
   plt.semilogy(ky, np.abs(psi_z0eq5p0_ky))
   plt.show()
 
-where we used the :ref:`select<pg_cmd_select>_` command to pick the data at :math:`x=5`,
+where we used the :ref:`pg_cmd_select` command to pick the data at :math:`x=5`,
 transformed the :math:`y` coordinates from nodal to cell-center coordinates, and squeezed
 the data to remove redundant dimensions.
