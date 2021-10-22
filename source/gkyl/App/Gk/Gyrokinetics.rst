@@ -76,6 +76,21 @@ The general structure of the input file is then
 .. 
 .. By CDIM we mean configuration space dimension and by VDIM we mean
 .. velocity space dimension. This app works in 1X1V, 1X2V and 3X2V. The
+
+Kinetic simulations may take additional parameters in the input file Common, such as
+
+.. list-table:: Other Common parameters (for Gyrokinetic simulations).
+   :widths: 20, 60, 20
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+     - Default
+   * - nDistFuncFrame
+     - These many distribution function outputs will be written during
+       simulation. If not specified, top-level ``nFrame`` parameter
+       will be used
+     - ``nFrame`` from top-level
   
 Species parameters
 ------------------
@@ -151,21 +166,9 @@ The velocity coordinates are :math:`(v_\parallel, \mu)`. See [Shi2017]_ for deta
        or a function with signature ``function(t,xn)`` that return a
        single value, :math:`S(t,xn[0],xn[1],...)`, where ``xn`` is a NDIM vector.
      - 
-   * - diagnosticMoments
-     - List of moments to compute for diagnostics. See below for list
+   * - diagnostics
+     - List of moments and volume integrated moments to compute. See below for list
        of moments supported.
-     - { }
-   * - diagnosticIntegratedMoments
-     - List of integrated moments to compute for diagnostics. See below for list
-       of integrated moments supported.
-     - { }
-   * - diagnosticBoundaryFluxMoments
-     - List of boundary flux moments to compute for diagnostics. See below for list
-       of moments supported.
-     - { }
-   * - diagnosticIntegratedBoundaryFluxMoments
-     - List of integrated boundary flux moments to compute for diagnostics. See below for list
-       of integrated moments supported.
      - { }
 
 .. note::
@@ -197,41 +200,37 @@ depending on whether it is a 1V or a 2V simulation. We also use the notation
 included, i.e. :math:`d_v=1` for 1V and :math:`d_v=3` for 2V. Also,
 :math:`v^2=v_\parallel^2` for 1V and :math:`v^2=v_\parallel^2+2\mu B_0/m` for 2V.
 
-- ``diagnosticMoments``
-  Velocity moments of the distribution function, written as functions of configuration-space position on each diagnostic frame. The options are
+- Velocity moments of the distribution function, written as functions of configuration-space position on each diagnostic frame. The options are
 
-  * ``GkM0``: number density, :math:`n = M_0 = \int\mathrm{d}\mathbf{w}~f`.
-  * ``GkM1``: parallel momentum density, :math:`M_1=\int\mathrm{d}\mathbf{w}~v_\parallel f`.
-  * ``GkM2``: energy density, :math:`M_2 = \int\mathrm{d}\mathbf{w}~v^2 f`.
-  * ``GkUpar``: parallel flow velocity,
+  * ``M0``: number density, :math:`n = M_0 = \int\mathrm{d}\mathbf{w}~f`.
+  * ``M1``: parallel momentum density, :math:`M_1=\int\mathrm{d}\mathbf{w}~v_\parallel f`.
+  * ``M2``: energy density, :math:`M_2 = \int\mathrm{d}\mathbf{w}~v^2 f`.
+  * ``Upar``: parallel flow velocity,
     :math:`u_\parallel= M_1/n`.
-  * ``GkTemp``: temperature, :math:`T = (m/d_v)(M_2 - M_1 u_\parallel)/n`
-  * ``GkBeta``: plasma beta, :math:`\beta = 2\mu_0 nT/B^2`
-- ``diagnosticIntegratedMoments``
-  Velocity moments integrated over configuration-space, written as time-series. The options are
+  * ``Temp``: temperature, :math:`T = (m/d_v)(M_2 - M_1 u_\parallel)/n`
+  * ``Beta``: plasma beta, :math:`\beta = 2\mu_0 nT/B^2`
+  * ``Energy``: particle energy density (kinetic + potential), :math:`\mathcal{E}_H = \int\mathrm{d}\mathbf{w}~H f`, where :math:`H = mv^2/2 + q\phi` is the Hamiltonian.
+- Velocity moments integrated over configuration-space, written as time-series. The options are
 
   * ``intM0``: particle number, :math:`N = \int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~f` 
   * ``intM1``: parallel momentum, :math:`U = \int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~v_\parallel f` 
   * ``intM2``: :math:`\int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~v^2 f`
   * ``intKE``: kinetic energy, :math:`\mathcal{E}_K = ({m}/{2})\int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~v^2 f`
-  * ``intHE``: total (kinetic + potential) energy, :math:`\mathcal{E}_H = \int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~H f`, where :math:`H = mv^2/2 + q\phi` is the Hamiltonian.
-- ``diagnosticBoundaryFluxMoments``
-  Moments of the (phase-space) fluxes :math:`\Gamma_{\mathbf{z}}` through the
-  (non-periodic) boundaries of configuration-space. The options are
+  * ``intEnergy``: total (kinetic + potential) energy, :math:`E_H = \int\mathrm{d}\mathbf{x}\mathrm{d}\mathbf{w}~H f`, where :math:`H = mv^2/2 + q\phi` is the Hamiltonian.
 
-  * ``GkM0``: particle flux through boundary, :math:`\int\mathrm{d}\mathbf{w}~\Gamma_{\mathbf{z}}`.
-  * ``GkUpar``: parallel momentum flux through boundary, :math:`\int\mathrm{d}\mathbf{w}~v_\parallel \Gamma_{\mathbf{z}}`.
-  * ``GkEnergy``: total (kinetic + potential) energy flux through boundary, :math:`\int\mathrm{d}\mathbf{w}~H\Gamma_{\mathbf{z}}`.
-- ``diagnosticIntegratedBoundaryFluxMoments``
-  Boundary flux moments integrated over configuration space.
+Boundary flux diagnostics
+=========================
 
-  * ``intM0``: integrated particle flux through the boundary.
-  * ``intM1``: integrated momentum flux through the boundary.
-  * ``intKE``: integrated kinetic energy flux through the boundary.
-  * ``intHE``: integrated total (kinetic + potential) energy flux through the boundary.
+One can request diagnostics of the fluxes through non-periodic boundaries by providing a
+``diagnostics = {}`` table to the boundary condition Apps. For example, sheath boundary
+conditions along `z` would do this via
 
-A note on boundary flux diagnostics
-===================================
+.. code-block:: bash
+
+  bcz = {Plasma.SheathBC{diagnostics={"M0"}}, Plasma.SheathBC{diagnostics={"M0"}}}
+
+in order to request the particle flux through the sheaths. Another example is provided
+in :ref:`the gyrokinetic Quickstart page <qs_gk1>`.
 
 The boundary fluxes are computed via integrals of the time rates of change computed
 in the ghost cells. If we consider a simple phase-space advection equation in 2X2V

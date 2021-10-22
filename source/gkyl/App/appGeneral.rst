@@ -271,6 +271,16 @@ that **the user must provide this parameter**).
        fraction. Default is every 5% (=0.05) of the simulation, or as frequently 
        as frames are outputted (whichever is largest).
      - ``max(0.05, 1./nFrame)`` 
+   * - calcIntQuantEvery
+     - Frequency with which to compute volume integrated quantities, given
+       as a decimal fraction.
+     - Every time step.
+   * - groupDiagnostics
+     - The default (``false``) is to output every diagnostic to a separate
+       file, but if ``groupDiagnostic=true`` diagnostics are written to a single
+       file per frame (per diagnostic app). For example, diagnostics defined on a
+       position-space grid such as velocity moments are written to a ``_gridDiagnostics_`` file.
+     - ``false``
    * - ioMethod
      - Method to use for file output. One of ``"MPI"`` or ``"POSIX"``. When ``"POSIX"``
        is selected, each node writes to its own file in a sub-directory.
