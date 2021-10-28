@@ -19,10 +19,10 @@ the tokamak SOL.
 
 .. contents::
 
-Background
-----------
-
-Gyrokinetics intro?
+.. Background
+.. ----------
+.. 
+.. Gyrokinetics intro?
 
 Input file
 ----------
