@@ -1,6 +1,6 @@
 Presentations
 +++++++++++++
-You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.google.com/drive/folders/1lrCAKacDFz0PWrY_3frD-sR1VBO_KaWZ?usp=sharing>`_ of Gkeyll presentations, or click on links below.
+You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.google.com/drive/folders/1lrCAKacDFz0PWrY_3frD-sR1VBO_KaWZ?usp=sharing>`_ of Gkeyll presentations, or click on links below. 
 
 .. note::
 
