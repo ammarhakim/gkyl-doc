@@ -9,6 +9,9 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 
 2021
 
+- "Prioritizing, Leveraging, and Disseminating Fundamental Algorithms Research", Jimmy Juno, *PPPL CSD Seminar*, November 2021.
+  `pdf <https://drive.google.com/file/d/1NieBW-oFs0iAifUPYJz3cGkxndUJrRVr/view?usp=sharing>`_
+
 - "Modelling AUG scrape-off-layer plasma with full-f  continuum Electromagnetic Gyrokinetic simulation", Rupak Mukherjee, *APS DPP Annual Meeting*, November 2021. 
   `pdf <https://drive.google.com/file/d/1GU5PKXTV5S-ADI4mZYli3U5b7Wbcki-n/view>`_,
   `Keynote (with movies) <https://drive.google.com/file/d/1DHlO28lu0Xa_WxpDNAIwM03cCjG99DVu/view>`_, 
