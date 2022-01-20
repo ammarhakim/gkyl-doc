@@ -103,8 +103,16 @@ Algorithms papers
 Physics papers
 --------------
 
+- Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2021). "Reduction of
+  transport due to magnetic shear in gyrokinetic simulations of the scrape-off
+  layer", `arXiv:2112.14220 <https://arxiv.org/abs/2112.14220>`_.
+
 - Francisquez, M., Juno, J., Hakim, A., Hammett, G. W., Ernst, D. R. (2021). "Improved
   multispecies Dougherty collisions", `arXiv:2109.10381 <https://arxiv.org/abs/2109.10381>`_.
+
+- Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2021). "Turbulent broadening
+  of electron heat-flux width in electromagnetic gyrokinetic simulations of a helical
+  scrape-off layer model", `arXiv:2112.06880 <https://arxiv.org/abs/2112.06880>`_.
 
 - Mathews, A., Mandell, M., Francisquez, M., Hughes, J., Hakim, A. (2021).
   "Turbulent field fluctuations in gyrokinetic and fluid plasmas",
