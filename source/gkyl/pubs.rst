@@ -103,6 +103,11 @@ Algorithms papers
 Physics papers
 --------------
 
+- Bernard, T. N., Halpern, F. D., Francisquez, M., Mandell, N. R., Juno, J.,
+  Hakim, A., Hammett, G. W., Wilkie, G., Guterl, J. (2022). "Kinetic modeling of neutral
+  transport for a continuum gyrokinetic code",
+  `arXiv:2202.00811 <https://arxiv.org/abs/2202.00811>`_.
+
 - Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2021). "Reduction of
   transport due to magnetic shear in gyrokinetic simulations of the scrape-off
   layer", `arXiv:2112.14220 <https://arxiv.org/abs/2112.14220>`_.
