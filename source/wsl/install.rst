@@ -8,6 +8,14 @@ reduced performance. This changed with the introduction of WSL 2 in
 Spring/Summer 2020. With WSL 2, the performance on Unix and Windows is
 indistinguishable.
 
+.. tip::
+
+   WSL 2 has its peak performance only when accessing files in the
+   Linux part of the system rather then the mounted Windows
+   directories. Therefore, it is not advisable to use locations like
+   ``/mnt/c/Users/userid/Desktop/``. Instead, working from
+   ``/home/userid/`` would lead to significantly improved performance.
+
 Requirements:
 
 * For x64 systems: **Version 1903** or higher, with **Build 18362** or higher
@@ -15,8 +23,14 @@ Requirements:
 * For WSL 2 (recommended): **Build 18362** and a CPU supporting
   Hyper-V virtualization
 
-Enabling and installing WSL
----------------------------
+.. note::
+
+   Windows 11 makes the process of installing WSL much easier. See the
+   bottom of this page for additional steps required in Windows 10.
+   
+
+Installing WSL
+--------------
 
 First, WSL needs to be enabled. This can be done either using GUI or
 PowerShell. For the former, go to *Turn Windows features on or off*
@@ -33,9 +47,8 @@ as an Administrator):
 
   dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 
-The Linux distribution itself is
-available thru Microsoft Store.  Currently, the following flavors are
-available:
+Linux distribution of choice is then available directly thru Microsoft
+Store.  Currently, the following flavors are available:
 
 * `Ubuntu 16.04 LTS <https://www.microsoft.com/store/apps/9pjn388hp8c9>`_
 * `Ubuntu 18.04 LTS <https://www.microsoft.com/store/apps/9N9TNGVNDL3Q>`_
@@ -50,30 +63,71 @@ available:
 * `Pengwin Enterprise <https://www.microsoft.com/store/apps/9N8LP0X93VCP>`_
 * `Alpine WSL <https://www.microsoft.com/store/apps/9p804crf0395>`_
 
+The Ubuntu distribution currently comes very much bare-bones. C
+compiler and basic libraries (this is important even for running the
+Conda version of Gkeyll) can be installed with
 
-It is strongly recommended to then enable WSL 2 for much better
-performance. First, enable virtualization in Administrator PowerShell
+.. code-block::
+
+   sudo apt install gcc
+
+Using GUI requires additional dependencies. The official
+`documentation
+<https://docs.microsoft.com/en-us/windows/wsl/tutorials/gui-apps>`_
+recommends installing and testing these with ``gedit``
+
+.. code-block::
+
+   sudo apt install gedit
+
+To launch your bashrc file in the editor, enter: ``gedit ~/.bashrc``
+
+
+Tips and tricks
+---------------
+
+Tools like ``jupyter-lab`` function through a web browser. While this
+is not an issue on Windows 11 which does support GUI, it might be more
+comfortable to use Windows browser. This can be achieved by launching
+Jupyter without a browser using ``jupyter-lab --no-browser`` and then
+copying the address including the token to a Windows browser of
+choice. Alternatively, when using `Windows Terminal
+<https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701>`_,
+one can also use Ctrl + click.
+
+Even though it is generally not recommended to modify Linux files
+using Windows tools, it is often useful to access them, e.g. to open
+a pdf. The Linux root, ``/``, can be accessed on Windows at
+``\\wsl$\<DISTRIBUTION_NAME>``.
+
+Popular text editor `Visual Studio Code
+<https://code.visualstudio.com/>`_ can be used with advantage to work
+with WSL files. The ``Remote - SSH`` is required.
+
+
+Additional steps required on Windows 10
+---------------------------------------
+
+WSL 1 is the default on Windows 10. To update to WSL 2, virtualization
+needs to be enabled first (in Administrator PowerShell)
 
 .. code-block:: powershell
 
   dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 
-Download and install the kernel update `package
+The next step is to install the kernel update `package
 <https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi>`_.
-And finally, set WSL 2 as the default (again using PowerShell as Administrator).
+Finally, set WSL 2 needs to be changed to default (again using
+PowerShell as Administrator).
 
 .. code-block:: powershell
 
   wsl --set-version <distribution name> 2
   wsl --set-default-version 2
 
-  
-Interaction between Windows and Linux; GUI
-------------------------------------------
 
-As of September 2020, WSL2 does not directly support GUI; however,
-this is currently supposed to be in the works. Until the official
-release, this can be overcome with a 3rd party X-server like `VcXsrv
+WSL on Windows 10 does not directly support GUI; however, this can be
+overcome with a 3rd party X-server like `VcXsrv
 <https://sourceforge.net/projects/vcxsrv/>`_ (this is our
 **recommended** option as the other option does not seem to work on
 some configurations) or `Xming
@@ -86,30 +140,11 @@ properly.
   :align: center
 
 Finally, the ``$DISPLAY`` environmental variable needs to be set up on
-the Linux side. In WSL 1 this was as simple as
-
-.. code-block:: bash
-
-  export DISPLAY=:0
-
-
-WSL 2, however, uses virtualization and the forwarding address changes
-which each launch of the system. The address is stored in
-`/etc/resolv.conf`. The ``$DISPLAY`` can be set up with:
+the Linux side.
 
 .. code-block:: bash
                 
   export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
-
-Another issue might be caused by tools that want to open a browser,
-for example, the commonly used ``jupyter-lab``. This can be easily
-overcome by launching the server without a browser using ``jupyter-lab
---no-browser`` and then copying the address including the token to a
-Windows browser.
-
-Finally, it is often useful to access the Linux files from
-Windows. Using WLS 2, the Linux root, ``/``, is located at
-``\\wsl$\<DISTRIBUTION_NAME>``.
 
 
 Known issues

@@ -14,8 +14,15 @@ generally required for users that want to contribute to the code.
 
 
 Installing with Conda (preferred for non-developers)
----------------------------------
+----------------------------------------------------
 
+.. warning::
+
+   The python version of one of the dependencies, ADIOS 1, is **not**
+   compatible with Python 3.9. Therefore, Postgkyl Conda packages are
+   available only for Python 3.6, 3.7, and 3.8.
+
+   
 Postgkyl can be installed with Conda with literally a single command:
 
 .. code-block:: bash
@@ -38,15 +45,13 @@ Updates can be downloaded with:
 
 .. note::
 
-  To install a new package, users need the write permission
-  for the Anaconda directory. If this is not the case (e.g. on a computing cluster), one can either
-  create a Conda `environment
-  <https://conda.io/docs/user-guide/tasks/manage-environments.html>`_ (see tip below) or
-  install Conda into the ``$HOME`` directory.
+  To install a new package, users need the write permission for the
+  Anaconda directory. If this is not the case (e.g. on a computing
+  cluster), one can either create a Conda `environment
+  <https://conda.io/docs/user-guide/tasks/manage-environments.html>`_
+  (see tip below) or install Conda into the ``$HOME`` directory.
 
-.. tip::
-
-  To create a Conda environment for postgkyl, use
+  To create a Conda environment for postgkyl called ``pgkylenv``, use
   
   .. code-block:: bash
   
@@ -58,9 +63,12 @@ Updates can be downloaded with:
   
     conda activate pgkylenv
   
-  and install postgkyl using the commands above (or the ones below to install from source).
+  and install postgkyl using the commands above (or the ones below to
+  install from source).
 
-  After install, one must always have the ``pgkylenv`` environment activated in order to use postgkyl. 
+  After install, one must have the ``pgkylenv`` environment activated
+  in order to use postgkyl.
+  
 
 Installing from source (preferred for developers)
 ----------------------
@@ -88,36 +96,38 @@ Postgkyl has these dependencies, which are readily available thru Conda:
 * `Adios <https://www.olcf.ornl.gov/center-projects/adios/>`_ 
 * `MessagePack for python (msgpack-python) <https://github.com/msgpack/msgpack-python>`_
 
-All these dependencies can be easily obtained from the Gkeyll Conda channel, via
+All these dependencies can be easily obtained from the Gkeyll Conda
+channel, via
 
 .. code-block:: bash
 
   conda install -c gkyl postgkyl --only-deps
 
-Once the dependencies are installed, postgkyl can be installed by navigating into
-the ``postgkyl`` repository and running
+Once the dependencies are installed, postgkyl can be installed by
+navigating into the ``postgkyl`` repository and running
 
 .. code-block:: bash
                 
   python setup.py install
   python setup.py develop
 
-Note that these commands only ever need to be run once (even if one is modifying source code). 
-Changes to the source code will be automatically included because we have installed in 
-`development mode <https://setuptools.readthedocs.io/en/latest/userguide/development_mode.html>`_.
+Note that these commands only ever need to be run once (even if one is
+modifying source code).  Changes to the source code will be
+automatically included because we have installed in `development mode
+<https://setuptools.readthedocs.io/en/latest/userguide/development_mode.html>`_.
   
 .. raw:: html
          
    <details>
    <summary><a>Building adiospy from source</a></summary>
 
-Adios can also be built manually from the source code. Note that for the manual
-build, Adios needs to be already installed and its ``bin`` directory
-added to the ``PATH`` (the default Gkeyll location is
-``~/gkylsoft/adios/bin/``). The standard location for the
-wrapper in the Gkeyll installation is
-``gkyl/install-deps/adios-x.x.x/wrappers/numpy/``. After navigating to that directory,
-build and install adiospy via
+Adios can also be built manually from the source code. Note that for
+the manual build, Adios needs to be already installed and its ``bin``
+directory added to the ``PATH`` (the default Gkeyll location is
+``~/gkylsoft/adios/bin/``). The standard location for the wrapper in
+the Gkeyll installation is
+``gkyl/install-deps/adios-x.x.x/wrappers/numpy/``. After navigating to
+that directory, build and install adiospy via
 
 .. code-block:: bash
                 
@@ -134,8 +144,8 @@ edited lines 32 and 33 should look like this:
   adios.so:
           python setup.py build_ext
 
-This will allow to complete the adiospy build successfully and it has no know
-consequences for Postgkyl.
+This will allow to complete the adiospy build successfully and it has
+no know consequences for Postgkyl.
           
 
 Switching from Conda version to repository
