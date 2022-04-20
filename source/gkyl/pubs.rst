@@ -103,13 +103,24 @@ Algorithms papers
 Physics papers
 --------------
 
+- Bernard, T. N., Halpern, F., Hammett, G. W., Francisquez, M., Mandell, N. R., Juno, J., Hakim, A., Wilkie, G., Guterl, J. (2022).
+  "Kinetic modeling of neutral transport for a continuum gyrokinetic code", 
+  `arXiv:2202:00811 <https://arxiv.org/abs/2202.00811>`_. Under review in Physics of Plasmas.
+
+- Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2022). 
+  "Reduction of transport due to magnetic shear in gyrokinetic simulations of the scrape-off layer",
+  `arXiv:2112.14220 <https://arxiv.org/abs/2112.14220>`_. Under review in Plasma Physics and Controlled Fusion.
+
+- Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2022). 
+  "Turbulent broadening of electron heat-flux width in electromagnetic gyrokinetic simulations of a helical scrape-off layer model",
+  *Physics of Plasmas*, **29**, 042504. https://doi.org/10.1063/5.0082486
+
 - Francisquez, M., Juno, J., Hakim, A., Hammett, G. W., Ernst, D. R. (2021). "Improved
   multispecies Dougherty collisions", `arXiv:2109.10381 <https://arxiv.org/abs/2109.10381>`_.
 
 - Mathews, A., Mandell, M., Francisquez, M., Hughes, J., Hakim, A. (2021).
   "Turbulent field fluctuations in gyrokinetic and fluid plasmas",
-  `arXiv:2107.09744 <https://arxiv.org/abs/2107.09744>`_. Accepted for publication in
-  Physics of Plasmas.
+  *Physics of Plasmas*, **28**, 112301. https://doi.org/10.1063/5.0066064
 
 - Wang, L., Hakim, A., Srinivasan, B., Juno, J. (2021). "Electron cyclotron drift instability
   and anomalous transport: two-fluid moment theory and modeling",
