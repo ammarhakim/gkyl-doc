@@ -105,7 +105,7 @@ Physics papers
 
 - Bernard, T. N., Halpern, F., Hammett, G. W., Francisquez, M., Mandell, N. R., Juno, J., Hakim, A., Wilkie, G., Guterl, J. (2022).
   "Kinetic modeling of neutral transport for a continuum gyrokinetic code", 
-  `arXiv:2202:00811 <https://arxiv.org/abs/2202.00811>`_. Under review in Physics of Plasmas.
+  *Physics of Plasmas*, **29**, 052501. https://doi.org/10.1063/5.0087131
 
 - Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2022). 
   "Reduction of transport due to magnetic shear in gyrokinetic simulations of the scrape-off layer",
