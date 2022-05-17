@@ -118,9 +118,6 @@ Physics papers
   "Turbulent broadening of electron heat-flux width in electromagnetic gyrokinetic simulations of a helical scrape-off layer model",
   *Physics of Plasmas*, **29**, 042504. https://doi.org/10.1063/5.0082486
 
-- Francisquez, M., Juno, J., Hakim, A., Hammett, G. W., Ernst, D. R. (2021). "Improved
-  multispecies Dougherty collisions", `arXiv:2109.10381 <https://arxiv.org/abs/2109.10381>`_.
-
 - Mathews, A., Mandell, M., Francisquez, M., Hughes, J., Hakim, A. (2021).
   "Turbulent field fluctuations in gyrokinetic and fluid plasmas",
   *Physics of Plasmas*, **28**, 112301. https://doi.org/10.1063/5.0066064
