@@ -103,6 +103,9 @@ Algorithms papers
 Physics papers
 --------------
 
+- Francisquez, M., Juno, J., Hakim, A., Hammett, G. W., Ernst, D. R. (2022).
+  "Improved multispecies Dougherty collisions" *Journal of Plasma Physics* 88, 905880303. https://doi.org/10.1017/S0022377822000289 
+
 - Bernard, T. N., Halpern, F., Hammett, G. W., Francisquez, M., Mandell, N. R., Juno, J., Hakim, A., Wilkie, G., Guterl, J. (2022).
   "Kinetic modeling of neutral transport for a continuum gyrokinetic code", 
   *Physics of Plasmas*, **29**, 052501. https://doi.org/10.1063/5.0087131
