@@ -103,6 +103,10 @@ Algorithms papers
 Physics papers
 --------------
 
+- Rodman, J., Cagas, P., Hakim, A., Srinivasan, B. (2022). 
+  "A kinetic interpretation of the classical Rayleigh-Taylor instability",
+  `arXiv:2205.01815 <https://arxiv.org/abs/2205.01815>`_. Under review in Physical Review E.
+
 - Francisquez, M., Juno, J., Hakim, A., Hammett, G. W., Ernst, D. R. (2022).
   "Improved multispecies Dougherty collisions" *Journal of Plasma Physics* 88, 905880303. https://doi.org/10.1017/S0022377822000289 
 
