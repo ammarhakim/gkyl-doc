@@ -46,6 +46,9 @@ Doctoral Dissertations
   sheaths and instabilities". Ph.D. dissertation, Virginia Polytechnic Institute and State University, 2018.
   https://vtechworks.lib.vt.edu/handle/10919/84979
 
+- Wang, L. (2014, Aug 30). "Integrating Kinetic Physics in Fluid Models for Magnetic Reconnection". Ph.D. dissertation, University of New Hampshire, 2014.
+
+
 - Shi, E. L. (2017, August 24). "Gyrokinetic Continuum Simulation of
   Turbulence in Open-Field-Line Plasmas", Ph.D. dissertation,
   Princeton University, 2017 `arXiv:1708.07283 <https://arxiv.org/abs/1708.07283>`_
