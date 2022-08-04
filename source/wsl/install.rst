@@ -142,7 +142,7 @@ the Linux side.
                 
   export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 
-While this is an official recommendation, it might not work in some configurations. An alternative is bellow.
+While this is an official recommendation, it might not work in some configurations. An alternative is below.
 
 .. code-block:: bash
 
