@@ -108,7 +108,7 @@ Postprocessing
 The output of this simulation is the following set of files:
 
 - Electron fluid moments: ``rt-5m-gem_elc_#.bp``.
-- Ion fluid moments: ``rt-5m-gem_elc_#.bp``.
+- Ion fluid moments: ``rt-5m-gem_ion_#.bp``.
 - Electromagnetic fields: ``rt-5m-gem_field_#.bp``.
 - Field energy: ``rt-5m-gem_fieldEnergy.bp``.
 - Diagnostic integrated moments: ``rt-5m-gem_elc_intMom.bp`` and ``rt-5m-gem_in_intMom.bp``.
