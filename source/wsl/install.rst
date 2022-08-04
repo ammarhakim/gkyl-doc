@@ -50,18 +50,14 @@ as an Administrator):
 Linux distribution of choice is then available directly thru Microsoft
 Store.  Currently, the following flavors are available:
 
-* `Ubuntu 16.04 LTS <https://www.microsoft.com/store/apps/9pjn388hp8c9>`_
-* `Ubuntu 18.04 LTS <https://www.microsoft.com/store/apps/9N9TNGVNDL3Q>`_
-* `Ubuntu 20.04 LTS <https://www.microsoft.com/store/apps/9n6svws3rx71>`_
-* `openSUSE Leap 15.1 <https://www.microsoft.com/store/apps/9NJFZK00FGKV>`_
-* `SUSE Linux Enterprise Server 12 SP5 <https://www.microsoft.com/store/apps/9MZ3D1TRP8T1>`_
-* `SUSE Linux Enterprise Server 15 SP1 <https://www.microsoft.com/store/apps/9PN498VPMF3Z>`_
-* `Kali Linux <https://www.microsoft.com/store/apps/9PKR34TNCV07>`_
-* `Debian GNU/Linux <https://www.microsoft.com/store/apps/9MSVKQC78PK6>`_
-* `Fedora Remix for WSL <https://www.microsoft.com/store/apps/9n6gdm4k2hnc>`_
-* `Pengwin <https://www.microsoft.com/store/apps/9NV1GV1PXZ6P>`_
-* `Pengwin Enterprise <https://www.microsoft.com/store/apps/9N8LP0X93VCP>`_
-* `Alpine WSL <https://www.microsoft.com/store/apps/9p804crf0395>`_
+* `Ubuntu 22.04 LTS <https://apps.microsoft.com/store/detail/ubuntu-2204-lts/9PN20MSR04DW>`_
+* `Ubuntu 20.04 LTS <https://apps.microsoft.com/store/detail/ubuntu-20044-lts/9MTTCL66CPXJ>`_
+* `Ubuntu 18.04 LTS <https://apps.microsoft.com/store/detail/ubuntu-18045-lts/9PNKSF5ZN4SW>`_
+* `openSUSE Leap 15.4 <https://apps.microsoft.com/store/detail/opensuse-leap-154/9PJPFJHRM62V>`_
+* `Kali Linux <https://apps.microsoft.com/store/detail/kali-linux/9PKR34TNCV07>`_
+* `Debian <https://apps.microsoft.com/store/detail/debian/9MSVKQC78PK6>`_
+* `Fedora Remix for WSL <https://apps.microsoft.com/store/detail/fedora-remix-for-wsl/9N6GDM4K2HNC>`_
+* `Alpine WSL <https://apps.microsoft.com/store/detail/alpine-wsl/9P804CRF0395>`_
 
 The Ubuntu distribution currently comes very much bare-bones. C
 compiler and basic libraries (this is important even for running the
@@ -145,6 +141,12 @@ the Linux side.
 .. code-block:: bash
                 
   export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+
+While this is an official recommendation, it might not work in some configurations. An alternative is bellow.
+
+.. code-block:: bash
+
+  export DISPLAY=$(route.exe print | grep 0.0.0.0 | head -1 | awk '{print $4}'):0.0
 
 
 Known issues
