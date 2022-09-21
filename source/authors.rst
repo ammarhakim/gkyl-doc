@@ -22,7 +22,7 @@ Past funding has come from the Airforce Office of Scientific Research
 and NASA.
 
 The CEO and Algorithm Alchemist of the project is `Ammar Hakim
-<https://ammar-hakim.org/>`.
+<https://ammar-hakim.org/>`_.
 
 The lead physicists for the project are `Greg Hammett
 <https://w3.pppl.gov/~hammett/>`_, `Amitava Bhattacharjee
@@ -34,5 +34,5 @@ The `major contributors
 <https://github.com/ammarhakim/gkyl/graphs/contributors>`_ (`see also
 <https://github.com/ammarhakim/gkylzero/graphs/contributors>`_) to the
 code are: James (Jimmy) Juno, Noah Mandell, Manaure (Mana)
-Francisquez, Petr Cagas, Liang Wang, Tess Bernard and Kolter
-Bradshaw. For a full list of contributors see out Github pages.
+Francisquez, Petr Cagas, Liang Wang, Tess Bernard, Jason TenBarge, and
+Kolter Bradshaw. For a full list of contributors see our Github pages.
