@@ -1,23 +1,38 @@
 Authors
 +++++++
 
-Gkeyll is developed at the Princeton Plasma Physics Laboratory (PPPL),
-a Department of Energy (DOE) national lab, managed by Princeton
-University. Funding for the code comes from Department of Energy (FES
-and SciDAC programs), Airforce Office of Scientific Research, National
-Science Foundation and NASA.
+Gkeyll is developed at multiple institutions, with the present
+leadership residing at Princeton University's Department of
+Astrophysical Sciences and the Princeton Plasma Physics Laboratory
+(PPPL), a Department of Energy (DOE) national lab, managed by
+Princeton University. Other major partners are Virginia Tech, MIT,
+Rensselaer Polytechnic Institute (RPI), University of Maryland and
+Indiana University.
 
-The institutions involved in Gkeyll development are PPPL, Princeton
-University, University of Maryland, Virginia Tech, University of New
-Hampshire, University of Texas at Austin, and Darthmouth College.
+As of 2022, the active funding for the project comes from:
 
-The CEO and Algorithm Alchemist of the project is Ammar Hakim.
+- National Science Foundation's `CSSI program
+  <https://www.nsf.gov/awardsearch/showAward?AWD_ID=2209471&HistoricalAwards=false>`_
+- DOE's SciDAC program
+- ARPA-E BETHE Theory and Simulation Grant to Virginia Tech and PPPL
+- Other NSF individual-PI awards to Princeton University
+- PPPL LDRD program
 
-The lead architects of the physics modules are Ammar Hakim and `Greg
-Hammett <http://w3.pppl.gov/~hammett>`_.
+Past funding has come from the Airforce Office of Scientific Research
+and NASA.
 
-The other contributors are (to either Gkeyll 1.0 or Gkeyll code) are:
-Noah Mandell, James (Jimmy) Juno, Tess Bernard, Jonathan Ng, Petr
-Cagas, Liang Wang, Manaure (Mana) Francisquez, Jason TenBarge, Chuanfei Dong,
-Eric Shi, and `Bhuvana Srinivasan
+The CEO and Algorithm Alchemist of the project is `Ammar Hakim
+<https://ammar-hakim.org/>`.
+
+The lead physicists for the project are `Greg Hammett
+<https://w3.pppl.gov/~hammett/>`_, `Amitava Bhattacharjee
+<https://theory.pppl.gov/people/profile.php?pid=1&n=Amitava-Bhattacharjee>`_,
+and `Bhuvana Srinivasan
 <https://www.aoe.vt.edu/people/faculty/srinivasan/personal-page.html>`_.
+
+The `major contributors
+<https://github.com/ammarhakim/gkyl/graphs/contributors>`_ (`see also
+<https://github.com/ammarhakim/gkylzero/graphs/contributors>`_) to the
+code are: James (Jimmy) Juno, Noah Mandell, Manaure (Mana)
+Francisquez, Petr Cagas, Liang Wang, Tess Bernard and Kolter
+Bradshaw. For a full list of contributors see out Github pages.
