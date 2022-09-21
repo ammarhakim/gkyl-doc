@@ -23,7 +23,7 @@ simulation framework and the the :ref:`postgkyl <pg_main>` post-processing
 package. Here you will find documentation for the full Gkeyll package.
 
 For license and authors see :doc:`License <aboutAndLicense>` and
-`Authors <authors>`.
+:doc:`Authors <authors>`.
 
 .. image:: Shi2019image.png
     :class: align-right
