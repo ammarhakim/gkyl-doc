@@ -1,16 +1,6 @@
 Publications and theses
 +++++++++++++++++++++++
 
-.. note::
-
-   We acknowledge funding from the Department of Energy SciDAC
-   programs (MGK, PI David Hatch and HPBS, PI CS Chang) as well as
-   National Science Foundation via various grants to PPPL and Virgina
-   Tech, the Air-Force Office of Scientific Research, National
-   Aeronautics and Space Administration, DOE's APRA-E program,
-   graduate student fellowships via DOE's CSGF and NASA's FINESST programs,
-   and postdoctoral fellowships via DOE's ORISE and NSF AGS PRF programs.
-
 A good source of various benchmarks and other tests is A. Hakim's
 `Simulation Journal <http://ammar-hakim.org/sj/>`_ and its `github
 webpage <https://github.com/ammarhakim/ammar-simjournal>`_.
@@ -45,6 +35,9 @@ Doctoral Dissertations
 - Cagas, P. (2018, July 30). "Continuum kinetic simulations of plasma
   sheaths and instabilities". Ph.D. dissertation, Virginia Polytechnic Institute and State University, 2018.
   https://vtechworks.lib.vt.edu/handle/10919/84979
+
+- Wang, L. (2014, Aug 30). "Integrating Kinetic Physics in Fluid Models for Magnetic Reconnection". Ph.D. dissertation, University of New Hampshire, 2014.
+
 
 - Shi, E. L. (2017, August 24). "Gyrokinetic Continuum Simulation of
   Turbulence in Open-Field-Line Plasmas", Ph.D. dissertation,
@@ -103,26 +96,28 @@ Algorithms papers
 Physics papers
 --------------
 
-- Bernard, T. N., Halpern, F. D., Francisquez, M., Mandell, N. R., Juno, J.,
-  Hakim, A., Hammett, G. W., Wilkie, G., Guterl, J. (2022). "Kinetic modeling of neutral
-  transport for a continuum gyrokinetic code",
-  `arXiv:2202.00811 <https://arxiv.org/abs/2202.00811>`_.
+- Rodman, J., Cagas, P., Hakim, A., Srinivasan, B. (2022). 
+  "A kinetic interpretation of the classical Rayleigh-Taylor instability",
+  `arXiv:2205.01815 <https://arxiv.org/abs/2205.01815>`_. Under review in Physical Review E.
 
-- Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2021). "Reduction of
-  transport due to magnetic shear in gyrokinetic simulations of the scrape-off
-  layer", `arXiv:2112.14220 <https://arxiv.org/abs/2112.14220>`_.
+- Francisquez, M., Juno, J., Hakim, A., Hammett, G. W., Ernst, D. R. (2022).
+  "Improved multispecies Dougherty collisions" *Journal of Plasma Physics* 88, 905880303. https://doi.org/10.1017/S0022377822000289 
 
-- Francisquez, M., Juno, J., Hakim, A., Hammett, G. W., Ernst, D. R. (2021). "Improved
-  multispecies Dougherty collisions", `arXiv:2109.10381 <https://arxiv.org/abs/2109.10381>`_.
+- Bernard, T. N., Halpern, F., Hammett, G. W., Francisquez, M., Mandell, N. R., Juno, J., Hakim, A., Wilkie, G., Guterl, J. (2022).
+  "Kinetic modeling of neutral transport for a continuum gyrokinetic code", 
+  *Physics of Plasmas*, **29**, 052501. https://doi.org/10.1063/5.0087131
 
-- Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2021). "Turbulent broadening
-  of electron heat-flux width in electromagnetic gyrokinetic simulations of a helical
-  scrape-off layer model", `arXiv:2112.06880 <https://arxiv.org/abs/2112.06880>`_.
+- Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2022). 
+  "Reduction of transport due to magnetic shear in gyrokinetic simulations of the scrape-off layer",
+  `arXiv:2112.14220 <https://arxiv.org/abs/2112.14220>`_. Under review in Plasma Physics and Controlled Fusion.
+
+- Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2022). 
+  "Turbulent broadening of electron heat-flux width in electromagnetic gyrokinetic simulations of a helical scrape-off layer model",
+  *Physics of Plasmas*, **29**, 042504. https://doi.org/10.1063/5.0082486
 
 - Mathews, A., Mandell, M., Francisquez, M., Hughes, J., Hakim, A. (2021).
   "Turbulent field fluctuations in gyrokinetic and fluid plasmas",
-  `arXiv:2107.09744 <https://arxiv.org/abs/2107.09744>`_. Accepted for publication in
-  Physics of Plasmas.
+  *Physics of Plasmas*, **28**, 112301. https://doi.org/10.1063/5.0066064
 
 - Wang, L., Hakim, A., Srinivasan, B., Juno, J. (2021). "Electron cyclotron drift instability
   and anomalous transport: two-fluid moment theory and modeling",

@@ -277,7 +277,7 @@ There are two restart scenarios:
 Once you've made the appropriate edits to the input file the second, restart simulation 
 is run by simply appending the word `restart` after the input file, like
 
-.. code: bash
+.. code:: bash
 
   gkyl inputFile.lua restart
 
