@@ -44,6 +44,21 @@ Updates can be downloaded with:
 
   conda update -c gkyl postgkyl
 
+.. warning::
+
+  Users that installed postgkyl prior to 2022/10/07 who wish to update
+  need to use
+
+  .. code-block:: bash
+
+    conda uninstall adiospy
+    conda install -c gkyl -c conda-forge postgkyl
+
+  in order to re-install adiospy from conda-forge which is needed
+  to avoid issues with the deprecation of asscalar in numpy. This is
+  only needed once; afterwards you can proceed to update normally as
+  described above.
+
 .. note::
 
   To install a new package, users need the write permission for the
