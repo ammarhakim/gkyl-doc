@@ -7,6 +7,10 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
    Google Drive often does not display the slides properly. Please
    download the slides on your local machine to view them properly.
 
+Tutorials
+
+- "Postgkyl tutorial", Petr Cagas `pdf <https://drive.google.com/file/d/1ra-e1d5KlhFhumgFloo_a4dTTXCsvxNc/view?usp=share_link>`_
+   
 2022
 
 - "Tracking blobs to analyze turbulence in the edge of tokamak", Rupak Mukherjee, *6th Asia Pacific Conference on Plasma Physics (Virtual)*, October 2022. 
