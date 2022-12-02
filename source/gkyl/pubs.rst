@@ -110,7 +110,7 @@ Physics papers
   
 - Bradshaw, K., Cagas, P., Hakim, A., Srinivasan, B., (2022), "Plasma
   sheath studies using a physical treatment of electron emission from
-  a dielectric wall", *Submitted to Physics of Plasmas",
+  a dielectric wall", *Submitted to Physics of Plasmas*,
   `arXiv.2210.14117 <https://doi.org/10.48550/arXiv.2210.14117>`_.
 
 - Rodman, J., Cagas, P., Hakim, A., Srinivasan, B. (2022). 
