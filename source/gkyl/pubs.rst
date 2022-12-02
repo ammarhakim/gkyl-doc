@@ -106,7 +106,7 @@ Physics papers
   "Continuum kinetic investigation of the impact of bias potentials in
   the current saturation regime on sheath formation", *Submitted to
   Physics of Plasmas*, `arXiv.2211.06488
-  https://doi.org/10.48550/arXiv.2211.06488>`_.
+  <https://doi.org/10.48550/arXiv.2211.06488>`_.
   
 - Bradshaw, K., Cagas, P., Hakim, A., Srinivasan, B., (2022), "Plasma
   sheath studies using a physical treatment of electron emission from
