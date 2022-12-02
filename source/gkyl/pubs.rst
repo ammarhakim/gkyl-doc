@@ -96,32 +96,60 @@ Algorithms papers
 Physics papers
 --------------
 
+- Cagas, P., Juno, J., Hakim, A., LaJoie, A., Chu, F., Langendorf, S.,
+  Srinivasan, B., (2022), (2022), "An investigation of shock formation
+  versus shock mitigation of colliding plasma jets", *Submitted to
+  Physics of Plasmas*, `arXiv.2211.10503
+  <https://doi.org/10.48550/arXiv.2211.10503>`_.
+
+- Skolar, C. R., Bradshaw, K., Juno, J., Srinivasan, B., (2022),
+  "Continuum kinetic investigation of the impact of bias potentials in
+  the current saturation regime on sheath formation", *Submitted to
+  Physics of Plasmas*, `arXiv.2211.06488
+  https://doi.org/10.48550/arXiv.2211.06488>`_.
+  
+- Bradshaw, K., Cagas, P., Hakim, A., Srinivasan, B., (2022), "Plasma
+  sheath studies using a physical treatment of electron emission from
+  a dielectric wall", *Submitted to Physics of Plasmas",
+  `arXiv.2210.14117 <https://doi.org/10.48550/arXiv.2210.14117>`_.
+
 - Rodman, J., Cagas, P., Hakim, A., Srinivasan, B. (2022). 
-  "A kinetic interpretation of the classical Rayleigh-Taylor instability",
-  `arXiv:2205.01815 <https://arxiv.org/abs/2205.01815>`_. Under review in Physical Review E.
+  "A kinetic interpretation of the classical Rayleigh-Taylor
+  instability", *Physical Review E*,
+  `PhysRevE.105.065209 <https://doi.org/10.1103/PhysRevE.105.065209>`_.
 
-- Francisquez, M., Juno, J., Hakim, A., Hammett, G. W., Ernst, D. R. (2022).
-  "Improved multispecies Dougherty collisions" *Journal of Plasma Physics* 88, 905880303. https://doi.org/10.1017/S0022377822000289 
+- Francisquez, M., Juno, J., Hakim, A., Hammett, G. W.,
+  Ernst, D. R. (2022).  "Improved multispecies Dougherty collisions"
+  *Journal of Plasma Physics*
+  88, 905880303. https://doi.org/10.1017/S0022377822000289
 
-- Bernard, T. N., Halpern, F., Hammett, G. W., Francisquez, M., Mandell, N. R., Juno, J., Hakim, A., Wilkie, G., Guterl, J. (2022).
-  "Kinetic modeling of neutral transport for a continuum gyrokinetic code", 
-  *Physics of Plasmas*, **29**, 052501. https://doi.org/10.1063/5.0087131
+- Bernard, T. N., Halpern, F., Hammett, G. W., Francisquez, M.,
+  Mandell, N. R., Juno, J., Hakim, A., Wilkie, G., Guterl, J. (2022).
+  "Kinetic modeling of neutral transport for a continuum gyrokinetic
+  code", *Physics of Plasmas*,
+  **29**, 052501. https://doi.org/10.1063/5.0087131
 
-- Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2022). 
-  "Reduction of transport due to magnetic shear in gyrokinetic simulations of the scrape-off layer",
-  `arXiv:2112.14220 <https://arxiv.org/abs/2112.14220>`_. Under review in Plasma Physics and Controlled Fusion.
+- Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2022).
+  "Reduction of transport due to magnetic shear in gyrokinetic
+  simulations of the scrape-off layer", `arXiv:2112.14220
+  <https://arxiv.org/abs/2112.14220>`_. Under review in Plasma Physics
+  and Controlled Fusion.
 
-- Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2022). 
-  "Turbulent broadening of electron heat-flux width in electromagnetic gyrokinetic simulations of a helical scrape-off layer model",
-  *Physics of Plasmas*, **29**, 042504. https://doi.org/10.1063/5.0082486
+- Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2022).
+  "Turbulent broadening of electron heat-flux width in electromagnetic
+  gyrokinetic simulations of a helical scrape-off layer model",
+  *Physics of Plasmas*,
+  **29**, 042504. https://doi.org/10.1063/5.0082486
 
-- Mathews, A., Mandell, M., Francisquez, M., Hughes, J., Hakim, A. (2021).
-  "Turbulent field fluctuations in gyrokinetic and fluid plasmas",
-  *Physics of Plasmas*, **28**, 112301. https://doi.org/10.1063/5.0066064
+- Mathews, A., Mandell, M., Francisquez, M., Hughes, J.,
+  Hakim, A. (2021).  "Turbulent field fluctuations in gyrokinetic and
+  fluid plasmas", *Physics of Plasmas*,
+  **28**, 112301. https://doi.org/10.1063/5.0066064
 
-- Wang, L., Hakim, A., Srinivasan, B., Juno, J. (2021). "Electron cyclotron drift instability
-  and anomalous transport: two-fluid moment theory and modeling",
-  `arXiv:2107.09874 <https://arxiv.org/abs/2107.09874>`_.
+- Wang, L., Hakim, A., Srinivasan, B., Juno, J. (2021). "Electron
+  cyclotron drift instability and anomalous transport: two-fluid
+  moment theory and modeling", `arXiv:2107.09874
+  <https://arxiv.org/abs/2107.09874>`_.
 
 - Jenab, S. M., Brodin, G., Juno, J., Kourakis, I. (2021). "Ultrafast
   Electron Holes in Plasma Phase Space Dynamics", *Scientific
@@ -140,39 +168,50 @@ Physics papers
   Astronomical Society*, **505**, (4), Pages 4857–4873.
   https://doi.org/10.1093/mnras/stab1516
 
-- Ng, J., Hakim, A., Wang, L., & Bhattacharjee, A. (2020). "An improved ten-moment closure for 
-  reconnection and instabilities", *Physics of Plasmas*, **27**, 082106. https://doi.org/10.1063/5.0012067
+- Ng, J., Hakim, A., Wang, L., & Bhattacharjee, A. (2020). "An
+  improved ten-moment closure for reconnection and instabilities",
+  *Physics of Plasmas*,
+  **27**, 082106. https://doi.org/10.1063/5.0012067
 
-- Juno, J., Swisdak, M. M., TenBarge. J. M., Skoutnev, V., & Hakim, A. (2020).
-  "Noise-induced magnetic field saturation in kinetic simulations", *Journal of Plasma Physics*,
-  **86**, (4). https://doi.org/10.1017/S0022377820000707
+- Juno, J., Swisdak, M. M., TenBarge. J. M., Skoutnev, V., &
+  Hakim, A. (2020).  "Noise-induced magnetic field saturation in
+  kinetic simulations", *Journal of Plasma Physics*, **86**,
+  (4). https://doi.org/10.1017/S0022377820000707
 
-- Ng, J., Chen, L.‐J., Hakim, A., & Bhattacharjee, A. (2020). "Reconstruction 
-  of electron and ion distribution functions in a magnetotail reconnection diffusion region",
-  *Journal of Geophysical Research: Space Physics*, **125**, e2020JA027879. https://doi.org/10.1029/2020JA027879
+- Ng, J., Chen, L.‐J., Hakim, A., &
+  Bhattacharjee, A. (2020). "Reconstruction of electron and ion
+  distribution functions in a magnetotail reconnection diffusion
+  region", *Journal of Geophysical Research: Space Physics*, **125**,
+  e2020JA027879. https://doi.org/10.1029/2020JA027879
 
 - Francisquez, M., Bernard, T. N., Zhu, B., Hakim, A., Rogers, B. N.,
-  & Hammett, G. W. (2020). "Fluid and gyrokinetic turbulence in open field-line, 
-  helical plasmas", *Physics of Plasmas*, **27**, 082301. https://doi.org/10.1063/5.0005333
+  & Hammett, G. W. (2020). "Fluid and gyrokinetic turbulence in open
+  field-line, helical plasmas", *Physics of Plasmas*,
+  **27**, 082301. https://doi.org/10.1063/5.0005333
 
 - Bernard, T. N., Stoltzfus-Dueck, T., Gentle, K. W., Hakim, A.,
-  Hammett, G. W., & Shi, E. L. (2020). "Investigating shear flow through 
-  continuum gyrokinetic simulations of limiter biasing in the Texas Helimak",
-  *Physics of Plasmas*, **27**, 062304. https://doi.org/10.1063/5.0003904 
+  Hammett, G. W., & Shi, E. L. (2020). "Investigating shear flow
+  through continuum gyrokinetic simulations of limiter biasing in the
+  Texas Helimak", *Physics of Plasmas*,
+  **27**, 062304. https://doi.org/10.1063/5.0003904
 
-- Hakim, A. H., Mandell, N. R., Bernard, T. N., Francisquez, M., Hammett, G. W., & Shi, E. L.
-  "Continuum electromagnetic gyrokinetic simulations of turbulence in the tokamak scrape-off layer and 
-  laboratory devices", *Physics of Plasmas*, **27**, 042304. https://doi.org/10.1063/1.5141157
+- Hakim, A. H., Mandell, N. R., Bernard, T. N., Francisquez, M.,
+  Hammett, G. W., & Shi, E. L.  "Continuum electromagnetic gyrokinetic
+  simulations of turbulence in the tokamak scrape-off layer and
+  laboratory devices", *Physics of Plasmas*,
+  **27**, 042304. https://doi.org/10.1063/1.5141157
 
-- Pusztai, I., Juno, J., Brandenburg, A., Tenbarge, J. M., Hakim, A., 
-  Francisquez, M., & Sundström, A. (2020). "Dynamo in Weakly Collisional 
-  Nonmagnetized Plasmas Impeded by Landau Damping of Magnetic Fields", 
-  *Physical Review Letters*, **124**, 255102. https://link.aps.org/doi/10.1103/PhysRevLett.124.255102
+- Pusztai, I., Juno, J., Brandenburg, A., Tenbarge, J. M., Hakim, A.,
+  Francisquez, M., & Sundström, A. (2020). "Dynamo in Weakly
+  Collisional Nonmagnetized Plasmas Impeded by Landau Damping of
+  Magnetic Fields", *Physical Review Letters*,
+  **124**, 255102. https://link.aps.org/doi/10.1103/PhysRevLett.124.255102
 
 - TenBarge, J. M., Ng, J., Juno, J., Wang, L., Hakim, A. &
-  Bhattacharjee, A. (2019). "An extended MHD study of the 16 October 2015 MMS
-  diffusion region crossing", *Journal of Geophysical Research: Space
-  Physics*, 124, 8474-8487. https://doi.org/10.1029/2019JA026731
+  Bhattacharjee, A. (2019). "An extended MHD study of the 16 October
+  2015 MMS diffusion region crossing", *Journal of Geophysical
+  Research: Space Physics*, 124,
+  8474-8487. https://doi.org/10.1029/2019JA026731
 
 - Ng, J., Hakim, A., Juno, J., & Bhattacharjee, A. (2019). Drift
   instabilities in thin current sheets using a two‐fluid model with
@@ -180,9 +219,9 @@ Physics papers
   Physics*, 124, 3331-3346. https://doi.org/10.1029/2018JA026313
 
 - Dong, C., Wang, L., Hakim, A., Bhattacharjee, A., Slavin, J. A.,
-  DiBraccio, G. A., & Germaschewski, K. (2019). "A Novel Ten-Moment Multifluid
-  Model for Mercury: From the Planetary Conducting Core to the Dynamic
-  Magnetosphere",  *Geophysical Review Letters*, 46,
+  DiBraccio, G. A., & Germaschewski, K. (2019). "A Novel Ten-Moment
+  Multifluid Model for Mercury: From the Planetary Conducting Core to
+  the Dynamic Magnetosphere", *Geophysical Review Letters*, 46,
   11584-11596. https://doi.org/10.1029/2019GL083180
 
 - Shi, E. L., Hammett, G. W., Stoltzfus-Dueck, T., & Hakim,
@@ -201,9 +240,10 @@ Physics papers
   Instabilities in Counter-streaming Plasmas", *Astrophysical Journal
   Letters*, **872**, (2). https://doi.org/10.3847%2F2041-8213%2Fab0556
 
-- Sundström, A., Juno, J., TenBarge, J. M., & Pusztai, I. (2019). "Effect of a
-  weak ion collisionality on the dynamics of kinetic electrostatic
-  shocks", *Journal of Plasma Physics*, **85**. https://doi.org/10.1017/S0022377819000023
+- Sundström, A., Juno, J., TenBarge, J. M., &
+  Pusztai, I. (2019). "Effect of a weak ion collisionality on the
+  dynamics of kinetic electrostatic shocks", *Journal of Plasma
+  Physics*, **85**. https://doi.org/10.1017/S0022377819000023
 
 - Srinivasan, B. and Hakim, A. (2018). "Role of electron inertia and
   electron/ion finite Larmor radius effects in low-beta,
@@ -212,7 +252,8 @@ Physics papers
 
 - Ng, J., Hakim, A., & Bhattacharjee, A. (2018). "Using the maximum
   entropy distribution to describe electrons in reconnecting current
-  sheets", *Physics of Plasmas*, **25**, 082113. https://doi.org/10.1063/1.5041758
+  sheets", *Physics of Plasmas*,
+  **25**, 082113. https://doi.org/10.1063/1.5041758
 
 - Wang, L., Germaschewski, K., Hakim, A., Dong, C., Raeder, J., &
   Bhattacharjee, A. (2018). "Electron Physics in 3-D Two-Fluid
