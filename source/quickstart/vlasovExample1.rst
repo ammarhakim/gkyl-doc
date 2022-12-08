@@ -162,7 +162,7 @@ The **App** can be further subdivided into a number of sections
   plasmaApp:run()
 
 The **Common** section of the **App** defines input parameters which will be utilized by all solvers in the simulation.
-For example, the configuration space extents and number of configuration space cells (:code:`lower, upper, cells`), as well as what directions, if any, utilize periodic boundary conditions (:code:`periodicDirs`), and how to parallelize the simulation (:code:`decompCuts,useShared`).
+For example, the configuration space extents and number of configuration space cells (:code:`lower, upper, cells`), as well as what directions, if any, utilize periodic boundary conditions (:code:`periodicDirs`), and how to parallelize the simulation (:code:`decompCuts`).
 
 .. code-block:: lua
 
@@ -182,7 +182,7 @@ For example, the configuration space extents and number of configuration space c
 
   -- MPI decomposition for configuration space
   decompCuts = {1,1},                      -- Cuts in each configuration direction
-  useShared = true,                        -- If using shared memory
+  useShared = false,                       -- shared memory is no longer supported
 
   -- Boundary conditions for configuration space
   periodicDirs = {1,2},                    -- periodic directions (both x and y)
@@ -278,7 +278,8 @@ Increasing the resolution to :math:`32^2 \times 32^2` and now running the simula
 
   ~/gkylsoft/openmpi/bin/mpirun -n 10 ~/gkylsoft/gkyl/bin/gkyl vm-tsw-2x2v.lua
 
-we obtain the :doc:`following performance <inputFiles/vm-tsw-2x2v-higher-res-log>` with :code:`useShared=true` and the installed MPI from the Gkeyll build.
+we obtain the :doc:`following performance <inputFiles/vm-tsw-2x2v-higher-res-log>` with :code:`use
+=true` (note, shared memory is no longer supported) and the installed MPI from the Gkeyll build.
 
 Postprocessing
 --------------

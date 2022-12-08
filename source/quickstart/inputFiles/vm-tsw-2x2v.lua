@@ -99,7 +99,7 @@ plasmaApp = Plasma.App {
 
    -- MPI decomposition for configuration space
    decompCuts = {1,1},                      -- Cuts in each configuration direction
-   useShared = true,                        -- If using shared memory
+   useShared = false,                       -- shared memory is no longer supported
 
    -- Boundary conditions for configuration space
    periodicDirs = {1,2},                    -- periodic directions (both x and y)
