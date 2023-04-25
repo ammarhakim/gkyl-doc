@@ -335,86 +335,6 @@ in detail below.
       diagnostics = {"M0", "Upar", "Temp", "intM0", "intM1", "intKE", "intEnergy"},
    },
 
-This simulation also requires a source, which models plasma crossing the
-separatrix. The next part of the **Preamble** initializes some source parameters,
-along with some functions that will be used later to set up the source density
-and temperature profiles.
-
-.. code-block:: lua
-
-  -- Source parameters
-  P_SOL = 3.4e6                          -- total SOL power, from experimental heating power [W]
-  P_src = P_SOL*Ly*Lz/(2*math.pi*R*Lpol) -- fraction of total SOL power into flux tube domain [W]
-  xSource = R                            -- source peak radial location [m]
-  lambdaSource = 0.005                   -- source radial width [m]
-
-  -- Source density and temperature profiles. 
-  -- Note that source density will be scaled to achieve desired source power.
-  sourceDensity = function (t, xn)
-     local x, y, z = xn[1], xn[2], xn[3]
-     local sourceFloor = 1e-10
-     if math.abs(z) < Lz/4 then
-        -- near the midplane, the density source is a Gaussian
-        return math.max(math.exp(-(x-xSource)^2/(2*lambdaSource)^2), sourceFloor)
-     else
-        return 1e-40
-     end
-  end
-  sourceTemperature = function (t, xn)
-     local x, y, z = xn[1], xn[2], xn[3]
-     if math.abs(x-xSource) < 3*lambdaSource then
-        return 80*eV
-     else
-        return 30*eV
-     end
-  end
-
-This concludes the **Preamble**. We now have everything we need to initialize
-the ``Gyrokinetic`` App. In this input file, the App initialization consists
-of 4 sections:
-
-.. code-block:: lua
-
-  --------------------------------------------------------------------------------
-  -- App initialization
-  --------------------------------------------------------------------------------
-  plasmaApp = Plasma.App {
-     -----------------------------------------------------------------------------
-     -- Common
-     -----------------------------------------------------------------------------
-     ...
-
-     -----------------------------------------------------------------------------
-     -- Species
-     -----------------------------------------------------------------------------
-     ...
-              scaleWithSourcePower = true,     -- when source is scaled to achieve desired power, scale initial density by same factor
-      },
-
-      -- Collisions parameters
-      coll = Plasma.LBOCollisions {     -- Lenard-Bernstein model collision operator
-         collideWith = {'ion'},         -- only include self-collisions with ions
-         frequencies = {nuIon},         -- use a constant (in space and time) collision freq. (calculated in Preamble)
-      },
-
-      -- Source parameters
-      source = Plasma.MaxwellianProjection {       -- source is a Maxwellian with the specified density and temperature profiles
-         isSource = true,                   -- designate as source
-         density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
-         temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
-         power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
-      },
-
-      -- Non-periodic boundary condition specification
-      bcx = {Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
-             Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},   -- use zero-flux boundary condition in x direction
-      bcz = {Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
-             Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},       -- use sheath-model boundary condition in z direction
-
-      -- Diagnostics
-      diagnostics = {"M0", "Upar", "Temp", "intM0", "intM1", "intKE", "intEnergy"},
-   },
-
 The initial condition for this problem is given by a Maxwellian. This
 is specified using ``init = Plasma.MaxwellianProjection { ... }``,
 which is a table with entries for the density and temperature profile
@@ -489,6 +409,15 @@ background magnetic field and other geometry parameters.
       end,
 
 quantity is controlled by the ``nFrame`` parameter in the input file.
+
+Finally, an input file concludes with an invocation of the App’s run method:
+
+.. code-block:: lua
+
+   --------------------------------------------------------------------------------
+   -- Run the App
+   --------------------------------------------------------------------------------
+   plasmaApp:run()
 
 We can use the Gkeyll post-processing tool (:ref:`postgkyl <pg_main>`) to visualize
 the outputs.
