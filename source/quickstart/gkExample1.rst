@@ -410,6 +410,15 @@ background magnetic field and other geometry parameters.
 
 quantity is controlled by the ``nFrame`` parameter in the input file.
 
+Finally, an input file concludes with an invocation of the App’s run method:
+
+.. code-block:: lua
+
+   --------------------------------------------------------------------------------
+   -- Run the App
+   --------------------------------------------------------------------------------
+   plasmaApp:run()
+
 We can use the Gkeyll post-processing tool (:ref:`postgkyl <pg_main>`) to visualize
 the outputs.
 
