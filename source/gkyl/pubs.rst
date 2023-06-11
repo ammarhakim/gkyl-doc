@@ -98,8 +98,8 @@ Physics papers
 
 - Francisquez, M., Rosen, M. H., Mandell, N. R., Hakim, A., Forest, C. B.,
   Hammett, G. W. "Towards continuum gyrokinetic study of high-field mirrors"
-  Submitted to *Physics of Plasmas* `arXiv:2305.06372 
-  <https://doi.org/10.48550/arXiv.2305.06372`_.
+  Submitted to *Physics of Plasmas*,
+  `arXiv:2305.06372 <https://doi.org/10.48550/arXiv.2305.06372>`_.
 
 - Cagas, P., Juno, J., Hakim, A., LaJoie, A., Chu, F., Langendorf, S.,
   Srinivasan, B., "An investigation of shock formation
