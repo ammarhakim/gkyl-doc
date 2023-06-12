@@ -10,6 +10,12 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 Tutorials
 
 - "Postgkyl tutorial", Petr Cagas `pdf <https://drive.google.com/file/d/1ra-e1d5KlhFhumgFloo_a4dTTXCsvxNc/view?usp=share_link>`_
+
+2023
+
+- "Novel fluid-kinetic modeling: a parallel-kinetic-perpendicular-moment model for diverse plasma applications", Jimmy Juno, *Princeton Center for Theoretical Science: New perspectives in numerical methods for high-energy multiscale astrophysics*, April 2023. `pdf <https://drive.google.com/file/d/1548tLF9o7vyW3bkrsq6FvAMV-8XJvKtY/view?usp=sharing>`_, `Keynote (with movies) <https://drive.google.com/file/d/1fg9xOAthamMXECPErDwhmd9tQGw1gLWn/view?usp=sharing>`_
+
+- "Benchmarking the Parallel-Kinetic Perpendicular-Moment Model for Magnetized Plasmas", Jason TenBarge, *Princeton Center for Theoretical Science: New perspectives in numerical methods for high-energy multiscale astrophysics*, April 2023. `pdf <https://drive.google.com/file/d/1JbYslGMHQQ6YLpgunlb9L7VRvMpFzuXF/view?usp=sharing>`_, `Keynote (with movies) <https://drive.google.com/file/d/1oA_shZNIuptp5AfC4CamQeaLXc74zqFZ/view?usp=sharing>`_
    
 2022
 
