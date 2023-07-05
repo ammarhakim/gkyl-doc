@@ -7,7 +7,9 @@ In Gkeyll we currently have two different collision operators for use
 in kinetic models: the Bhatnagar–Gross–Krook (BGK) and the Dougherty
 operators. We referred to the latter as the LBO for the legacy
 of Lenard-Bernstein. Its implementation in Gkeyll is detailed
-in [Hakim2020]_ [Francisquez2020]_. 
+in [Hakim2020]_ [Francisquez2020]_.  See [Francisquez2022]_ for 
+definitions of the Dougherty LBO coefficients and alternative 
+choices.
 
 .. contents::
 
