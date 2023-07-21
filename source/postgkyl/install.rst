@@ -55,10 +55,21 @@ Updates can be downloaded with:
     conda install -c gkyl -c conda-forge postgkyl
 
   in order to re-install adiospy from conda-forge which is needed
-  to avoid issues with the deprecation of asscalar in numpy. This is
+  to avoid issues with the deprecation of ``asscalar`` in numpy. This is
   only needed once; afterwards you can proceed to update normally as
   described above.
 
+.. warning::
+
+  After installing postgkyl you may still get errors about numpy's
+  ``asscalar`` being deprecated. 
+
+  One solution is to downgrade numpy with:
+
+  .. code-block:: bash
+
+    conda install numpy=1.21.5 
+  
 .. note::
 
   To install a new package, users need the write permission for the
