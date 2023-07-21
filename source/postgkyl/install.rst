@@ -68,7 +68,7 @@ Updates can be downloaded with:
 
   .. code-block:: bash
 
-    conda install numpy=1.21.5 
+    conda install -c conda-forge numpy=1.21.5 
   
 .. note::
 
