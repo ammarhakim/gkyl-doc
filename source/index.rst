@@ -48,7 +48,7 @@ Astrophysical Sciences and the Princeton Plasma Physics Laboratory
 (PPPL), a Department of Energy (DOE) national lab, managed by
 Princeton University. Other major partners are Virginia Tech, MIT,
 Rensselaer Polytechnic Institute (RPI), University of Maryland,
-Indiana University, and Helmholtz-Zentrum Dresden-Rossendorf.
+Indiana University, and Helmholtz-Zentrum Dresden-Rossendorf (HZDR).
 
 As of 2022, the active funding for the project comes from:
 
