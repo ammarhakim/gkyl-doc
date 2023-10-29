@@ -12,52 +12,63 @@ of installing all the dependencies. On the other hand, the later option
 has an advantage of always having the most up-to-date version and is
 generally required for users that want to contribute to the code.
 
+.. warning::
+
+  The python version of one of the dependencies, ADIOS 2, requires Python 3.11.
+  Therefore, Postgkyl Conda packages are currently available only for this
+  version.
+
+.. note::
+
+  Users that installed Posgkyl prior to 2023/08/30 are advised to either create
+  a fresh Python 3.11 `environment
+  <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_
+  or reinstall their Conda.
+
 
 Installing with Conda (preferred for non-developers)
 ----------------------------------------------------
 
-.. warning::
-
-   The python version of one of the dependencies, ADIOS 1, is **not**
-   compatible with Python 3.9. Therefore, Postgkyl Conda packages are
-   available only for Python 3.6, 3.7, and 3.8.
-
-   
 Postgkyl can be installed with Conda with literally a single command:
 
 .. code-block:: bash
 
-  conda install -c gkyl -c conda-forge postgkyl 
+  conda install -c gkyl -c conda-forge postgkyl
+
+.. note::
+
+  The process currently (2023/10/29) takes an excessive ammount of time. Wee
+  need to investigate it further but running the following four commands
+  separately seems to work slightly better:
+
+  .. code-block:: bash
+
+    conda update -n base -c defaults conda
+    conda install click numpy matplotlib pytables scipy sympy msgpack-python
+    conda install -c conda-forge adios2
+    conda install -c gkyl postgkyl
 
 Note that the flags for channels, ``-c gkyl`` and ``-c conda-forge``,
-is required even for updating. However, it can be permanently added.
-
-.. code-block:: bash
-
-  conda config --add channels gkyl
-  conda config --add channels conda-forge
-  conda install postgkyl
-
-Updates can be downloaded with:
+is required even for updating.
 
 .. code-block:: bash
 
   conda update -c gkyl postgkyl
 
-.. warning::
+The channels can be permanently added by adding the following lines ``.condarc``
+in the ``HOME`` directory (or creating a new one):
 
-  Users that installed postgkyl prior to 2022/10/07 who wish to update
-  need to use
+.. code-block:: bash
 
-  .. code-block:: bash
+  channels:
+    - defaults
+    - gkyl
+    - conda-forge
+  channel_priority: flexible
 
-    conda uninstall adiospy
-    conda install -c gkyl -c conda-forge postgkyl
-
-  in order to re-install adiospy from conda-forge which is needed
-  to avoid issues with the deprecation of asscalar in numpy. This is
-  only needed once; afterwards you can proceed to update normally as
-  described above.
+Note that this is the recommended order of the channels; it prioritizes more
+stable packages from the default channel and only pulls the ``adios2`` packages
+from ``conda-forge``.
 
 .. note::
 
@@ -68,27 +79,27 @@ Updates can be downloaded with:
   (see tip below) or install Conda into the ``$HOME`` directory.
 
   To create a Conda environment for postgkyl called ``pgkylenv``, use
-  
+
   .. code-block:: bash
-  
-    conda create -n pgkylenv python=3
-  
+
+    conda create -n pgkylenv python=3.11
+
   Then activate the environment with
-  
+
   .. code-block:: bash
-  
+
     conda activate pgkylenv
-  
+
   and install postgkyl using the commands above (or the ones below to
   install from source).
 
   After install, one must have the ``pgkylenv`` environment activated
   in order to use postgkyl.
-  
+
 
 Installing from source (preferred for developers)
-----------------------
-  
+-------------------------------------------------
+
 Postgkyl source code is hosted in a `GitHub
 <https://github.com/ammarhakim/postgkyl>`_ repository. To get Postgkyl
 running, one first needs to clone the repository and install dependencies.
@@ -104,11 +115,11 @@ Postgkyl has these dependencies, which are readily available thru Conda:
 
 * `click <https://click.palletsprojects.com/en/7.x/>`_
 * `matplotlib <https://matplotlib.org/>`_ >= 3.0
-* `numpy <https://numpy.org/>`_ >=1.13
+* `numpy <https://numpy.org/>`_
 * `pytables <https://www.pytables.org/>`_
 * `scipy <https://www.scipy.org/>`_
 * `sympy <https://www.sympy.org/en/index.html>`_
-* `adios-python <https://www.olcf.ornl.gov/center-projects/adios/>`_ (on the
+* `adios2 <https://github.com/ornladios/ADIOS2>`_ (on the
   ``conda-forge`` channel)
 * `msgpack-python <https://github.com/msgpack/msgpack-python>`_
 
@@ -123,7 +134,7 @@ Once the dependencies are installed, postgkyl can be installed by
 navigating into the ``postgkyl`` repository and running
 
 .. code-block:: bash
-                
+
   python setup.py install
   python setup.py develop
 
@@ -132,7 +143,7 @@ modifying source code).  Changes to the source code will be
 automatically included because we have installed in `development mode
 <https://setuptools.readthedocs.io/en/latest/userguide/development_mode.html>`_.
 
-          
+
 
 Switching from Conda version to repository
 ------------------------------------------

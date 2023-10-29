@@ -14,8 +14,8 @@ potentially other gkyl depedencies, the source build will allow users
 to set the appropriate paths to the cluster installations of these
 dependencies.
 
-Installing from source (preferred)
-----------------------------------
+Installing from source
+----------------------
 
 To install gkyl from source, first clone the `GitHub <https://github.com/ammarhakim/gkyl>`_ repository using::
 
@@ -54,7 +54,7 @@ will be made in ``~/gkylsoft/``.
 **Even on systems which have installations of gkyl dependencies such as MPI, the mkdeps script must be run first to build other gkyl dependencies such as LuaJIT.**
 
 2. Configure ``waf`` using a ``configure`` script from the ``machines/`` directory::
-     
+
 
      ./machines/configure.[SYSTEM].sh
 
@@ -110,12 +110,12 @@ machine. Instructions can be found in ``machines/README.md``.
    Using Gkeyll on IBM Power9 systems (like `Summit <https://www.olcf.ornl.gov/olcf-resources/compute-systems/summit/>`_ or `Traverse <https://researchcomputing.princeton.edu/systems/traverse>`_) is not recommended. This is due to incomplete support
    for the LuaJIT compiler on Power9.
 
-  
-Installing from source manually 
+
+Installing from source manually
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If machine files are not available, the dependencies, configuration, and build
-can be done manually. 
+can be done manually.
 
 The first step is to build the
 dependencies. Depending on your system, building dependencies can be
@@ -228,37 +228,16 @@ Note on building on Mac OS X
 
 To build on Mac OS X Mojave and beyond you must set the following env flag::
 
-  export MACOSX_DEPLOYMENT_TARGET=10.YY  
+  export MACOSX_DEPLOYMENT_TARGET=10.YY
 
-where ``YY`` is the version number of the OSX operating system. 
+where ``YY`` is the version number of the OSX operating system.
 For example, to build on OS X Mojave the env flag is::
 
-  export MACOSX_DEPLOYMENT_TARGET=10.14  
+  export MACOSX_DEPLOYMENT_TARGET=10.14
 
 and to build on OS X Catalina the env flag is::
 
-  export MACOSX_DEPLOYMENT_TARGET=10.15  
-
-Installing with Conda
----------------------------------
-
-The gkyl package is also available to be installed via Conda, although
-this gives less flexibility for keeping the code up-to-date as gkyl development continues.
-Once `Conda <https://conda.io/miniconda.html>`_ is installed and added
-to the ``PATH``, gkyl can be obtained with::
-
-  conda install -c gkyl gkeyll
-
-Note, that this will also install all dependencies into the Conda
-install directory. Often this may lead to some conflicts, particularly
-for the MPI installation, specially if there is another version of MPI
-already located in the system. gkyl should be run using the MPI
-provided by Conda.
-
-In general, having Conda and source-built gkyl on the same machine
-can cause confusion. In that case please use explicit paths to the
-mpiexec and gkyl executable you wish to use when running
-simulations.
+  export MACOSX_DEPLOYMENT_TARGET=10.15
 
 
 Troubleshooting
