@@ -96,21 +96,24 @@ Algorithms papers
 Physics papers
 --------------
 
+- Francisquez, M., Rosen, M. H., Mandell, N. R., Hakim, A., Forest, C. B.,
+  Hammett, G. W. "Towards continuum gyrokinetic study of high-field mirrors"
+  Submitted to *Physics of Plasmas*,
+  `arXiv:2305.06372 <https://doi.org/10.48550/arXiv.2305.06372>`_.
+
 - Cagas, P., Juno, J., Hakim, A., LaJoie, A., Chu, F., Langendorf, S.,
-  Srinivasan, B., (2022), (2022), "An investigation of shock formation
-  versus shock mitigation of colliding plasma jets", *Submitted to
-  Physics of Plasmas*, `arXiv.2211.10503
-  <https://doi.org/10.48550/arXiv.2211.10503>`_.
+  Srinivasan, B., "An investigation of shock formation
+  versus shock mitigation of colliding plasma jets", *Physics of Plasmas*,
+  **30**, 053903 (2023). https://doi.org/10.1063/5.0135389.
 
 - Skolar, C. R., Bradshaw, K., Juno, J., Srinivasan, B., (2022),
   "Continuum kinetic investigation of the impact of bias potentials in
-  the current saturation regime on sheath formation", *Submitted to
-  Physics of Plasmas*, `arXiv.2211.06488
-  <https://doi.org/10.48550/arXiv.2211.06488>`_.
+  the current saturation regime on sheath formation", *Physics of Plasmas*,
+  **30**, 012504 (2023). https://doi.org/10.1063/5.0134656.
   
 - Bradshaw, K., Cagas, P., Hakim, A., Srinivasan, B., (2022), "Plasma
   sheath studies using a physical treatment of electron emission from
-  a dielectric wall", *Submitted to Physics of Plasmas*,
+  a dielectric wall", Submitted to *Physics of Plasmas*,
   `arXiv.2210.14117 <https://doi.org/10.48550/arXiv.2210.14117>`_.
 
 - Rodman, J., Cagas, P., Hakim, A., Srinivasan, B. (2022). 

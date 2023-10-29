@@ -7,7 +7,9 @@ In Gkeyll we currently have two different collision operators for use
 in kinetic models: the Bhatnagar–Gross–Krook (BGK) and the Dougherty
 operators. We referred to the latter as the LBO for the legacy
 of Lenard-Bernstein. Its implementation in Gkeyll is detailed
-in [Hakim2020]_ [Francisquez2020]_. 
+in [Hakim2020]_ [Francisquez2020]_.  See [Francisquez2022]_ for 
+definitions of the Dougherty LBO coefficients and alternative 
+choices.
 
 .. contents::
 
@@ -639,3 +641,7 @@ References
    Galerkin scheme of a gyro-averaged Dougherty collision operator. `Nuclear
    Fusion 60 No. 9, 096021 (2020) <https://iopscience.iop.org/article/10.1088/1741-4326/aba0c9>`_,
    `arxiv:2009.06660 <https://arxiv.org/abs/2009.06660>`_.
+
+.. [Francisquez2022] M. Francisquez, et al. (2022). Improved multispecies Dougherty collisions.
+   `Journal of Plasma Physics Vol 88 No. 3, 905880303 (2022) <https://doi.org/10.1017/S0022377822000289>`_,
+   `arxiv:2109.10381 <https://arxiv.org/abs/2109.10381>`_.
