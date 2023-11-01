@@ -38,6 +38,7 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.mathjax',
     'sphinx.ext.autosectionlabel',
+    'sphinx_rtd_theme',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -54,7 +55,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Gkeyll'
-copyright = '2016-2022, Gkeyll Team'
+copyright = '2016-2023, Gkeyll Team'
 author = 'Gkeyll Team'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -71,7 +72,7 @@ release = '2.0-alpha'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = 'English'
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -91,6 +92,7 @@ todo_include_todos = True
 # a list of builtin themes.
 #
 #html_theme = 'sphinxdoc'
+#html_theme = 'classic'
 html_theme = "sphinx_rtd_theme"
 #html_theme_path = ["../_themes/sphinx_rtd_theme", ]
 
@@ -108,11 +110,11 @@ html_logo = "logoG1.png"
 html_static_path = ['_static', 'postgkyl/_static']
 
 
-html_context = {
-    'css_files': [
-        '_static/theme_overrides.css',  # override wide tables in RTD theme
-        ],
-     }
+#html_context = {
+#    'css_files': [
+#        '_static/theme_overrides.css',  # override wide tables in RTD theme
+#        ],
+#     }
 
 # -- Options for HTMLHelp output ------------------------------------------
 
