@@ -1,15 +1,17 @@
+:hero: A plasma simulation framework for (almost) all the scales
+
 The  Gkeyll 2.0 Code: Documentation Home
 ++++++++++++++++++++++++++++++++++++++++
 
 .. epigraph::
 
-   "Magic Chicken Software Framework"
-   -- Artificial 'Intelligence' view on Gkeyll
+  "Magic Chicken Software Framework"
+  -- Artificial 'Intelligence' view on Gkeyll
 
 .. epigraph::
 
-   "Don't Panic"
-   -- The Hitchhiker's Guide to the Galaxy
+  "Don't Panic"
+  -- The Hitchhiker's Guide to the Galaxy
 
 Gkeyll v2.0 (pronounced as in the book `"The Strange Case of
 Dr. Jekyll and Mr. Hyde"
@@ -24,20 +26,21 @@ package. Here you will find documentation for the full Gkeyll package.
 
 For license see :doc:`License <aboutAndLicense>`.
 
-.. image:: Shi2019image.png
-    :class: align-right
-    :scale: 80 %
+..
+  image:: Shi2019image.png
+  :class: align-right
+  :scale: 80 %
 
 .. toctree::
-   :maxdepth: 2
+  :maxdepth: 1
 
-   install
-   quickstart/main
-   gkyl/main
-   postgkyl/main
-   gkyl/pubs	     
-   gkyl/presentations
-   dev/main
+  install
+  quickstart/main
+  gkyl/main
+  postgkyl/main
+  gkyl/pubs
+  gkyl/presentations
+  dev/main
 
 Authors
 +++++++

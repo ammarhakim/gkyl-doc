@@ -105,10 +105,12 @@ For systems that do not already have corresponding files in the
 ``machines/`` directory, we encourage you to add files for your
 machine. Instructions can be found in ``machines/README.md``.
 
-.. note::
+.. warning::
+  :title: Gkeyll on Power9
+  :collapsible:
 
-   Using Gkeyll on IBM Power9 systems (like `Summit <https://www.olcf.ornl.gov/olcf-resources/compute-systems/summit/>`_ or `Traverse <https://researchcomputing.princeton.edu/systems/traverse>`_) is not recommended. This is due to incomplete support
-   for the LuaJIT compiler on Power9.
+  Using Gkeyll on IBM Power9 systems (like `Summit <https://www.olcf.ornl.gov/olcf-resources/compute-systems/summit/>`_ or `Traverse <https://researchcomputing.princeton.edu/systems/traverse>`_) is not recommended. This is due to incomplete support
+  for the LuaJIT compiler on Power9.
 
 
 Installing from source manually

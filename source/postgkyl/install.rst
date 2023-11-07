@@ -12,13 +12,13 @@ of installing all the dependencies. On the other hand, the later option
 has an advantage of always having the most up-to-date version and is
 generally required for users that want to contribute to the code.
 
-.. warning::
+.. important::
+  :title: Postgkyl requires Python 3.11
+  :collapsible:
 
   The python version of one of the dependencies, ADIOS 2, requires Python 3.11.
   Therefore, Postgkyl Conda packages are currently available only for this
   version.
-
-.. note::
 
   Users that installed Posgkyl prior to 2023/08/30 are advised to either create
   a fresh Python 3.11 `environment
@@ -37,7 +37,7 @@ Postgkyl can be installed with Conda with literally a single command:
 
 .. note::
 
-  The process currently (2023/10/29) takes an excessive ammount of time. Wee
+  The process currently (2023/10/29) takes an excessive ammount of time. We
   need to investigate it further but running the following four commands
   separately seems to work slightly better:
 
@@ -70,7 +70,9 @@ Note that this is the recommended order of the channels; it prioritizes more
 stable packages from the default channel and only pulls the ``adios2`` packages
 from ``conda-forge``.
 
-.. note::
+.. tip::
+  :title: Creating a Conda environment
+  :collapsible:
 
   To install a new package, users need the write permission for the
   Anaconda directory. If this is not the case (e.g. on a computing

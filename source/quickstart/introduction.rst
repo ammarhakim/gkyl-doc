@@ -8,7 +8,8 @@ A first Gkeyll simulation
 Gkeyll supports several models and numerous capabilities. Before diving into those,
 here's a short overview of an input file, how to run it and plot its results.
 
-.. contents::
+..
+  contents::
 
 Physics model
 -------------
@@ -52,27 +53,27 @@ This simulation is setup using :ref:`vlasovNorm` in
 .. code-block:: lua
 
   local Plasma = require("App.PlasmaOnCartGrid").VlasovMaxwell()
-  
+
   permitt  = 1.0   -- Permittivity of free space.
   permeab  = 1.0   -- Permeability of free space.
   eV       = 1.0   -- Elementary charge, or Joule-eV conversion factor.
   elcMass  = 1.0   -- Electron mass.
   ionMass  = 1.0   -- Ion mass.
-  
+
   nElc = 1.0    -- Electron number density.
   nIon = nElc   -- Ion number density.
   Te   = 1.0    -- Electron temperature.
   Ti   = Te     -- Ion temperature.
-  
+
   vtElc   = math.sqrt(eV*Te/elcMass)                   -- Electron thermal speed.
   vtIon   = math.sqrt(eV*Ti/ionMass)                   -- Ion thermal speed.
   wpe     = math.sqrt((eV^2)*nElc/(permitt*elcMass))   -- Plasma frequency.
   lambdaD = vtElc/wpe                                  -- Debye length.
-  
+
   -- Amplitude and wavenumber of sinusoidal perturbation.
   pertA = 1.0e-3
   pertK = .750/lambdaD
-  
+
   -- Maxwellian in (x,vx)-space, given the density (denU), bulk flow
   -- velocity (flowU), mass and temperature (temp).
   local function maxwellian1D(x, vx, den, flowU, mass, temp)
@@ -97,7 +98,7 @@ App that follows. For this specific simulation the Gkeyll app is created by the 
      cells        = {64},               -- Configuration space cells.
      polyOrder    = 1,                  -- Polynomial order.
      periodicDirs = {1},                -- Periodic directions.
-  
+
      elc = Plasma.Species {
         charge = -eV, mass = elcMass,
         lower = {-6.0*vtElc},      -- Velocity space lower boundary.
@@ -109,7 +110,7 @@ App that follows. For this specific simulation the Gkeyll app is created by the 
         end,
         evolve = true, -- Evolve species?
      },
-  
+
      ion = Plasma.Species {
         charge = eV, mass = ionMass,
         lower = {-6.0*vtIon},      -- Velocity space lower boundary.
@@ -121,7 +122,7 @@ App that follows. For this specific simulation the Gkeyll app is created by the 
         end,
         evolve = true, -- Evolve species?
      },
-  
+
      field = Plasma.Field {
         epsilon0 = permitt, mu0 = permeab,
         init = function (t, xn)   -- Initial conditions.
@@ -148,7 +149,7 @@ The Gkeyll App typically consists of three sections:
   specify the initial condition of the fields.
 
 In some applications other sections of the Plasma.App may be necessary, for example,
-to specify the **geometry**. 
+to specify the **geometry**.
 
 Finally, an input file concludes with an invocation of the App's run method:
 
@@ -179,9 +180,9 @@ You should see the program printing to screen like this:
    ** WARNING: timeStepper not specified, assuming rk3
   Using CFL number 0.333333
   Initializing completed in 0.0629927 sec
-  
+
   Starting main loop of PlasmaOnCartGrid simulation ...
-  
+
    Step 0 at time 0. Time step 0.00727108. Completed 0%
   0123456789 Step   276 at time 2.00698. Time step 0.00727174. Completed 10%
   0123456789 Step   551 at time 4.00677. Time step 0.00727214. Completed 20%
@@ -196,7 +197,7 @@ Plotting
 --------
 
 In this case we did not request additional diagnostics, so the only ones provided are
-default ones: 
+default ones:
 
 - Distribution functions: ``vm-damp_elc_#.bp`` and ``vm-damp_ion_#.bp``.
 - Electromagnetic fields: ``vm-damp_field_#.bp``.
