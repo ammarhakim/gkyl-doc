@@ -3,7 +3,8 @@
 Fluid example
 +++++++++++++
 
-.. contents::
+..
+  contents::
 
 
 Physics model and initial conditions
@@ -82,7 +83,7 @@ The input file :code:`rt-5m-gem.lua` can be run using the gkyl executable
   mpirun -n 4 ~/gkylsoft/gkyl/bin/gkyl inputFiles/rt-5m-gem.lua
 
 assuming :code:`gkyl` has been installed in the user's home directory.
-When running this simulation, a user should see the following output 
+When running this simulation, a user should see the following output
 
 .. code-block:: bash
 
@@ -120,7 +121,7 @@ Since :code:`nFrame=1` in the input file, the only frames that are output are ``
 Plotting all physical quantities in a frame
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following command plot all five moment term in the 5th electron output frame. Note that the five moment terms are ordered as :math:`\rho,\,\rho v_x\, \rho v_y, \rho v_z, \mathcal{E}`. 
+The following command plot all five moment term in the 5th electron output frame. Note that the five moment terms are ordered as :math:`\rho,\,\rho v_x\, \rho v_y, \rho v_z, \mathcal{E}`.
 
 .. code-block:: bash
 
@@ -130,12 +131,12 @@ The following command plot all five moment term in the 5th electron output frame
    :scale: 100 %
    :align: center
 
-   All five moment terms of the electron fluid. 
+   All five moment terms of the electron fluid.
 
 Plotting one physical quantity
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following command plot the 3rd moment term in the 5th electron output frame., The 3rd moment is the out-of-plane momentum, which differs from the electron out-of-plane current by an coefficient :math:`q_e/m_e` . 
+The following command plot the 3rd moment term in the 5th electron output frame., The 3rd moment is the out-of-plane momentum, which differs from the electron out-of-plane current by an coefficient :math:`q_e/m_e` .
 
 .. code-block:: bash
 

@@ -12,7 +12,8 @@ Installation instructions for both the :ref:`gkyl <gkyl_main>`
 simulation framework and the :ref:`postgkyl <pg_main>` postprocessing
 tool are provided below.
 
-.. contents::
+..
+  contents::
 
 .. include:: gkyl/install.rst
 

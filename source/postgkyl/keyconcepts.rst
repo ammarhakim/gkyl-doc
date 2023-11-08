@@ -1,7 +1,7 @@
 .. _pg_keyconcepts:
 
-Key concepts
-++++++++++++
+Postgkyl key concepts
++++++++++++++++++++++
 
 There are a few basic concepts of using ``pgkyl`` in a command
 line. Together, they allow to quickly and easily create quite complex
@@ -13,7 +13,8 @@ thing. Sometimes, they are analogous, othertimes, one is
 superior. This page makes an attempt to explain these key concepts to
 allow user to choose the best solution for each situation.
 
-.. contents::
+..
+  contents::
 
 Dataset
 -------
@@ -80,7 +81,7 @@ tags. For example, the following two commands will lead to the same
 result:
 
 .. code-block:: bash
-                
+
    pgkyl file1.bp file2.bp plot
    pgkyl file1.bp -t 'f1' file2.bp -t 'f2' plot
 
@@ -90,7 +91,7 @@ the example above, this can be useful when working with different
 types of data:
 
 .. code-block:: bash
-                
+
    pgkyl file1.bp -t 'f1' file2.bp -t 'f2' interpolate -u f1 plot
 
 Here, :ref:`pg_cmd_interpolate` will be used only on the ``file1.bp``
@@ -100,7 +101,7 @@ will then apply to both the datasets.
 Note that multiple comma-separated tags can be used:
 
 .. code-block:: bash
-                
+
    pgkyl file1.bp -t 'f1' file2.bp -t 'f2' file3.bp -t 'f3' interpolate -u f1,f2 plot
 
 Additionally, there are some commands like :ref:`pg_cmd_collect` or
@@ -114,7 +115,7 @@ When no tag is specified, the ``default`` tag is assigned.
    to use quotes, e.g.:
 
    .. code-block:: bash
-                
+
       pgkyl 'file?.bp' -t name
 
    Without the quotes, the string is replaced with all the matches,
@@ -150,7 +151,7 @@ following commands provide yet another way to to achieve the same
 result as in the tag example above:
 
 .. code-block:: bash
-                
+
    pgkyl file1.bp -t f1 file2.bp -t f2 activate -t f1 interpolate activate plot
    pgkyl file1.bp file2.bp activate -i 0 interpolate activate plot
 
@@ -158,13 +159,13 @@ In both cases only the ``file1.bp`` is active and, therefore, the
 :ref:`pg_cmd_interpolate` command is applied only on the first
 file. The second activate then reactivates the second file again so
 the :ref:`pg_cmd_plot` command is going to plot both.
-   
+
 The :ref:`pg_cmd_info` command can be useful when working with
 multiple active/inactive datasets. Its ``--compact`` option shows only
 identifiers for each dataset, thus removes some clatter, and
 ``--allsets`` adds even the currently inactive datasets.
 
-   
+
 Overwriting vs. new dataset
 ---------------------------
 .. _pg_keyconcepts_overwrite:
@@ -176,7 +177,7 @@ coefficients of DG finite-element data and interpolates them on a
 finer uniform mesh, essentially creating finite-volume like data.
 
 .. code-block:: bash
-                
+
    pgkyl file1.bp interpolate plot
 
 In this case the original information is lost after the
@@ -190,7 +191,7 @@ these commands often make the result the only active dataset to
 simplify the flow. A typical example is the :ref:`pg_cmd_ev` command:
 
 .. code-block:: bash
-                
+
    pgkyl file1.bp file2.bp ev 'f[0] f[1] -' plot
 
 As a result of this chain, there will be three datasets; however, only

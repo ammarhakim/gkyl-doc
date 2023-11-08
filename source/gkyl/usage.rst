@@ -3,7 +3,8 @@
 Using gkyl
 ++++++++++
 
-.. contents::
+..
+  contents::
 
 We now cover the basics of runing gkyl on desktops, clusters, and GPUs. Gkyl can also be used
 be used to run any Lua scripts, as well as tools provided within gkyl. We also comment
@@ -81,9 +82,9 @@ produce the following output to screen:
   Gkyl built on Sep 17 2020 22:20:05
   Initializing Gyrokinetic simulation ...
   Initializing completed in 12.9906 sec
-  
+
   Starting main loop of Gyrokinetic simulation ...
-  
+
    Step 0 at time 0. Time step 1.11219e-08. Completed 0%
   0123456789 Step    27 at time 3.00286e-07. Time step 1.11215e-08. Completed 10%
   0123456789 Step    54 at time 6.00559e-07. Time step 1.1121e-08. Completed 20%
@@ -111,9 +112,9 @@ produce the following output to screen:
   Stepper combine/copy took		  1.39611 sec   (0.005229 s/step)   ( 2.581%)
   Time spent in barrier function		  0.14791 sec   (0.000554 s/step)   ( 0.273%)
   [Unaccounted for]			  1.86320 sec   (0.006978 s/step)   ( 3.445%)
-  
+
   Main loop completed in			 54.08386 sec   (0.202561 s/step)   (   100%)
-  
+
   Thu Sep 17 2020 22:21:23.000000000
 
 These simulation logs contain the following:
@@ -150,7 +151,7 @@ For large problems running on a single CPU can lead to impractical runtimes. In 
 cases one benefits from parallelizing the simulation over many CPUs. This is
 accomplished in gkyl by decomposing the (phase) space into MPI domains. Therefore, in
 order to run parallel simulations you must have a parallel installation of gkyl, as most
-installations typically are. 
+installations typically are.
 
 Suppose one wishes to run the kinetic ballooning mode (KBM) calculation in
 :ref:`the previous section <gkyl_usage_run_serial>` on a node with 16 cores,
@@ -274,7 +275,7 @@ There are two restart scenarios:
    there this second time. Or one can increase ``tEnd`` and ``nFrame`` so the second simulation
    goes farther than the first one intended to.
 
-Once you've made the appropriate edits to the input file the second, restart simulation 
+Once you've made the appropriate edits to the input file the second, restart simulation
 is run by simply appending the word `restart` after the input file, like
 
 .. code:: bash
@@ -293,7 +294,7 @@ The ``fromFile`` option can be used to read data from a file on initialization. 
 for initial conditions, sources, and geometry data. The file to be read must have the same prefix
 as the input file but can otherwise be named as desired, including the extension (it might be useful
 to use a different extension, such as ``.read``, to avoid accidentally deleting needed files if one
-does ``rm *.bp``). 
+does ``rm *.bp``).
 
 Handy perks
 -----------
@@ -325,7 +326,7 @@ for example, allows us to compare BP (ADIOS) files.
 
 Suppose you ran the `plasma beach <http://ammar-hakim.org/sj/je/je8/je8-plasmabeach.html>`_
 simulation with the Moment App, using the :doc:`momBeach.lua <inputFiles/momBeach>` input file
-which contains a variable 
+which contains a variable
 
 .. code:: Lua
 
