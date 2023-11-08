@@ -278,8 +278,7 @@ Increasing the resolution to :math:`32^2 \times 32^2` and now running the simula
 
   ~/gkylsoft/openmpi/bin/mpirun -n 10 ~/gkylsoft/gkyl/bin/gkyl vm-tsw-2x2v.lua
 
-we obtain the :doc:`following performance <inputFiles/vm-tsw-2x2v-higher-res-log>` with :code:`use
-=true` (note, shared memory is no longer supported) and the installed MPI from the Gkeyll build.
+we obtain the :doc:`following performance <inputFiles/vm-tsw-2x2v-higher-res-log>` with :code:`useShared=true` (note, shared memory is no longer supported) and the installed MPI from the Gkeyll build.
 
 Postprocessing
 --------------
