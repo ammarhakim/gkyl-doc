@@ -17,24 +17,27 @@ dependencies.
 Installing from source
 ----------------------
 
-To install gkyl from source, first clone the `GitHub <https://github.com/ammarhakim/gkyl>`_ repository using::
+To install gkyl from source, first clone the `GitHub
+<https://github.com/ammarhakim/gkyl>`_ repository using::
 
      git clone https://github.com/ammarhakim/gkyl
 
 Navigate into the ``gkyl`` directory to begin.
 
-In many cases, an installation of gkyl will involve building most of gkyl's dependencies only require a modern C/C++ compiler and Python 3.
-The full list of dependencies is:
+In many cases, an installation of gkyl will involve building most of gkyl's
+dependencies only require a modern C/C++ compiler and Python 3. The full list of
+dependencies is:
 
 * C/C++ compiler with C++17 support (**But NOT Clang >= 12.0 provided by Xcode 12**)
-* Python 3 >=3.6
+* Python 3.11
 * MPI compiler with MPI3 support (>=openmpi 3.0 or >=mpich 3.0)
 * LuaJIT 2.1.0
-* ADIOS 1.13.1 (**But NOT >=ADIOS 2.0**)
+* ADIOS 2.0
 * Eigen 3.3.7
 * CUDA Toolkit >=10.2 (**if building with GPU support, NOT FULLY SUPPORTED**)
 
-The following instructions assume that at minimum the user has both a C/C++ compiler with C++17 support and Python 3.
+The following instructions assume that at minimum the user has both a C/C++
+compiler with C++17 support and Python 3.
 
 .. _gkyl_install_machines:
 
@@ -48,19 +51,20 @@ built in three steps using scripts found in the ``machines/`` directory.
 
      ./machines/mkdeps.[SYSTEM].sh
 
-where ``[SYSTEM]`` should be replaced by the name of the system you are
-building on, such as ``macosx`` or ``eddy``. By default, installations
-will be made in ``~/gkylsoft/``.
-**Even on systems which have installations of gkyl dependencies such as MPI, the mkdeps script must be run first to build other gkyl dependencies such as LuaJIT.**
+where ``[SYSTEM]`` should be replaced by the name of the system you are building
+on, such as ``linux``, ``macosx``, or ``eddy``. By default, installations will
+be made in ``~/gkylsoft/``. **Even on systems which have installations of gkyl
+dependencies such as MPI, the mkdeps script must be run first to build other
+gkyl dependencies such as LuaJIT.**
 
 2. Configure ``waf`` using a ``configure`` script from the ``machines/`` directory::
 
 
      ./machines/configure.[SYSTEM].sh
 
-**NOTE**: Steps 1 and 2 should only need to be done on the first
-build, unless one wishes to change the dependencies.
-A successful ``waf`` configure, on a system without GPU support, will look like:
+**NOTE**: Steps 1 and 2 should only need to be done on the first build, unless
+one wishes to change the dependencies. A successful ``waf`` configure, on a
+system without GPU support, will look like:
 
 .. code-block:: bash
 
@@ -94,7 +98,9 @@ Note that if MPI was built as well as the part of the installation,
 ``~/gkylsoft/openmpi/bin/`` needs to be added to the ``PATH`` as
 well. Finally, on some distributions, it is required to add
 ``~/gkylsoft/openmpi/lib/`` to the ``LD_LIBRARY_PATH`` environmental
-variable.
+variable::
+
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/gkylsoft/openmpi/lib
 
 .. _gkyl_install_machines_readme:
 
@@ -109,8 +115,11 @@ machine. Instructions can be found in ``machines/README.md``.
   :title: Gkeyll on Power9
   :collapsible:
 
-  Using Gkeyll on IBM Power9 systems (like `Summit <https://www.olcf.ornl.gov/olcf-resources/compute-systems/summit/>`_ or `Traverse <https://researchcomputing.princeton.edu/systems/traverse>`_) is not recommended. This is due to incomplete support
-  for the LuaJIT compiler on Power9.
+  Using Gkeyll on IBM Power9 systems (like `Summit
+  <https://www.olcf.ornl.gov/olcf-resources/compute-systems/summit/>`_ or
+  `Traverse <https://researchcomputing.princeton.edu/systems/traverse>`_) is not
+  recommended. This is due to incomplete support for the LuaJIT compiler on
+  Power9.
 
 
 Installing from source manually
@@ -119,11 +128,10 @@ Installing from source manually
 If machine files are not available, the dependencies, configuration, and build
 can be done manually.
 
-The first step is to build the
-dependencies. Depending on your system, building dependencies can be
-complicated. On a Mac or Linux machine you can simply run the
-mkdeps.sh script in the install-deps directory. To build dependencies
-cd to::
+The first step is to build the dependencies. Depending on your system, building
+dependencies can be complicated. On a Mac or Linux machine you can simply run
+the mkdeps.sh script in the install-deps directory. To build dependencies cd
+to::
 
   cd gkyl/install-deps
 
@@ -131,49 +139,49 @@ First, please check details by running::
 
   ./mkdeps.sh -h
 
-On most supercomputers you will likely need to use the system
-recommended compilers and MPI libraries. In this case, you should pass
-the appropriate compilers to mkdeps.sh as follows::
+On most supercomputers you will likely need to use the system recommended
+compilers and MPI libraries. In this case, you should pass the appropriate
+compilers to mkdeps.sh as follows::
 
   ./mkdeps.sh CC=cc CXX=cxx MPICC=mpicc MPICXX=mpicxx ....
 
-You should only build libraries *not* provided by the system. In
-practice, this likely means LuaJIT, ADIOS and, perhaps Eigen. (Many
-supercomputer centers at DOE already offer ADIOS builds and should be
-preferred instead of your own builds). A typical command will be::
+You should only build libraries *not* provided by the system. In practice, this
+likely means LuaJIT, ADIOS and, perhaps Eigen. (Many supercomputer centers at
+DOE already offer ADIOS builds and should be preferred instead of your own
+builds). A typical command will be::
 
   ./mkdeps.sh --build-adios=yes --build-luajit=yes --build-eigen=yes
 
 (in addition, you may need to specify compilers also).
 
-By default, the mkdeps.sh script will install dependencies in
-$HOME/gkylsoft directory. If you install it elsewhere, you will need
-to modify the instructions below accordingly.
+By default, the mkdeps.sh script will install dependencies in $HOME/gkylsoft
+directory. If you install it elsewhere, you will need to modify the instructions
+below accordingly.
 
-Once you have all dependencies installed, you can build gkyl itself by
-cd-ing to the top-directory in the source. gkyl uses the Waf build
-system. You do NOT need to install waf as it is included with the
-distribution. However, waf depends on Python (included on most
-systems). Waf takes a number of options. To get a list do ::
+Once you have all dependencies installed, you can build gkyl itself by cd-ing to
+the top-directory in the source. gkyl uses the Waf build system. You do NOT need
+to install waf as it is included with the distribution. However, waf depends on
+Python (included on most systems). Waf takes a number of options. To get a list
+do ::
 
    ./waf --help
 
-There are two build scenarios: first, all dependencies are installed
-in $HOME/gkylsoft directory, and second, you are using some libraries
-supplied by your system.
+There are two build scenarios: first, all dependencies are installed in
+$HOME/gkylsoft directory, and second, you are using some libraries supplied by
+your system.
 
-If you have installed all dependencies in the gkylsoft directory you
-can simply run::
+If you have installed all dependencies in the gkylsoft directory you can simply
+run::
 
     ./waf configure CC=mpicc CXX=mpicxx
 
-where CC and CXX are names of the MPI compilers to use. Note that in
-some cases the full path to the compiler may need to be specified. If
-the compilers are already in your path, then you can omit all flags.
+where CC and CXX are names of the MPI compilers to use. Note that in some cases
+the full path to the compiler may need to be specified. If the compilers are
+already in your path, then you can omit all flags.
 
-If you need to use system supplied builds, you need to specify more
-complex set of paths. Although you can do this by passing options to
-the waf build script, it is easiest to follow these steps:
+If you need to use system supplied builds, you need to specify more complex set
+of paths. Although you can do this by passing options to the waf build script,
+it is easiest to follow these steps:
 
 -  Copy the configure-par.sh-in script to configure-par.sh
 
@@ -183,16 +191,15 @@ the waf build script, it is easiest to follow these steps:
 
 -  Run the configure-par.sh script
 
-Once the configuration is complete, run the following command to build
-and install (note: if you are working on a cluster and using environment
-modules, you may need to load them at this point)::
+Once the configuration is complete, run the following command to build and
+install (note: if you are working on a cluster and using environment modules,
+you may need to load them at this point)::
 
     ./waf build install
 
-The builds are created in the 'build' directory and the executable is
-installed in $HOME/gkylsoft/gkyl/bin, unless you specified a different
-install prefix. The executable can *only* be run from the install
-directory [#why]_.
+The builds are created in the 'build' directory and the executable is installed
+in ``$HOME/gkylsoft/gkyl/bin``, unless you specified a different install prefix. The
+executable can *only* be run from the install directory [#why]_.
 
 If you need to clean up a build do:
 
@@ -209,10 +216,10 @@ If you need to uninstall do:
 Note on building LuaJIT
 ***********************
 
-LuaJIT builds easily on most machines with standard GCC compiler. Often,
-you may run into problems on older gcc as they do not include the log2
-and exp2 functions unless c99 standard is enabled. To get around this,
-modify the src/Makefile in LuaJIT. To do this, change the line:
+LuaJIT builds easily on most machines with standard GCC compiler. Often, you may
+run into problems on older gcc as they do not include the ``log2`` and ``exp2``
+functions unless c99 standard is enabled. To get around this, modify the
+``src/Makefile`` in LuaJIT. To do this, change the line:
 
 ::
 
@@ -251,8 +258,8 @@ suggestions and common error messages in
 
 .. rubric:: Footnotes
 
-.. [#why] The reason for this is that gkyl is in reality a LuaJIT
-    compiler extended with MPI. Hence, for the compiler to find Lua
-    modules (i.e. gkyl specific code) certain paths need to be set
-    which is done relative to the install location.
+.. [#why] The reason for this is that gkyl is in reality a LuaJIT compiler
+    extended with MPI. Hence, for the compiler to find Lua modules (i.e. gkyl
+    specific code) certain paths need to be set which is done relative to the
+    install location.
 
