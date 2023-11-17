@@ -6,7 +6,7 @@ gkyl install
 To install gkyl from source, first clone the `GitHub
 <https://github.com/ammarhakim/gkyl>`_ repository using::
 
-     git clone https://github.com/ammarhakim/gkyl
+     git clone https://github.com/ammarhakim/gkyl.git
 
 Navigate into the ``gkyl`` directory to begin.
 
@@ -50,7 +50,7 @@ built in three steps using scripts found in the ``machines/`` directory.
 where ``[SYSTEM]`` should be replaced by the name of the system you are building
 on, such as ``linux``, ``macosx``, or ``perlmutter``. By default, installations will
 be made in ``$HOME/gkylsoft/``. **Even on systems which have installations of gkyl
-dependencies such as MPI, the mkdeps script must be run first to build the ``gkylzero`` 
+dependencies such as MPI, the mkdeps script must be run first to build the gkylzero 
 library and other gkyl dependencies such as LuaJIT.**
 
 2. Configure ``waf`` using a ``configure`` script from the ``machines/`` directory::
@@ -64,7 +64,7 @@ system without GPU support (in this case a Mac OSX system), will look like:
 
 .. code-block:: bash
 
-./waf CC=clang CXX=clang++ MPICC=/Users/junoravin/gkylsoft/openmpi/bin/mpicc MPICXX=/Users/junoravin/gkylsoft/openmpi/bin/mpicxx --out=build -p /Users/junoravin/gkylsoft --prefix=/Users/junoravin/gkylsoft/gkyl --cxxflags=-O3,-std=c++17 --luajit-inc-dir=/Users/junoravin/gkylsoft/luajit/include/luajit-2.1 --luajit-lib-dir=/Users/junoravin/gkylsoft/luajit/lib --luajit-share-dir=/Users/junoravin/gkylsoft/luajit/share/luajit-2.1.0-beta3 --enable-mpi --mpi-inc-dir=/Users/junoravin/gkylsoft/openmpi/include --mpi-lib-dir=/Users/junoravin/gkylsoft/openmpi/lib --mpi-link-libs=mpi --enable-adios --adios-inc-dir=/Users/junoravin/gkylsoft/adios/include --adios-lib-dir=/Users/junoravin/gkylsoft/adios/lib --enable-gkylzero --gkylzero-inc-dir=/Users/junoravin/gkylsoft/gkylzero/include --gkylzero-lib-dir=/Users/junoravin/gkylsoft/gkylzero/lib --enable-superlu --superlu-inc-dir=/Users/junoravin/gkylsoft/superlu/include --superlu-lib-dir=/Users/junoravin/gkylsoft/superlu/lib --enable-openblas --openblas-inc-dir=/Users/junoravin/gkylsoft/OpenBLAS/include --openblas-lib-dir=/Users/junoravin/gkylsoft/OpenBLAS/lib configure
+bash$ ./waf CC=clang CXX=clang++ MPICC=/Users/junoravin/gkylsoft/openmpi/bin/mpicc MPICXX=/Users/junoravin/gkylsoft/openmpi/bin/mpicxx --out=build -p /Users/junoravin/gkylsoft --prefix=/Users/junoravin/gkylsoft/gkyl --cxxflags=-O3,-std=c++17 --luajit-inc-dir=/Users/junoravin/gkylsoft/luajit/include/luajit-2.1 --luajit-lib-dir=/Users/junoravin/gkylsoft/luajit/lib --luajit-share-dir=/Users/junoravin/gkylsoft/luajit/share/luajit-2.1.0-beta3 --enable-mpi --mpi-inc-dir=/Users/junoravin/gkylsoft/openmpi/include --mpi-lib-dir=/Users/junoravin/gkylsoft/openmpi/lib --mpi-link-libs=mpi --enable-adios --adios-inc-dir=/Users/junoravin/gkylsoft/adios/include --adios-lib-dir=/Users/junoravin/gkylsoft/adios/lib --enable-gkylzero --gkylzero-inc-dir=/Users/junoravin/gkylsoft/gkylzero/include --gkylzero-lib-dir=/Users/junoravin/gkylsoft/gkylzero/lib --enable-superlu --superlu-inc-dir=/Users/junoravin/gkylsoft/superlu/include --superlu-lib-dir=/Users/junoravin/gkylsoft/superlu/lib --enable-openblas --openblas-inc-dir=/Users/junoravin/gkylsoft/OpenBLAS/include --openblas-lib-dir=/Users/junoravin/gkylsoft/OpenBLAS/lib configure
 Setting top to                           : /Users/junoravin/branches-gkyl/g0-merge-build-improve/gkyl
 Setting out to                           : /Users/junoravin/branches-gkyl/g0-merge-build-improve/gkyl/build
 Checking for 'clang' (C compiler)        : clang
@@ -212,8 +212,8 @@ builds). A typical command will be::
 
 By default, the mkdeps.sh script will install dependencies in $HOME/gkylsoft
 directory. If you install it elsewhere, you will need to modify the instructions
-below accordingly. **Make sure to adjust the installation location for both ``gkylzero`` 
-and ``gkyl`` consistently so the build system can find the ``gkylzero`` library**.
+below accordingly. **Make sure to adjust the installation location for both gkylzero 
+and gkyl consistently so the build system can find the gkylzero library**.
 
 Once you have all dependencies installed, you can build gkyl itself by cd-ing to
 the top-directory in the source. gkyl uses the Waf build system. You do NOT need
