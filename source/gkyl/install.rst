@@ -292,7 +292,7 @@ to:
 Note on building on Mac OS X
 ****************************
 
-To build on Mac OS X Mojave and beyond you must set the following env flag::
+On some Mac OSX systems, **especially older systems such as Mojave**, you may need to set the following env flag::
 
   export MACOSX_DEPLOYMENT_TARGET=10.YY
 
