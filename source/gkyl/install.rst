@@ -29,7 +29,7 @@ library:
 * Python 3.11
 * MPI compiler with MPI3 support (>=openmpi 3.0 or >=mpich 3.0)
 * LuaJIT 2.1.0
-* ADIOS 2.0
+* ADIOS 2.0 (**requires CMake to be installed**)
 * CUDA Toolkit >=12.0 (**if building with GPU support**)
 * Nvidia Collective Communication Library (NCCL) >=2.18.3 (**if building with GPU support**)
 
@@ -53,6 +53,15 @@ be made in ``$HOME/gkylsoft/``. **Even on systems which have installations of gk
 dependencies such as MPI, the mkdeps script must be run first to build the gkylzero 
 library and other gkyl dependencies such as LuaJIT.**
 
+.. warning::
+  :title: Installing in non-default directory
+  :collapsible:
+
+  If you wish to install Gkeyll somewhere other than `$HOME/gkylsoft/` please
+  change the variable `GKYLSOFT` near the top of both machine files (i.e.
+  `mkdeps.[SYSTEM].sh` and `configure.[SYSTEM].sh`) to point to the desired
+  installation location before running them.
+
 2. Configure ``waf`` using a ``configure`` script from the ``machines/`` directory::
 
 
@@ -74,43 +83,53 @@ Setting prefix:                          : /Users/junoravin/gkylsoft/gkyl
 Checking for LUAJIT                      : Found LuaJIT
 Checking for MPI                         : Found MPI
 Checking for ADIOS                       : Found ADIOS
-Checking for EIGEN                       : Found EIGEN
 Checking for Sqlite3                     : Using Sqlite3
 Checking for SUPERLU                     : Found SUPERLU
 Checking for OPENBLAS                    : Found OPENBLAS
 Checking for gkylzero                    : Found gkylzero
 'configure' finished successfully (3.529s)
 
-3. Build the code using::
+3. Manually load the modules at the top of the `./machines/configure.[SYSTEM].sh` file, and build the code using::
 
      ./waf build install
 
 The final result will be a ``gkyl`` executable located in the
-``~/gkylsoft/gkyl/bin/`` directory.  Feel free to add this directory
+``$HOME/gkylsoft/gkyl/bin/`` directory.  Feel free to add this directory
 to your ``PATH`` environment variable or `create an alias
 <https://linuxize.com/post/how-to-create-bash-aliases/>`_ so you can
 simply call ``gkyl``.
 
 Note that if MPI was built as well as the part of the installation,
-``~/gkylsoft/openmpi/bin/`` needs to be added to the ``PATH`` as
+``$HOME/gkylsoft/openmpi/bin/`` needs to be added to the ``PATH`` as
 well. Finally, on some distributions, it is required to add
-``~/gkylsoft/openmpi/lib/`` to the ``LD_LIBRARY_PATH`` environmental
+``$HOME/gkylsoft/openmpi/lib/`` to the ``LD_LIBRARY_PATH`` environmental
 variable::
 
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/gkylsoft/openmpi/lib
 
 .. _gkyl_install_machines_readme:
 
-Machine files for non-native systems
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Creating machine files for new systems
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 For systems that do not already have corresponding files in the
-``machines/`` directory, we encourage you to add files for your
-machine. Instructions can be found in ``machines/README.md``.
+``machines/`` directory, we encourage you to create machine files
+for your machine (and add it to the repository). Instructions
+can be found in ``machines/README.md``, and you can use other machine
+files as examples.
 
 If you are building ``gkyl`` for the first time on a new machine, 
 you **must** independently build the ``gkylzero`` library following 
 the instructions in :ref:`installing from source manually <gkyl_install_from_source>`.
+
+An alternative to building gkylzero manually, especially desirable for systems
+other users will employ, is to:
+
+1. Create gkylzero machine files.
+2. Commit them to the gkylzero repository.
+3. Create gkyl machine files (as mentioned above).
+4. Add corresponding lines in `install-deps/build-gkylzero.sh` that call the gkylzero machine files for your system.
+5. Proceed with the installation (running gkyl machine files).
 
 .. warning::
   :title: Gkeyll on Power9
