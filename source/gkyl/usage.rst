@@ -45,13 +45,14 @@ modalities you will use. We provide some examples of each of these below.
 Serial simulations
 ^^^^^^^^^^^^^^^^^^
 
-Suppose you have the :doc:`kbm.lua <inputFiles/kbm>` input file for a linear
-kinetic ballooning mode (KBM) calculation with gyrokinetics. In the Common section
-of the App declaration (i.e. between ``plasmaApp = Plasma.App {`` and
-``electron = Plasma.Species {``) there are two variables, ``decompCuts`` and ``useShared``.
-The refer to the number of MPI decompositions and the use of MPI shared memory, respectively.
+Suppose you have the :doc:`gk-sheath.lua <inputFiles/gk-sheath>` input file for simple 3D
+gyrokinetic calculation with sheaths at the z-boundaries and a source in the middle (along z).
+In the Common section of the App declaration (i.e. between ``plasmaApp = Plasma.App {`` and
+``electron = Plasma.Species {``) there are two variables, ``decompCuts`` and ``parallelizeSpecies``.
+The refer to the number of MPI/NCCL decompositions and whether to parallelize amongst
+species, respectively.
 
-For serial simulations one can remove these from the input file, or ``useShared``
+For serial simulations one can remove these from the input file, or ``parallelizeSpecies``
 must be set to ``false``, and ``decompCuts`` must be a table with as many 1's as
 there are configuration space dimensions (three in this case). That's why the input
 file contains:
@@ -60,8 +61,8 @@ file contains:
 
   plasmaApp = Plasma.App {
      ...
-     decompCuts = {1, 1, 1},   -- Cuts in each configuration direction.
-     useShared  = false,       -- If to use shared memory.
+     decompCuts = {1, 1, 1},       -- Parallel decomposition in each position dimension.
+     parallelizeSpecies = false,   -- =True to parallelize amongst species.
      ...
   }
 
@@ -69,7 +70,7 @@ Then one can run the input file in serial with the simple command:
 
 .. code:: bash
 
-  gkyl kbm.lua
+  gkyl gk-sheath.lua
 
 By the time it completes, after 54 seconds on a 2015 MacbookPro, this simulation will
 produce the following output to screen:
@@ -77,45 +78,63 @@ produce the following output to screen:
 .. code-block:: bash
   :linenos:
 
-  Thu Sep 17 2020 22:20:16.000000000
-  Gkyl built with 1b66bd4a21e5+
-  Gkyl built on Sep 17 2020 22:20:05
+  Wed Nov 22 2023 06:21:32.000000000
+  Gkyl built with ba9804d818a0+
+  Gkyl built on Nov 22 2023 05:53:12
   Initializing Gyrokinetic simulation ...
-  Initializing completed in 12.9906 sec
-
+  ...Initializing the geometry...
+  ...Finished initializing the geometry
+  Initialization completed in 0.682254 sec
+  
   Starting main loop of Gyrokinetic simulation ...
-
-   Step 0 at time 0. Time step 1.11219e-08. Completed 0%
-  0123456789 Step    27 at time 3.00286e-07. Time step 1.11215e-08. Completed 10%
-  0123456789 Step    54 at time 6.00559e-07. Time step 1.1121e-08. Completed 20%
-  0123456789 Step    80 at time 8.89697e-07. Time step 1.11204e-08. Completed 30%
-  0123456789 Step   107 at time 1.18994e-06. Time step 1.11197e-08. Completed 40%
-  0123456789 Step   133 at time 1.47904e-06. Time step 1.11189e-08. Completed 50%
-  0123456789 Step   160 at time 1.77924e-06. Time step 1.11179e-08. Completed 60%
-  0123456789 Step   186 at time 2.06828e-06. Time step 1.11165e-08. Completed 70%
-  0123456789 Step   213 at time 2.3684e-06. Time step 1.11145e-08. Completed 80%
-  0123456789 Step   239 at time 2.65735e-06. Time step 1.11121e-08. Completed 90%
-  0123456789 Step   266 at time 2.94849e-06. Time step 2.27109e-09. Completed 100%
+  
+   Step 0 at time 0. Time step 3.85131e-09. Completed 0%
+  0123456789 Step    181 at time  1.0034559e-06.  Time step  5.772559e-09.  Completed 10%
+  0123456789 Step    354 at time  2.0008187e-06.  Time step  5.786316e-09.  Completed 20%
+  0123456789 Step    526 at time  3.0054393e-06.  Time step  5.887145e-09.  Completed 30%
+  0123456789 Step    694 at time  4.0039870e-06.  Time step  5.969119e-09.  Completed 40%
+  0123456789 Step    863 at time  5.0043606e-06.  Time step  5.878178e-09.  Completed 50%
+  0123456789 Step   1034 at time  6.0043831e-06.  Time step  5.826699e-09.  Completed 60%
+  0123456789 Step   1206 at time  7.0044600e-06.  Time step  5.808335e-09.  Completed 70%
+  0123456789 Step   1378 at time  8.0036796e-06.  Time step  5.814198e-09.  Completed 80%
+  0123456789 Step   1550 at time  9.0054347e-06.  Time step  5.836166e-09.  Completed 90%
+  0123456789 Step   1720 at time  1.0000000e-05.  Time step  5.867871e-09.  Completed 100%
   0
-  Total number of time-steps 267
-  Solver took				 25.14505 sec   (0.094176 s/step)   (46.493%)
-  Solver BCs took 			  2.14804 sec   (0.008045 s/step)   ( 3.972%)
-  Field solver took 			  0.58969 sec   (0.002209 s/step)   ( 1.090%)
-  Field solver BCs took			  0.20732 sec   (0.000776 s/step)   ( 0.383%)
-  Function field solver took		  0.00000 sec   (0.000000 s/step)   ( 0.000%)
-  Moment calculations took		 18.12544 sec   (0.067886 s/step)   (33.514%)
-  Integrated moment calculations took	  4.57880 sec   (0.017149 s/step)   ( 8.466%)
-  Field energy calculations took		  0.03020 sec   (0.000113 s/step)   ( 0.056%)
-  Collision solver(s) took		  0.00000 sec   (0.000000 s/step)   ( 0.000%)
-  Collision moments(s) took		  0.00000 sec   (0.000000 s/step)   ( 0.000%)
-  Source updaters took 			  0.00000 sec   (0.000000 s/step)   ( 0.000%)
-  Stepper combine/copy took		  1.39611 sec   (0.005229 s/step)   ( 2.581%)
-  Time spent in barrier function		  0.14791 sec   (0.000554 s/step)   ( 0.273%)
-  [Unaccounted for]			  1.86320 sec   (0.006978 s/step)   ( 3.445%)
-
-  Main loop completed in			 54.08386 sec   (0.202561 s/step)   (   100%)
-
-  Thu Sep 17 2020 22:21:23.000000000
+  
+  Total number of time-steps 1721
+     Number of forward-Euler calls 5160
+     Number of RK stage-2 failures 0
+     Number of RK stage-3 failures 0
+  
+  Initialization took                            0.68225 s   ( 0.000000 s/step)   ( 0.313%)
+  Time loop took                               217.07308 s   ( 0.126132 s/step)   (99.687%)
+    - dydt took                                189.46968 s   ( 0.110093 s/step)   (87.010%)
+      * moments:                                 5.94806 s   ( 0.003456 s/step)   ( 2.732%)
+      * cross moments:                           0.03912 s   ( 0.000023 s/step)   ( 0.018%)
+      * field solver:                            0.63576 s   ( 0.000369 s/step)   ( 0.292%)
+      * external field solver:                   0.00000 s   ( 0.000000 s/step)   ( 0.000%)
+      * species advance:                       182.63234 s   ( 0.106120 s/step)   (83.870%)
+        > collisionless:                        65.12254 s   ( 0.037840 s/step)   (29.906%)
+        > collisions:                           17.88435 s   ( 0.010392 s/step)   ( 8.213%)
+        > boundary flux:                        91.90787 s   ( 0.053404 s/step)   (42.207%)
+        > sources:                               4.30072 s   ( 0.002499 s/step)   ( 1.975%)
+        > [Unaccounted]                          3.41686 s   ( 0.001985 s/step)   ( 1.871%)
+      * species advanceCross:                    0.04427 s   ( 0.000026 s/step)   ( 0.020%)
+      * [Unaccounted]                            0.17012 s   ( 0.000099 s/step)   ( 0.090%)
+    - forward Euler took                        10.72175 s   ( 0.006230 s/step)   ( 4.924%)
+      * dt calc took                             0.33906 s   ( 0.000197 s/step)   ( 0.156%)
+      * combine took                             7.84348 s   ( 0.004558 s/step)   ( 3.602%)
+      * BCs took                                 2.51847 s   ( 0.001463 s/step)   ( 1.157%)
+      * [Unaccounted]                            0.02074 s   ( 0.000012 s/step)   ( 0.193%)
+    - copy took                                  1.26362 s   ( 0.000734 s/step)   ( 0.580%)
+    - combine took                               6.46956 s   ( 0.003759 s/step)   ( 2.971%)
+    - diagnostic write took                      8.22999 s   ( 0.004782 s/step)   ( 3.779%)
+    - restart write took                         0.78727 s   ( 0.000457 s/step)   ( 0.362%)
+    - [Unaccounted]                              0.13121 s   ( 0.000076 s/step)   ( 0.060%)
+  Whole simulation took                        217.75546 s   ( 0.126528 s/step)   (100.000%)
+  [Unaccounted]                                  0.00012 s   ( 0.000000 s/step)   ( 0.000%)
+  
+  Wed Nov 22 2023 06:25:10.000000000
 
 These simulation logs contain the following:
 
@@ -125,18 +144,19 @@ These simulation logs contain the following:
   * - Line 1:
     - start date and time.
   * - Lines 2-3:
-    - gkyl repository revision with which this simulation was run, and
+    - gkyl repository revision with which this simulation was run (a + at the
+      end indicate it's been modified from the version in github), and
       the date on which the executable was built.
-  * - Line 9:
+  * - Line 11:
     - report the initial time step number, time and initial time step size.
-  * - Lines 10-19:
+  * - Lines 12-21:
     - report progress every 1% of the simulation (first column).
       Then, every 10% of the simulation time, give the number of time steps taken so far,
       simulation time transcurred, and the latest time step size.
-  * - Lines 21-37:
+  * - Lines 23-54:
     - give various metrics regarding the time-steps and wall-clock time taken
       by the simulation, and the time spent on various parts of the calculation.
-  * - Line 39:
+  * - Line 55:
     - Date and time when the simulation finished.
 
 Also, by default gkyl produces a log file with the format ``<input-file-name>_0.log``.
@@ -148,22 +168,22 @@ Parallel simulation
 ^^^^^^^^^^^^^^^^^^^
 
 For large problems running on a single CPU can lead to impractical runtimes. In those
-cases one benefits from parallelizing the simulation over many CPUs. This is
-accomplished in gkyl by decomposing the (phase) space into MPI domains. Therefore, in
-order to run parallel simulations you must have a parallel installation of gkyl, as most
-installations typically are.
+cases one benefits from parallelizing the simulation over many CPUs (or GPUs, see next
+section). This is accomplished in gkyl by decomposing the (position) space into subdomains
+and/or decomposing the species into subpopulations, and handing off each
+subdomain/subpopulation to a separate parallel process (with MPI or NCCL on GPUs).
 
-Suppose one wishes to run the kinetic ballooning mode (KBM) calculation in
+Suppose one wishes to run the 3D sheath calculation in
 :ref:`the previous section <gkyl_usage_run_serial>` on a node with 16 cores,
-using 4 MPI processes along :math:`y` and 4 along :math:`z`. In this case one must edit the
+using 4 MPI processes along :math:`x` and 4 along :math:`z`. In this case one must edit the
 variable ``decompCuts`` in the Common of the input file to reflect this decomposition:
 
 .. code:: Lua
 
   plasmaApp = Plasma.App {
      ...
-     decompCuts = {1, 4, 4},   -- Cuts in each configuration direction.
-     useShared  = false,       -- If to use shared memory.
+     decompCuts = {4, 1, 4},       -- Parallel decomposition in each position dimension.
+     parallelizeSpecies = false,   -- =True to parallelize amongst species.
      ...
   }
 
@@ -173,7 +193,7 @@ the simulation with the MPI executable provided by your cluster or MPI implement
 
 .. code:: bash
 
-  mpirun -n 16 gkyl kbm.lua
+  mpirun -n 16 gkyl gk-sheath.lua
 
 The argument following ``-n`` is the total number of MPI processes to launch, in this case
 :math:`4\times4=16`. This clearly requires that your computer/node/job has access to
@@ -183,24 +203,39 @@ at least 16 cores.
 
    The number of ``decompCuts`` in any dimension should not exceed the number of cells in that dimension.
 
-.. note::
+Another way to parallelize a simulation with more than one species is to send each
+species (or groups of) to separate MPI processes. For example, we could instead use 2
+MPI processes along :math:`z` and 4 along :math:`z`, and further parallelize species
+to utilize all 16 cores by setting
 
-   - (**This feature may be superseeded soon**) One can request additional
-     parallelism in velocity space for kinetic simulations by setting ``useShared = true``.
-     This enables MPI shared memory. In this case the ``decompCuts`` must specify the
-     *number of nodes* and not number of processors. That is, the total
-     number of processors will be determined from ``decompCuts`` and
-     the number of threads per node.
+.. code:: Lua
+
+  plasmaApp = Plasma.App {
+     ...
+     decompCuts = {2, 1, 4},      -- Parallel decomposition in each position dimension.
+     parallelizeSpecies = true,   -- =True to parallelize amongst species.
+     ...
+  }
+
+and again launching the executable with
+
+.. code:: bash
+
+  mpirun -n 16 gkyl gk-sheath.lua
+
+In simulations with few (or no) cross-species interactions species parallelization is
+particularly efficient.
 
 On many computer clusters where one may run parallel simulations one must submit
 scripts in order to submit a job. This jobscript causes the simulation to be queued
 so that it runs once resources (i.e. cores, nodes) become available. When resources are
 finally available the simulation runs in a compute node (instead of the login node).
 
-Jobscripts for some machines are provided below. Note that the installation
-instructions point to :ref:`machine scripts <gkyl_install_machines>` for building gkyl
-on each of these computers. If you need assistance with setting up gkyl in a new cluster,
-:ref:`see this <gkyl_install_machines_readme>` or feel free to contact the developers.
+Jobscripts for some machines are provided in the ``gkyl/machine`` folder and below. Note
+that the installation instructions point to :ref:`machine scripts <gkyl_install_machines>`
+for building gkyl on each of these computers. If you need assistance with setting up gkyl
+in a new cluster, :ref:`see this <gkyl_install_machines_readme>` or feel free to contact
+the developers.
 
 Sample submit scripts:
 
@@ -208,8 +243,6 @@ Sample submit scripts:
 - :doc:`TACC's Stampede2 <inputFiles/jobscript_stampede2>`.
 - :doc:`TACC's Frontera <inputFiles/jobscript_frontera>`.
 - :doc:`MIT's Engaging <inputFiles/jobscript_engaging>`.
-- :doc:`Princeton's Eddy <inputFiles/jobscript_eddy>`.
-- :doc:`Princeton's Adroit <inputFiles/jobscript_adroitCPU>`.
 - :doc:`Princeton's Stellar <inputFiles/jobscript_stellar>`.
 - :doc:`PPPL's Portal <inputFiles/jobscript_portal>`.
 
@@ -218,28 +251,56 @@ Sample submit scripts:
 Running on GPUs
 ^^^^^^^^^^^^^^^
 
-Gkyl is also capable of running on graphical processing units (GPUs) with minimal modifiation
-of an input file that you would use to run on CPUs. Our implementation of GPU capabilities uses
-CUDA. At the moment, if gkyl was built with CUDA and the node one is performing the computation
-in has a GPU, it will default to running the calculation in a GPU. So given an input file
-``cudaInputFile.lua``, we would simply run it with
+Gkyl is also capable of running on graphical processing units (GPUs) with minimal or no
+modifiation of an input file that you would use to run on CPUs. Our implementation of GPU
+capabilities uses CUDA and NCCL. Our model is to launch an MPI process for each GPU available.
+For this reason one must always launch gkyl with ``mpirun``, ``mpiexec`` or any equivalent
+command provided by the system (e.g. ``srun``). Furthermore, one must provide the ``-g`` flag
+following the gkyl executable. For example given the input file ``gk-sheath.lua`` previously
+mentioned, we would simply run it with on a single GPU with
 
 .. code:: bash
 
-  gkyl cudaInputFile.lua
+  mpirun -np 1 gkyl -g gk-sheath.lua
+
+If multiple GPUs are available, one may use those to decompose position space and/or
+species using ``decompCuts`` and ``speciesParallelization`` in the same way it is done for
+CPUs (as explained above). We just need to ensure there are enough GPUs for the amount of
+parallelization requested. For example, if we have 4 nodes with 4 GPUs each, we can again
+use
+
+.. code:: Lua
+
+  plasmaApp = Plasma.App {
+     ...
+     decompCuts = {2, 1, 4},      -- Parallel decomposition in each position dimension.
+     parallelizeSpecies = true,   -- =True to parallelize amongst species.
+     ...
+  }
+
+to parallelize along :math:`x`, :math:`z` and species on 16 GPUs, and launch the simulation
+with
+
+.. code:: bash
+
+  mpirun -n 16 gkyl -g gk-sheath.lua
+
+.. warning::
+  :title: (multi)GPU runs on clusters
+  :collapsible:
+
+  Clusters often have specific instructions for running GPU and multi-GPU jobs. Please
+  refer to your cluster's documentation/admins to determine the correct/best way to run
+  such simulations on that system.
 
 On clusters is often common to submit scripts that queue the job for running on compute
 nodes (when the resources become available). In fact this is often preferable to `ssh`-ing
-into a node if that is even possible. Some sample job scripts for running parallel (CPU)
-jobs were given in :ref:`the previous section <gkyl_usage_run_parallel>`, and below we
-provide some sample jobscripts for submitting GPU jobs:
+into a node if that is even possible. Some sample job scripts for running GPU-enabled jobs
+are in the ``gkyl/machines`` folder and below:
 
 - :doc:`PPPL's Portal <inputFiles/jobscript_portalGPU>`.
 - :doc:`Princeton's Adroit <inputFiles/jobscript_adroitGPU>`.
-
-Some usage and development notes regarding gkyl's GPU capabilities can be found
-`in this repository <https://github.com/ammarhakim/gkylgpuhack/tree/master/clusterInfo>`_.
-
+- :doc:`NERSC's Perlmutter <inputFiles/jobscript_perlmutterGPU>`.
 
 Restarts
 --------
