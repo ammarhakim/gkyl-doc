@@ -45,7 +45,7 @@ built in three steps using scripts found in the ``machines/`` directory.
 
 1. Install dependencies using a ``mkdeps`` script from the ``machines/`` directory::
 
-     ./machines/mkdeps.[SYSTEM].sh
+   ./machines/mkdeps.[SYSTEM].sh
 
 where ``[SYSTEM]`` should be replaced by the name of the system you are building
 on, such as ``linux``, ``macosx``, or ``perlmutter``. By default, installations will
@@ -64,8 +64,7 @@ library and other gkyl dependencies such as LuaJIT.**
 
 2. Configure ``waf`` using a ``configure`` script from the ``machines/`` directory::
 
-
-     ./machines/configure.[SYSTEM].sh
+   ./machines/configure.[SYSTEM].sh
 
 **NOTE**: Steps 1 and 2 should only need to be done on the first build, unless
 one wishes to change the dependencies. A successful ``waf`` configure, on a
@@ -73,25 +72,25 @@ system without GPU support (in this case a Mac OSX system), will look like:
 
 .. code-block:: bash
 
-bash$ ./waf CC=clang CXX=clang++ MPICC=/Users/junoravin/gkylsoft/openmpi/bin/mpicc MPICXX=/Users/junoravin/gkylsoft/openmpi/bin/mpicxx --out=build -p /Users/junoravin/gkylsoft --prefix=/Users/junoravin/gkylsoft/gkyl --cxxflags=-O3,-std=c++17 --luajit-inc-dir=/Users/junoravin/gkylsoft/luajit/include/luajit-2.1 --luajit-lib-dir=/Users/junoravin/gkylsoft/luajit/lib --luajit-share-dir=/Users/junoravin/gkylsoft/luajit/share/luajit-2.1.0-beta3 --enable-mpi --mpi-inc-dir=/Users/junoravin/gkylsoft/openmpi/include --mpi-lib-dir=/Users/junoravin/gkylsoft/openmpi/lib --mpi-link-libs=mpi --enable-adios --adios-inc-dir=/Users/junoravin/gkylsoft/adios/include --adios-lib-dir=/Users/junoravin/gkylsoft/adios/lib --enable-gkylzero --gkylzero-inc-dir=/Users/junoravin/gkylsoft/gkylzero/include --gkylzero-lib-dir=/Users/junoravin/gkylsoft/gkylzero/lib --enable-superlu --superlu-inc-dir=/Users/junoravin/gkylsoft/superlu/include --superlu-lib-dir=/Users/junoravin/gkylsoft/superlu/lib --enable-openblas --openblas-inc-dir=/Users/junoravin/gkylsoft/OpenBLAS/include --openblas-lib-dir=/Users/junoravin/gkylsoft/OpenBLAS/lib configure
-Setting top to                           : /Users/junoravin/branches-gkyl/g0-merge-build-improve/gkyl
-Setting out to                           : /Users/junoravin/branches-gkyl/g0-merge-build-improve/gkyl/build
-Checking for 'clang' (C compiler)        : clang
-Checking for 'clang++' (C++ compiler)    : clang++
-Setting dependency path:                 : /Users/junoravin/gkylsoft
-Setting prefix:                          : /Users/junoravin/gkylsoft/gkyl
-Checking for LUAJIT                      : Found LuaJIT
-Checking for MPI                         : Found MPI
-Checking for ADIOS                       : Found ADIOS
-Checking for Sqlite3                     : Using Sqlite3
-Checking for SUPERLU                     : Found SUPERLU
-Checking for OPENBLAS                    : Found OPENBLAS
-Checking for gkylzero                    : Found gkylzero
-'configure' finished successfully (3.529s)
+  bash$ ./waf CC=clang CXX=clang++ MPICC=/Users/junoravin/gkylsoft/openmpi/bin/mpicc MPICXX=/Users/junoravin/gkylsoft/openmpi/bin/mpicxx --out=build -p /Users/junoravin/gkylsoft --prefix=/Users/junoravin/gkylsoft/gkyl --cxxflags=-O3,-std=c++17 --luajit-inc-dir=/Users/junoravin/gkylsoft/luajit/include/luajit-2.1 --luajit-lib-dir=/Users/junoravin/gkylsoft/luajit/lib --luajit-share-dir=/Users/junoravin/gkylsoft/luajit/share/luajit-2.1.0-beta3 --enable-mpi --mpi-inc-dir=/Users/junoravin/gkylsoft/openmpi/include --mpi-lib-dir=/Users/junoravin/gkylsoft/openmpi/lib --mpi-link-libs=mpi --enable-adios --adios-inc-dir=/Users/junoravin/gkylsoft/adios/include --adios-lib-dir=/Users/junoravin/gkylsoft/adios/lib --enable-gkylzero --gkylzero-inc-dir=/Users/junoravin/gkylsoft/gkylzero/include --gkylzero-lib-dir=/Users/junoravin/gkylsoft/gkylzero/lib --enable-superlu --superlu-inc-dir=/Users/junoravin/gkylsoft/superlu/include --superlu-lib-dir=/Users/junoravin/gkylsoft/superlu/lib --enable-openblas --openblas-inc-dir=/Users/junoravin/gkylsoft/OpenBLAS/include --openblas-lib-dir=/Users/junoravin/gkylsoft/OpenBLAS/lib configure
+  Setting top to                           : /Users/junoravin/branches-gkyl/g0-merge-build-improve/gkyl
+  Setting out to                           : /Users/junoravin/branches-gkyl/g0-merge-build-improve/gkyl/build
+  Checking for 'clang' (C compiler)        : clang
+  Checking for 'clang++' (C++ compiler)    : clang++
+  Setting dependency path:                 : /Users/junoravin/gkylsoft
+  Setting prefix:                          : /Users/junoravin/gkylsoft/gkyl
+  Checking for LUAJIT                      : Found LuaJIT
+  Checking for MPI                         : Found MPI
+  Checking for ADIOS                       : Found ADIOS
+  Checking for Sqlite3                     : Using Sqlite3
+  Checking for SUPERLU                     : Found SUPERLU
+  Checking for OPENBLAS                    : Found OPENBLAS
+  Checking for gkylzero                    : Found gkylzero
+  'configure' finished successfully (3.529s)
 
 3. Manually load the modules at the top of the `./machines/configure.[SYSTEM].sh` file, and build the code using::
 
-     ./waf build install
+   ./waf build install
 
 The final result will be a ``gkyl`` executable located in the
 ``$HOME/gkylsoft/gkyl/bin/`` directory.  Feel free to add this directory
