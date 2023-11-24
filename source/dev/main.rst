@@ -3,7 +3,8 @@ Developer notes
 
 .. toctree::
   :maxdepth: 1
-             
+
+  dev-rules             
   onmaxima
   modalbasis
   recovery

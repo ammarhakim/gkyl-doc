@@ -24,7 +24,9 @@ The Gkeyll package contains two major parts: the :ref:`gkyl <gkyl_main>`
 simulation framework and the the :ref:`postgkyl <pg_main>` post-processing
 package. Here you will find documentation for the full Gkeyll package.
 
-For license see :doc:`License <aboutAndLicense>`.
+If you want to contribute to Gkeyll development please see
+:ref:`Contribution Guidelines <devRules>`. For license see
+:doc:`License <aboutAndLicense>`.
 
 ..
   image:: Shi2019image.png
