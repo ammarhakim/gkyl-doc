@@ -6,10 +6,10 @@ leadership residing at Princeton University's Department of
 Astrophysical Sciences and the Princeton Plasma Physics Laboratory
 (PPPL), a Department of Energy (DOE) national lab, managed by
 Princeton University. Other major partners are Virginia Tech, MIT,
-Rensselaer Polytechnic Institute (RPI), University of Maryland and
-Indiana University.
+Rensselaer Polytechnic Institute (RPI), University of Maryland,
+University of Washington, and Indiana University.
 
-As of 2022, the active funding for the project comes from:
+As of 2023, the active funding for the project comes from:
 
 - National Science Foundation's `CSSI program
   <https://www.nsf.gov/awardsearch/showAward?AWD_ID=2209471&HistoricalAwards=false>`_
@@ -24,15 +24,11 @@ and NASA.
 The CEO and Algorithm Alchemist of the project is `Ammar Hakim
 <https://ammar-hakim.org/>`_.
 
-The lead physicists for the project are `Greg Hammett
-<https://w3.pppl.gov/~hammett/>`_, `Amitava Bhattacharjee
-<https://theory.pppl.gov/people/profile.php?pid=1&n=Amitava-Bhattacharjee>`_,
-and `Bhuvana Srinivasan
-<https://www.aoe.vt.edu/people/faculty/srinivasan/personal-page.html>`_.
-
-The `major contributors
-<https://github.com/ammarhakim/gkyl/graphs/contributors>`_ (`see also
-<https://github.com/ammarhakim/gkylzero/graphs/contributors>`_) to the
-code are: James (Jimmy) Juno, Noah Mandell, Manaure (Mana)
-Francisquez, Petr Cagas, Liang Wang, Tess Bernard, Jason TenBarge, and
-Kolter Bradshaw. For a full list of contributors see our Github pages.
+You can see the major contributors to `Gkeyll
+<https://github.com/ammarhakim/gkyl/graphs/contributors>`_,
+`GkeyllZero
+<https://github.com/ammarhakim/gkylzero/graphs/contributors>`_,
+`PostGkeyll
+<https://github.com/ammarhakim/postgkyl/graphs/contributors>`_ and 
+`GkeyllCAS
+<https://github.com/ammarhakim/gkylcas/graphs/contributors>`_.
