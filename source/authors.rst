@@ -26,9 +26,6 @@ The CEO and Algorithm Alchemist of the project is `Ammar Hakim
 
 You can see the major contributors to `Gkeyll
 <https://github.com/ammarhakim/gkyl/graphs/contributors>`_,
-`GkeyllZero
-<https://github.com/ammarhakim/gkylzero/graphs/contributors>`_,
-`PostGkeyll
-<https://github.com/ammarhakim/postgkyl/graphs/contributors>`_ and 
-`GkeyllCAS
-<https://github.com/ammarhakim/gkylcas/graphs/contributors>`_.
+`GkeyllZero <https://github.com/ammarhakim/gkylzero/graphs/contributors>`_,
+`PostGkeyll <https://github.com/ammarhakim/postgkyl/graphs/contributors>`_ and
+`GkeyllCAS <https://github.com/ammarhakim/gkylcas/graphs/contributors>`_.
