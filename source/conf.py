@@ -164,11 +164,12 @@ html_logo = "logoG1.png"
 html_static_path = ['_static', 'postgkyl/_static']
 
 
-#html_context = {
-#    'css_files': [
-#        '_static/theme_overrides.css',  # override wide tables in RTD theme
-#        ],
-#     }
+# html_context = {
+#     'css_files': [
+#         '_static/theme_overrides.css',  # override wide tables in RTD theme
+#         ],
+#      }
+html_css_files = ['theme_overrides.css']  # override wide tables in RTD theme
 
 # -- Options for HTMLHelp output ------------------------------------------
 

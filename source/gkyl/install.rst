@@ -35,6 +35,17 @@ library:
 
 The following instructions assume that at minimum the user has both a C compiler (C99 standard) and Python 3.11.
 
+.. warning::
+  :title: Fluid (finite volume) solver install
+  :collapsible:
+
+  Currently the finite volume multifluid solver is not in the gkyl main branch.
+  If you wish to carry out studies with this solver either switch to the
+  ``pre-g0`` branch (i.e. ``git checkout -b pre-g0 --track origin/pre-g0``) before
+  installing gkyl and/or please :ref:`communicate with the developers <gkyl_contact>`
+  to obtain instructions for the best way to install the finite volume solver.
+
+
 .. _gkyl_install_machines:
 
 Installing using "machine files" (recommended)

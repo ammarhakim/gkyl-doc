@@ -26,10 +26,9 @@ package. Here you will find documentation for the full Gkeyll package.
 
 For license see :doc:`License <aboutAndLicense>`.
 
-..
-  image:: Shi2019image.png
+.. image:: gkyl-clopen-negD-no-labels-trim.png
   :class: align-right
-  :scale: 80 %
+  :width: 50 %
 
 .. toctree::
   :maxdepth: 1
@@ -41,6 +40,8 @@ For license see :doc:`License <aboutAndLicense>`.
   gkyl/pubs
   gkyl/presentations
   dev/main
+
+
 
 Authors
 +++++++
@@ -80,3 +81,14 @@ The `major contributors
 code are: James (Jimmy) Juno, Noah Mandell, Manaure (Mana)
 Francisquez, Petr Cagas, Liang Wang, Tess Bernard, Jason TenBarge, and
 Kolter Bradshaw. For a full list of contributors see our Github pages.
+
+
+.. _gkyl_contact:
+
+Contact us
+++++++++++
+
+Should you have any questions, request or ideas, please feel free to open a
+GitHub issue about it in `gkyl <https://github.com/ammarhakim/gkyl/>`_ or
+`postgkyl <https://github.com/ammarhakim/postgkyl>`_ repositories, or
+message us via gkeyll-dev -at- pppl dot gov.
