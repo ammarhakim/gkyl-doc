@@ -181,7 +181,7 @@ decomposition, and the frequency with which to output certain diagnostics.
      basis = "serendipity",               -- basis type (only "serendipity" is supported for gyrokinetics)
      polyOrder = 1,                       -- polynomial order of basis set (polyOrder = 1 fully supported for gyrokinetics, polyOrder = 2 marginally supported)
      timeStepper = "rk3",                 -- timestepping algorithm
-     cflFrac = 0.4,                       -- fractional modifier for timestep calculation via CFL condition
+     cflFrac = 0.8,                       -- fractional modifier for timestep calculation via CFL condition
      restartFrameEvery = .2,              -- restart files will be written after every 20% of simulation
 
      -- Specification of periodic directions
@@ -252,18 +252,20 @@ in detail below.
       },
 
       -- Source parameters
-      source = Plasma.Source {       -- source is a Maxwellian with the specified density and temperature profiles
+      source = Plasma.Source {              -- source is a Maxwellian with the specified density and temperature profiles
          density = sourceDensity,           -- use sourceDensity function (defined in Preamble) for density profile
          temperature = sourceTemperature,   -- use sourceTemperature function (defined in Preamble) for temperature profile
          power = P_src/2,                   -- sourceDensity will be scaled to achieve desired power
          diagnostics = {"intKE"},
       },
 
+      polarizationDensityFactor = n0,  -- Density used in polarization density.
+
       -- Non-periodic boundary condition specification
-      bcx = {Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
-             Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},   -- use zero-flux boundary condition in x direction
-      bcz = {Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
-             Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},       -- use sheath-model boundary condition in z direction
+      bcx = {Plasma.ZeroFluxBC{diagnostics={"M0", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.ZeroFluxBC{diagnostics={"M0", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},   -- use zero-flux boundary condition in x direction
+      bcz = {Plasma.SheathBC{diagnostics={"M0", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.SheathBC{diagnostics={"M0", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},       -- use sheath-model boundary condition in z direction
 
       -- Diagnostics
       diagnostics = {"M0", "Upar", "Temp", "intM0", "intM1", "intKE", "intEnergy"},
@@ -326,11 +328,13 @@ in detail below.
          diagnostics = {"intKE"},
       },
 
+      polarizationDensityFactor = n0,  -- Density used in polarization density.
+
       -- Non-periodic boundary condition specification
-      bcx = {Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
-             Plasma.ZeroFluxBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},   -- use zero-flux boundary condition in x direction
-      bcz = {Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
-             Plasma.SheathBC{diagnostics={"M0", "Upar", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},       -- use sheath-model boundary condition in z direction
+      bcx = {Plasma.ZeroFluxBC{diagnostics={"M0", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.ZeroFluxBC{diagnostics={"M0", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},   -- use zero-flux boundary condition in x direction
+      bcz = {Plasma.SheathBC{diagnostics={"M0", "Energy", "intM0", "intM1", "intKE", "intEnergy"}},
+             Plasma.SheathBC{diagnostics={"M0", "Energy", "intM0", "intM1", "intKE", "intEnergy"}}},       -- use sheath-model boundary condition in z direction
 
       -- Diagnostics
       diagnostics = {"M0", "Upar", "Temp", "intM0", "intM1", "intKE", "intEnergy"},
@@ -384,12 +388,11 @@ field solvers for the gyrokinetic potential(s).
       evolve = true, -- Evolve fields?
       isElectromagnetic = false,  -- use electromagnetic GK by including magnetic vector potential A_parallel?
 
-      -- Non-periodic boundary condition specification for electrostatic potential phi
-      -- Dirichlet in x.
-      phiBcLeft = { T ="D", V = 0.0},
-      phiBcRight = { T ="D", V = 0.0},
-      -- Periodic in y. --
-      -- No BC required in z (Poisson solve is only in perpendicular x,y directions)
+      -- Boundary condition specification for electrostatic potential phi.
+      -- Dirichlet in x. Periodic in y. No BC required in z (Poisson solve is only in
+      -- perpendicular x,y directions)
+      bcLowerPhi  = {{T = "D", V = 0.0}, {T = "P"}},
+      bcUpperPhi  = {{T = "D", V = 0.0}, {T = "P"}},
    },
 
 - The **Geometry** section specifies parameters related to the
@@ -401,7 +404,7 @@ background magnetic field and other geometry parameters.
    -- Geometry
    --------------------------------------------------------------------------------
    -- Magnetic geometry
-   funcField = Plasma.Geometry {
+   externalField = Plasma.Geometry {
       -- Background magnetic field profile
       -- Simple helical (i.e. cylindrical slab) geometry is assumed
       bmag = function (t, xn)

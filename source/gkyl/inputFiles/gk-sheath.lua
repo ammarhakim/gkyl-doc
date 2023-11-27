@@ -97,15 +97,15 @@ plasmaApp = Plasma.App {
    basis = "serendipity",               -- basis type (only "serendipity" is supported for gyrokinetics)
    polyOrder = 1,                       -- polynomial order of basis set (polyOrder = 1 fully supported for gyrokinetics, polyOrder = 2 marginally supported)
    timeStepper = "rk3",                 -- timestepping algorithm 
-   cflFrac = 0.8,                       -- fractional modifier for timestep calculation via CFL condition
+   cflFrac = 1.,                        -- fractional modifier for timestep calculation via CFL condition
    restartFrameEvery = .2,              -- restart files will be written after every 20% of simulation
 
    -- Specification of periodic directions 
    -- (1-based indexing, so x-periodic = 1, y-periodic = 2, etc)
    periodicDirs = {2},     -- Periodic in y only (y = 2nd dimension)
 
-   decompCuts = {1,1,1},
-   parallelizeSpecies = true,
+   decompCuts = {2,1,4},
+   parallelizeSpecies = false,
 
    --------------------------------------------------------------------------------
    -- Species

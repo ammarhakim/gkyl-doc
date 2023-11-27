@@ -20,3 +20,5 @@ iframe {
   border-bottom: none;
   border-left: #808080 1px solid;
 }
+
+img.align-right {float: right;}
