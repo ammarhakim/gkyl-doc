@@ -157,8 +157,8 @@ html_theme_options = {
     },
   ],
 }
-html_logo = "logoG1.png"
-html_favicon = "logo_black.ico"
+html_logo = "_static/logoG1.png"
+html_favicon = "_static/logo_black.ico"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
