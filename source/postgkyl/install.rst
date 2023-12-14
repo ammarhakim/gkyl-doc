@@ -29,23 +29,31 @@ generally required for users that want to contribute to the code.
 Installing with Conda (preferred for non-developers)
 ----------------------------------------------------
 
-Postgkyl can be installed with Conda with literally a single command:
+First install Conda (or Mamba, see the note below) and create an environment
+for Postgkyl (as of 2023/12/14 pgkyl requires python version >= 3.11):
 
 .. code-block:: bash
 		
   conda create -n pgkyl python=3.11
   conda activate pgkyl
+
+Postgkyl can then be installed with Conda with literally a single command:
+
+.. code-block:: bash
+
   conda install -c gkyl -c conda-forge postgkyl
 
 .. note::
 
-  The process currently (2023/12/14) with classic conda takes an excessive ammount of time. 
-  One potential fix is using `Mamba <https://mamba.readthedocs.io/en/latest/>`_ instead of
-  conda. Mamba generally is much faster at solving package environments than Conda and
-  on Perlmutter was able to install postgkyl in well under 5 minutes whereas Conda would 
-  hang for up to an hour during the solving environment step. On Perlmutter Mamba can be 
-  loaded by modifiying your module environment as follows (as of 2023/12/14):
-
+  Presently (2023/12/14) with standard Conda this install takes an excessive
+  amount of time. One fix is using `Mamba
+  <https://mamba.readthedocs.io/en/latest/>`_ instead of conda. Mamba
+  generally is much faster at solving package environments than Conda, and on
+  Perlmutter it was able to install postgkyl under 5 minutes whereas Conda would
+  hang for over an hour during the solving environment step. On Perlmutter 
+  Mamba can be loaded by modifiying your module environment as
+  follows (as of 2023/12/14):
+  
   .. code-block:: bash
 		  
     module unload conda/Miniconda3-py311_23.5.2-0
@@ -63,9 +71,9 @@ Postgkyl can be installed with Conda with literally a single command:
     conda install -c conda-forge adios2
     conda install -c gkyl postgkyl
 
-  Note, that on NERSC ``conda update -n base -c defaults conda`` will fail as users do not
-  have the correct write permissions. Never fear, this command is not necessary there to
-  successfully install pgkyl.
+  Note, that on NERSC ``conda update -n base -c defaults conda`` will fail as 
+  users do not have the correct write permissions. Never fear, this command is
+  not necessary there to successfully install pgkyl.
     
 Note that the flags for channels, ``-c gkyl`` and ``-c conda-forge``,
 is required even for updating.
