@@ -71,8 +71,8 @@ Postgkyl can then be installed with Conda with literally a single command:
     conda install -c conda-forge adios2
     conda install -c gkyl postgkyl
 
-  Note, that on NERSC ``conda update -n base -c defaults conda`` will fail as 
-  users do not have the correct write permissions. Never fear, this command is
+  On NERSC ``conda update -n base -c defaults conda`` will fail as users
+  do not have the correct write permissions. Never fear, this command is
   not necessary there to successfully install pgkyl.
     
 Note that the flags for channels, ``-c gkyl`` and ``-c conda-forge``,
