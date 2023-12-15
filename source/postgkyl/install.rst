@@ -29,7 +29,15 @@ generally required for users that want to contribute to the code.
 Installing with Conda (preferred for non-developers)
 ----------------------------------------------------
 
-Postgkyl can be installed with Conda with literally a single command:
+First install Conda (or Mamba, see the note below) and create an environment
+for Postgkyl (as of 2023/12/14 pgkyl requires python version >= 3.11):
+
+.. code-block:: bash
+		
+  conda create -n pgkyl python=3.11
+  conda activate pgkyl
+
+Postgkyl can then be installed with Conda with literally a single command:
 
 .. code-block:: bash
 
@@ -37,17 +45,36 @@ Postgkyl can be installed with Conda with literally a single command:
 
 .. note::
 
-  The process currently (2023/10/29) takes an excessive ammount of time. We
-  need to investigate it further but running the following four commands
-  separately seems to work slightly better:
+  Presently (2023/12/14) with standard Conda this install takes an excessive
+  amount of time. One fix is using `Mamba
+  <https://mamba.readthedocs.io/en/latest/>`_ instead of conda. Mamba
+  generally is much faster at solving package environments than Conda, and on
+  Perlmutter it was able to install postgkyl under 5 minutes whereas Conda would
+  hang for over an hour during the solving environment step. On Perlmutter 
+  Mamba can be loaded by modifiying your module environment as
+  follows (as of 2023/12/14):
+  
+  .. code-block:: bash
+		  
+    module unload conda/Miniconda3-py311_23.5.2-0
+    module load conda/Mambaforge-23.1.0-1
+
+  Installing using Mamba in addition to doing these install commands seperately 
+  will help to greatly speed up the install:
 
   .. code-block:: bash
-
+		  
+    conda create -n pgkyl python=3.11
+    conda activate pgkyl
     conda update -n base -c defaults conda
     conda install click numpy matplotlib pytables scipy sympy msgpack-python
     conda install -c conda-forge adios2
     conda install -c gkyl postgkyl
 
+  On NERSC ``conda update -n base -c defaults conda`` will fail as users
+  do not have the correct write permissions. Never fear, this command is
+  not necessary there to successfully install pgkyl.
+    
 Note that the flags for channels, ``-c gkyl`` and ``-c conda-forge``,
 is required even for updating.
 
