@@ -16,3 +16,4 @@ Developer notes
   tenmom-eigensystem
   twofluid-sources
   timestep-calc
+  debugging
