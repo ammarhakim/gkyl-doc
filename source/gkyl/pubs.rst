@@ -46,9 +46,9 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
-- Francisquez, M., Mandell, N. R., Hakim, A., Hammett, G. W. (2021) "Mapped
-  discontinuous Galerkin interpolations and sheared boundary conditions"
-  `arXiv2110.02249 <https://arxiv.org/abs/2110.02249>`_
+- Francisquez, M., Mandell, N. R., Hakim, A., Hammett, G. W. (2024)
+  "Conservative discontinuous Galerkin interpolation: sheared boundary conditions"
+  *Compute Physics Communications* **298**, 109109. https://doi.org/10.1016/j.cpc.2024.109109
 
 - Cagas, P and Hakim, A and Srinivasan, B. (2021) "A boundary value “reservoir
   problem” and boundary conditions for multi-moment multifluid simulations
@@ -96,20 +96,23 @@ Algorithms papers
 Physics papers
 --------------
 
+- Liu, Z., White, R., Francisquez, M., Milanese, L. M., Loureiro, N. F. (2024).
+  "A two-dimensional numerical study of ion-acoustic turbulence", *Journal
+  of Plasma Physics* **90**, 965900101. https://doi.org/10.1017/S0022377824000060
+
 - Francisquez, M., Rosen, M. H., Mandell, N. R., Hakim, A., Forest, C. B.,
-  Hammett, G. W. "Towards continuum gyrokinetic study of high-field mirrors"
-  Submitted to *Physics of Plasmas*,
-  `arXiv:2305.06372 <https://doi.org/10.48550/arXiv.2305.06372>`_.
+  Hammett, G. W. (2023). "Towards continuum gyrokinetic study of high-field mirrors"
+  *Physics of Plasmas* **30**, 102504. https://doi.org/10.1063/5.0152440
 
 - Cagas, P., Juno, J., Hakim, A., LaJoie, A., Chu, F., Langendorf, S.,
-  Srinivasan, B., "An investigation of shock formation
+  Srinivasan, B. (2023). "An investigation of shock formation
   versus shock mitigation of colliding plasma jets", *Physics of Plasmas*,
-  **30**, 053903 (2023). https://doi.org/10.1063/5.0135389.
+  **30**, 053903. https://doi.org/10.1063/5.0135389.
 
-- Skolar, C. R., Bradshaw, K., Juno, J., Srinivasan, B., (2022),
+- Skolar, C. R., Bradshaw, K., Juno, J., Srinivasan, B., (2023),
   "Continuum kinetic investigation of the impact of bias potentials in
   the current saturation regime on sheath formation", *Physics of Plasmas*,
-  **30**, 012504 (2023). https://doi.org/10.1063/5.0134656.
+  **30**, 012504. https://doi.org/10.1063/5.0134656.
   
 - Bradshaw, K., Cagas, P., Hakim, A., Srinivasan, B., (2022), "Plasma
   sheath studies using a physical treatment of electron emission from
