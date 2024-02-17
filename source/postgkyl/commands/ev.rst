@@ -106,7 +106,7 @@ for this)
 .. figure:: ../fig/plot/diverging.png
   :align: center
         
-  Visualizing difference between two datasets
+  Visualizing the difference between two datasets
 
 .. note::
    :ref:`pg_cmd_info` command, especially with the ``--compact``
@@ -126,19 +126,19 @@ Using ``ev`` on datasets with tags
 ----------------------------------
 
 The ``ev`` command is tag-aware. Tagged datasets use the following
-notation ``t.tag_name[set_index][component]``. Using this, the
+notation ``tag_name[set_index][component]``. Using this, the
 previous example can be reproduced:
 
 .. code-block:: bash
 
-  pgkyl two-stream_elc_M0_0.bp -t dens two-stream_elc_M1i_0.bp -t mom interp ev 'mom[0] dens[0] /' plot
+  pgkyl two-stream_elc_M0_0.bp -t dens two-stream_elc_M1i_0.bp -t mom interp ev 'mom dens /' plot
 
-However, unlike the previous example, this can be naturally extended
+This can be naturally extended
 for batch loading and :ref:`pg_cmd_animate`:
 
 .. code-block:: bash
 
-  pgkyl 'two-stream_elc_M0_[0-9].bp' -t dens 'two-stream_elc_M1i_[0-9]*.bp' -t mom interp ev -g 'mom dens /' animate
+  pgkyl 'two-stream_elc_M0_[0-9]*.bp' -t dens 'two-stream_elc_M1i_[0-9]*.bp' -t mom interp ev 'mom dens /' animate
 
   
 Examples of specific ``ev`` operations
