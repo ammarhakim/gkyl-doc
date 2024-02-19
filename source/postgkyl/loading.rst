@@ -333,7 +333,7 @@ cylindrical coordinates with and without c2p map provided to Postgkyl.
 
 .. code-block:: bash
                 
-  pgkyl rt_eval_on_nodes_f-ser.gkyl interpolate -bms -p2 plot -a
+  pgkyl rt_eval_on_nodes_f-ser.gkyl interpolate -b ms -p2 plot -a
    
 .. figure:: fig/load/comp.png
   :align: center
@@ -343,7 +343,7 @@ cylindrical coordinates with and without c2p map provided to Postgkyl.
 
 .. code-block:: bash
                 
-  pgkyl rt_eval_on_nodes_f-ser.gkyl --c2p rt_eval_on_nodes_rtheta-ten.gkyl interpolate -bms -p2 plot -a
+  pgkyl rt_eval_on_nodes_f-ser.gkyl --c2p rt_eval_on_nodes_rtheta-ten.gkyl interpolate -b ms -p2 plot -a
    
 .. figure:: fig/load/c2p.png
   :align: center
