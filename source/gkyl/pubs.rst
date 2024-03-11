@@ -14,6 +14,11 @@ files with us.
 Doctoral Dissertations
 ----------------------
 
+- Bradshaw, K. (2024, February 23) "Emitting Wall Boundary Conditions in Continuum Kinetic Simulations:
+  Unlocking the Effects of Energy-Dependent Material Emission on the Plasma Sheath." Ph.D. dissertation,
+  Virginia Polytechnic Institute and State University, 2024.
+  https://vtechworks.lib.vt.edu/handle/10919/118137
+
 - Mandell, N. R. (2021, March 26) "Magnetic Fluctuations in Gyrokinetic Simulations of Scrape-Off Layer Turbulence".
   Ph.D. dissertation, Princeton University, 2021. `arXiv:2103.16062 <https://arxiv.org/abs/2103.16062>`_
   
@@ -114,11 +119,6 @@ Physics papers
   the current saturation regime on sheath formation", *Physics of Plasmas*,
   **30**, 012504. https://doi.org/10.1063/5.0134656.
   
-- Bradshaw, K., Cagas, P., Hakim, A., Srinivasan, B., (2022), "Plasma
-  sheath studies using a physical treatment of electron emission from
-  a dielectric wall", Submitted to *Physics of Plasmas*,
-  `arXiv.2210.14117 <https://doi.org/10.48550/arXiv.2210.14117>`_.
-
 - Rodman, J., Cagas, P., Hakim, A., Srinivasan, B. (2022). 
   "A kinetic interpretation of the classical Rayleigh-Taylor
   instability", *Physical Review E*,
