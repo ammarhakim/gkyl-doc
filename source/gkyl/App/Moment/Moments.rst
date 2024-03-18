@@ -89,7 +89,7 @@ Examples
 --------
 
 - :doc:`Five-moment modeling of the GEM challenge magnetic reconnection problem.<rt-5m-gem>`
-- :doc:`Ten-moment modeling of the GEM challenge magnetic reconnection problem.<rt-5m-gem>` This simulation uses a simplified closure appropriate for this problem.
+- :doc:`Ten-moment modeling of the GEM challenge magnetic reconnection problem.<rt-10m-gem>` This simulation uses a simplified closure appropriate for this problem.
 
 Basic parameters
 ----------------
