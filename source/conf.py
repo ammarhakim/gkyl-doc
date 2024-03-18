@@ -55,7 +55,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'Gkeyll'
-copyright = '2016-2023, Gkeyll Team'
+copyright = '2016-2024, Gkeyll Team'
 author = 'Gkeyll Team'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -158,7 +158,7 @@ html_theme_options = {
   ],
 }
 html_logo = "_static/logoG1.png"
-html_favicon = "_static/logo_black.ico"
+html_favicon = "_static/logo.svg"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
