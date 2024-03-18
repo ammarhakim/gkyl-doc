@@ -1,5 +1,5 @@
 # Defining the exact version will make sure things don't break
 sphinx==5.0.2
-sphinx-immaterial==0.11.8
+sphinx-immaterial==0.11.11
 readthedocs-sphinx-search==0.3.2
 pydantic==2.4
