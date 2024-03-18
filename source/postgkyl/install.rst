@@ -13,12 +13,12 @@ has an advantage of always having the most up-to-date version and is
 generally required for users that want to contribute to the code.
 
 .. important::
-  :title: Postgkyl requires Python 3.11
+  :title: Postgkyl requires Python 3.11 or higher
   :collapsible:
 
-  The python version of one of the dependencies, ADIOS 2, requires Python 3.11.
-  Therefore, Postgkyl Conda packages are currently available only for this
-  version.
+  The python version of one of the dependencies, ADIOS 2, requires Python 3.11
+  or higher. Therefore, Postgkyl Conda packages are currently available only for
+  these versions.
 
   Users that installed Posgkyl prior to 2023/08/30 are advised to either create
   a fresh Python 3.11 `environment
@@ -33,7 +33,7 @@ First install Conda (or Mamba, see the note below) and create an environment
 for Postgkyl (as of 2023/12/14 pgkyl requires python version >= 3.11):
 
 .. code-block:: bash
-		
+
   conda create -n pgkyl python=3.11
   conda activate pgkyl
 
@@ -50,20 +50,20 @@ Postgkyl can then be installed with Conda with literally a single command:
   <https://mamba.readthedocs.io/en/latest/>`_ instead of conda. Mamba
   generally is much faster at solving package environments than Conda, and on
   Perlmutter it was able to install postgkyl under 5 minutes whereas Conda would
-  hang for over an hour during the solving environment step. On Perlmutter 
+  hang for over an hour during the solving environment step. On Perlmutter
   Mamba can be loaded by modifiying your module environment as
   follows (as of 2023/12/14):
-  
+
   .. code-block:: bash
-		  
+
     module unload conda/Miniconda3-py311_23.5.2-0
     module load conda/Mambaforge-23.1.0-1
 
-  Installing using Mamba in addition to doing these install commands seperately 
+  Installing using Mamba in addition to doing these install commands seperately
   will help to greatly speed up the install:
 
   .. code-block:: bash
-		  
+
     conda create -n pgkyl python=3.11
     conda activate pgkyl
     conda update -n base -c defaults conda
@@ -74,7 +74,7 @@ Postgkyl can then be installed with Conda with literally a single command:
   On NERSC ``conda update -n base -c defaults conda`` will fail as users
   do not have the correct write permissions. Never fear, this command is
   not necessary there to successfully install pgkyl.
-    
+
 Note that the flags for channels, ``-c gkyl`` and ``-c conda-forge``,
 is required even for updating.
 

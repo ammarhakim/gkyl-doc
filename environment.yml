@@ -1,0 +1,10 @@
+name: gkyl-doc
+channels:
+  - defaults
+dependencies:
+  - python>=3.11
+  - pip
+  - sphinx>=5.0.2
+  - pip:
+     # add here only pip-packages that are not available in conda/conda-forge! E.g.:
+     - sphinx-immaterial>=0.11.8
