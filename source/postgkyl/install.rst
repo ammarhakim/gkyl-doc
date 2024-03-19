@@ -3,14 +3,34 @@
 Postgkyl install
 ================
 
-There are two options for getting Postgkyl.  The first option is to
-get the `Conda <https://conda.io/miniconda.html>`_ package and the
-second is to clone the source code repository. **Installing via Conda
-is preferred** for the majority of users as it requires literally a
-single Conda command. What is more, Conda is already the suggested way
-of installing all the dependencies. On the other hand, the later option
-has an advantage of always having the most up-to-date version and is
-generally required for users that want to contribute to the code.
+.. note::
+  :title: Shortcut
+  :collapsible:
+
+  .. code-block:: bash
+
+
+
+Postgkyl installation can be split to two steps:
+
+1. Setting up Python environment
+2. Installing Postgkyl from its repository
+
+The following Python packages are required:
+
+  * adios2[#adios]_
+  * click
+  * matplotlib
+  * msgpack-python
+  * numpy
+  * pytest
+  * scipy
+  * sympy
+  * tables
+
+For installation and management of these dependencies we recommend the `Conda
+<https://conda.io/miniconda.html>`_ package manager (more precisely the
+lightweight miniconda version).
 
 .. important::
   :title: Postgkyl requires Python 3.11 or higher
@@ -25,6 +45,34 @@ generally required for users that want to contribute to the code.
   <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_
   or reinstall their Conda.
 
+The packages can then be either installed manually or use the prepared `environment.yml` in the Postgkyl repository. One needs to first clone the repository
+.. code-block:: bash
+
+  git clone https://github.com/ammarhakim/postgkyl.git
+
+navigate to the directory and create a new conda environment
+
+.. code-block:: bash
+
+  conda env -f environment.yml
+
+The Postgkyl environment can then be activated using
+
+.. code-block:: bash
+
+  conda activate pgkyl
+
+and deactivate with
+
+.. code-block:: bash
+
+  conda deactivate
+
+.. note::
+  :title: Using Postgkyl with conda environments
+  :collapsible:
+
+  With
 
 Installing with Conda (preferred for non-developers)
 ----------------------------------------------------
@@ -190,3 +238,7 @@ The Conda version can be uninstalled with:
 
   conda uninstall postgkyl
 
+
+.. [#adios] Adios 2 is only needed for the production version of Gkeyll.
+    Developers strictly using only the GkeyllZero layer do not need this
+    package.
