@@ -101,6 +101,10 @@ Algorithms papers
 Physics papers
 --------------
 
+- Bradshaw, K., Srinivasan, B. (2024). "Energy-dependent implementation
+  of secondary electron emission models in continuum kinetic sheath simulations",
+  *Plasma Sources Science and Technology* **33**, 035008. https://doi.org/10.1088/1361-6595/ad331c
+
 - Liu, Z., White, R., Francisquez, M., Milanese, L. M., Loureiro, N. F. (2024).
   "A two-dimensional numerical study of ion-acoustic turbulence", *Journal
   of Plasma Physics* **90**, 965900101. https://doi.org/10.1017/S0022377824000060
