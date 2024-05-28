@@ -17,3 +17,4 @@ Developer notes
   twofluid-sources
   timestep-calc
   debugging
+  grhd-equations

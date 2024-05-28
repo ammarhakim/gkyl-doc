@@ -1,10 +1,10 @@
 .. _devGRHDEquations:
 
 The equations of general relativistic hydrodynamics (GRHD) in Gkeyll
-==========================================================
+====================================================================
 
 For the purpose of supporting the (prototype) general relativistic hydrodynamics
-capabilities currently available within the Moment app, Gkeyll solves  a particular
+capabilities currently available within the Moment app, Gkeyll solves a particular
 hyperbolic conservation law form of the hydrodynamics equations in curved spacetime
 known colloquially as the :math:`{3 + 1}` "Valencia" formulation, due originally to
 [Banyuls1997]_, and based (as the name suggests) on the :math:`{3 + 1}` "ADM" formalism
@@ -20,8 +20,8 @@ directions :math:`\left\lbrace 0, \dots 3 \right\rbrace`, while the Latin indice
 assumed to be timelike, with the remaining coordinates
 :math:`\left\lbrace x^1, x^2, x^3 \right\rbrace` being spacelike.
 
-The :math:`{3 + 1}` split of the hydrodynamics equations
------------------------------------
+The general :math:`{3 + 1}` split of the hydrodynamics equations
+----------------------------------------------------------------
 
 Assuming a smooth 4-dimensional Lorentzian manifold structure
 :math:`\left( \mathcal{M}, g \right)` for spacetime, the law of conservation of
@@ -185,7 +185,7 @@ evaluating the following componentwise projections of the full (spacetime) stres
 tensor :math:`T^{\mu \nu}`:
 
 .. math::
-  E = T_{\mu \nu} n^{\mu \nu},
+  E = T_{\mu \nu} n^{\mu} n^{\nu},
 
 .. math::
   p_i = -T_{\mu \nu} n^{\mu} \bot_{i}^{\nu},
@@ -263,6 +263,116 @@ Note moreover that, in all of the above, the indices of the spacetime quantities
 metric tensor :math:`g_{\mu \nu}`, while the purely spatial quantities
 :math:`\beta^i`, :math:`K_{i j}`, :math:`p^i`, and :math:`S_{i j}`, are raised and
 lowered using the spatial metric tensor :math:`\gamma_{i j}`.
+
+The :math:`{3 + 1}` "Valencia" formulation
+------------------------------------------
+
+The :math:`{3 + 1}` "Valencia" formulation of [Banyuls1997]_ is now derived by
+considering the specific case of the ADM energy and momentum conservation
+equations for a perfect relativistic fluid, and expressing the resulting equations
+in terms of the spatial fluid velocity :math:`\mathbf{v}` (i.e. the fluid velocity
+perceived by an observer moving in the direction :math:`\mathbf{n}` normal to the
+spacelike hypersurfaces):
+
+.. math::
+  v^i = \frac{u^i}{\alpha u^0} + \frac{\beta^i}{\alpha},
+
+where :math:`\alpha u^0` represents the Lorentz factor of the fluid:
+
+.. math::
+  \alpha u^0 = - u_i n^i = \frac{1}{\sqrt{1 - \gamma_{i j} v^i v^j}}.
+
+The resulting system of equations constitutes a purely hyperbolic, conservation law form
+of the general relativistic hydrodynamics equations, whose primitive variables are the
+fluid (rest) mass density :math:`\rho`, the (spatial) fluid velocity components
+perceived by normal observers :math:`v^i`, and the fluid pressure :math:`P`. The ADM
+energy conservation equation (obtained from the timelike projection of the stress-energy
+continuity equations) now becomes:
+
+.. math::
+  \frac{1}{\sqrt{-g}} \left[ \frac{\partial}{\partial t} \left( \sqrt{\gamma}
+  \left( \frac{\rho h}{1 - \gamma_{i j} v^i v^j} - P
+  - \frac{\rho}{\sqrt{1 - \gamma_{i j} v^i v^j}} \right) \right) \right.\\
+  \left. + \frac{\partial}{\partial x^k} \left( \sqrt{-g} \left( \left(
+  \frac{\rho h}{1 - \gamma_{i j} v^i v^j} - P
+  - \frac{\rho}{\sqrt{1 - \gamma_{i j} v^i v^j}} \right) \left( v^k
+  - \frac{\beta^k}{\alpha} \right) + P v^k \right) \right) \right]\\
+  = \alpha \left( T^{\mu 0} \frac{\partial}{\partial x^{\mu}} \left( \log
+  \left( \alpha \right) \right) - T^{\mu \nu} {}^{\left( 4 \right)}
+  \Gamma_{\nu \mu}^{0} \right).
+
+The ADM momentum conservation equations (obtained from the 3 spacelike projections of
+the stress-energy continuity equations) now become:
+
+.. math::
+  \frac{1}{\sqrt{-g}} \left[ \frac{\partial}{\partial t} \left( \sqrt{\gamma}
+  \left( \frac{\rho h v_l}{1 - \gamma_{i j} v^i v^j} \right) \right) \right.\\
+  \left. + \frac{\partial}{\partial x^k} \left( \sqrt{-g} \left( \left(
+  \frac{\rho h v_l}{1 - \gamma_{i j} v^i v^j} \right) \left( v^k
+  - \frac{\beta^k}{\alpha} \right) + P \delta_{l}^{k} \right) \right)
+  \right]\\
+  = T^{\mu \nu} \left( \frac{\partial}{\partial x^{\mu}} \left(
+  g_{\nu l} \right) - {}^{\left( 4 \right)} \Gamma_{\nu \mu}^{\sigma}
+  g_{\sigma l} \right).
+
+Here, and henceforth, :math:`g` and :math:`\gamma` denote the determinants of the
+spacetime and spatial metric tensors respectively:
+
+.. math::
+  g = \det \left( g_{\mu \nu} \right),
+
+and:
+
+.. math::
+  \gamma = \det \left( \gamma_{i j} \right).
+
+Finally, the baryon number continuity equation:
+
+.. math::
+  {}^{\left( 4 \right)} \nabla_{\mu} J^{\mu} =
+  \frac{\partial}{\partial x^{\mu}} \left( J^{\mu} \right)
+  + {}^{\left( 4 \right)} \Gamma_{\mu \sigma}^{\mu} J^{\sigma} = 0,
+
+becomes, within this formulation:
+
+.. math::
+  \frac{1}{\sqrt{-g}} \left[ \frac{\partial}{\partial t} \left( \sqrt{\gamma}
+  \left( \frac{\rho}{\sqrt{1 - \gamma_{i j} v^i v^j}} \right) \right) \right.\\
+  \left. + \frac{\partial}{\partial x^k} \left( \sqrt{-g} \left( \left(
+  \frac{\rho}{\sqrt{1 - \gamma_{i j} v^i v^j}} \right) \left( v^k
+  - \frac{\beta^k}{\alpha} \right) \right) \right) \right] = 0.
+
+The conserved quantity appearing in the baryon number conservation equation represents
+the (rest) mass density :math:`D` of the fluid, as measured by an observer moving
+in the normal direction :math:`\mathbf{n}`:
+
+.. math::
+  D = \frac{\rho}{\sqrt{1 - \gamma_{i j} v^i v^j}} = - J_{\mu} n^{\mu}.
+
+The conserved quantity appearing in the energy conservation equation represents the
+difference between the energy density :math:`E` of the fluid, as measured by a normal
+observer, and the (rest) mass density :math:`D` of the fluid, as measured by the same
+observer:
+
+.. math::
+  E - D = \frac{\rho h}{1 - \gamma_{i j} v^i v^j} - P
+  - \frac{\rho}{\sqrt{1 - \gamma_{i j} v^i v^j}} = T_{\mu \nu} n^{\mu} n^{\nu}
+  - J_{\mu} n^{\mu}.
+
+Finally, the conserved quantities appearing in the momentum conservation equations are
+the components of the moment density :math:`p_k` (represented in covector form), as
+measured by a normal observer:
+
+.. math::
+  p_k = \frac{\rho h v_k}{1 - \gamma_{i j} v^i v^j} = - T_{\mu \nu} n^{\mu}
+  \bot_{k}^{\nu}.
+
+Since the source terms appearing on the right-hand-sides of the energy and momentum
+conservation equations do not contain any derivatives of the primitive variables
+:math:`\rho`, :math:`v^i` and :math:`P`, it follows that the hyperbolic nature of the
+equations is strongly preserved. Note that the indices of the spatial fluid velocity
+:math:`v^i` are raised and lowered using the spatial metric tensor :math:`\gamma_{i j}`,
+as expected
 
 References
 ----------
