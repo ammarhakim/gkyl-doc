@@ -20,7 +20,7 @@ directions :math:`\left\lbrace 0, \dots 3 \right\rbrace`, while the Latin indice
 assumed to be timelike, with the remaining coordinates
 :math:`\left\lbrace x^1, x^2, x^3 \right\rbrace` being spacelike.
 
-The general :math:`{3 + 1}` split of the hydrodynamics equations
+The general :math:`{3 + 1}` split for the hydrodynamics equations
 ----------------------------------------------------------------
 
 Assuming a smooth 4-dimensional Lorentzian manifold structure
@@ -90,7 +90,7 @@ fluid sound speed :math:`c_s` may then be calculated as:
 .. math::
   c_s = \frac{1}{\sqrt{h}} \sqrt{\left. \left( \frac{\partial P}{\partial \rho} \right)
   \right\vert_{\varepsilon} + \left( \frac{P}{\rho^2} \right) \left.
-  \left( \frac{\partial P}{\partial \varepsilon} \right) \right\vert_{P}}.
+  \left( \frac{\partial P}{\partial \varepsilon} \right) \right\vert_{\rho}}.
 
 We can now decompose our 4-dimensional spacetime :math:`\left( \mathcal{M}, g \right)`
 into a time-ordered sequence of 3-dimensional spacelike (Riemannian) hypersurfaces,
@@ -262,7 +262,43 @@ Note moreover that, in all of the above, the indices of the spacetime quantities
 :math:`T^{\mu \nu}` and :math:`n^{\mu}` are raised and lowered using the spacetime
 metric tensor :math:`g_{\mu \nu}`, while the purely spatial quantities
 :math:`\beta^i`, :math:`K_{i j}`, :math:`p^i`, and :math:`S_{i j}`, are raised and
-lowered using the spatial metric tensor :math:`\gamma_{i j}`.
+lowered using the spatial metric tensor :math:`\gamma_{i j}`. For any spacetime
+:math:`\left( \mathcal{M}, g \right)` satisfying the Einstein field equations:
+
+.. math::
+  {}^{\left( 4 \right)} G_{\mu \nu} + \Lambda g_{\mu \nu} =
+  {}^{\left( 4 \right)} R_{\mu \nu} - \frac{1}{2} {}^{\left( 4 \right)} R g_{\mu \nu}
+  + \Lambda g_{\mu \nu} = 8 \pi T_{\mu \nu},
+
+with cosmological constant :math:`\Lambda`, the satisfaction of the energy and momentum
+conservation equations described above is algebraically equivalent to the satisfaction
+of the ADM Hamiltonian:
+
+.. math::
+  \mathcal{H} = {}^{\left( 3 \right)} R + K^2 - K_{j}^{i} K_{i}^{j}
+  - 16 \pi \alpha^2 T^{0 0} - 2 \Lambda = 0,
+
+and momentum:
+
+.. math::
+  \mathcal{M}_i &= {}^{\left( 3 \right)} \nabla_i K_{j}^{j}
+  - {}^{\left( 3 \right)} \nabla_i K - 8 \pi T_{i}^{0}\\
+  &= \frac{\partial}{\partial x^i} \left( K_{j}^{j} \right)
+  + {}^{\left( 3 \right)} \Gamma_{j k}^{j} K_{i}^{k}
+  - {}^{\left( 3 \right)} \Gamma_{j i}^{k} K_{k}^{j}.
+  - \frac{\partial}{\partial x^i} \left( K \right) - 8 \pi T_{i}^{0} = 0,
+
+constraint equations. These constraint equations are obtained from the timelike and
+spacelike projections of the constracted Bianchi identities:
+
+.. math::
+  {}^{\left( 4 \right)} \nabla_{\nu} {}^{\left( 4 \right)} G^{\mu \nu}
+  = \frac{\partial}{\partial x^{\nu}} \left( {}^{\left( 4 \right)} G^{\mu \nu} \right)
+  + {}^{\left( 4 \right)} \Gamma_{\nu \sigma}^{\mu} {}^{\left( 4 \right)} G^{\sigma \nu}
+  + {}^{\left( 4 \right)} \Gamma_{\nu \sigma}^{\nu} {}^{\left( 4 \right)} G^{\mu \sigma}
+  = 0,
+
+respectively.
 
 The :math:`{3 + 1}` "Valencia" formulation
 ------------------------------------------
@@ -360,7 +396,7 @@ observer:
   - J_{\mu} n^{\mu}.
 
 Finally, the conserved quantities appearing in the momentum conservation equations are
-the components of the moment density :math:`p_k` (represented in covector form), as
+the components of the momentum density :math:`p_k` (represented in covector form), as
 measured by a normal observer:
 
 .. math::
@@ -372,14 +408,106 @@ conservation equations do not contain any derivatives of the primitive variables
 :math:`\rho`, :math:`v^i` and :math:`P`, it follows that the hyperbolic nature of the
 equations is strongly preserved. Note that the indices of the spatial fluid velocity
 :math:`v^i` are raised and lowered using the spatial metric tensor :math:`\gamma_{i j}`,
-as expected
+as expected.
+
+Gkeyll-specific modifications
+-----------------------------
+
+In order to avoid any explicit dependence of the equations upon the overall spacetime
+metric tensor :math:`g_{\mu \nu}`, its partial derivatives, or its corresponding
+Christoffel symbols :math:`{}^{\left( 4 \right)} \Gamma_{\mu \nu}^{\rho}` (since, in a
+fully dynamic spacetime context, these quantities may not be known a priori), we make
+a number of modifications within the Gkeyll code to the standard :math:`{3 + 1}`
+Valencia formulation, thus ensuring that the only metric quantities appearing in the
+equations are instead the spatial metric tensor :math:`\gamma_{i j}`, the extrinsic
+curvature tensor :math:`K_{i j}`, and the ADM gauge variables :math:`\alpha` and
+:math:`\beta^i`, all of which, along with the primitive variables of the fluid (i.e.
+:math:`\rho`, :math:`v^i` and :math:`P`), we are guaranteed to know at every time-step.
+Eliminating the dependence upon the determinant of the spacetime metric tensor :math:`g`
+is straightforward by the geometry of the ADM decomposition:
+
+.. math::
+  \sqrt{-g} = \alpha \sqrt{\gamma}.
+
+For the elimination of spacetime metric-dependent quantities from the source terms on
+the right-hand-sides of the energy and momentum conservation equations, we follow the
+approach taken by the Whisky code of [Baiotti2003]_, in which it is noted that, for any
+spacetime metric :math:`g_{\mu \nu}` satisfying the ADM constraint equations, one
+necessarily has the following decompositions:
+
+.. math::
+  \alpha \left( T^{\mu 0} \frac{\partial}{\partial x^{\mu}} \left( \log \left(
+  \alpha \right) \right) - T^{\mu \nu} {}^{\left( 4 \right)} \Gamma_{\nu \mu}^{0}
+  \right) = T^{0 0} \left( \beta^i \beta^j K_{i j}
+  - \beta^i \frac{\partial}{\partial x^i} \left( \alpha \right) \right)\\
+  + T^{0 i} \left( - \frac{\partial}{\partial x^i} \left( \alpha \right)
+  + 2 \beta^j K_{i j} \right) + T^{i j} K_{i j},
+
+for the energy source terms, and:
+
+.. math::
+  T^{\mu \nu} \left( \frac{\partial}{\partial x^{\mu}} \left( g_{\nu l} \right)
+  - {}^{\left( 4 \right)} \Gamma_{\nu \mu}^{\sigma} g_{\sigma l} \right)
+  = T^{0 0} \left( \frac{1}{2} \beta^i \beta^j \frac{\partial}{\partial x^l} \left(
+  \gamma_{i j} \right) - \alpha \frac{\partial}{\partial x^l} \left( \alpha \right)
+  \right)\\
+  + T^{0 i} \beta^j \frac{\partial}{\partial x^l} \left( \gamma_{i j} \right)
+  + \frac{1}{2} T^{i j} \frac{\partial}{\partial x^l} \left( \gamma_{i j} \right)
+  + \frac{\rho h v_k}{\alpha \left( 1 - \gamma_{i j} v^i v^j \right)}
+  \frac{\partial}{\partial x^l} \left( \beta^k \right),
+
+for the momentum source terms.
+
+The full (modified) GRHD system
+---------------------------
+
+Combining all of the modifications described above, the full system of general
+relativistic hydrodynamics equations solved by the Gkeyll moment app consists of the
+energy conservation equation:
+
+.. math::
+  \frac{1}{\alpha \sqrt{\gamma}} \left[ \frac{\partial}{\partial t} \left( \sqrt{\gamma}
+  \left( \frac{\rho h}{1 - \gamma_{i j} v^i v^j} - P - \frac{\rho}{\sqrt{1 - \gamma_{i j}
+  v^i v^j}} \right) \right) \right.\\
+  \left. + \frac{\partial}{\partial x^k} \left( \alpha \sqrt{\gamma} \left( \left(
+  \frac{\rho h}{1 - \gamma_{i j} v^i v^j} - P - \frac{\rho}{\sqrt{1 - \gamma_{i j}
+  v^i v^j}} \right) \left( v^k - \frac{\beta^k}{\alpha} \right) + P v^k \right) \right)
+  \right]\\
+  = T^{0 0} \left( \beta^i \beta^j K_{i j} - \beta^i \frac{\partial}{\partial x^i}
+  \left( \alpha \right) \right) + T^{0 i} \left( - \frac{\partial}{\partial x^i}
+  \left( \alpha \right) + 2 \beta^j K_{i j} \right) + T^{i j} K_{i j},
+
+the momentum conservation equations:
+
+.. math::
+  \frac{1}{\alpha \sqrt{\gamma}} \left[ \frac{\partial}{\partial t} \left( \sqrt{\gamma}
+  \left( \frac{\rho h v_l}{1 - \gamma_{i j} v^i v^j} \right) \right) \right.\\
+  \left. + \frac{\partial}{\partial x^k} \left( \alpha \sqrt{\gamma} \left( \left(
+  \frac{\rho h v_l}{1 - \gamma_{i j} v^i v^j} \right) \left( v^k
+  - \frac{\beta^k}{\alpha} \right) + P \delta_{l}^{k} \right) \right) \right]\\
+  = T^{0 0} \left( \frac{1}{2} \beta^i \beta^j \frac{\partial}{\partial x^l}
+  \left( \gamma_{i j} \right) - \alpha \frac{\partial}{\partial x^l}
+  \left( \alpha \right) \right) + T^{0 i} \beta^j \frac{\partial}{\partial x^l}
+  \left( \gamma_{i j} \right) + \frac{1}{2} T^{i j} \frac{\partial}{\partial x^l}
+  \left( \gamma_{i j} \right)\\
+  + \frac{\rho h v_k}{\alpha \left( 1 - \gamma_{i j} v^i v^j \right)}
+  \frac{\partial}{\partial x^l} \left( \beta^k \right),
+
+and the baryon number conservation equation:
+
+.. math::
+  \frac{1}{\alpha \sqrt{\gamma}} \left[ \frac{\partial}{\partial t} \left( \sqrt{\gamma}
+  \left( \frac{\rho}{\sqrt{1 - \gamma_{i j} v^i v^j}} \right) \right) \right.\\
+  \left. + \frac{\partial}{\partial x^k} \left( \alpha \sqrt{\gamma} \left( \left(
+  \frac{\rho}{\sqrt{1 - \gamma_{i j} v^i v^j}} \right) \left( v^k
+  - \frac{\beta^k}{\alpha} \right) \right) \right) \right] = 0.
 
 References
 ----------
 
 .. [Banyuls1997] F. Banyuls, J. A. Font, J. M. Ibáñez, J. M. Martí and
    J. A. Miralles, "Numerical {3 + 1} General Relativistic Hydrodynamics:
-   A Local Characteristic Approach", *The Astrophysical Journal*, **476**
+   A Local Characteristic Approach", *The Astrophysical Journal* **476**
    (1): 221-231, 1997.
 
 .. [Arnowitt1959] R. L. Arnowitt, S. Deser and C. W. Misner, "Dynamical
@@ -389,5 +517,9 @@ References
 .. [York1979] J. W. York, Jr., "Kinematics and Dynamics of General
    Relativity", *Sources of Gravitational Radiation*: 83-126. 1979.
 
-.. [Alcubierre2008] M. Alcubierre *Introduction to 3 + 1 Numerical
+.. [Alcubierre2008] M. Alcubierre, *Introduction to 3 + 1 Numerical
    Relativity*, Oxford University Press. 2008.
+
+.. [Baiotti2003] L. Baiotti, I. Hawke, P. J. Montero and L. Rezzolla, "A
+   new three-dimensional general-relativistic hydrodynamics code", *Memorie
+   della Societa Astronomica Italiana Supplement* **1**: 210-210. 2003.
