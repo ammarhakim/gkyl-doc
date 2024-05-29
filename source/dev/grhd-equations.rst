@@ -502,6 +502,9 @@ and the baryon number conservation equation:
   \frac{\rho}{\sqrt{1 - \gamma_{i j} v^i v^j}} \right) \left( v^k
   - \frac{\beta^k}{\alpha} \right) \right) \right) \right] = 0.
 
+See also :ref:`this note <devGRHDEigensystem>` on the eigensystem of the GRHD equations
+(as implemented as part of Gkeyll's stable time-step calculation).
+
 References
 ----------
 

@@ -18,3 +18,4 @@ Developer notes
   timestep-calc
   debugging
   grhd-equations
+  grhd-eigensystem
