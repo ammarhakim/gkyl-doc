@@ -66,10 +66,11 @@ which each have algebraic multiplicity 1. These are used by Gkeyll in the approx
 of the maximum wave-speed across the computational domain, so as to ensure numerical
 stability through explicit enforcement of the CFL condition.
 
-Eigenvectors
-------------
+Right Eigenvectors
+------------------
 
-The right eigenvectors in the :math:`x^1` spatial coordinate direction are given by:
+The right eigenvectors in the :math:`x^1` spatial coordinate direction (i.e. the right
+eigenvectors of the :math:`\mathbf{B}^1` Jacobian matrix) are given by:
 
 .. math::
   \mathbf{r}_{0, 1}^{1} = \begin{bmatrix}
@@ -103,7 +104,7 @@ and:
   \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v^3\\
   2 h \left( 1 - \gamma_{i j} v^i v^j \right) v_1 v^3\\
   2 h \left( 1 - \gamma_{i j} v^i v^j \right) v_2 v^3\\
-  h \left( 1 + 2 \left( 1 - \gamma_{i j} v^i v^j \right) v_3 v_3 \right)\\
+  h \left( 1 + 2 \left( 1 - \gamma_{i j} v^i v^j \right) v_3 v^3 \right)\\
   2 h \left( 1 - \gamma_{i j} v^i v^j \right) v^3
   - \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v^3
   \end{bmatrix},
@@ -125,9 +126,122 @@ and:
   \end{bmatrix},
 
 for the 2 acoustic waves (corresponding to the 2 :math:`\lambda_{\pm}^{1}` eigenvalues).
-The procedure for calculating the right eigenvectors in the :math:`x^2` and :math:`x^3`
-spatial coordinate directions is exactly analogous, and the corresponding left
-eigenvectors can be determined by performing the appropriate matrix inversion.
+The right eigenvectors in the :math:`x^2` spatial coordinate direction (i.e. the right
+eigenvectors of the :math:`\mathbf{B}^2` Jacobian matrix) are given by:
+
+.. math::
+  \mathbf{r}_{0, 1}^{2} = \begin{bmatrix}
+  \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v^1\\
+  h \left( 1 + 2 \left( 1 - \gamma_{i j} v^i v^j \right) v_1 v^1 \right)\\
+  2 h \left( 1 - \gamma_{i j} v^i v^j \right) v_2 v^1\\
+  2 h \left( 1 - \gamma_{i j} v^i v^j \right) v_3 v^1\\
+  2 h \left( 1 - \gamma_{i j} v^i v^j \right) v^1
+  - \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v^1
+  \end{bmatrix},
+
+.. math::
+  \mathbf{r}_{0, 2}^{2} = \begin{bmatrix}
+  \frac{\frac{1}{\rho} \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho}}{h \sqrt{1 - \gamma_{i j} v^i v^j} \left( \frac{1}{\rho} \left.
+  \left( \frac{\partial P}{\partial \varepsilon} \right) \right\vert_{\rho}
+  - c_{s}^{2} \right)}\\
+  v_1\\
+  v_2\\
+  v_3\\
+  1 - \frac{\frac{1}{\rho} \left. \left( \frac{\partial P}{\partial \varepsilon}
+  \right) \right\vert_{\rho}}{h \sqrt{1 - \gamma_{i j} v^i v^j} \left( \frac{1}{\rho}
+  \left. \left( \frac{\partial P}{\partial \varepsilon} \right) \right\vert_{\rho}
+  - c_{s}^{2} \right)}
+  \end{bmatrix},
+
+and:
+
+.. math::
+  \mathbf{r}_{0, 3}^{2} = \begin{bmatrix}
+  \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v^3\\
+  2 h \left( 1 - \gamma_{i j} v^i v^j \right) v_1 v^3\\
+  2 h \left( 1 - \gamma_{i j} v^i v^j \right) v_2 v^3\\
+  h \left( 1 + 2 \left( 1 - \gamma_{i j} v^i v^j \right) v_3 v^3 \right)\\
+  2 h \left( 1 - \gamma_{i j} v^i v^j \right) v^3
+  - \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v^3
+  \end{bmatrix},
+
+for the 3 material waves (corresponding to the 3 :math:`\lambda_{0}^{2}` eigenvalues),
+and:
+
+.. math::
+  \mathbf{r}_{\pm}^{2} = \begin{bmatrix}
+  1\\
+  h \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v_1\\
+  h \sqrt{1 - \gamma_{i j} v^i v^j} \left( v_2 - \frac{v^2
+  - \left( \frac{\lambda_{\pm}^{2} + \beta^2}{\alpha} \right)}{\gamma^{2 2}
+  - v^2 \left( \frac{\lambda_{\pm}^{2} + \beta^2}{\alpha} \right)} \right)\\
+  h \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v_3\\
+  \frac{h \sqrt{1 - \gamma_{i j} v^i v^j} \left( \gamma^{2 2}
+  - v^2 v^2 \right)}{\gamma^{2 2} - v^2 \left( \frac{\lambda_{\pm}^{2}
+  + \beta^2}{\alpha} \right)} - 1
+  \end{bmatrix},
+
+for the 2 acoustic waves (corresponding to the 2 :math:`\lambda_{\pm}^{2}` eigenvalues).
+Finally, the right eigenvectors in the :math:`x^3` spatial coordinate direction (i.e. the
+right eigenvectors of the :math:`\mathbf{B}^3` Jacobian matrix) are given by:
+
+.. math::
+  \mathbf{r}_{0, 1}^{3} = \begin{bmatrix}
+  \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v^1\\
+  h \left( 1 + 2 \left( 1 - \gamma_{i j} v^i v^j \right) v_1 v^1 \right)\\
+  2 h \left( 1 - \gamma_{i j} v^i v^j \right) v_2 v^1\\
+  2 h \left( 1 - \gamma_{i j} v^i v^j \right) v_3 v^1\\
+  2 h \left( 1 - \gamma_{i j} v^i v^j \right) v^1
+  - \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v^1
+  \end{bmatrix},
+
+.. math::
+  \mathbf{r}_{0, 2}^{3} = \begin{bmatrix}
+  \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v^2\\
+  2 h \left( 1 - \gamma_{i j} v^i v^j \right) v_1 v^2\\
+  h \left( 1 + 2 \left( 1 - \gamma_{i j} v^i v^j \right) v_2 v^2 \right)\\
+  2 h \left( 1 - \gamma_{i j} v^i v^j \right) v_3 v^2\\
+  2 h \left( 1 - \gamma_{i j} v^i v^j \right) v^2
+  - \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v^2
+  \end{bmatrix},
+
+and:
+
+.. math::
+  \mathbf{r}_{0, 3}^{3} = \begin{bmatrix}
+  \frac{\frac{1}{\rho} \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho}}{h \sqrt{1 - \gamma_{i j} v^i v^j} \left( \frac{1}{\rho} \left.
+  \left( \frac{\partial P}{\partial \varepsilon} \right) \right\vert_{\rho}
+  - c_{s}^{2} \right)}\\
+  v_1\\
+  v_2\\
+  v_3\\
+  1 - \frac{\frac{1}{\rho} \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho}}{h \sqrt{1 - \gamma_{i j} v^i v^j} \left( \frac{1}{\rho} \left.
+  \left( \frac{\partial P}{\partial \varepsilon} \right) \right\vert_{\rho}
+  - c_{s}^{2} \right)}
+  \end{bmatrix},
+
+for the 3 material waves (corresponding to the 3 :math:`\lambda_{0}^{3}` eigenvalues),
+and:
+
+.. math::
+  \mathbf{r}_{\pm}^{3} = \begin{bmatrix}
+  1\\
+  h \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v_1\\
+  h \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right) v_2\\
+  h \sqrt{1 - \gamma_{i j} v^i v^j} \left( v_3 - \frac{v^3
+  - \left( \frac{\lambda_{\pm}^{3} + \beta^3}{\alpha} \right)}{\gamma^{3 3}
+  - v^3 \left( \frac{\lambda_{\pm}^{3} + \beta^3}{\alpha} \right)} \right)\\
+  \frac{h \sqrt{1 - \gamma_{i j} v^i v^j} \left( \gamma^{3 3}
+  - v^3 v^3 \right)}{\gamma^{3 3} - v^3 \left( \frac{\lambda_{\pm}^{3}
+  + \beta^3}{\alpha} \right)} - 1
+  \end{bmatrix},
+
+for the 2 acoustic waves (corresponding to the 2 :math:`\lambda_{\pm}^{3}` eigenvalues).
+The corresponding left eigenvectors can now be determined by performing the appropriate
+matrix inversion.
 
 References
 ----------
