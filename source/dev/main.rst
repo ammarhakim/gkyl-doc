@@ -19,3 +19,4 @@ Developer notes
   debugging
   grhd-equations
   grhd-eigensystem
+  blackhole-spacetimes
