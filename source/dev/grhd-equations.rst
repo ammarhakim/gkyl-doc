@@ -21,7 +21,7 @@ assumed to be timelike, with the remaining coordinates
 :math:`\left\lbrace x^1, x^2, x^3 \right\rbrace` being spacelike.
 
 The general :math:`{3 + 1}` split for the hydrodynamics equations
-----------------------------------------------------------------
+-----------------------------------------------------------------
 
 Assuming a smooth 4-dimensional Lorentzian manifold structure
 :math:`\left( \mathcal{M}, g \right)` for spacetime, the law of conservation of
@@ -459,7 +459,7 @@ for the energy source terms, and:
 for the momentum source terms.
 
 The full (modified) GRHD system
----------------------------
+-------------------------------
 
 Combining all of the modifications described above, the full system of general
 relativistic hydrodynamics equations solved by the Gkeyll moment app consists of the
