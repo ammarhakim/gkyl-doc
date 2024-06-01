@@ -20,3 +20,4 @@ Developer notes
   grhd-equations
   grhd-eigensystem
   blackhole-spacetimes
+  grhd-primitive

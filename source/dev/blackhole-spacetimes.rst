@@ -246,7 +246,59 @@ and:
   0
   \end{bmatrix},
 
-respectively.
+respectively. The spatial velocity components :math:`v_{KS}^{r}`,
+:math:`v_{KS}^{\theta}`, and :math:`v_{KS}^{\phi}` within this spherical/oblate spheroidal
+Kerr-Schild coordinate system may then be transformed to the spherical/oblate spheroidal
+Boyer-Lindquist coordinate system, yielding :math:`v_{BL}^{r}`, :math:`v_{BL}^{\theta}`,
+and :math:`v_{BL}^{\phi}`, respectively, by means of the following prescription due to
+[Font1999]_:
+
+.. math::
+  v_{BL}^{r} = \frac{1}{\Psi} \left( v_{KS}^{r}
+  - \frac{\beta_{KS}^{r}}{\alpha_{KS}} \right),
+
+.. math::
+  v_{BL}^{\theta} = \frac{1}{\Psi} v_{KS}^{\theta},
+
+and:
+
+.. math::
+  v_{BL}^{\phi} = \frac{1}{\Psi} \left( v_{KS}^{\phi} - \left( \frac{M a}{r^2 + a^2
+  - 2 M r} \right) v_{KS}^{r} \right)\\
+  - \frac{1}{\Psi} \left( \frac{\beta_{KS}^{\phi}}{\alpha_{KS}} - \left( \frac{M a}{r^2
+  + a^2 - 2 M r} \right) \left( \frac{\beta_{KS}^{r}}{\alpha_{KS}} \right) \right)
+  + \frac{\beta_{BL}^{\phi}}{\alpha_{BL}},
+
+where we have introduced the scalar quantity :math:`\Psi`, defined by:
+
+.. math::
+  \Psi = \frac{\alpha_{BL}}{\alpha_{KS}} - \left( \frac{2 M r}{r^2 + a^2 - 2 M r} \right)
+  \alpha_{BL} \left( v_{KS}^{r} - \frac{\beta_{KS}}{\alpha_{KS}} \right),
+
+and where :math:`\alpha_{KS}`/:math:`\beta_{KS}^{i}` and :math:`\alpha_{BL}`/
+:math:`\beta_{BL}^{i}` denote the lapse function and shift vector components in the
+spherical/oblate spheroidal Kerr-Schild coordinate system and the spherical/oblate
+spheroidal Boyer-Lindquist coordinate system, respectively.
+
+Excision boundary conditions
+----------------------------
+
+Although no physical information may propagate from the interior region of a black hole's
+event horizon out to the exterior region, the type of finite-volume numerical methods
+employed within Gkeyll's moment app may make use of cells from the black hole's interior
+region when updating near-horizon cells in the exterior region. Thus, unless one is
+particularly careful about how this finite-volume update is performed, this can lead to
+unphysical wave propagation and numerical instabilities in the near-horizon region. In
+order to avoid this, Gkeyll imposes a variant of the excision boundary conditions of
+[Alcubierre2001]_, in which the black hole interior region, defined by:
+
+.. math::
+  r < r_{-} = M \left( 1 - \sqrt{1 - a^2} \right),
+
+i.e. the region whose boundary corresponds to the inner event horizon of the Kerr
+geometry, corresponds to a region of zero flux. The advantage of this approach is that it
+can be implemented using only very minor modifications to the overall finite-volume
+update algorithm.
 
 References
 ----------
@@ -261,3 +313,10 @@ References
 
 .. [Boyer1967] R. H. Boyer and R. W. Lindquist, "Maximal Analytic Extension of the Kerr
    Metric", *Journal of Mathematical Physics* **8** (2): 265-281. 1967.
+
+.. [Font1999] J. A. Font, J. M. Ibáñez and P. Papadopoulos, "Non-axisymmetric
+   relativistic Bondi-Hoyle accretion on to a Kerr black hole", *Monthly Notices of the
+   Royal Astronomical Society* **305** (4): 920-936. 1999.
+
+.. [Alcubierre2001] M. Alcubierre and B. Brügmann, "Simple excision of a black hole in
+   3 + 1 numerical relativity", *Physical Review D* **63** (10): 104006. 2001.
