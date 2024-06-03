@@ -166,15 +166,93 @@ value for the specific relativistic enthalpy :math:`h_{new}` using:
   \right) \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right)}{\rho \xi^2},
 
 from which, in turn, an updated value for the hydrostatic pressure :math:`P_{new}` can
-also be recovered by means of the ideal gas equation of state. Finally, using the
-updated values of all three quantities (i.e. :math:`\rho_{new}`, :math:`h_{new}`,
-and :math:`W_{new}`) in conjunction, we are able to reconstruct the updated components of
-the spatial velocity (co)vector :math:`v_{k}^{new}`, as measured by observers moving
-normal to the spacelike hypersurfaces in the foliation, as:
+also be recovered by means of the ideal gas equation of state:
+
+.. math::
+  P_{new} = \left( \frac{\Gamma - 1}{\Gamma} \right) \rho h\\
+  \times \left( 1 - \frac{\rho \xi}{\left( \sqrt{\left( \frac{\rho h}{1
+  - \gamma_{i j} v^i v^j} - P \right)^2 - \left( \frac{\rho h}{1 - \gamma_{i j} v^i v^j}
+  \right)^2 v_k v^k} \right) \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right)} \right).
+
+Finally, using the updated values of all three quantities (i.e. :math:`\rho_{new}`,
+:math:`h_{new}`, and :math:`W_{new}`) in conjunction, we are able to reconstruct the
+updated components of the spatial velocity (co)vector :math:`v_{k}^{new}`, as measured by
+observers moving normal to the spacelike hypersurfaces in the foliation, as:
 
 .. math::
   v_{k}^{new} = \frac{\rho h v_k}{\left( 1 - \gamma_{i j} v^i v^j \right) \rho_{new}
   h_{new} W_{new}^{2}}.
+
+One of the key modifications that we have made to the original algorithm of Eulderink and
+Mellema within Gkeyll is the extraction of the prefactor:
+
+.. math::
+  \left( \frac{\frac{\rho h}{1 - \gamma_{i j} v^i v^j} - P}{\sqrt{\left(\
+  \frac{\rho h}{1 - \gamma_{i j} v^i v^j} - P \right)^2 - \left(
+  \frac{\rho h}{1 - \gamma_{i j} v^j v^j} \right)^2 v_k v^k}} \right) \xi,
+
+outside of the brackets in the expression for the updated value of the Lorentz factor
+:math:`W_{new}`, thus ensuring that the term inside the brackets remains of order unity,
+even for very large values of the Lorentz factor, which guarantees much greater numerical
+stability in the strongly relativistic fluid regime. In contrast to the prescription of
+[Marti2003]_ for ensuring numerical stability in the presence of low densities, low
+pressures, and high fluid velocities, instead of imposing a minimum pressure
+:math:`P_{min}` of the general form:
+
+.. math::
+  P \geq P_{min} = \left( 1 + \varepsilon \right) \left( \left( \frac{\rho h}{1
+  - \gamma_{i j} v^i v^j} \right) \sqrt{v_k v^k} \right) - \left(
+  \frac{\rho h}{1 - \gamma_{i j} v^i v^j} - P \right),
+
+for some small :math:`\varepsilon > 0`, we opt rather to restrict the fluid velocity so
+as to ensure that the physicality condition:
+
+.. math::
+  \left( \frac{\rho h}{1 - \gamma_{i j} v^i v^j} - P \right)^2 \geq \left(
+  \frac{\rho h}{1 - \gamma_{i j} v^i v^j} \right)^2 v_k v^k,
+
+remains consistently satisfied throughout the computational domain. This avoids the kind
+of finite-precision arithmetic problems described by [Goldberg1991]_ that one would
+otherwise experience when computing the updated Lorentz factor :math:`W_{new}` using the
+minimum-pressure prescription. In Gkeyll we have opted to use a rapidly-converging
+Newton-Raphson iteration scheme to construct an approximate solution for :math:`\xi`,
+rather than solving the quartic analytically, since we have found that the slight
+increase in numerical accuracy obtained from an analytical solution is not worth the
+considerable increase in computational complexity associated with calculating it.
+
+Simplified reconstruction for a stiff equation of state
+-------------------------------------------------------
+
+We start from the general form of the ultra-relativistic equation of state, with
+adiabatic index :math:`\Gamma`:
+
+.. math::
+  P = \left( \Gamma - 1 \right) \rho,
+
+and we set :math:`\Gamma = 2`, yielding :math:`P = \rho`, known as a *stiff* relativistic
+equation of state. The equivalence of fluid density and pressure simplifies the equations
+of fluid evolution considerably, and renders the conservative to primitive reconstruction
+step a purely algebraic operation, just as it is for non-relativistic fluids. Following
+the approach of [Neilsen1999]_, we are able to recover the updated fluid density
+:math:`\rho_{new}` as:
+
+.. math::
+  \rho_{new} = \left( \frac{\rho h}{1 - \gamma_{i j} v^i v^j} - P
+  - \frac{\rho}{\sqrt{1 - \gamma_{i j} v^i v^j}} \right)^2
+  - \left( \frac{\rho h}{1 - \gamma_{i j} v^i v^j} \right)^2 v_k v^k,
+
+and the updated components of the spatial velocity (co)vector :math:`v_{k}^{new}`, as
+measured by normal observers, as:
+
+.. math::
+  v_{k}^{new} = \frac{\left( \frac{\rho h v_k}{1 - \gamma_{i j} v^i v^j} \right)}{\left(
+  \frac{\rho h}{1 - \gamma_{i j} v^i v^j} - P - \frac{\rho}{\sqrt{1
+  - \gamma_{i j} v^i v^j}} + \rho \right)}.
+
+As a consequence, the Gkeyll fluid solver for stiff relativistic fluids is considerably
+more computationally efficient than it is for general ideal or ultra-relativistic fluids,
+due to the lack of need for a Newton-Raphson iteration scheme as part of the
+reconstruction step.
 
 References
 ----------
@@ -185,3 +263,9 @@ References
 .. [Eulderink1995] F. Eulderink and G. Mellema, "General Relativistic Hydrodynamics
    with a Roe solver", *Astronomy and Astrophysics Supplement Series* **110**: 587-623.
    1995.
+
+.. [Goldberg1991] D. Golderberg, "What every computer scientist should know about
+   floating-point arithmetic", *ACM Computing Surveys* **23** (1): 5-48. 1991.
+
+.. [Neilsen1999] D. W. Neilsen, *Extremely Relativistic Fluids in Strong-Field Gravity*,
+   PhD Thesis, University of Texas at Austin. 1999.
