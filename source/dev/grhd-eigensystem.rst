@@ -66,7 +66,7 @@ which each have algebraic multiplicity 1. These are used by Gkeyll in the approx
 of the maximum wave-speed across the computational domain, so as to ensure numerical
 stability through explicit enforcement of the CFL condition.
 
-Right Eigenvectors
+Right eigenvectors
 ------------------
 
 The right eigenvectors in the :math:`x^1` spatial coordinate direction (i.e. the right
@@ -240,8 +240,163 @@ and:
   \end{bmatrix},
 
 for the 2 acoustic waves (corresponding to the 2 :math:`\lambda_{\pm}^{3}` eigenvalues).
-The corresponding left eigenvectors can now be determined by performing the appropriate
-matrix inversion.
+The corresponding left eigenvectors may now be determined in each çase simply by
+inverting the matrix whose columns are given by the right eigenvectors, and then
+extracting the corresponding rows.
+
+Left eigenvectors
+-----------------
+
+The left eigenvectors in the :math:`x^1` spatial coordinate direction (i.e. the left
+eigenvectors of the :math:`\mathbf{B}^1` Jacobian matrix) are given by:
+
+.. math::
+  \mathbf{l}_{0, 1}^{1} = \begin{bmatrix}
+  \frac{\left( \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} - c_{s}^{2} \right) \left( 1 + \sqrt{\gamma_{i j} v^i v^j}
+  \left( h v_1 v^1 + \sqrt{\gamma_{i j} v^i v^j} \left( v_2 v^2 + v_3 v^3 \right)
+  - h \right) \right)}{c_{s}^{2} \left( v_1 v^1 - 1 \right)}\\
+  \frac{\left( c_{s}^{2} - \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} \right) v^1 \left( 1 + \left( v_2 v^2 + v_3 v^3 \right) \left(
+  \gamma_{i j} v^i v^j \right) \right)}{c_{s}^{2} \left( v_1 v^1 - 1 \right)}\\
+  \frac{\left( \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} - c_{s}^{2} \right) v^2
+  \left( \gamma_{i j} v^i v^j \right)}{c_{s}^{2}}\\
+  \frac{\left( \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} - c_{s}^{2} \right) v^3
+  \left( \gamma_{i j} v^i v^j \right)}{c_{s}^{2}}\\
+  \frac{\left( \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} - c_{s}^{2} \right) \left( 1 + \left( v_2 v^2 + v_3 v^3 \right)
+  \left( \gamma_{i j} v^i v^j \right) \right)}{c_{s}^{2} \left( v_1 v^1 - 1 \right)}
+  \end{bmatrix}^{\intercal},
+
+.. math::
+  \mathbf{l}_{0, 2}^{1} = \begin{bmatrix}
+  - \frac{v_2}{h \left( 1 - v_1 v^1 \right)}\\
+  \frac{v_2 v^1}{h \left( 1 - v_1 v^1 \right)}\\
+  \frac{1}{h}\\
+  0\\
+  - \frac{v_2}{h \left( 1 - v_1 v^1 \right)}
+  \end{bmatrix}^{\intercal},
+
+and:
+
+.. math::
+  \mathbf{l}_{0, 3}^{1} = \begin{bmatrix}
+  - \frac{v_3}{h \left( 1 - v_1 v^1 \right)}\\
+  \frac{v_3 v^1}{h \left( 1 - v_1 v^1 \right)}\\
+  0\\
+  \frac{1}{h}\\
+  - \frac{v_3}{h \left( 1 - v_1 v^1 \right)}
+  \end{bmatrix}^{\intercal},
+
+for the 3 material waves (corresponding to the 3 :math:`\lambda_{0}^{1}` eigenvalues),
+and:
+
+.. math::
+  \mathbf{l}_{\pm}^{1} = \dots,
+
+for the 2 acoustic waves (corresponding to the 2 :math:`\lambda_{\pm}^{1}` eigenvalues).
+The left eigenvectors in the :math:`x^2` spatial coordinate direction (i.e. the left
+eigenvectors of the :math:`\mathbf{B}^2` Jacobian matrix) are given by:
+
+.. math::
+  \mathbf{l}_{0, 1}^{2} = \begin{bmatrix}
+  - \frac{v_1}{h \left( 1 - v_2 v^2 \right)}\\
+  \frac{1}{h}\\
+  \frac{v_1 v^2}{h \left( 1 - v_2 v^2 \right)}\\
+  0\\
+  - \frac{v_1}{h \left( 1 - v_2 v^2 \right)}
+  \end{bmatrix}^{\intercal},
+
+.. math::
+  \mathbf{l}_{0, 2}^{2} = \begin{bmatrix}
+  \frac{\left( \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} - c_{s}^{2} \right) \left( 1 + \sqrt{\gamma_{i j} v^i v^j} \left(
+  h v_2 v^2 + \sqrt{\gamma_{i j} v^i v^j} \left( v_1 v^1 + v_3 v^3 \right) - h \right)
+  \right)}{c_{s}^{2} \left( v_2 v^2 - 1 \right)}\\
+  \frac{\left( \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} - c_{s}^{2} \right) v^1 \left( \gamma_{i j} v^i v^j
+  \right)}{c_{s}^{2}}\\
+  \frac{\left( c_{s}^{2} - \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} \right) v^2 \left( 1 + \left( v_1 v^1 + v_3 v^3 \right) \left(
+  \gamma_{i j} v^i v^j \right) \right)}{c_{s}^{2} \left( v_2 v^2 - 1 \right)}\\
+  \frac{\left( \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} - c_{s}^{2} \right) v^3 \left( \gamma_{i j} v^i v^J
+  \right)}{c_{s}^{2}}\\
+  \frac{\left( \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} - c_{s}^{2} \right) \left( 1 + \left( v_1 v^1 + v_3 v^3 \right)
+  \left( \gamma_{i j} v^i v^j \right) \right)}{c_{s}^{2} \left( v_2 v^2 - 1 \right)}
+  \end{bmatrix}^{\intercal},
+
+and:
+
+.. math::
+  \mathbf{l}_{0, 3}^{2} = \begin{bmatrix}
+  - \frac{v_3}{h \left( 1 - v_2 v^2 \right)}\\
+  0\\
+  \frac{v_3 v^2}{h \left( 1 - v_2 v^2 \right)}\\
+  \frac{1}{h}\\
+  - \frac{v_3}{h \left( 1 - v_2 v^2 \right)}
+  \end{bmatrix}^{\intercal},
+
+for the 3 material waves (corresponding to the 3 :math:`\lambda_{0}^{2}` eigenvalues),
+and:
+
+.. math::
+  \mathbf{l}_{\pm}^{2} = \dots,
+
+for the 2 acoustic waves (corresponding to the 2 :math:`\lambda_{\pm}^{2}` eigenvalues).
+Finally, the left eigenvectors in the :math:`x^3` spatial coordinate direction (i.e.
+the left eigenvectors of the :math:`\mathbf{B}^3` Jacobian matrix) are given by:
+
+.. math::
+  \mathbf{l}_{0, 1}^{3} = \begin{bmatrix}
+  - \frac{v_1}{h \left( 1 - v_3 v^3 \right)}\\
+  \frac{1}{h}\\
+  0\\
+  \frac{v_1 v^3}{h \left( 1 - v_3 v^3 \right)}\\
+  - \frac{v_1}{h \left( 1 - v_3 v^3 \right)}
+  \end{bmatrix}^{\intercal},
+
+.. math::
+  \mathbf{l}_{0, 2}^{3} = \begin{bmatrix}
+  - \frac{v_2}{h \left( 1 - v_3 v^3 \right)}\\
+  0\\
+  \frac{1}{h}\\
+  \frac{v_2 v^3}{h \left( 1 - v_3 v^3 \right)}\\
+  - \frac{v_2}{h \left( 1 - v_3 v^3 \right)}
+  \end{bmatrix}^{\intercal},
+
+and:
+
+.. math::
+  \mathbf{l}_{0, 3}^{3} = \begin{bmatrix}
+  \frac{\left( \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} - c_{s}^{2} \right) \left( 1 + \sqrt{\gamma_{i j} v^i v^j} \left(
+  h v_3 v^3 + \sqrt{\gamma_{i j} v^i v^j} \left( v_1 v^1 + v_2 v^2 \right) - h \right)
+  \right)}{c_{s}^{2} \left( v_3 v^3 - 1 \right)}\\
+  \frac{\left( \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} - c_{s}^{2} \right) v^1 \left( \gamma_{i j} v^i v^j
+  \right)}{c_{s}^{2}}\\
+  \frac{\left( \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} - c_{s}^{2} \right) v^2 \left( \gamma_{i j} v^i v^j
+  \right)}{c_{s}^{2}}\\
+  \frac{\left( c_{s}^{2} - \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} \right) v^3 \left( 1 + \left( v_1 v^1 + v_2 v^2 \right) \left(
+  \gamma_{i j} v^i v^j \right) \right)}{c_{s}^{2} \left( v_3 v^3 - 1 \right)}\\
+  \frac{\left( \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} - c_{s}^{2} \right) \left( 1 + \left( v_1 v^1 + v_2 v^2 \right)
+  \left( \gamma_{i j} v^i v^j \right) \right)}{c_{s}^{2} \left( v_3 v^3 - 1 \right)}
+  \end{bmatrix}^{\intercal},
+
+for the 3 material waves (corresponding to the 3 :math:`\lambda_{0}^{3}` eigenvalues),
+and:
+
+.. math::
+  \mathbf{l}_{\pm}^{3} = \dots,
+
+for the 2 acoustic waves (corresponding to the 2 :math:`\lambda_{\pm}^{3}` eigenvalues).
 
 References
 ----------
