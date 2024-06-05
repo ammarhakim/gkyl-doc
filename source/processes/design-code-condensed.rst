@@ -23,16 +23,16 @@ with the exception of regression and unit tests.
 #. Create a new ``<featurename>-production`` branch in which you intend to rewrite a
    production-quality version of the prototype functionality you first wrote in
    ``<featurename>-prototyping``, in accordance with the approved design from Step 2.
-   Link the <``featurename>-production`` branch to the GitHub Issue outlining the
+   Link the ``<featurename>-production`` branch to the GitHub Issue outlining the
    proposed design as well.
 
 #. If your design necessitates invasive changes to major parts of the Gkeyll
    architecture, do not modify any App code directly. Instead, create a new version of
-   the App (or of the particular part of the app being modified) which includes your
+   the App (or of the particular part of the App being modified) which includes your
    changes, confirm that all ``/unit`` and ``/regression`` tests run with pointers to
-   the old app version replaced by pointers to the new app version. Only once this has
+   the old App version replaced by pointers to the new App version. Only once this has
    been done to the satisfaction of the reviewers should the Gkeyll code be globally
-   changed to point to the new app, at which point the old app code may be safely
+   changed to point to the new App, at which point the old App code may be safely
    deleted.
 
 #. If the design changes at any point during the implementation process, you must return
@@ -50,4 +50,4 @@ with the exception of regression and unit tests.
 
 .. [*] Although these instructions are written with regards to code changes that are
    eventually planned to be merged into ``main``, they apply equally to planned changes
-   to any long-lived branch with write protections enabled.
+   to *any* long-lived branch with write protections enabled.
