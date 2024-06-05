@@ -1,4 +1,4 @@
-.. _processDesignCodeCondensed
+.. _processDesignCodeCondensed:
 
 Gkeyll Design and Code Review Process: Condensed Version
 ========================================================
@@ -6,6 +6,15 @@ Gkeyll Design and Code Review Process: Condensed Version
 To be followed by anyone making modifications to code in either of the ``/apps`` or
 ``/zero`` directories in ``gkylzero``, or modifications to any part of the Lua/G2 layer
 with the exception of regression and unit tests.
+
+Note that an :ref:`extended form of this document <processDesignCode>` also exists.
+Note, moreover, that when selecting appropriate design and code reviewers, you should
+choose from
+:ref:`these lists of designated Gkeyll personnel <processDesignCodeReviewers>` (i.e.
+the Gkeyll domain experts and members of the core Gkeyll architecture team).
+
+The process
+-----------
 
 #. Begin by creating a private prototyping branch in which to play around and try out an
    implementation of your design. Name it ``<featurename>-prototyping``, to make it clear

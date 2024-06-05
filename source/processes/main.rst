@@ -6,3 +6,4 @@ Required development processes
 
   design-code
   design-code-condensed
+  design-code-reviewers

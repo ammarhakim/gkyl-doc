@@ -1,4 +1,4 @@
-.. _processDesignCode
+.. _processDesignCode:
 
 Gkeyll Design and Code Review Process
 =====================================
@@ -35,6 +35,12 @@ preparation stages for code being merged into ``main`` [*]_ ):
 One of the most important general principles that one must always bear in mind when
 developing for Gkeyll is: **any code that's worth writing is worth writing (at least)
 twice**.
+
+Note that a :ref:`condensed form of this document <processDesignCodeCondensed>` also
+exists. Note, moreover, that when selecting appropriate design and code reviewers, you
+should choose from
+:ref:`these lists of designated Gkeyll personnel <processDesignCodeReviewers>` (i.e.
+the Gkeyll domain experts and members of the core Gkeyll architecture team).
 
 Do I really need a design review?
 ---------------------------------
