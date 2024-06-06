@@ -17,3 +17,7 @@ Developer notes
   twofluid-sources
   timestep-calc
   debugging
+  grhd-equations
+  grhd-eigensystem
+  blackhole-spacetimes
+  grhd-primitive
