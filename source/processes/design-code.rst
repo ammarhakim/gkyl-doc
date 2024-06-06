@@ -155,14 +155,15 @@ make only minimal modifications to it. Once the production implementation of you
 proposed feature or change is complete (and its final design approved, as required),
 then you may open a Pull Request to merge the ``<featurename>-production`` branch into
 ``main``. Your Pull Request should describe the code changes that you have made, **and
-the test coverage that you have added in order to validate these changes**. [*]_
+the test coverage that you have added in order to test these changes**. [*]_
 
 As with design reviews, every Pull Request must have (at least) two reviewers: one
 designated domain expert, plus one designated member of the core Gkeyll architecture
 team, and preferably these reviewers should be the same as the reviewers who performed
 the initial design review. Both reviewers need to have approved the Pull Request before
 it will be merged, and the final decision to merge will rest with the designated member
-of the core Gkeyll architecture team for that Pull Request.
+of the core Gkeyll architecture team for that Pull Request. PRs merges may be delayed
+if concerns are raised by other members of the Gkeyll architecture team.
 
 Particular attention will be paid by both reviewers to the quality of *tests* (both unit
 and regression) in the Pull Request. Specifically, they will be attempting to determine:
@@ -183,11 +184,13 @@ This really shouldn't need to be said, but at the very least your code should co
 (you should run ``make unit regression`` to verify this), and all tests should pass
 (which you should verify by running ``make check``). We have unit and regression tests
 for a reason. Run them. There is no faster way to tank your push karma (see the final
-section) than by trying to merge in code that breaks builds and/or breaks tests. All
-code should also be "Valgrind-clean", in the sense of being verifiably free of memory
+section) than by trying to merge in code that breaks builds and/or breaks tests. 
+
+All code should also be "Valgrind-clean", in the sense of being verifiably free of memory
 errors. Compile using the strictest values of the ``fsanitize`` compiler flag (e.g.
 ``-fsanitize=address``, ``-fsanitize=bounds-strict``, etc.) to confirm that no invalid
-memory is being accessed, and always run Valgrind.
+memory is being accessed, and always run Valgrind, and the in-built memory tracer (which
+works for GPUs also).
 
 Perform your civic duty!
 ------------------------
@@ -196,7 +199,8 @@ With both design and code reviews, any member of the Gkeyll team who is called u
 a reviewer should aim to provide at least some initial comments and feedback on the
 request (of course they do not need to settle on any final decision regarding approval)
 within a day or two of receiving the request, depending upon the size and complexity
-of the review required. 
+of the review required. The key review should be in the form of comments to the Issue
+describing the design proposal.
 
 Sometimes, for complex or controversial changes, reviews may take a longer time to
 complete. This is absolutely fine, as long as there is always active discussion and
