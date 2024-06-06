@@ -57,6 +57,13 @@ The process
    one member of the core Gkeyll architecture team - preferably the same reviewers who
    approved the original design.
 
+#. Minor bug fixes (i.e. bug fixes that do not require significant architectural
+   modifications to existing code) will not typically require a design review. However,
+   all other code review processes remain in place: create a new branch for the fix,
+   submit a Pull Request once it is complete, and await a full code review from a
+   relevant domain expert and a member of the Gkeyll architecture team. Do not cut
+   corners on testing and code quality requirements, even for small fixes.
+
 .. [*] Although these instructions are written with regards to code changes that are
    eventually planned to be merged into ``main``, they apply equally to planned changes
    to *any* long-lived branch with write protections enabled.

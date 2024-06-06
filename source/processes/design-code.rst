@@ -162,7 +162,7 @@ designated domain expert, plus one designated member of the core Gkeyll architec
 team, and preferably these reviewers should be the same as the reviewers who performed
 the initial design review. Both reviewers need to have approved the Pull Request before
 it will be merged, and the final decision to merge will rest with the designated member
-of the core Gkeyll architecture team for that Pull Request. PRs merges may be delayed
+of the core Gkeyll architecture team for that Pull Request. PR merges may be delayed
 if concerns are raised by other members of the Gkeyll architecture team.
 
 Particular attention will be paid by both reviewers to the quality of *tests* (both unit
@@ -189,8 +189,8 @@ section) than by trying to merge in code that breaks builds and/or breaks tests.
 All code should also be "Valgrind-clean", in the sense of being verifiably free of memory
 errors. Compile using the strictest values of the ``fsanitize`` compiler flag (e.g.
 ``-fsanitize=address``, ``-fsanitize=bounds-strict``, etc.) to confirm that no invalid
-memory is being accessed, and always run Valgrind, and the in-built memory tracer (which
-works for GPUs also).
+memory is being accessed, and always run Valgrind, as well as the in-built memory tracer
+(which also works for GPUs).
 
 Perform your civic duty!
 ------------------------
@@ -280,6 +280,17 @@ As always, if you fail to adhere to these guidelines, and especially if you choo
 make direct and invasive modifications to core Gkeyll functionality without following
 this general *“rewrite and switch”* process, then your Pull Request(s) will be closed
 automatically, without further review.
+
+Bug fixes
+---------
+
+Minor bug fixes (i.e. bug fixes that do not require significant architectural
+modifications to existing code) will not typically require a design review. However, one
+must still follow all existing code review processes when making such a change: create a
+new branch for the fix, submit a Pull Request once it is complete, and await a full
+code review from a relevant domain expert and a member of the Gkeyll architecture team.
+All testing and code quality requirements apply to bug fixes too - do not cut corners
+here!
 
 Non-compliance
 --------------
