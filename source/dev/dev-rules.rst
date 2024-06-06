@@ -34,3 +34,5 @@ and concerns should be directed to the core Gkeyll Dev Team.
   Mac or Linux build/test actions complete before accepting the
   PR. That person ideally should build the code and make check, but
   this is not a requirement.
+- Always be sure to follow our
+  :ref:`Design and Code Review Process <processDesignCode>`.

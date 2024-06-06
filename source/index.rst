@@ -25,7 +25,8 @@ simulation framework and the the :ref:`postgkyl <pg_main>` post-processing
 package. Here you will find documentation for the full Gkeyll package.
 
 If you want to contribute to Gkeyll development please see
-:ref:`Contribution Guidelines <devRules>`. For license see
+:ref:`Contribution Guidelines <devRules>`, as well as our
+:ref:`Design and Code Review Process <processDesignCode>`. For license see
 :doc:`License <aboutAndLicense>`.
 
 .. image:: gkyl-clopen-negD-no-labels-trim.png
@@ -42,6 +43,7 @@ If you want to contribute to Gkeyll development please see
   gkyl/pubs
   gkyl/presentations
   dev/main
+  processes/main
 
 
 
