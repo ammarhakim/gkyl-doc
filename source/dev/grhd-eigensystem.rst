@@ -294,7 +294,61 @@ for the 3 material waves (corresponding to the 3 :math:`\lambda_{0}^{1}` eigenva
 and:
 
 .. math::
-  \mathbf{l}_{\pm}^{1} = \dots,
+  \mathbf{l}_{\pm}^{1} = \begin{bmatrix}
+  \frac{\left( \left( \frac{\lambda_{\pm}^{1} + \beta^1}{\alpha} \right) v^1
+  - \gamma^{1 1}  \right) \left( \frac{1}{\rho} \left. \left(
+  \frac{\partial P}{\partial \varepsilon} \right) \right\vert_{\rho} \left(
+  \frac{\lambda_{\mp}^{1} + \beta^1}{\alpha} \right) + c_{s}^{2} \gamma^{1 1} v_1
+  - \frac{1}{\rho} \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} v^1 - c_{s}^{2} \left( \frac{\lambda_{\mp}^{1}
+  + \beta^1}{\alpha} \right) v_1 v^1 + h \left( \frac{1}{\rho} \left. \left(
+  \frac{\partial P}{\partial \varepsilon} \right) \right\vert_{\rho} - c_{s}^{2} \right)
+  \left( \left( \frac{\lambda_{\mp}^{1} + \beta^1}{\alpha} \right) - v^1 \right)
+  \left( v_1 v^1 - 1 \right) \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right)
+  + \left( \frac{1}{\rho} \left. \left( \frac{\partial P}{\partial \varepsilon} 
+  \right) \right\vert_{\rho} + c_{s}^{2} \right) \left( \left( \frac{\lambda_{\mp}^{1}
+  + \beta^1}{\alpha} \right) - v^1 \right) \left( v_2 v^2 + v_3 v^3 \right) \left( 1
+  - \gamma_{i j} v^i v^j \right) \right)}{c_{s}^{2} h \left( \frac{\lambda_{\pm}^{1}
+  - \lambda_{\mp}^{1}}{\alpha} \right) \left( v_1 v^1 - 1 \right) \left( v^1 v^1
+  - \gamma^{1 1} \right) \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right)}\\
+  \frac{\left( \gamma^{1 1} - \left( \frac{\lambda_{\pm}^{1} + \beta^1}{\alpha}
+  \right) v^1 \right) \left( \frac{1}{\rho} \left. \left(
+  \frac{\partial P}{\partial \varepsilon} \right) \right\vert_{\rho} \left( \left(
+  \frac{\lambda_{\mp}^{1} + \beta^1}{\alpha} \right) - v^1 \right) v^1
+  + c_{s}^{2} \left( \gamma^{1 1} - \left( \frac{\lambda_{\mp}^{1} + \beta^1}{\alpha}
+  \right) v^1 \right) + \left( \frac{1}{\rho} \left. \left(
+  \frac{\partial P}{\partial \varepsilon} \right) \right\vert_{\rho}
+  + c_{s}^{2} \right) \left( \left( \frac{\lambda_{\mp}^{1} + \beta^1}{\alpha} \right)
+  - v^1 \right) v^1 \left( v_2 v^2 + v_3 v^3 \right) \left( 1
+  - \gamma_{i j} v^i v^j \right) \right)}{c_{s}^{2} h \left( \frac{\lambda_{\pm}^{1}
+  - \lambda_{\mp}^{1}}{\alpha} \right) \left( v_1 v^1 - 1 \right) \left( v^1 v^1
+  - \gamma^{1 1} \right) \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right)}\\
+  \frac{\left( \frac{1}{\rho} \left. \left( \frac{\partial P}{\partial \varepsilon}
+  \right) \right\vert_{\rho} + c_{s}^{2} \right) \left( \left( \frac{\lambda_{\mp}^{1}
+  + \beta^1}{\alpha} \right) - v^1 \right) \left( \gamma^{1 1} - \left(
+  \frac{\lambda_{\pm}^{1} + \beta^1}{\alpha} \right) v^1 \right) v^2 \left( \sqrt{1
+  - \gamma_{i j} v^i v^j} \right)}{c_{s}^{2} h \left( \frac{\lambda_{\pm}^{1}
+  - \lambda_{\mp}^{1}}{\alpha} \right) \left( \gamma^{1 1} - v^1 v^1 \right)}\\
+  \frac{\left( \frac{1}{\rho} \left. \left( \frac{\partial P}{\varepsilon} \right)
+  \right\vert_{\rho} + c_{s}^{2} \right) \left( \left( \frac{\lambda_{\mp}^{1}
+  + \beta^1}{\alpha} \right) - v^1 \right) \left( \gamma^{1 1} - \left(
+  \frac{\lambda_{\pm}^{1} + \beta^1}{\alpha} \right) v^1 \right) v^3 \left( \sqrt{1
+  - \gamma_{i j} v^i v^j} \right)}{c_{s}^{2} h \left( \frac{\lambda_{\pm}^{1}
+  - \lambda_{\mp}^{1}}{\alpha} \right) \left( \gamma^{1 1} - v^1 v^1 \right)}\\
+  \frac{\left( \left( \frac{\lambda_{\pm}^{1} + \beta^1}{\alpha} \right) v^1
+  - \gamma^{1 1} \right) \left( \frac{1}{\rho} \left. \left(
+  \frac{\partial P}{\partial \varepsilon} \right) \right\vert_{\rho} \left(
+  \frac{\lambda_{\mp}^{1} + \beta^1}{\alpha} \right) + c_{s}^{2} \gamma^{1 1} v_1
+  - \frac{1}{\rho} \left. \left( \frac{\partial P}{\partial \varepsilon} \right)
+  \right\vert_{\rho} v^1 - c_{s}^{2} \left( \frac{\lambda_{\mp}^{1} + \beta^1}{\alpha}
+  \right) v_1 v^1 + \left( \frac{1}{\rho} \left. \left(
+  \frac{\partial P}{\partial \varepsilon} \right) \right\vert_{\rho}
+  + c_{s}^{2} \right) \left( \left( \frac{\lambda_{\mp}^{1} + \beta^1}{\alpha}
+  \right) \right) - v^1 \right) \left( v_2 v^2 + v_3 v^3 \right) \left( 1
+  - \gamma_{i j} v^i v^j \right)}{c_{s}^{2} h \left( \frac{\lambda_{\pm}^{1}
+  - \lambda_{\mp}^{1}}{\alpha} \right) \left( v_1 v^1 - 1 \right) \left( v^1 v^1
+  - \gamma^{1 1} \right) \left( \sqrt{1 - \gamma_{i j} v^i v^j} \right)}
+  \end{bmatrix}^{\intercal},
 
 for the 2 acoustic waves (corresponding to the 2 :math:`\lambda_{\pm}^{1}` eigenvalues).
 The left eigenvectors in the :math:`x^2` spatial coordinate direction (i.e. the left
