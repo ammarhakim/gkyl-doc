@@ -40,10 +40,10 @@ If you want to contribute to Gkeyll development please see
   quickstart/main
   gkyl/main
   postgkyl/main
+  processes/main
   gkyl/pubs
   gkyl/presentations
   dev/main
-  processes/main
 
 
 
