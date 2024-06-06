@@ -23,6 +23,11 @@ summation convention (in which repeated tensor indices are implicitly summed ove
 assumed throughout, and the Latin indices :math:`i, j, k, l` range over the spatial
 coordinate directions :math:`\left\lbrace 1, \dots 3 \right\rbrace` only.
 
+See also :ref:`this note <devBlackHoleSpacetimes>` on Gkeyll's handling of general
+black hole spacetimes and the Kerr-Schild coordinate system, and
+:ref:`this note <devGRHDPrimitive>` on Gkeyll's "robustified" conservative to primitive
+variable reconstruction algorithm for both special and general relativity.
+
 Eigenvalues
 -----------
 

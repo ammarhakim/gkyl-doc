@@ -46,6 +46,11 @@ indices are implicitly summed over) is assumed throughout. The Greek indices
 :math:`i, j, k, l` range over the spatial coordinate directions
 :math:`\left\lbrace 1, \dots, 3 \right\rbrace` only.
 
+See also :ref:`this note <devGRHDEigensystem>` on the complete eigensystem for the GRHD
+equations (as implemented as part of Gkeyll's stable time-step calculation), and
+:ref:`this note <devBlackHoleSpacetimes>` on Gkeyll's handling of general black hole
+spacetimes and the Kerr-Schild coordinate system.
+
 Reconstruction algorithm for an ideal gas equation of state
 -----------------------------------------------------------
 

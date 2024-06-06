@@ -20,6 +20,13 @@ directions :math:`\left\lbrace 0, \dots 3 \right\rbrace`, while the Latin indice
 assumed to be timelike, with the remaining coordinates
 :math:`\left\lbrace x^1, x^2, x^3 \right\rbrace` being spacelike.
 
+See also :ref:`this note <devGRHDEigensystem>` on the complete eigensystem for the GRHD
+equations (as implemented as part of Gkeyll's stable time-step calculation),
+:ref:`this note <devBlackHoleSpacetimes>` on Gkeyll's handling of general black hole
+spacetimes and the Kerr-Schild coordinate system, and :ref:`this note <devGRHDPrimitive>`
+on Gkeyll's "robustified" conservative to primitive variable reconstruction algorithm for
+both special and general relativity.
+
 The general :math:`{3 + 1}` split for the hydrodynamics equations
 -----------------------------------------------------------------
 
@@ -501,9 +508,6 @@ and the baryon number conservation equation:
   \left. + \frac{\partial}{\partial x^k} \left( \alpha \sqrt{\gamma} \left( \left(
   \frac{\rho}{\sqrt{1 - \gamma_{i j} v^i v^j}} \right) \left( v^k
   - \frac{\beta^k}{\alpha} \right) \right) \right) \right] = 0.
-
-See also :ref:`this note <devGRHDEigensystem>` on the eigensystem of the GRHD equations
-(as implemented as part of Gkeyll's stable time-step calculation).
 
 References
 ----------

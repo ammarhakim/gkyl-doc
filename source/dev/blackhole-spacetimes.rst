@@ -31,6 +31,11 @@ range over the full spacetime coordinate directions
 range over the spatial coordinate directions
 :math:`\left\lbrace 1, \dots 3 \right\rbrace` only.
 
+See also :ref:`this note <devGRHDEigensystem>` on the complete eigensystem for the GRHD
+equations (as implemented as part of Gkeyll's stable time-step calculation), and
+:ref:`this note <devGRHDPrimitive>` on Gkeyll's "robustified" conservative to primitive
+variable reconstruction algorithm for both special and general relativity.
+
 Cartesian Kerr-Schild coordinates
 ---------------------------------
 
