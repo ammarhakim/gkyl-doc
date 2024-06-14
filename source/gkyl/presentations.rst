@@ -11,6 +11,11 @@ Tutorials
 
 - "Postgkyl tutorial", Petr Cagas `pdf <https://drive.google.com/file/d/1ra-e1d5KlhFhumgFloo_a4dTTXCsvxNc/view?usp=share_link>`_
 
+2024
+
+- "Direct Comparison of Gyrokinetic and Fluid Simulations of a Prospective Spherical Tokamak Pilot Plant Scrape-Off Layer", Akash Shukla, US-EU Transport Task Force, April 2024.
+  `pdf <https://drive.google.com/file/d/1l3oerXLq3lV2hoIB6_Zi6affwTyfc_cC/view?usp=sharing>`_
+
 2023
 
 - "Novel fluid-kinetic modeling: a parallel-kinetic-perpendicular-moment model for diverse plasma applications", Jimmy Juno, *Princeton Center for Theoretical Science: New perspectives in numerical methods for high-energy multiscale astrophysics*, April 2023. `pdf <https://drive.google.com/file/d/1548tLF9o7vyW3bkrsq6FvAMV-8XJvKtY/view?usp=sharing>`_, `Keynote (with movies) <https://drive.google.com/file/d/1fg9xOAthamMXECPErDwhmd9tQGw1gLWn/view?usp=sharing>`_
