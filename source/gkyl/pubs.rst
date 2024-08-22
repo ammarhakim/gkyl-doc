@@ -217,6 +217,11 @@ Physics papers
   Magnetic Fields", *Physical Review Letters*,
   **124**, 255102. https://link.aps.org/doi/10.1103/PhysRevLett.124.255102
 
+- Hakim, A. H., Hammett, G. W., Mandell, N. R., & Shi, E. L. (2019). 
+  "Discontinuous Galerkin schemes for a class of Hamiltonian evolution 
+  equations with applications to plasma fluid and kinetic problems", 
+  https://arxiv.org/abs/1908.01814
+
 - TenBarge, J. M., Ng, J., Juno, J., Wang, L., Hakim, A. &
   Bhattacharjee, A. (2019). "An extended MHD study of the 16 October
   2015 MMS diffusion region crossing", *Journal of Geophysical
@@ -310,6 +315,10 @@ Physics papers
   Huang, Y.-M., Hakim, A., & Bhattacharjee, A. (2015). "Role of Ion
   Kinetic Physics in the Interaction of Magnetic Flux Ropes",
   *Physical Review Letters*, **115**, 175004. https://doi.org/10.1103/PhysRevLett.115.175004
+
+- Shi, E. L., Hakim, A. H., & Hammett, G. W. (2015). "A gyrokinetic one-dimensional 
+  scrape-off layer model of an edge-localized mode heat pulse." *Physics of Plasma*, 
+  **22** (2), 022504. https://doi.org/10.1063/1.4907160
 
 - Wang, L., Hakim, A. H., Bhattacharjee, A., &
   Germaschewski, K. (2015). "Comparison of multi-fluid moment models
