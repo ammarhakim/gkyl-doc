@@ -81,7 +81,7 @@ Francisquez, Jonathan Gorard, Petr Cagas, Tess Bernard, Jason TenBarge,
 Kolter Bradshaw, Grant Johnson, Akash Shukla, Jonathan Roeltgen, 
 Maxwell Rosen, Dingyun Liu, and Liang Wang. For a full list of contributors see our Github pages.
 
-Past contributors include: Noah Mandell and Collin Brown. 
+Past contributors include: Noah Mandell, Jonathan Ng, Collin Brown, and Eric Shi. 
 
 .. _gkyl_contact:
 
