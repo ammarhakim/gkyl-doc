@@ -73,12 +73,6 @@ and NASA.
 The CEO and Algorithm Alchemist of the project is `Ammar Hakim
 <https://ammar-hakim.org/>`_.
 
-The lead physicists for the project are `Greg Hammett
-<https://w3.pppl.gov/~hammett/>`_, `Amitava Bhattacharjee
-<https://theory.pppl.gov/people/profile.php?pid=1&n=Amitava-Bhattacharjee>`_,
-and `Bhuvana Srinivasan
-<https://www.aoe.vt.edu/people/faculty/srinivasan/personal-page.html>`_.
-
 The current `major contributors
 <https://github.com/ammarhakim/gkyl/graphs/contributors>`_ (`see also
 <https://github.com/ammarhakim/gkylzero/graphs/contributors>`_) to the
