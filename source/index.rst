@@ -79,13 +79,15 @@ The lead physicists for the project are `Greg Hammett
 and `Bhuvana Srinivasan
 <https://www.aoe.vt.edu/people/faculty/srinivasan/personal-page.html>`_.
 
-The `major contributors
+The current `major contributors
 <https://github.com/ammarhakim/gkyl/graphs/contributors>`_ (`see also
 <https://github.com/ammarhakim/gkylzero/graphs/contributors>`_) to the
-code are: James (Jimmy) Juno, Noah Mandell, Manaure (Mana)
-Francisquez, Petr Cagas, Liang Wang, Tess Bernard, Jason TenBarge, and
-Kolter Bradshaw. For a full list of contributors see our Github pages.
+code are: James (Jimmy) Juno, Manaure (Mana)
+Francisquez, Jonathan Gorard, Petr Cagas, Tess Bernard, Jason TenBarge,
+Kolter Bradshaw, Grant Johnson, Akash Shukla, Jonathan Roeltgen, 
+Maxwell Rosen, Dingyun Liu, and Liang Wang. For a full list of contributors see our Github pages.
 
+Past contributors include: Noah Mandell and Collin Brown. 
 
 .. _gkyl_contact:
 
