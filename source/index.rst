@@ -58,7 +58,7 @@ Princeton University. Other major partners are Virginia Tech, MIT,
 Rensselaer Polytechnic Institute (RPI), University of Maryland,
 Indiana University, and Helmholtz-Zentrum Dresden-Rossendorf (HZDR).
 
-As of 2022, the active funding for the project comes from:
+As of 2024, the active funding for the project comes from:
 
 - National Science Foundation's `CSSI program
   <https://www.nsf.gov/awardsearch/showAward?AWD_ID=2209471&HistoricalAwards=false>`_
@@ -73,15 +73,9 @@ and NASA.
 The CEO and Algorithm Alchemist of the project is `Ammar Hakim
 <https://ammar-hakim.org/>`_.
 
-The current `major contributors
-<https://github.com/ammarhakim/gkyl/graphs/contributors>`_ (`see also
-<https://github.com/ammarhakim/gkylzero/graphs/contributors>`_) to the
-code are: James (Jimmy) Juno, Manaure (Mana)
-Francisquez, Jonathan Gorard, Petr Cagas, Tess Bernard, Jason TenBarge,
-Kolter Bradshaw, Grant Johnson, Akash Shukla, Jonathan Roeltgen, 
-Maxwell Rosen, Dingyun Liu, and Liang Wang. For a full list of contributors see our Github pages.
-
-Past contributors include: Noah Mandell, Jonathan Ng, Collin Brown, and Eric Shi. 
+Gkeyll has many valuable contributors, who have contributed code to our
+various source repos. To see a complete list, please see the Github
+contributors pages: `GkeyllZero <https://github.com/ammarhakim/gkylzero/graphs/contributors>`_, `Gkeyll <https://github.com/ammarhakim/gkyl/graphs/contributors>`_, `Postgkyl <https://github.com/ammarhakim/postgkyl/graphs/contributors>`_, `Gkeyll CAS <https://github.com/ammarhakim/gkylcas/graphs/contributors>`_ and `Gekyll Docs <https://github.com/ammarhakim/gkyl-doc/graphs/contributors>`_.
 
 .. _gkyl_contact:
 
