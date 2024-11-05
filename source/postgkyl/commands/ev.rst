@@ -41,32 +41,17 @@ More information about RPN can be found, for example, on
 Using ``ev`` on simple datasets
 -------------------------------
 
-The ``ev`` command has one required argument, which is the operation
+The ``ev`` command has one required argument: the operation
 sequence. Datasets are specified in the sequence with
 ``f[set_index][component]``. Note that Python indexing conventions are
 used. Specifically, when no indices are specified, everything is used,
-i.e., ``f[0][:]`` and ``f[0]`` are treated as identical calls. The
-indices need to be integers unless a global indexing mode ``-g`` is
-used, which ignores active and inactive sets. Then, Python
+i.e., ``f[0][:]`` and ``f[0]`` are treated as identical calls. Python
 slice syntax can be used as well including negative indices and
 strides. For example, ``f[2:-1:2]`` will select every other dataset,
-starting with the third one (zero-indexed), and ending with one before
+starting with the third one (zero-indexed), and ending with the one before
 the last (by Python conventions, the upper bound is not included; in
 this example it might end with the third element from the end because
 of the stride).
-
-.. note::
-  Dataset selection in ``ev`` internally uses the same code as the
-  :ref:`pg_cmd_activate`/:ref:`pg_cmd_deactivate` commands, so the
-  following commands produce similar results (``ev`` actually copies
-  the datasets instead of just activating some).
-
-  .. code-block:: bash
-
-     pgkyl two-stream_elc_?.bp activate -i '2:-1:2'
-     pgkyl two-stream_elc_?.bp ev -g 'f[2:-1:2]'
-
-  However, this is probably a fringe application of ``ev``.
 
 The simplest example of ``ev`` is a numerical operation performed on
 a dataset, e.g., dividing the values by the insidious factor of 2:
@@ -75,23 +60,22 @@ a dataset, e.g., dividing the values by the insidious factor of 2:
 
    pgkyl two-stream_elc_0.bp ev 'f[0] 2 /'
 
-This can be also combined with the fact that ``ev`` can access dataset
-metadata as long as they are included (which is a new feature in
-Gkeyll introduced in January 2021). An example of this can be plotting
+This can also be combined with the fact that ``ev`` can access dataset
+metadata as long as they are included. An example of this can be plotting
 number density from a fluid simulation (Gkeyll outputs mass density).
 
 .. code-block:: bash
 
    pgkyl 5m_fluid_elc_0.bp ev 'f[0][0] f[0].mass /' plot
 
-Note that on top of dividing by mass, only the first component, which
-corresponds to density, was selected. This can be easily extended to
-apply on multiple datasets and create an animation using the
+Note that only the first component, which
+corresponds to density, was selected on top of dividing by mass. This can be easily extended to
+apply to multiple datasets and create an animation using the
 :ref:`pg_cmd_animate` command
 
 .. code-block:: bash
 
-   pgkyl '5m_fluid_elc_[0-9]*.bp' ev -g 'f[:][0] f[:].mass /' animate
+   pgkyl '5m_fluid_elc_[0-9]*.bp' ev 'f[:][0] f[:].mass /' animate
 
 The capabilities are not limited to operations with float factors. As
 an example, ``ev`` can be used to visualize differences
@@ -126,7 +110,7 @@ Using ``ev`` on datasets with tags
 ----------------------------------
 
 The ``ev`` command is tag-aware. Tagged datasets use the following
-notation ``tag_name[set_index][component]``. Using this, the
+notation ``tag_name[dataset_index][component]``. Using this, the
 previous example can be reproduced:
 
 .. code-block:: bash
@@ -144,13 +128,13 @@ for batch loading and :ref:`pg_cmd_animate`:
 Examples of specific ``ev`` operations
 --------------------------------------
 
-In this section we provide examples of some ``ev`` operations that
+In this section, we provide examples of some ``ev`` operations that
 are less trivial or intuitive.
 
 grad
 ^^^^
 
-This operation differentiates a along a direction given by the second
+This operation differentiates along a direction given by the second
 operand. So, for example, given the data from an
 :doc:`ion sound wave gyrokinetic simulation<../input/gk-ionSound-1x2v-p1>`
 we can plot the initial electrostatic potential with
@@ -184,7 +168,7 @@ once again take the
 :doc:`ion sound wave gyrokinetic simulation<../input/gk-ionSound-1x2v-p1>`
 data, we can examine the number of particles in the simulation (should be
 conserved) by taking the time trace of the integrated ion number density
-(``intM0``) and taking its mean:
+(``intM0``) and taking its mean value:
 
 .. code-block:: bash
 
