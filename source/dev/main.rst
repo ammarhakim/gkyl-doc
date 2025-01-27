@@ -4,7 +4,8 @@ Developer notes
 .. toctree::
   :maxdepth: 1
 
-  dev-rules             
+  dev-rules     
+  suggested-templates        
   onmaxima
   modalbasis
   recovery
