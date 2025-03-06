@@ -197,8 +197,10 @@ Bug fix
 
   ## Testing: _(x (yes), blank (no))_
 
-  - [ ] I added a regression test to test for this bug.
-  - [ ] I added a unit test to test this bug.
+  - [ ] I added a regression test to test this feature.
+  - [ ] I added this feature to an existing regression test.
+  - [ ] I added a unit test to test this feature. A file added to `/zero` must have an associated unit test.
+  - [ ] I modified an `/app` file and tested it by ensuring that the outputs were reasonable by eye.
   - [ ] Ran `make check` and unit tests all pass.
   - [ ] I ran the code through Valgrind, and it is clean.
   - [ ] I ran a few regression tests to ensure no apparent errors.
@@ -251,7 +253,9 @@ Feature addition
   ## Testing: _(x (yes), blank (no))_
 
   - [ ] I added a regression test to test this feature.
-  - [ ] I added a unit test to test this feature.
+  - [ ] I added this feature to an existing regression test.
+  - [ ] I added a unit test to test this feature. A file added to `/zero` must have an associated unit test.
+  - [ ] I modified an `/app` file and tested it by ensuring that the outputs were reasonable by eye.
   - [ ] Ran `make check` and unit tests all pass.
   - [ ] I ran the code through Valgrind, and it is clean.
   - [ ] I ran a few regression tests to ensure no apparent errors.
