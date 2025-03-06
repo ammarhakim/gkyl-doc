@@ -199,8 +199,9 @@ Bug fix
 
   - [ ] I added a regression test to test this feature.
   - [ ] I added this feature to an existing regression test.
-  - [ ] I added a unit test to test this feature. A file or function added to `/zero` must have an associated unit test.
-  - [ ] I modified an `/app` file and tested it by ensuring that the outputs were reasonable by eye.
+  - [ ] I added a unit test to test this feature.
+  - [ ] I modified/added a function or file to `/zero`, which should have an associated unit test.
+  - [ ] I modified/added a function or file to `/app` and tested it to ensure the outputs were correct.
   - [ ] Ran `make check` and unit tests all pass.
   - [ ] I ran the code through Valgrind, and it is clean.
   - [ ] I ran a few regression tests to ensure no apparent errors.
@@ -254,8 +255,9 @@ Feature addition
 
   - [ ] I added a regression test to test this feature.
   - [ ] I added this feature to an existing regression test.
-  - [ ] I added a unit test to test this feature. A file or function added to `/zero` must have an associated unit test.
-  - [ ] I modified an `/app` file and tested it by ensuring that the outputs were reasonable by eye.
+  - [ ] I added a unit test to test this feature.
+  - [ ] I modified/added a function or file to `/zero`, which should have an associated unit test.
+  - [ ] I modified/added a function or file to `/app` and tested it to ensure the outputs were correct.
   - [ ] Ran `make check` and unit tests all pass.
   - [ ] I ran the code through Valgrind, and it is clean.
   - [ ] I ran a few regression tests to ensure no apparent errors.
