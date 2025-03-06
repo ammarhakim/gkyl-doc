@@ -190,18 +190,19 @@ Bug fix
 
   Impacted files: _List the components, files, or modules impacted by the fix._
 
+  Automated testing: _Please explain how the feature was tested. If no automated tests are included (e.g. unit, regression), explain why._
+
   ## Community Standards
 
   - [ ] Documentation has been updated.
   - [ ] My code follows the project's coding guidelines.
+  - [ ] Changes to `/zero` should have a unit test.
 
   ## Testing: _(x (yes), blank (no))_
 
   - [ ] I added a regression test to test this feature.
   - [ ] I added this feature to an existing regression test.
-  - [ ] I added a unit test to test this feature.
-  - [ ] I modified/added a function or file to `/zero`, which should have an associated unit test.
-  - [ ] I modified/added a function or file to `/app` and tested it to ensure the outputs were correct.
+  - [ ] I added a unit test for this feature.
   - [ ] Ran `make check` and unit tests all pass.
   - [ ] I ran the code through Valgrind, and it is clean.
   - [ ] I ran a few regression tests to ensure no apparent errors.
@@ -238,6 +239,8 @@ Feature addition
 
   Dependencies: _If any, mention any new configuration changes, libraries, or dependencies added._
 
+  Automated testing: _Please explain how the feature was tested. If no automated tests are included (e.g. unit, regression), explain why._
+
   ## Example Use
 
   _Provide some example code of how a user may utilize this new feature in an input file._
@@ -250,14 +253,13 @@ Feature addition
 
   - [ ] Documentation has been updated.
   - [ ] My code follows the project's coding guidelines.
+  - [ ] Changes to `/zero` should have a unit test.
 
   ## Testing: _(x (yes), blank (no))_
 
   - [ ] I added a regression test to test this feature.
   - [ ] I added this feature to an existing regression test.
   - [ ] I added a unit test to test this feature.
-  - [ ] I modified/added a function or file to `/zero`, which should have an associated unit test.
-  - [ ] I modified/added a function or file to `/app` and tested it to ensure the outputs were correct.
   - [ ] Ran `make check` and unit tests all pass.
   - [ ] I ran the code through Valgrind, and it is clean.
   - [ ] I ran a few regression tests to ensure no apparent errors.
@@ -297,11 +299,11 @@ Documentation changes
 
   # Reason for Change
 
-  _Explain why these changes were necessary or how they improve the documentation._
+  _Explain why these changes were necessary or how they improved the documentation._
 
   # Additional Notes
 
-  _Include any relevant information that might help reviewers, such as why certain phrasing was used or how the changes relate to new functionality or bug fixes._
+  _Include relevant information that might help reviewers, such as why certain phrasing was used or how the changes relate to new functionality or bug fixes._
 
   # Checklist _(x (yes), blank (no))_
   - [ ] I have reviewed the documentation for accuracy.
