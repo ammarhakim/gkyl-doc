@@ -3,8 +3,13 @@
 Suggested templates for issues and pull requests to Gkeyll
 =======================================================================================
 
-When creating an issue or pull request, we highly reccomend using the following templates to ensure that the issue is addressed in a timely manner.
-Templates are a great way to standardize the review process and ensure complience with the project's guidelines.
+When creating an issue or pull request, we suggest using the following templates to ensure that the issue is addressed in a timely manner.
+Templates are a great way to standardize the review process and ensure compliance with project guidelines. Also, they make sure that
+developers are rigorous in their testing and do not forget checks.
+
+.. contents:: Table of Contents
+   :depth: 2
+   :local:
 
 Issues
 -----------------------
