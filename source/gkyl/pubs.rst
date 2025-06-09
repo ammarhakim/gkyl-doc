@@ -101,7 +101,8 @@ Algorithms papers
 Physics papers
 --------------
 
-- Bradshaw, K., Hakim, A., Srinivasan, B. (2025). "Effects of oxidation and impurities in lithium surfaces on the emitting wall plasma sheath",
+- Bradshaw, K., Hakim, A., Srinivasan, B. (2025). "Effects of oxidation and
+  impurities in lithium surfaces on the emitting wall plasma sheath",
    *Physics of Plasmas* **32**, 063506. https://doi.org/10.1063/5.0258265
 
 - Bradshaw, K., Srinivasan, B. (2024). "Energy-dependent implementation
