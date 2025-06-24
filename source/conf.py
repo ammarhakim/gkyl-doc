@@ -38,7 +38,7 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.mathjax',
     'sphinx.ext.autosectionlabel',
-    'sphinx_immaterial',
+#    'sphinx_immaterial',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -92,7 +92,8 @@ todo_include_todos = True
 # a list of builtin themes.
 #
 #html_theme = 'classic'
-html_theme = "sphinx_immaterial"
+#html_theme = "sphinx_immaterial"
+#html_theme = "haiku"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
