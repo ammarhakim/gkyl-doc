@@ -1,7 +1,7 @@
 .. _suggestedTemplates:
 
 Suggested templates for issues and pull requests to Gkeyll
-=======================================================================================
+==========================================================
 
 When creating an issue or pull request, we suggest using the following templates to ensure that the issue is addressed in a timely manner.
 Templates are a great way to standardize the review process and ensure compliance with project guidelines. Also, they make sure that
@@ -12,10 +12,10 @@ developers are rigorous in their testing and do not forget checks.
    :local:
 
 Issues
------------------------
+------
 
 Bug report
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~
 
 .. code-block:: markdown
 
@@ -70,7 +70,7 @@ Bug report
 
 
 Design review
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
 
 .. code-block:: markdown 
 
@@ -123,7 +123,7 @@ Design review
   Additional Resources: 
 
 Feature request
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 .. code-block:: markdown
 
@@ -172,10 +172,10 @@ Feature request
   - [ ] I have reviewed related issues and discussions to avoid duplication.
 
 Pull requests
---------------------
+-------------
 
 Bug fix
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~
 
 .. code-block:: markdown
 
@@ -222,7 +222,7 @@ Bug fix
 
 
 Feature addition
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 .. code-block:: markdown
 
@@ -278,7 +278,7 @@ Feature addition
   _Include any additional context, caveats, or future improvements related to the feature._
 
 Documentation changes
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: markdown
   
