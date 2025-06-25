@@ -1,88 +1,91 @@
-:hero: A plasma simulation framework for (almost) all the scales
+.. _home:
 
-The  Gkeyll 2.0 Code: Documentation Home
-++++++++++++++++++++++++++++++++++++++++
+:hero: A multi-scale, multi-physics simulation framework
 
-.. epigraph::
+The :math:`\texttt{Gkeyll}` Simulation Framework
+================================================
 
-  "Magic Chicken Software Framework"
-  -- Artificial 'Intelligence' view on Gkeyll
+:math:`\texttt{Gkeyll}` is a multi-scale, multi-physics simulation framework, developed
+for a variety of applications in plasma physics, space physics, general relativity, and
+high-energy astrophysics. The core of :math:`\texttt{Gkeyll}` is written in C, featuring
+a lightweight, modular design and minimal external dependencies, plus an additional Lua
+scripting layer (for specifying simulation input parameters) provided via the `Lua-C API
+<https://www.lua.org/pil/24.html>`_.
 
-.. epigraph::
+:math:`\texttt{Gkeyll}`'s clean and modular design ensures that the entire code can be
+built hierarchically, with the following layers:
 
-  "Don't Panic"
-  -- The Hitchhiker's Guide to the Galaxy
+* :math:`\texttt{core}`
+    Critical software infrastructure that is common to all parts of the
+    :math:`\texttt{Gkeyll}` framework, including grid-generation, parallelism, file
+    input/output, Lua tools, and certain fundamental array and discontinuous Galerkin
+    operations.
+* :math:`\texttt{moments}`
+    :math:`\texttt{Gkeyll}`'s finite-volume solvers for various systems of hyperbolic
+    PDEs, including (relativistic) multi-fluid equations, perfectly hyperbolic Maxwell
+    equations, and Einstein field equations. Also includes infrastructure for
+    integrating ODEs, solving Poisson equations, and specifying curved spacetime
+    geometries (e.g. black holes and neutron stars) for general relativistic
+    simulations.
+* :math:`\texttt{vlasov}`
+    :math:`\texttt{Gkeyll}`'s modal discontinuous Galerkin solvers for the
+    (relativistic) Vlasov-Maxwell and Vlasov-Poisson equation systems, supporting
+    continuum kinetics simulations in any number of configuration space and velocity
+    space dimensions, from 1x1v (2D phase space) to full 3x3v (6D phase space). Also
+    includes modal discontinuous Galerkin solvers for evolving various Hamiltonian
+    systems, as specified via their canonical Poisson bracket structure.
+* :math:`\texttt{gyrokinetic}`
+    :math:`\texttt{Gkeyll}`'s modal discontinuous Galerkin solvers for the full
+    :math:`f` gyrokinetic equation in the long-wavelength limit (coupled to the
+    gyrokinetic Poisson equation), supporting continuum electrostatic gyrokinetics in
+    any number of configuration space dimensions, from 1x2v (3D phase space) to
+    full 3x2v (5D phase space). Also includes infrastructure for specifying tokamak and
+    mirror geometries for nuclear fusion applications.
+* :math:`\texttt{pkpm}`
+    :math:`\texttt{Gkeyll}`'s modal discontinuous Galerkin solvers for the
+    parallel-kinetic-perpendicular-moment equations, supporting simulation of weakly
+    collisional, magnetized plasmas in any number of configuration space dimensions,
+    from 1x1v (2D phase space) to 3x1v (4D phase space).
 
-Gkeyll v2.0 (pronounced as in the book `"The Strange Case of
-Dr. Jekyll and Mr. Hyde"
-<https://www.gutenberg.org/files/43/43-h/43-h.htm>`_) is a
-computational plasma physics code mostly written in C and `LuaJIT
-<http://luajit.org>`_. Gkeyll contains solvers for gyrokinetic
-equations, Vlasov-Maxwell equations, and multi-fluid equations.
+Developers
+----------
 
-The Gkeyll package contains two major parts: the :ref:`gkyl <gkyl_main>`
-simulation framework and the the :ref:`postgkyl <pg_main>` post-processing
-package. Here you will find documentation for the full Gkeyll package.
+The originator, lead developer and chief algorithm alchemist of the
+:math:`\texttt{Gkeyll}` project is **Ammar Hakim** (*Princeton Plasma Physics
+Laboratory*).
 
-If you want to contribute to Gkeyll development please see
-:ref:`Contribution Guidelines <devRules>`, as well as our
-:ref:`Design and Code Review Process <processDesignCode>`. For license see
-:doc:`License <aboutAndLicense>`.
+The other active developers of the :math:`\texttt{Gkeyll}` code (defined as being those
+who have contributed to the ``main`` branch of the primary :math:`\texttt{Gkeyll}`
+source repository within the past 12 months) include:
 
-.. image:: gkyl-clopen-negD-no-labels-trim.png
-  :class: align-right
-  :width: 50 %
+* **James (Jimmy) Juno**, *Princeton Plasma Physics Laboratory*
+* **Manaure Francisquez**, *Princeton Plasma Physics Laboratory*
+* **Jonathan Gorard**, *Princeton University*
+* **Akash Shukla**, *University of Texas at Austin*
+* **Maxwell Rosen**, *Princeton University*
+* **Tess Bernard**, *General Atomics*
+* **Antoine Hoffmann**, *Princeton Plasma Physics Laboratory*
+* **Grant Johnson**, *Princeton University*
+* **Kolter Bradshaw**, *Princeton University*
+* **Jonathan Roeltgen**, *University of Texas at Austin*
+* **Dingyun Liu**, *Princeton University*
+
+The lead developers of the :math:`\texttt{postgkyl}` visualization and post-processing
+framework are **Petr Cagas** and **Ammar Hakim**.
+
+Previous contributors to the :math:`\texttt{Gkeyll}` project (defined as being those who
+have ever contributed to the ``main`` branches of any :math:`\texttt{Gkeyll}` source
+repository, present or past) include:
+
+* **Liang Wang**, *Boston University*
+* **Noah Mandell**, *Type One Energy*
+* **Eric Shi**, *NVIDIA*
+* **Jonathan Ng**, *University of Maryland*
+* **Tony Qian**, *University of Wisconsin-Madison*
+* **John Rodman**, *University of Rochester*
+* **Jason TenBarge**, *Princeton University*
 
 .. toctree::
-  :maxdepth: 1
+  :maxdepth: 2
 
   install
-  quickstart/main
-  gkyl/main
-  postgkyl/main
-  processes/main
-  gkyl/pubs
-  gkyl/presentations
-  dev/main
-
-
-
-Authors
-+++++++
-
-Gkeyll is developed at multiple institutions, with the present
-leadership residing at Princeton University's Department of
-Astrophysical Sciences and the Princeton Plasma Physics Laboratory
-(PPPL), a Department of Energy (DOE) national lab, managed by
-Princeton University. Other major partners are Virginia Tech, MIT,
-Rensselaer Polytechnic Institute (RPI), University of Maryland,
-Indiana University, and Helmholtz-Zentrum Dresden-Rossendorf (HZDR).
-
-As of 2024, the active funding for the project comes from:
-
-- National Science Foundation's `CSSI program
-  <https://www.nsf.gov/awardsearch/showAward?AWD_ID=2209471&HistoricalAwards=false>`_
-- DOE's SciDAC program
-- ARPA-E BETHE Theory and Simulation Grant to Virginia Tech and PPPL
-- Other NSF individual-PI awards to Princeton University
-- PPPL LDRD program
-
-Past funding has come from the Airforce Office of Scientific Research
-and NASA.
-
-The CEO and Algorithm Alchemist of the project is `Ammar Hakim
-<https://ammar-hakim.org/>`_.
-
-Gkeyll has many valuable contributors, who have contributed code to our
-various source repos. To see a complete list, please see the Github
-contributors pages: `GkeyllZero <https://github.com/ammarhakim/gkylzero/graphs/contributors>`_, `Gkeyll <https://github.com/ammarhakim/gkyl/graphs/contributors>`_, `Postgkyl <https://github.com/ammarhakim/postgkyl/graphs/contributors>`_, `Gkeyll CAS <https://github.com/ammarhakim/gkylcas/graphs/contributors>`_ and `Gekyll Docs <https://github.com/ammarhakim/gkyl-doc/graphs/contributors>`_.
-
-.. _gkyl_contact:
-
-Contact us
-++++++++++
-
-Should you have any questions, request or ideas, please feel free to open a
-GitHub issue about it in `gkyl <https://github.com/ammarhakim/gkyl/>`_ or
-`postgkyl <https://github.com/ammarhakim/postgkyl>`_ repositories, or
-message us via gkeyll-dev -at- pppl dot gov.
