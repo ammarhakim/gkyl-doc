@@ -1,5 +1,7 @@
 .. _install:
 
+.. title:: Installing Gkeyll
+
 Installing :math:`\texttt{Gkeyll}`
 ==================================
 
@@ -291,13 +293,17 @@ will read:
 
 .. code-block:: bash
 
+  ...
   USE_MPI=1
+  ...
 
 if :math:`\texttt{Gkeyll}` is configured to use MPI, and:
 
 .. code-block:: bash
 
+  ...
   USE_MPI=
+  ...
 
 otherwise. You can manually set ``USE_MPI=1`` if you wish to build with MPI, in which
 case, please ensure that ``CONF_MPI_INC_DIR`` and ``CONF_MPI_LIB_DIR`` on lines 18 and 19
@@ -307,8 +313,11 @@ and ``/lib`` directories, which should look something like (assuming that you ar
 
 .. code-block:: bash
 
+  ...
+  USE_MPI=1
   CONF_MPI_INC_DIR=/Users/<your username>/gkylsoft/openmpi/include/
   CONF_MPI_LIB_DIR=/Users/<your username>/gkylsoft/openmpi/lib/
+  ...
 
 If you do not have a working MPI installation on your machine, you can ask
 :math:`\texttt{Gkeyll}` to install one automatically to your ``/gkylsoft`` directory by
@@ -346,8 +355,56 @@ and near the top of the resulting output should be a banner which looks somethin
   Built with MPI
   ...
 
-If the banner says ``Built without MPI``, then something went wrong with the MPI
-configuration.
+If the banner instead reads ``Built without MPI``, then something has gone wrong with
+either the configuration or the build itself. To confirm that :math:`\texttt{Gkeyll}`
+simulations can now be run correctly in parallel, first try running a simple
+:math:`\texttt{moments}` simulation in *serial*:
+
+.. code-block:: bash
+
+  ./build/gkeyll/gkeyll ./moments/luareg/rt_5m_gem.lua
+
+and take note of the total amount of time that the simulation took to run:
+
+.. code-block:: bash
+
+  ...
+  Total updates took <time> secs
+  ...
+
+To run the same simulation in parallel using MPI, we must first configure the simulation
+to decompose its domain into a number of subdomains that is equal to the total number of
+available MPI ranks. Open the ``moments/lua/rt_5m_gem.lua`` input file and edit line 63,
+which specifies the ``decompCuts`` parameter:
+
+.. code-block:: lua
+
+  ...
+  -- Decomposition for configuration space.
+  decompCuts = { 1, 1 }, -- Cuts in each coordinate direction (x- and y-directions).
+  ...
+
+and try partitioning the domain into a total of 4 subdomains: 2 in the x-direction and 2
+in the y-direction:
+
+.. code-block:: lua
+
+  ...
+  -- Decomposition for configuration space.
+  decompCuts = { 2, 2 }, -- Cuts in each coordinate direction (x- and y-directions).
+  ...
+
+And now try running the simulation again, this time using 4 MPI processes:
+
+.. code-block:: bash
+
+  mpirun -np 4 ./build/gkeyll/gkeyll ./moments/luareg/rt_5m_gem.lua
+
+and, upon checking the total simulation time again, you should find that it took
+approximately one quarter of the time (perhaps slightly more, due to Amdahl's law) of the
+serial run.
+
+
 
 .. _installing_postgkyl:
 
@@ -425,5 +482,3 @@ and then plotting the resulting simulation data with :math:`\texttt{postgkyl}`:
 
 .. toctree::
   :maxdepth: 2
-
-  install

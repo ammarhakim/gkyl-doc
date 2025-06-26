@@ -1,5 +1,7 @@
 .. _home:
 
+.. title:: The Gkeyll Simulation Framework
+
 :hero: A multi-scale, multi-physics simulation framework
 
 The :math:`\texttt{Gkeyll}` Simulation Framework
@@ -136,3 +138,4 @@ Other Pages
   :maxdepth: 2
 
   install
+  quickstart
