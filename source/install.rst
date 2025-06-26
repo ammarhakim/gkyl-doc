@@ -20,8 +20,8 @@ various ways to test whether a particular installation of :math:`\texttt{Gkeyll}
 configured and working correctly, as well as how to install the
 :math:`\texttt{postgkyl}` visualization and post-processing pipeline in Python. The
 instructions below assume that you have a working C compiler (such as ``gcc`` or
-``clang`` when building for CPUs on macOS or Linux, or ``nvcc`` when building for GPUs)
-installed on your machine.
+``clang`` when building for CPUs on macOS or Linux, or ``nvcc`` when building for NVIDIA
+GPUs) installed on your machine.
 
 The first step in any :math:`\texttt{Gkeyll}` installation is to clone the repository
 from GitHub:
@@ -35,6 +35,24 @@ and then, once it has been cloned, to navigate into the ``gkylzero`` directory:
 .. code-block:: bash
 
   cd gkylzero
+
+Depending upon whether you are building :math:`\texttt{Gkeyll}` on macOS, Linux, or a
+supercomputer cluster, begin by reading either the
+:ref:`macOS Setup Instructions<macos_setup>`, the
+:ref:`Linux Setup Instructions<linux_setup>`, or the
+:ref:`Supercomputer Cluster Setup Instructions<supercomputer_setup>`. Then, read the
+guide to :ref:`Building and Testing Gkeyll<building_gkeyll>` (assuming that you are
+building :math:`\texttt{Gkeyll}` on a single CPU). If you are building
+:math:`\texttt{Gkeyll}` on a GPU, or if you intend to take advantage of multi-CPU and/or
+multi-GPU parallelism, then read the guide to
+:ref:`Parallel and GPU Builds<parallel_gpu>`, in order to understand how the building and
+testing process differs in these cases. Finally, read the guide to
+:ref:`Installing postgkyl<installing_postgkyl>`, in order to be able to use the
+:math:`\texttt{postgkyl}` visualization and post-processing pipeline. By the end of this
+guide, you should have been able to build, run, and visualize the output of, your first
+:math:`\texttt{Gkeyll}` simulation.
+
+.. _macos_setup:
 
 macOS Setup Instructions
 ------------------------
@@ -65,6 +83,8 @@ but not using CUDA, MPI, NCCL, ADAS, etc.), now run:
 
 which will generate the default ``config.mak`` configuration file for macOS.
 
+.. _linux_setup:
+
 Linux Setup Instructions
 ------------------------
 
@@ -93,13 +113,86 @@ Then, to download, build and install the ``OpenBLAS``, ``SuperLU``, ``LuaJIT`` a
   ./machines/mkdeps.linux.sh
 
 To generate the default :math:`\texttt{Gkeyll}` configuration on Linux for CPUs only
-(i.e. using Lua, but not using CUDA, MPI, NCCL, ADAS, etc.), now run:
+(i.e. using Lua, but not using CUDA, MPI, NCCL, ``ADAS``, etc.), now run:
 
 .. code-block:: bash
 
   ./machines/configure.linux-cpu.sh
 
 which will generate the default ``config.mak`` configuration file for Linux on CPUs.
+
+.. _supercomputer_setup:
+
+Supercomputer Cluster Setup Instructions
+----------------------------------------
+
+:math:`\texttt{Gkeyll}` already has pre-assembled machine files for a number of
+different Princeton University supercomputer clusters (such as ``Stellar``, ``Della``,
+and ``Traverse``, including both CPU and GPU nodes on each), as well as for various
+national supercomputers (such as ``Perlmutter``). The process of building
+:math:`\texttt{Gkeyll}` on one of these clusters is then very similar to the process on
+any other Linux machine, except that the process of loading the requisite modules must
+be performed manually. For example, suppose that we are building :math:`\texttt{Gkeyll}`
+for a CPU node on ``Stellar`` (i.e. ``stellar-intel``). To ensure that the correct
+versions of ``OpenBLAS``, ``SuperLU`` and ``LuaJIT`` have been installed in the
+``gkylsoft`` directory of ``stellar-intel``, simply run:
+
+.. code-block:: bash
+
+  ./machines/mkdeps.stellar-intel.sh
+
+To generate the default :math:`\texttt{Gkeyll}` configuration on a ``Stellar`` CPU node
+(i.e. using Lua, ``ADAS``, and ``OpenMPI``, but not using CUDA, NCCL, etc.), now run:
+
+.. code-block:: bash
+
+  ./machines/configure.stellar-intel.sh
+
+which will generate the default ``config.mak`` configuration file for a ``Stellar`` CPU
+node. Finally, the only remaining step before proceeding to the build/install phase is
+to load the required modules, which can be checked by inspecting the configuration
+script for ``stellar-intel``:
+
+.. code-block:: bash
+
+  cat machines/configure.stellar-intel.sh
+
+Note the two module load lines at the top for ``intel/2021.1.2`` and
+``openmpi/intel-2021.1/4.1.2``, so all that remains to be done before proceeding to build
+the code is to run:
+
+.. code-block:: bash
+
+  module load intel/2021.1.2
+  module load openmpi/intel-2021.1/4.1.2
+
+On the other hand, suppose that we are building :math:`\texttt{Gkeyll}` instead for a
+GPU node on ``Stellar`` (i.e. ``stellar-amd``). The ``mkdeps`` and ``configure`` steps
+are directly analogous as for the CPU case:
+
+.. code-block:: bash
+
+  ./machines/mkdeps.stellar-amd.sh
+  ./machines/configure.stellar-amd.sh
+
+with the ``mkdeps`` step now additionally building the ``cuDSS`` dependency. However,
+now the top of the configuration script for ``stellar-amd``:
+
+.. code-block:: bash
+
+  cat machines/configure.stellar-amd.sh
+
+indicates that a different set of modules must be loaded in instead, namely
+``cudatoolkit/12.4`` and ``openmpi/cuda-11.1/gcc/4.1.1``, so we must run:
+
+.. code-block:: bash
+
+  module load cudatoolkit/12.4
+  module load openmpi/cuda-11.1/gcc/4.1.1
+
+before proceeding to build the code.
+
+.. _building_gkeyll:
 
 Building and Testing :math:`\texttt{Gkeyll}`
 --------------------------------------------
@@ -183,6 +276,81 @@ app (such as :math:`\texttt{moments}`) can be built and run using:
 
 and likewise for any of ``core``, ``vlasov``, ``gyrokinetic`` and ``pkpm``.
 
+.. _parallel_gpu:
+
+Parallel and GPU Builds
+-----------------------
+
+In order to run :math:`\texttt{Gkeyll}` in parallel (i.e. on multiple CPUs), it is first
+necessary to ensure that the code is configured to build with MPI. In many machine files
+(e.g. for ``stellar-intel``), this is done automatically, since the ``configure``
+command is run with the flag ``--use-mpi=yes``, along with appropriate paths to the MPI
+``/include`` and ``/lib`` directories. You can check whether :math:`\texttt{Gkeyll}` is
+configured to build with MPI or not by checking line 17 of the ``config.mak`` file, which
+will read:
+
+.. code-block:: bash
+
+  USE_MPI=1
+
+if :math:`\texttt{Gkeyll}` is configured to use MPI, and:
+
+.. code-block:: bash
+
+  USE_MPI=
+
+otherwise. You can manually set ``USE_MPI=1`` if you wish to build with MPI, in which
+case, please ensure that ``CONF_MPI_INC_DIR`` and ``CONF_MPI_LIB_DIR`` on lines 18 and 19
+of ``config.mak`` are correctly set to the appropriate locations of your MPI ``/include``
+and ``/lib`` directories, which should look something like (assuming that you are using
+``OpenMPI``):
+
+.. code-block:: bash
+
+  CONF_MPI_INC_DIR=/Users/<your username>/gkylsoft/openmpi/include/
+  CONF_MPI_LIB_DIR=/Users/<your username>/gkylsoft/openmpi/lib/
+
+If you do not have a working MPI installation on your machine, you can ask
+:math:`\texttt{Gkeyll}` to install one automatically to your ``/gkylsoft`` directory by
+adding the ``--build-openmpi=yes`` flag to the ``./mkdeps.sh`` call within the particular
+``mkdeps`` file for your machine/operating system in the ``/machines`` directory,
+and then (re)running ``mkdeps`` as described in
+:ref:`macOS Setup Instructions<macos_setup>`,
+:ref:`Linux Setup Instructions<linux_setup>`, or
+:ref:`Supercomputer Cluster Setup Instructions<supercomputer_setup>`, as appropriate.
+Finally, to build :math:`\texttt{Gkeyll}` with MPI enabled, all that remains is to
+produce a clean build of the :math:`\texttt{Gkeyll}` executable
+
+.. code-block:: bash
+
+  make clean
+  make gkeyll -j
+
+with ``make clean`` only required if you have previously built a serial version of the
+code (i.e. a version without MPI). To confirm that the parallel build was successful,
+try running:
+
+.. code-block:: bash
+
+  ./build/gkeyll/gkeyll -help
+
+and near the top of the resulting output should be a banner which looks something like:
+
+.. code-block:: bash
+
+  ...
+  Gkeyll built with Git changeset <changeset>
+  Gkeyll built on <timestamp>
+  Built without CUDA
+  Built without NCCL
+  Built with MPI
+  ...
+
+If the banner says ``Built without MPI``, then something went wrong with the MPI
+configuration.
+
+.. _installing_postgkyl:
+
 Installing :math:`\texttt{postgkyl}`
 ------------------------------------
 
@@ -240,7 +408,20 @@ using ``pip``:
 
 which will also automatically install each of :math:`\texttt{postgkyl}`'s dependencies,
 i.e. ``click``, ``matplotlib``, ``msgpack``, ``numpy``, ``scipy``, ``sympy``, and
-``tables``, as needed. Once the ``pip`` installation has been completed, 
+``tables``, as needed. Once the ``pip`` installation has been completed, to confirm that
+:math:`\texttt{postgkyl}` has been built correctly, try compiling and running a simple
+:math:`\texttt{moments}` C regression test in :math:`\texttt{Gkeyll}`:
+
+.. code-block:: bash
+
+  make moments-regression -j
+  ./build/moments/creg/rt_5m_gem
+
+and then plotting the resulting simulation data with :math:`\texttt{postgkyl}`:
+
+.. code-block:: bash
+
+  pgkyl 5m_gem-elc_1.gkyl sel -c3 plot -a
 
 .. toctree::
   :maxdepth: 2
