@@ -1,9 +1,9 @@
 .. _quickstart:
 
-.. title:: Gkeyll Quickstart Guide
+.. title:: Gkeyll Quick Start Guide
 
-:math:`\texttt{Gkeyll}` Quickstart Guide
-========================================
+:math:`\texttt{Gkeyll}` Quick Start Guide
+=========================================
 
 .. _quickstart_moments:
 
@@ -411,7 +411,7 @@ numerical deviations from the divergence constraint :math:`\nabla \cdot \mathbf{
 as a fraction of the speed of light, followed by some initialization code which we have
 omitted, followed finally by a flag to indicate that the electromagnetic field should be
 evolved in time (i.e. the field is not static), and that the boundaries in the :math:`y`
-coordinate direciton, on both sides of the domain, should have reflective/wall boundary
+coordinate direction, on both sides of the domain, should have reflective/wall boundary
 conditions applied to them (i.e. ``G0.FieldBc.bcWall``). The initial conditions for the
 electromagnetic field are imposed via the initialization function:
 
@@ -436,13 +436,13 @@ electromagnetic field are imposed via the initialization function:
   end,
   ...
 
-We see that the final values that get passed in :math:`\texttt{Gkeyll}` for the purposes
-of electromagnetic field initialization are the electric field :math:`\mathbf{E}`, the
-magnetic field :math:`\mathbf{B}`, and the two field potentials :math:`\phi` and
-:math:`\psi` (both set to 0 here), used by the hyperbolic divergence cleaning algorithm
-for the propagation of divergence errors in the :math:`\mathbf{E}` and :math:`\mathbf{B}`
-fields, respectively. For the particular case of the GEM reconnection problem, the
-electromagnetic field is initialized with vanishing electric field
+We see that the final values that get passed into :math:`\texttt{Gkeyll}` for the
+purposes of electromagnetic field initialization are the electric field
+:math:`\mathbf{E}`,the magnetic field :math:`\mathbf{B}`, and the two field potentials
+:math:`\phi` and :math:`\psi` (both set to 0 here), used by the hyperbolic divergence
+cleaning algorithm for the propagation of divergence errors in the :math:`\mathbf{E}` and
+:math:`\mathbf{B}` fields, respectively. For the particular case of the GEM reconnection
+problem, the electromagnetic field is initialized with vanishing electric field
 :math:`\mathbf{E} = \mathbf{0}`, and non-vanishing magnetic field:
 
 .. math::
@@ -580,11 +580,11 @@ facilitate the process of initialization:
 
 which defines the reference number density :math:`n_0 = 1`, the electron thermal
 velocity :math:`v_{t} = \frac{1}{5}`, the electron drift velocity (in the :math:`x`
-coordinate direction) :math:`v_{x}^{drift} = 1`, the amplitude of the initial
-perturbation to be applied to the electron distribution function
-:math:`\alpha = 10^{-6}`, and the electron wavenumber to perturb (in the :math:`x`
-coordinate direction) :math:`k_x = \frac{1}{2}`. Next, we define any *derived* physical
-quantities (i.e. quantities derived from the physical constants defined above):
+coordinate direction) :math:`u_x = 1`, the amplitude of the initial perturbation to be
+applied to the electron distribution function :math:`\alpha = 10^{-6}`, and the electron
+wavenumber to perturb (in the :math:`x` coordinate direction) :math:`k_x = \frac{1}{2}`.
+Next, we define any *derived* physical quantities (i.e. quantities derived from the
+physical constants defined above):
 
 .. code-block:: lua
 
@@ -648,6 +648,264 @@ automatically terminate if more than 20 consecutive steps are taken where the st
 time-step :math:`\Delta t` is calculated to be less than :math:`10^{-4}` times the
 initial stable time-step :math:`\left( \Delta t \right)_{init}` (to prevent time-step
 crashes).
+
+The next part of the Lua input file initializes the :math:`\texttt{vlasov}` app itself,
+and passes in several of the key simulation parameters defiend above (i.e. the final
+simulation time :math:`t_end`, the number of output frames, the frequency of field
+energy, :math:`L^2`-norm of :math:`f_s`, and integrated diagnostic moments calculations,
+the small time-step termination criteria, the lower and upper boundaries of the
+simulation domain *in configuration space*, the number of cells in each direction *of
+configuration space*, and the CFL coefficient :math:`C_{CFL}`):
+
+.. code-block:: lua
+
+  ...
+  vlasovApp = Vlasov.App.new {
+
+    tEnd = t_end,
+    nFrame = num_frames,
+    fieldEnergyCalcs = field_energy_calcs,
+    integratedL2fCalcs = integrated_L2_f_calcs,
+    integratedMomentCalcs = integrated_mom_calcs,
+    dtFailureTol = dt_failure_tol,
+    numFailuresMax = num_failures_max,
+    lower = { -0.5 * Lx },
+    upper = { 0.5 * Lx },
+    cells = { Nx },
+    cflFrac = cfl_frac,
+
+    ...
+  }
+  ...
+
+thus defining the range of the configuration space domain to be
+:math:`\left[ - \frac{\pi}{k_x}, \frac{\pi}{k_x} \right]`. The next field to be passed
+into ``Vlasov.App.new`` represents the decomposition of the configuration space domain
+into subdomains for the purposes of parallelization (in our case, we are running a serial
+simulation, so we only want to partition into a single subdomain in the :math:`x`
+coordinate direction):
+
+.. code-block:: lua
+
+  ...
+  -- Decomposition for configuration space.
+  decompCuts = { 1 }, -- Cuts in each coordinate direction (x-direction only).
+  ...
+
+The next field specifies which coordinate directions (if any) should have periodic
+boundary conditions applied to them; for the two-stream instability problem, the
+boundaries in the :math:`x` coordinate direction are assumed to have periodic boundary
+conditions:
+
+.. code-block:: lua
+
+  ...
+  -- Boundary conditions for configuration space.
+  periodicDirs = { 1 }, -- Periodic directions (x-direction only).
+  ...
+
+where "1" here refers to the first coordinate direction (i.e. :math:`x`). The next items
+to be passed into ``Vlasov.App.new`` are the kinetic particle species (in this case, just
+``elc`` for the electron species) themselves:
+
+.. code-block:: lua
+
+  ...
+  -- Electrons.
+  elc = Vlasov.Species.new {
+    modelID = G0.Model.Default,
+    charge = charge_elc, mass = mass_elc,
+
+    -- Velocity space grid.
+    lower = { -vx_max },
+    upper = { vx_max },
+    cells = { Nvx },
+
+    ...
+
+    evolve = true, -- Evolve species?
+    diagnostics = { G0.Moment.M0, G0.Moment.M1, G0.Moment.M2 }
+  },
+  ...
+
+where we begin by passing in the Vlasov model type (in this case, ``G0.Model.Default``
+for the non-relativistic Vlasov equation), followed by the charge and mass of the species
+(:math:`q_e` and :math:`m_e` for the electron charge and mass), followed by the range of
+the velocity space domain (i.e. :math:`\left[ -6, 6 \right]`) and the number of cells to
+use in velocity space, followed by some initialization code which we have omitted,
+followed by a flag to indicate that the species should be evolved in time (i.e.
+the particles are not static), followed finally by a specification of which diagnostic
+moments should be calculated, namely ``G0.Moment.M0``, ``G0.Moment.M1``, and
+``G0.Moment.M2``, correpsonding to the zeroth, first, and second moments of the species
+distribution function:
+
+.. math::
+  M_0 = \int_V f_s \, d \mathbf{v}, \qquad M_1 = \int_V \mathbf{v} \, f_s \, d
+  \mathbf{v}, \qquad M_2 = \int_V \mathbf{v} \otimes \mathbf{v} \, f_s \, d \mathbf{v},
+
+respectively. The initial conditions for the electron species are imposed by passing in
+a list of projections for the distribution function:
+
+.. code-block:: lua
+
+  ...
+  -- Initial conditions.
+  numInit = 2,
+  projections = {
+    -- Two counter-streaming Maxwellians.
+    ...
+  }
+  ...
+
+where, in this case, we specify two separate projections (corresponding to two
+counter-streaming Maxwell-Boltzmann distributions of particles) - one for the left-going
+particle stream:
+
+.. code-block:: lua
+
+  ...
+  {
+    projectionID = G0.Projection.LTE,
+
+    densityInit = function (t, xn)
+      local x = xn[1]
+
+      local n = 0.5 * (1.0 + alpha * math.cos(kx * x)) * n0 -- Total number density.
+      return n
+    end,
+    temperatureInit = function (t, xn)
+      return T -- Isotropic temperature.
+    end,
+    driftVelocityInit = function (t, xn)
+      return Vx_drift -- Total left-going drift velocity.
+    end,
+
+    correctAllMoments = true
+  },
+  ...
+
+and one for the right-going particle stream:
+
+.. code-block:: lua
+
+  ...
+  {
+    projectionID = G0.Projection.LTE,
+
+    densityInit = function (t, xn)
+      local x = xn[1]
+
+      local n = 0.5 * (1.0 + alpha * math.cos(kx * x)) * n0 -- Total number density.
+      return n
+    end,
+    temperatureInit = function (t, xn)
+      return T -- Isotropic temperature.
+    end,
+    driftVelocityInit = function (t, xn)
+      return -Vx_drift -- Total right-going drift velocity.
+    end,
+
+    correctAllMoments = true
+  }
+  ...
+
+which we can see are identical apart from the specification of the drift velocity in the
+:math:`x` coordinate direction (i.e. :math:`\pm u_x`). In both of these cases, we begin
+by specifying that the type of projection operation to use is a Local Thermodynamic
+Equilibrium projection (i.e. ``G0.Projection.LTE``), which assumes that the particle
+species is locally characterized entirely by its configuration space number density
+:math:`n_s`, its isotropic temperature :math:`T_s`, and its drift velocity
+:math:`\mathbf{u}_s`, and then proceeds to initialize the distribution function
+:math:`f_s` as a Maxwell-Boltzmann distribution:
+
+.. math::
+  f_s = n_s \left( \frac{m_s}{2 \pi T_s} \right)^{\frac{3}{2}} \exp \left( - m_s
+  \frac{\left\lVert \mathbf{v} - \mathbf{u}_s \right\rVert}{2 T_s} \right).
+
+The isotropic temperature :math:`T` and drift velocity (in the :math:`x` coordinate
+direction) :math:`u_x` for the electron species have already been specified/computed, and
+the configuration space number density :math:`n` is computed as a perturbation of
+amplitude :math:`\alpha` of the reference number density :math:`n_0` as:
+
+.. math::
+  n = \frac{n_0}{2} \left( 1 + \alpha \cos \left( k_x \, x \right) \right).
+
+The final item to be passed into ``Vlasov.App.new`` is the electromagnetic field itself:
+
+.. code-block:: lua
+
+  ...
+  field = Vlasov.Field.new {
+    epsilon0 = epsilon0, mu0 = mu0,
+
+    ...
+
+    evolve = true, -- Evolve field?
+    elcErrorSpeedFactor = 0.0,
+    mgnErrorSpeedFactor = 0.0
+  }
+  ...
+
+where we begin by passing in parameters for the permittivity and permeability of free
+space (:math:`\epsilon_0` and :math:`\mu_0`, respectively), followed by some
+initialization code which we have omitted, followed by a flag to indicate that the
+electromagnetic field should be evolved in time (i.e. the field is not static), followed
+finally by the propagation speeds for divergence errors in the electric and magnetic
+fields :math:`\mathbf{E}` and :math:`\mathbf{B}` (since :math:`\texttt{Gkeyll}` uses
+hyperbolic divergence cleaning methods to correct numerical deviations from the
+divergence constraints
+:math:`\nabla_{\mathbf{x}} \cdot \mathbf{E} = \frac{\rho_c}{\epsilon_0}` and
+:math:`\nabla_{\mathbf{x}} \cdot \mathbf{B} = 0`). The initial conditions for the
+electromagnetic field are imposed via the initialization function:
+
+.. code-block:: lua
+
+  ...
+  -- Initial conditions function.
+  init = function (t, xn)
+    local x = xn[1]
+
+    local Ex = -alpha * math.sin(kx * x) / kx -- Total electric field (x-direction).
+    local Ey = 0.0 -- Total electric field (y-direction).
+    local Ez = 0.0 -- Total electric field (z-direction).
+
+    local Bx = 0.0 -- Total magnetic field (x-direction).
+    local By = 0.0 -- Total magnetic field (y-direction).
+    local Bz = 0.0 -- Total magnetic field (z-direction).
+
+    return Ex, Ey, Ez, Bx, By, Bz, 0.0, 0.0
+  end,
+  ...
+
+We see that the final values that get passed into :math:`\texttt{Gkeyll}` for the
+purposes of electromagnetic field initialization are the electric field
+:math:`\textbf{E}`, the magnetic field :math:`\textbf{B}`, and the two field potentials
+:math:`\phi` and :math:`\psi` (both set to 0 here), used by the hyperbolic divergence
+cleaning algorithm for the propagation of divergence errors in the :math:`\mathbf{E}` and
+:math:`\mathbf{B}` fields, respectively. For the particular case of the two-stream
+instability problem, the electromagnetic field is initialized with vanishing magnetic
+field :math:`\mathbf{B} = \mathbf{0}`, and non-vanishing electric field:
+
+.. math::
+  \mathbf{E} = \begin{bmatrix}
+  - \frac{\alpha}{k_x} \sin \left( k_x \, x \right)\\
+  0\\
+  0
+  \end{bmatrix}.
+
+With the :math:`\texttt{vlasov}` app thus fully initialized, all that remains is to
+instruct the app to launch:
+
+.. code-block:: lua
+
+  ...
+  vlasovApp:run()
+
+Once the Lua input file is complete, the simulation can no wbe run in the usual way:
+
+.. code-block:: bash
+
+  ./build/gkeyll/gkeyll ./vlasov/luareg/rt_vlasov_twostream_p2.lua
 
 .. toctree::
   :maxdepth: 2
