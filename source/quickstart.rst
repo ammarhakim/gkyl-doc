@@ -38,18 +38,19 @@ where :math:`m_s` is the mass of each particle in the species, :math:`q_s` is th
 of each particle in the species, and :math:`\gamma_s` is the adiabatic index of the fluid
 species, assuming an ideal gas equation of state. The fluid species are coupled together
 through their interactions with a shared electromagnetic field, evolved via Maxwell's
-equations, consisting of curl and divergence equations for the electric field
+equations, consisting of evolution and constraint equations for the electric field
 :math:`\mathbf{E}`:
 
 .. math::
-  \nabla \times \mathbf{E} = - \frac{\partial \mathbf{B}}{\partial t}, \qquad \nabla
-  \cdot \mathbf{E} = \frac{\rho_c}{\epsilon_0},
+  \frac{1}{c^2} \left( \frac{\partial \mathbf{E}}{\partial t} \right) - \nabla \times
+  \mathbf{B} = - \mu_0 \mathbf{J} \qquad \nabla \cdot \mathbf{E} =
+  \frac{\rho_c}{\epsilon_0},
 
 and the magnetic field :math:`\mathbf{B}`:
 
 .. math::
-  \nabla \times \mathbf{B} = \mu_0 \mathbf{J} + \frac{1}{c^2} \left(
-  \frac{\partial \mathbf{E}}{\partial t} \right), \qquad \nabla \cdot \mathbf{B} = 0,
+  \frac{\partial \mathbf{B}}{\partial t} + \nabla \times \mathbf{E} = 0, \qquad \nabla
+  \cdot \mathbf{B} = 0,
 
 where :math:`\epsilon_0` and :math:`\mu_0` are the permittivity and permeability of free
 space, respectively, :math:`c` is the speed of light:
@@ -109,7 +110,7 @@ which defines the adiabatic index for both species
 :math:`\gamma_e = \gamma_i = \frac{5}{3}`, the permittivity and permeability of free
 space :math:`\epsilon_0 = \mu_0 = 1`, the mass and charge of the ion species
 :math:`m_i = 1`, :math:`q_i = 1`, and the mass and charge of the electron species
-:math:`m_e = \frac{1}{25}`, :math:`q_i = -1`. Several other physical constants are also
+:math:`m_e = \frac{1}{25}`, :math:`q_e = -1`. Several other physical constants are also
 defined, to facilitate the process of initialization:
 
 .. code-block:: lua
@@ -127,7 +128,7 @@ which defines the ratio of ion to electron temperature :math:`\frac{T_i}{T_e} = 
 the plasma wavelength :math:`\lambda = \frac{1}{2}`, the reference number density
 :math:`n_0 = 1`, the ratio of background to reference number density
 :math:`\frac{n_b}{n_0} = \frac{1}{5}`, the reference magnetic field strength
-:math:`B_0 = \frac{1}{10}`, and the plasma beta :math:`\beta = 1`. Next we define any
+:math:`B_0 = \frac{1}{10}`, and the plasma beta :math:`\beta = 1`. Next, we define any
 *derived* physical quantities (i.e. quantities derived from the physical constants
 defined above):
 
@@ -195,8 +196,8 @@ where the stable time-step :math:`\Delta t` is calculated to be less than
 :math:`10^{-4}` times the initial stable time-step
 :math:`\left( \Delta t \right)_{init}` (to prevent time-step crashes).
 
-The next part of the Lua input initializes the :math:`\texttt{moments}` app itself, and
-passes in several of the key simulation parameters defined above (i.e. the final
+The next part of the Lua input file initializes the :math:`\texttt{moments}` app itself,
+and passes in several of the key simulation parameters defined above (i.e. the final
 simulation time :math:`t_{end}`, the number of output frames, the frequency of field
 energy and integrated diagnostic moments calculations, the small time-step termination
 criteria, the lower and upper boundaries of the simulation domain, the number of cells in
@@ -458,14 +459,195 @@ where the magnetic field strength :math:`B_{strength}` is given by:
 .. math::
   B_{strength} = B_0 \tanh \left( \frac{y}{\lambda} \right).
 
-With the :math:`\texttt{moments}` app thus fully initialized, all that remains is for us
-to run the simulation itself:
+With the :math:`\texttt{moments}` app thus fully initialized, all that remains is to
+instruct the app to launch:
 
 .. code-block:: lua
   
   ...
   -- Run application.
   momentApp:run()
+
+Once the Lua input file is complete, the simulation can now be run in the usual way:
+
+.. code-block:: bash
+
+  ./build/gkeyll/gkeyll ./moments/luareg/rt_5m_gem.lua
+
+.. _quickstart_vlasov:
+
+A Simple :math:`\texttt{vlasov}` Simulation
+-------------------------------------------
+
+As our first example of a simple simulation using the :math:`\texttt{vlasov}` app, we
+shall simulate a two-stream plasma instability problem using the collisionless
+Vlasov-Maxwell equations, whose Lua input file can be found in
+``vlasov/luareg/rt_vlasov_twostream_p2.lua``. In the collisionless Vlasov-Maxwell model,
+an arbitrary number of fully kinetic particle species (indexed by :math:`s`) are evolved
+via the collisionless Vlasov equation for the species distribution function
+:math:`f_s = f_s \left( \mathbf{x}, \mathbf{s} \right)`:
+
+.. math::
+  \frac{\partial f_s}{\partial t} + \nabla_{\mathbf{x}} \cdot \left( \mathbf{v} f_s
+  \right) + \nabla_{\mathbf{v}} \cdot \left( \frac{q_s}{m_s} \left[ \mathbf{E} +
+  \mathbf{v} \times \mathbf{B} \right] f_s \right) = 0,
+
+where :math:`m_s` is the mass of each particle species, :math:`q_s` is the charge of each
+particle species, :math:`\mathbf{x}` and :math:`\mathbf{v}` denote the configuration
+space and velocity space coordinates, respectively, and :math:`\nabla_{\mathbf{x}}` and
+:math:`\nabla_{\mathbf{v}}` denote the configuration and velocity space gradient
+operators, respectively. In the collisionless case, the kinetic particle species are
+coupled together through their interactions with a shared electromagnetic field, evolved
+via Maxwell's equations, consisting of evolution and constraint equations for the
+electric field :math:`\mathbf{E} = \mathbf{E} \left( \mathbf{x} \right)`:
+
+.. math::
+  \frac{1}{c^2} \left( \frac{\partial \mathbf{E}}{\partial t} \right) -
+  \nabla_{\mathbf{x}} \times \mathbf{B} = - \mu_0 \mathbf{J}, \qquad \nabla_{\mathbf{x}}
+  \cdot \mathbf{E} = \frac{\rho_c}{\epsilon_0},
+
+and the magnetic field :math:`\mathbf{B} = \mathbf{B} \left( \mathbf{x} \right)`:
+
+.. math::
+  \frac{\partial \mathbf{B}}{\partial t} + \nabla_{\mathbf{x}} \times \mathbf{E} = 0,
+  \qquad \nabla_{\mathbf{x}} \cdot \mathbf{B} = 0,
+
+where :math:`\epsilon_0` and :math:`\mu_0` are the permittivity and permeability of free
+space, respectively, :math:`c` is the speed of light:
+
+.. math::
+  c = \frac{1}{\sqrt{\epsilon_0 \mu_0}},
+
+and :math:`\rho_c = \rho_c \left( \mathbf{x} \right)` and
+:math:`\mathbf{J} = \mathbf{J} \left( \mathbf{x} \right)` are the charge density and
+current density, computed as the sum of zeroth and first moments of the species
+distribution functions;
+
+.. math::
+  \rho_c = \sum_s \left( q_s \int_{V} f_s \, d \mathbf{v} \right), \qquad \mathbf{J} =
+  \sum_s \left( q_s \int_{V} \mathbf{v} \, f_s \, d \mathbf{v} \right),
+
+respectively, where :math:`\int_{V}` denotes the integration operator over all of velocity
+space. For the two-stream instability problem, we will simulate a single kinetic particle
+species (namely an electron species, indexed by :math:`s = e`), coupled to an
+electromagnetic field. Looking inside the ``vlasov/luareg/rt_vlasov_twostream_p2.lua``
+Lua input file, we see that it begins with:
+
+.. code-block:: lua
+
+  local Vlasov = G0.Vlasov
+  ...
+
+which loads in the :math:`\texttt{vlasov}` app (i.e. ``G0.Vlasov``), so that
+:math:`\texttt{Gkeyll}` knows which app we are intending to run. The next part of the
+input file defines any necessary dimensionless or mathematical constants:
+
+.. code-block:: lua
+
+  ...
+  -- Mathematical constants (dimensionless).
+  pi = math.pi
+  ...
+
+which in our case defines a value for :math:`\pi` (i.e. ``math.pi``). Next, we define any
+necessary dimensional or physical constants:
+
+.. code-block:: lua
+
+  ...
+  -- Physical constants (using normalized code units).
+  epsilon0 = 1.0 -- Permittivity of free space.
+  mu0 = 1.0 -- Permeability of free space.
+  mass_elc = 1.0 -- Electron mass.
+  charge_elc = -1.0 -- Electron charge.
+  ...
+
+which defines the permittivity and permeability of free space
+:math:`\epsilon_0 = \mu_0 = 1`, and the mass and charge of the electron species
+:math:`m_e = 1`, :math:`q_e = -1`. Several other physical constants are also defined, to
+facilitate the process of initialization:
+
+.. code-block:: lua
+
+  ...
+  n0 = 1.0 -- Reference number density.
+  vt = 0.2 -- Thermal velocity.
+  Vx_drift = 1.0 -- Drift velocity (x-direction).
+
+  alpha = 1.0e-6 -- Applied perturbation amplitude.
+  kx = 0.5 -- Perturbed wave number (x-direction).
+  ...
+
+which defines the reference number density :math:`n_0 = 1`, the electron thermal
+velocity :math:`v_{t} = \frac{1}{5}`, the electron drift velocity (in the :math:`x`
+coordinate direction) :math:`v_{x}^{drift} = 1`, the amplitude of the initial
+perturbation to be applied to the electron distribution function
+:math:`\alpha = 10^{-6}`, and the electron wavenumber to perturb (in the :math:`x`
+coordinate direction) :math:`k_x = \frac{1}{2}`. Next, we define any *derived* physical
+quantities (i.e. quantities derived from the physical constants defined above):
+
+.. code-block:: lua
+
+  ...
+  -- Derived physical quantities (using normalized code units).
+  T = (vt * vt) * mass_elc -- Temperature.
+  ...
+
+which defines the electron temperature :math:`T = v_{t}^{2} \, m_e`. Next, we define some
+overall parameters for the simulation:
+
+.. code-block:: lua
+
+  ...
+  -- Simulation parameters.
+  Nx = 64 -- Cell count (configuration space: x-direction).
+  Nvx = 32 -- Cell count (velocity space: vx-direction).
+  Lx = 2.0 * pi / kx -- Domain size (configuration space: x-direction).
+  vx_max = 6.0 -- Domain boundary (velocity space: vx-direction).
+  poly_order = 2 -- Polynomial order.
+  basis_type = "serendipity" -- Basis function set.
+  time_stepper = "rk3" -- Time integrator.
+  cfl_frac = 0.6 -- CFL coefficient.
+  ...
+
+which defines a phase space simulation domain consisting of 64 cells in configuration
+space (:math:`x` coordinate direction) and 32 cells in velocity space (:math:`v_x`
+coordinate direction), of length :math:`L_x = \frac{2 \pi}{k_x}` in configuration space
+(:math:`x` coordinate direction), and with a maximum velocity space extent of 6
+(:math:`v_x` coordinate direction). The polynomial order of the modal discontinuous
+Galerkin method is set to 2 (i.e. piecewise quadratic), the set of modal basis functions
+is set to the ``Serendipity`` basis, the time integrator is set to third-order
+Runge-Kutta (i.e. ``RK3``), and the CFL coefficient is set to
+:math:`C_{CFL} = \frac{a \Delta t}{\Delta x} = 0.6` (corresponding to taking
+:math:`60 \%` of the largest stable time-step :math:`\Delta t` permitted by the CFL
+stability criterion, where :math:`a` is the largest absolute wave-speed in the simulation
+domain). Finally, we complete this preambulatory section with the remaining simulation
+parameters:
+
+.. code-block:: lua
+
+  ...
+  t_end = 40.0 -- Final simulation time.
+  num_frames = 1 -- Number of output frames.
+  field_energy_calcs = GKYL_MAX_INT -- Number of times to calculate field energy.
+  integrated_mom_calcs = GKYL_MAX_INT -- Number of times to calculate integrated moments.
+  integrated_L2_f_calcs = GKYL_MAX_INT -- Number of times to calculate L2 norm of distribution function.
+  dt_failure_tol = 1.0e-4 -- Minimum allowable fraction of initial time-step.
+  num_failures_max = 20 -- Maximum allowable number of consecutive small time-steps.
+  ...
+
+which defines a final simulation time :math:`t = 40` (the initial simulation time is
+always assumed to be :math:`t_init` = 0), specifies that a single output frame should be
+written out to the file system (i.e. only the final state of the simulation is written
+out, without any intermediate frames being stored), specifies that certain diagnostic
+variables, namely the field energy, the integrated diagnostic moments, and the integrated
+:math:`L^2`-norm of the distribution function :math:`f_s`, should be calculated as
+frequently as possible (i.e. they are calculated every step, and will be written out
+along with the output frames), and finally specifies that the simulation should
+automatically terminate if more than 20 consecutive steps are taken where the stable
+time-step :math:`\Delta t` is calculated to be less than :math:`10^{-4}` times the
+initial stable time-step :math:`\left( \Delta t \right)_{init}` (to prevent time-step
+crashes).
 
 .. toctree::
   :maxdepth: 2

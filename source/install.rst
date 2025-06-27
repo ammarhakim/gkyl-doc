@@ -404,8 +404,6 @@ and, upon checking the total simulation time again, you should find that it took
 approximately one quarter of the time (perhaps slightly more, due to Amdahl's law) of the
 serial run.
 
-
-
 .. _installing_postgkyl:
 
 Installing :math:`\texttt{postgkyl}`
