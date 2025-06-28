@@ -139,3 +139,6 @@ Other Pages
 
   install
   quickstart
+  gkeyll/pubs
+  gkeyll/presentations
+  dev/main  
