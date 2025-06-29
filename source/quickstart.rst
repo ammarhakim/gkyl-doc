@@ -485,7 +485,7 @@ Vlasov-Maxwell equations, whose Lua input file can be found in
 ``vlasov/luareg/rt_vlasov_twostream_p2.lua``. In the collisionless Vlasov-Maxwell model,
 an arbitrary number of fully kinetic particle species (indexed by :math:`s`) are evolved
 via the collisionless Vlasov equation for the species distribution function
-:math:`f_s = f_s \left( \mathbf{x}, \mathbf{s} \right)`:
+:math:`f_s = f_s \left( \mathbf{x}, \mathbf{v} \right)`:
 
 .. math::
   \frac{\partial f_s}{\partial t} + \nabla_{\mathbf{x}} \cdot \left( \mathbf{v} f_s
@@ -527,11 +527,11 @@ distribution functions;
   \rho_c = \sum_s \left( q_s \int_{V} f_s \, d \mathbf{v} \right), \qquad \mathbf{J} =
   \sum_s \left( q_s \int_{V} \mathbf{v} \, f_s \, d \mathbf{v} \right),
 
-respectively, where :math:`\int_{V}` denotes the integration operator over all of velocity
-space. For the two-stream instability problem, we will simulate a single kinetic particle
-species (namely an electron species, indexed by :math:`s = e`), coupled to an
-electromagnetic field. Looking inside the ``vlasov/luareg/rt_vlasov_twostream_p2.lua``
-Lua input file, we see that it begins with:
+respectively, where :math:`\int_{V}` denotes the integration operator over all of
+velocity space. For the two-stream instability problem, we will simulate a single
+kinetic particle species (namely an electron species, indexed by :math:`s = e`), coupled
+to an electromagnetic field. Looking inside the
+``vlasov/luareg/rt_vlasov_twostream_p2.lua`` Lua input file, we see that it begins with:
 
 .. code-block:: lua
 
@@ -549,8 +549,8 @@ input file defines any necessary dimensionless or mathematical constants:
   pi = math.pi
   ...
 
-which in our case defines a value for :math:`\pi` (i.e. ``math.pi``). Next, we define any
-necessary dimensional or physical constants:
+which in our case defines a value for :math:`\pi` (i.e. ``math.pi``). Next, we define
+any necessary dimensional or physical constants:
 
 .. code-block:: lua
 
@@ -620,9 +620,9 @@ is set to the ``Serendipity`` basis, the time integrator is set to third-order
 Runge-Kutta (i.e. ``RK3``), and the CFL coefficient is set to
 :math:`C_{CFL} = \frac{a \Delta t}{\Delta x} = 0.6` (corresponding to taking
 :math:`60 \%` of the largest stable time-step :math:`\Delta t` permitted by the CFL
-stability criterion, where :math:`a` is the largest absolute wave-speed in the simulation
-domain). Finally, we complete this preambulatory section with the remaining simulation
-parameters:
+stability criterion, where :math:`a` is the largest absolute wave-speed in the
+simulation domain). Finally, we complete this preambulatory section with the remaining
+simulation parameters:
 
 .. code-block:: lua
 
@@ -636,18 +636,18 @@ parameters:
   num_failures_max = 20 -- Maximum allowable number of consecutive small time-steps.
   ...
 
-which defines a final simulation time :math:`t = 40` (the initial simulation time is
-always assumed to be :math:`t_init` = 0), specifies that a single output frame should be
-written out to the file system (i.e. only the final state of the simulation is written
-out, without any intermediate frames being stored), specifies that certain diagnostic
-variables, namely the field energy, the integrated diagnostic moments, and the integrated
-:math:`L^2`-norm of the distribution function :math:`f_s`, should be calculated as
-frequently as possible (i.e. they are calculated every step, and will be written out
-along with the output frames), and finally specifies that the simulation should
-automatically terminate if more than 20 consecutive steps are taken where the stable
-time-step :math:`\Delta t` is calculated to be less than :math:`10^{-4}` times the
-initial stable time-step :math:`\left( \Delta t \right)_{init}` (to prevent time-step
-crashes).
+which defines a final simulation time :math:`t_{end} = 40` (the initial simulation time
+is always assumed to be :math:`t_{init}` = 0), specifies that a single output frame
+should be written out to the file system (i.e. only the final state of the simulation is
+written out, without any intermediate frames being stored), specifies that certain
+diagnostic variables, namely the field energy, the integrated diagnostic moments, and
+the integrated :math:`L^2`-norm of the distribution function :math:`f_s`, should be
+calculated as frequently as possible (i.e. they are calculated every step, and will be
+written out along with the output frames), and finally specifies that the simulation
+should automatically terminate if more than 20 consecutive steps are taken where the
+stable time-step :math:`\Delta t` is calculated to be less than :math:`10^{-4}` time
+the initial stable time-step :math:`\left( \Delta t \right)_{init}` (to prevent
+time-step crashes).
 
 The next part of the Lua input file initializes the :math:`\texttt{vlasov}` app itself,
 and passes in several of the key simulation parameters defiend above (i.e. the final
@@ -736,7 +736,7 @@ use in velocity space, followed by some initialization code which we have omitte
 followed by a flag to indicate that the species should be evolved in time (i.e.
 the particles are not static), followed finally by a specification of which diagnostic
 moments should be calculated, namely ``G0.Moment.M0``, ``G0.Moment.M1``, and
-``G0.Moment.M2``, correpsonding to the zeroth, first, and second moments of the species
+``G0.Moment.M2``, corresponding to the zeroth, first, and second moments of the species
 distribution function:
 
 .. math::
@@ -901,11 +901,412 @@ instruct the app to launch:
   ...
   vlasovApp:run()
 
-Once the Lua input file is complete, the simulation can no wbe run in the usual way:
+Once the Lua input file is complete, the simulation can now be run in the usual way:
 
 .. code-block:: bash
 
   ./build/gkeyll/gkeyll ./vlasov/luareg/rt_vlasov_twostream_p2.lua
+
+.. _quickstart_gyrokinetic:
+
+A Simple :math:`\texttt{gyrokinetic}` Simulation
+------------------------------------------------
+
+As our first example of a simple simulation using the :math:`\texttt{gyrokinetic}` app,
+we shall simulate the self-consistent formation of a sheath potential using the full
+:math:`f` gyrokinetic equation in the long-wavelength (drift-kinetic) limit, whose Lua
+input file can be found in ``gyrokinetic/luareg/rt_gk_sheath_1x2v_p1.lua``. In the
+absence of ionization, recombination, and radiation terms, the (collisional,
+electrostatic) long-wavelength gyrokinetic model evolves an arbitrary number of
+gyroaveraged particle species (indexed by :math:`s`) via the following equation for the
+gyroaveraged species distribution function
+:math:`f_s = f_s \left( t, \mathbf{R}, v_{\parallel}, \mu \right)`:
+
+.. math::
+  \frac{\partial \left( \mathcal{J}_s f_s \right)}{\partial t} + \nabla_{\mathbf{R}}
+  \cdot \left( \mathcal{J}_s \begin{bmatrix}
+  \left\lbrace R_x, \mathcal{H} \right\rbrace\\
+  \left\lbrace R_y, \mathcal{H} \right\rbrace\\
+  \left\lbrace R_z, \mathcal{H} \right\rbrace
+  \end{bmatrix} f_s \right) + \frac{\partial}{\partial t} \left( \mathcal{J}_s
+  \left\lbrace v_{\parallel}, \mathcal{H} \right\rbrace f_s \right) = \mathcal{J}_s
+  C \left[ f_s \right] + \mathcal{J}_s S_s,
+
+where :math:`\left( v_{\parallel}, \mu \right)` are the gyroaveraged velocity space
+coordinates (with :math:`v_{\parallel}` being the velocity coordinate parallel to the
+magnetic field, and
+:math:`\mu = \frac{m_s v_{\perp}^{2}}{2 \left\lVert \mathbf{B} \right\rVert}` being the
+magnetic moment),
+:math:`\mathcal{J}_s = B_{\parallel}^{*} = \mathbf{b} \cdot \mathbf{B}^{*}` is the
+gyrokinetic phase space Jacobian (i.e. the parallel component of the effective magnetic
+field :math:`\mathbf{B}^{*}`), where:
+
+.. math::
+  \mathbf{B}^{*} = \mathbf{B} + \left( \frac{m_s v_{\parallel}}{q_s} \right)
+  \nabla_{\mathbf{R}} \times \mathbf{b},
+
+:math:`m_s` is the mass of each particle species, :math:`q_s` is the charge of each
+particle species, :math:`\mathbf{R} = \left[ R_x, R_y, R_z \right]^{\intercal}` denotes
+the position of the *guiding center* of particle gyromotion (which, in turn, constitutes
+the configuration space coordinate system), and :math:`\nabla_{\mathbf{R}}` denotes the
+configuration space (i.e. guiding center) gradient operator. In all of the above,
+:math:`\mathbf{b} = \frac{\mathbf{B}}{\left\lVert \mathbf{B} \right\rVert}` is the local
+magnetic field unit vector, :math:`\mathcal{H}_s` is the gyrokinetic Hamiltonian of the
+particle species in the long-wavelength limit:
+
+.. math::
+  \mathcal{H}_s = \frac{1}{2} m_s v_{\parallel}^{2} + \mu \left\lVert \mathbf{B}
+  \right\rVert + q_s \phi,
+
+:math:`\left\lbrace \cdot, \cdot \right\rbrace` denotes the canonical gyrokinetic Poisson
+bracket, defined for arbitrary scalar functions :math:`F` and :math:`G` as:
+
+.. math::
+  \left\lbrace F, G \right\rbrace = \frac{\mathbf{B}^{*}}{m_s B_{\parallel}^{*}} \cdot
+  \left( \nabla_{\mathbf{R}} F \left( \frac{\partial G}{\partial v_{\parallel}} \right) -
+  \left( \frac{\partial F}{\partial v_{\parallel}} \right) \nabla_{\mathbf{R}} G \right)
+  - \frac{\mathbf{b}}{q_s B_{\parallel}^{*}} \cdot \left( \nabla_{\mathbf{R}} F \times
+  \nabla_{\mathbf{R}} G \right),
+
+:math:`C \left[ f_ s \right]` denotes the collision operator (which may include Coulomb
+collisions, elastic collisions, and inelastic neutral collisions), :math:`S_s` is an
+arbitrary source term, and :math:`\phi` denotes the electrostatic potential. In the
+electrostatic case, the gyroaveraged particle species are coupled together through their
+interactions with a shared electrostatic field, computed self-consistently by means of
+the gyrokinetic Poisson equation:
+
+.. math::
+  - \nabla_{\perp} \cdot \left( \sum_{s} \left( \frac{m_s n_{0, s}}{B_{0}^{2}} \right)
+  \nabla_{\perp} \phi \right) = \sum_{s} q_s n_s \left( \mathbf{R} \right),
+
+where :math:`n_{0, s}` is the reference number density of the particle species,
+:math:`B_{0}^{2}` is the magnitude of the magnetic field at the center of the simulation
+domain, :math:`n_s \left( \mathbf{R} \right)` is the configuration space number density
+(a function of the guiding center position):
+
+.. math::
+  n_s \left( \mathbf{R} \right) &= \int_{V} \mathcal{J}_s \, f_s \, d \mathbf{v}\\
+  &= \left( \frac{2 \pi}{m_s} \right) \int_{- \infty}^{\infty} \int_{0}^{\infty}
+  \mathcal{J}_s \, f_s \, d \mu \, d v_{\parallel},
+
+where :math:`\int_{V}` denotes the integration operator over all of velocity space, and
+:math:`\nabla_{\perp}` is the perpendicular gradient operator:
+
+.. math::
+  \nabla_{\perp} = \nabla_{\mathbf{R}} - \mathbf{b} \left( \mathbf{b} \cdot
+  \nabla_{\mathbf{R}} \right).
+
+Finally, for this particular simulation setup, we assume the multi-species *Dougherty*
+or *Lenard-Bernstein* (LBO) form of the collision operator :math:`C \left[ f_s \right]`,
+given by a sum over all other gyroaveraged particle species :math:`r`:
+
+.. math::
+  \mathcal{J}_s C \left[ f_s \right] = \sum_{r} \nu_{sr} &\left\lbrace
+  \frac{\partial}{\partial v_{\parallel}} \left[ \left( v_{\parallel} -
+  u_{\parallel, sr} \right) \mathcal{J}_s f_s + v_{t, sr}^{2} \left(
+  \frac{\partial \mathcal{J}_s f_s}{\partial v_{\parallel}} \right) \right] \right.\\
+  &\left. + \frac{\partial}{\partial \mu} \left[ 2 \mu \left( \mathcal{J}_s f_s +
+  \left( \frac{m_s v_{t, sr}^{2}}{\left\lVert \mathbf{B} \right\rVert} \right) \left(
+  \frac{\partial \mathcal{J}_s f_s}{\partial \mu} \right) \right) \right] \right\rbrace,
+
+where the :math:`u_{\parallel, sr}` and :math:`v_{t, sr}` are the multi-species parallel
+flow velocities and multi-species thermal speeds, respectively, given (enforcing exact
+energy and momentum conservation and assuming Boltzmann relaxation rates, as per Greene)
+by:
+
+.. math::
+  u_{\parallel, sr} = u_{\parallel, s} + \delta_s \left( \frac{1 + \beta}{2} \right)
+  \left( u_{\parallel, r} - u_{\parallel, s} \right),
+
+and:
+
+.. math::
+  v_{t, sr}^{2} = v_{t, s}^{2} + \left( \frac{\delta_s}{2} \right) \left(
+  \frac{1 + \beta}{1 + \frac{m_s}{m_r}} \right) \left[ v_{t, r}^{2} - \left(
+  \frac{m_s}{m_r} \right) v_{t, s}^{2} + \frac{\left( u_{\parallel, s} -
+  u_{\parallel, r} \right)^2}{3} \right],
+
+respectively. In all of the above, :math:`\nu_{sr}` is the inter-species collisional
+frequency between the gyroaveraged particle species :math:`s` and :math:`r`:
+
+.. math::
+  \nu_{sr} =
+  \frac{\alpha_E \left( m_s + m_r \right)}{\delta_s \left( 1 + \beta \right) m_s n_s},
+
+where:
+
+.. math::
+  \delta_s = \frac{2 m_r n_r \nu_{rs}}{m_s n_s \nu_{sr} + m_r n_r \nu_{rs}},
+
+:math:`\beta` is an arbitrary constant satisfying
+:math:`\delta_s \left( 1 + \beta \right) < 2` (which :math:`\texttt{Gkeyll}` assumes, by
+default, is equal to 0), and :math:`\alpha_E` is a parameter that is inversely
+proportional to the energy and momentum relaxation times:
+
+.. math::
+  \alpha_E = \frac{2 n_s n_r \left( q_s q_r \right)^2 \log \left( \Lambda_{sr} \right)}{
+  3 \left( 2 \pi \right)^{\frac{3}{2}} \epsilon_{0}^{2} m_s m_r \left( v_{t, s}^{2} +
+  v_{t, r}^{2} \right)^{\frac{3}{2}}},
+
+where :math:`\log \left( \Lambda_{sr} \right)` is the multi-species Coulomb logarithm,
+and :math:`\epsilon_0` is the permittivity of free space. Finally, the single-species
+parallel flow velocities and single-species thermal speeds
+:math:`u_{\parallel, s}` and :math:`v_{t, s}` are calculated via the relations:
+
+.. math::
+  u_{\parallel, s} M_{0, s} = M_{1, s}, \qquad u_{\parallel, s} M_{1, s} + 3
+  v_{t, s}^{2} M_{0, s} = M_{2, s},
+
+where :math:`M_{0, s}`, :math:`M_{1, s}`, and :math:`M_{2, s}` denote the zeroth, first,
+and second moments of the gyroaveraged species distribution function, namely:
+
+.. math::
+  M_{0, s} &= \int_{V} \mathcal{J}_s \, f_s \, d \mathbf{v}\\
+  &= \left( \frac{2 \pi}{m_s} \right) \int_{- \infty}^{\infty} \int_{0}^{\infty}
+  \mathcal{J}_s \, f_s \, d \mu \, d v_{\parallel},
+
+.. math::
+  M_{1, s} &= \int_{V} v_{\parallel} \, \mathcal{J}_s \, f_s \, d \mathbf{v}\\
+  &= \left( \frac{2 \pi}{m_s} \right) \int_{- \infty}^{\infty} \int_{0}^{\infty}
+  v_{\parallel} \, \mathcal{J}_s \, f_s \, d \mu \, d v_{\parallel},
+
+and:
+
+.. math::
+  M_{2, s} &= \int_{V} \left( v_{\parallel}^{2} + \frac{2 \mu \left\lVert \mathbf{B}
+  \right\rVert}{m_s} \right) \mathcal{J}_s \, f_s \, d \mathbf{v}\\
+  &= \left( \frac{2 \pi}{m_s} \right) \int_{- \infty}^{\infty} \int_{0}^{\infty} \left(
+  v_{\parallel}^{2} + \frac{2 \mu \left\lVert \mathbf{B} \right\rVert}{m_s} \right)
+  \mathcal{J}_s \, f_s \, d \mu \, d v_{\parallel},
+
+respectively. For the gyrokinetic sheath potential formation problem, we will simulate
+two gyroaveraged particle species (namely an electron species, indexed by :math:`s = e`,
+and an ion species, indexed by :math:`s = i`), coupled via an electrostatic field.
+Looking inside the ``gyrokinetic/luareg/rt_gk_sheath_1x2v_p1.lua`` Lua input file, we
+see that it begins with:
+
+.. code-block:: lua
+
+  local Gyrokinetic = G0.Gyrokinetic
+  ...
+
+which loads in the :math:`\texttt{gyrokinetic}` app (i.e. ``G0.Gyrokinetic``), so that
+:math:`\texttt{Gkeyll}` knows which app we are intending to run. The next part of the
+input file defines any necessary dimensionless or mathematical constants:
+
+.. code-block:: lua
+
+  ...
+  -- Mathematical constants (dimensionless).
+  pi = math.pi
+  ...
+
+which in our case defines a value for :math:`\pi` (i.e. ``math.pi``). Next, we define
+any necessary dimensional or physical constants:
+
+.. code-block:: lua
+
+  ...
+  -- Physical constants (using non-normalized physical units).
+  epsilon0 = 8.854187817620389850536563031710750260608e-12 -- Permittivity of free space.
+  mass_elc = 9.10938215e-31 -- Electron mass.
+  mass_ion = 2.014 * 1.672621637e-27 -- Proton mass.
+  charge_elc = -1.602176487e-19 -- Electron charge.
+  charge_ion = 1.602176487e-19 -- Proton charge.
+  ...
+
+which defines the permittivity of free space :math:`\epsilon_0`, the masses of the
+electron and ion species :math:`m_e` and :math:`m_i``, and the charges of the electron
+and ion species :math:`q_e` and :math:`q_i`, all represented in SI units (which will be
+used throughout this example). Several other physical constants are also defined, to
+facilitate the process of initialization:
+
+.. code-block:: lua
+
+  ...
+  Te = 40.0 * 1.602176487e-19 -- Electron temperature.
+  Ti = 40.0 * 1.602176487e-19 -- Ion temperature.
+  n0 = 7.0e18 -- Reference number density (1 / m^3).
+
+  B_axis = 0.5 -- Magnetic field axis (simple toroidal coordinates).
+  R0 = 0.85 -- Major radius (simple toroidal coordinates).
+  a0 = 0.15 -- Minor axis (simple toroidal coordinates).
+
+  nu_frac = 0.1 -- Collision frequency fraction.
+
+  k_perp_rho_s = 0.3 -- Product of perpendicular wavenumber and ion-sound gyroradius.
+  ...
+
+which defines the electron and ion temperatures :math:`T_e = T_i = 40 eV`, the reference
+number density :math:`n_0 = 7 \times 10^{18} m^{-3}`, the magnetic field axis
+:math:`B_{axis} = 0.5` and the major and minor radii/axes (:math:`R_0 = 0.85` and
+:math:`a_0 = 0.15`) of the simple toroidal coordinate system (used for computing the
+reference magnetic field strength), the arbitrary coefficient :math:`\nu_{frac} = 0.1`
+to use in the computation of the multi-species collision frequencies, and the product
+:math:`k_{\perp} \rho_s = 0.3` of the perpendicular wavenumber :math:`k_{\perp}` and the
+ion sound gyroradius :math:`\rho_s = \frac{c_s}{\Omega_{c, i}}` (where :math:`c_s` is
+the ion sound speed and :math:`\Omega_{c, i}` is the ion cyclotron frequency), to be
+used in the computation of the polarization charge density on the left-hand-side of the
+gyrokinetic Poisson equation. Next, we define any *derived* physical quantities (i.e.
+quantities derived from the physical constants defined above):
+
+.. code-block:: lua
+
+  ...
+  -- Derived physical quantities (using non-normalized physical units).
+  R = R0 + a0 -- Radial coordinate (simple toroidal coordinates).
+  B0 = B_axis * (R0 / R) -- Reference magnetic field strength (Tesla).
+  ...
+
+which defines the radial coordinate :math:`R` (in simple toroidal coordinates) as the
+sum of the major radius and minor axis :math:`R = R_0 + a_0`, and from this computes the
+reference magnetic field strength :math:`B_0` (in Tesla) from the magnetic axis as
+:math:`B_0 = B_{axis} \left( \frac{R_0}{R} \right)`. We also define several quantities
+of relevance to the collision operator:
+
+.. code-block:: lua
+
+  ...
+  log_lambda_elc = 6.6 - 0.5 * math.log(n0 / 1.0e20) + 1.5 * math.log(Te / charge_ion) -- Electron Coulomb logarithm.
+  log_lambda_ion = 6.6 - 0.5 * math.log(n0 / 1,0e20) + 1.5 * math.log(Ti / charge_ion) -- Ion Coulomb logarithm.
+  nu_elc = nu_frac * log_lambda_elc * math.pow(charge_ion, 4.0) * n0 /
+    (6.0 * math.sqrt(2.0) * math.pow(pi, 3.0 / 2,0) * math.pow(epsilon0, 2.0) * math.sqrt(mass_elc) * math.pow(Te, 3.0 / 2.0)) -- Electron collision frequency.
+  nu_ion = nu_frac * log_lambda_ion * math.pow(charge_ion, 4.0) * n0 /
+    (12.0 * math.sqrt(pi, 3.0 / 2.0) * math.pow(epsilon, 2.0) * math.sqrt(mass_ion) * math.pow(Ti, 3.0 / 2.0)) -- Ion collision frequency.
+  ...
+
+which defines the electron and ion Coulomb logarithms:
+
+.. math::
+  \log \left( \Lambda_e \right) = 6.6 - \frac{1}{2} \log \left( \frac{n_0}{10^{20}}
+  \right) + \frac{3}{2} \log \left( \frac{T_e}{q_i} \right),
+
+and:
+
+.. math::
+  \log \left( \Lambda_i \right) = 6.6 - \frac{1}{2} \log \left( \frac{n_0}{10^{20}}
+  \right) + \frac{3}{2} \log \left( \frac{T_i}{q_i} \right),
+
+respectively, and from them derives the electron and ion collision frequencies:
+
+.. math::
+  \nu_e = \nu_{frac} \left( \frac{\log \left( \Lambda_e \right) q_{i}^{4} n_0}{6 \sqrt{2}
+  \pi^{\frac{3}{2}} \epsilon_{0}^{2} \sqrt{m_e} T_{e}^{\frac{3}{2}}} \right), \qquad
+  \nu_i = \nu_{frac} \left( \frac{\log \left( \Lambda_i \right) q_{i}^{4} n_0}{12
+  \pi^{\frac{3}{2}} \epsilon_{0}^{2} \sqrt{m_i} T_{i}^{\frac{3}{2}}} \right),
+
+respectively. We also define several quantities of relevance to the calculations of the
+velocity space extents of the simulation domain, and the polarization charge density on
+the left-hand-side of the gyrokinetic Poisson equation:
+
+.. code-block:: lua
+
+  ...
+  c_s = math.sqrt(Te / mass_ion) -- Sound speed.
+  vte = math.sqrt(Te / mass_elc) -- Electron thermal velocity.
+  vti = math.sqrt(Ti / mass_ion) -- Ion thermal velocity.
+  omega_ci = math.abs(charge_ion * B0 / mass_ion) -- Ion cyclotron frequency.
+  rho_s = c_s / omega_ci -- Ion-sound gyroradius
+
+  k_perp = k_perp_rho_s / rho_s -- Perpendicular wavenumber (for Poisson solver).
+  ...
+
+which defines the ion sound speed :math:`c_s = \sqrt{\frac{T_e}{m_i}}`, the electron
+thermal velocity :math:`v_{t, e} = \sqrt{\frac{T_e}{m_e}}`, the ion thermal velocity
+:math:`v_{t, i} = \sqrt{\frac{T_i}{m_i}}`, the ion cyclotron frequency
+:math:`\Omega_{c, i} = \left\lvert \frac{q_i B_0}{m_i} \right\rvert`, the ion sound
+gyroradius :math:`\rho_s = \frac{c_s}{\Omega_{c, i}}`, and finally the perpendicular
+wave-number :math:`k_{\perp} = \frac{k_{\perp} \rho_s}{\rho_s}` (with the product
+:math:`k_{\perp} \rho_s` having already been defined as a fundamental constant). Lastly
+for this section of the input file, we define some quantities of relevance to the
+specification of the source term :math:`S_s` on the right-hand-side of the gyrokinetic
+equation:
+
+.. code-block:: lua
+
+  ...
+  n_src = 2.870523e21 -- Source number density.
+  T_src = 2.0 * Te -- Source temperature.
+  
+  c_s_src = math.sqrt((5.0 / 3.0) * T_src / mass_ion) -- Source sound speed.
+  n_peak = 4.0 * math.sqrt(5.0) / 3.0 / c_s_src * 0.5 * n_src -- Peak number density.
+  ...
+
+which defines the number density :math:`n_{src}` of the source particle distribution,
+the temperature :math:`T_{src} = 2 T_e` of the source particle distribution, the sound
+speed :math:`c_{s, src} = \sqrt{\frac{5 T_{src}}{3 m_i}}` of the source particle
+distribution, and the peak number density:
+
+.. math::
+  n_{peak} = \left( \frac{4 \sqrt{5}}{3 c_{s, src}} \right) \left( \frac{n_{src}}{2}
+  \right),
+
+of the overall particle distribution function. Next, we define some overall parameters
+for the simulation:
+
+.. code-block:: lua
+
+  ...
+  -- Simulation parameters.
+  Nz = 8 -- Cell count (configuration space: z-direction).
+  Nvpar = 6 -- Cell count (velocity space: parallel velocity direction).
+  Nmu = 4 -- Cell count (velocity space: magnetic moment direction).
+  Lz = 4.0 -- Domain size (configuration space: z-direction).
+  vpar_max_elc = 4.0 * vte -- Domain boundary (electron velocity space: parallel velocity direction).
+  mu_max_elc = (3.0 / 2.0) * 0.5 * mass_elc * math.pow(4.0 * vte, 2.0) / (2.0 * B0) -- Domain boundary (electron  velocity space: magnetic moment direction).
+  vpar_max_ion = 4.0 * vti -- Domain boundary (ion velocity space: parallel velocity direction).
+  mu_max_ion = (3.0 / 2.0) * 0.5 * mass_ion * math.pow(4.0 * vti, 2.0) / (2.0 * B0) -- Domain boundary (ion velocity space: magnetic moment direction).
+  poly_order = 1 -- Polynomial order.
+  basis_type = "serendipity" -- Basis function set.
+  time_stepper = "rk3" -- Time integrators.
+  cfl_frac = 1.0 -- CFL coefficient.
+  ...
+
+which defines a phase space simulation domain consisting of 8 cells in configuration
+space (:math:`z` coordinate direction) and :math:`6 \times 4 = 24` cells in velocity
+space (:math:`v_{\parallel}` and :math:`\mu` coordinate directions, respectively), of
+length :math:`L_z = 4` in configuration space (:math:`z` coordinate direction), and
+with maximum velocity space extents for the electrons and ions of
+:math:`v_{\parallel, e}^{max} = 4 v_{t, e}` and
+:math:`v_{\parallel, i}^{max} = 4 v_{t, i}`, respectively, in the :math:`v_{\parallel}`
+coordinate direction, and:
+
+.. math::
+  \mu_{max, e} = \frac{3}{4} \left( \frac{m_e \left( 4 v_{t, e} \right)^2}{2 B_0}
+  \right), \qquad \mu_{max, i} = \frac{3}{4} \left( \frac{m_i \left( 4 v_{t, i}
+  \right)^2}{2 B_0} \right),
+
+respectively, in the :math:`\mu` coordinate direction. The polynomial order of the modal
+discontinuous Galerkin method is set to 1 (i.e piecewise linear), the set of modal basis
+functions is set to the ``Serendipity`` basis, the time integrator is set to third-order
+Runge-Kutta (i.e. ``RK3``), and the CFL coefficient is set to
+:math:`C_{CFL} = \frac{a \Delta t}{\Delta x} = 1.0` (corresponding to taking to taking
+the largest stable time-step :math:`\Delta t` permitted by the CFL stability criterion,
+where :math:`a` is the largest absolute wave-speed in the simulation domain). Finally,
+we complete this preambulatory section with the remaining simulation parameters:
+
+.. code-block:: lua
+
+  ...
+  t_end = 6.0e-6 -- Final simulation time.
+  num_frames = 1 -- Number of output frames.
+  field_energy_calcs = GKYL_MAX_INT -- Number of times to calculate field energy.
+  integrated_mom_calcs = GKYL_MAX_INT -- Number of times to calculate integrated moments.
+  dt_failure_tol = 1.0e-4 -- Minimum allowable fraction of initial time-step.
+  num_failures_max = 20 -- Maximum allowable number of consecutive
+  ...
+
+which defines a final simulation time :math:`t_{end} = 6 \times 10^{-6}` (the initial
+simulation time is always assumed to be :math:`t_{init} = 0`), specifies that a single
+output frame should be written out to the file system (i.e. only the final state of the
+simulation is written out, without any intermediate frames being stored), specifies that
+certain diagnostic variables, namely the field energy and the integrated diagnostic
+moments, should be calculated as frequently as possible (i.e. they are calculated every
+step, and will be written out along with the output frames), and finally specifies that
+the simulation should automatically terminate if more than 20 consecutive steps are
+taken where the stable time-step :math:`\Delta t` is calculated to be less than
+:math:`10^{-4}` times the inital stable time-step :math:`\left( \Delta t \right)_{init}`
+(to prevent time-step crashes).
 
 .. toctree::
   :maxdepth: 2
