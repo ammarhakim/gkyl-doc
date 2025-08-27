@@ -13,10 +13,10 @@ A Simple :math:`\texttt{moments}` Simulation
 As our first example of a simple simulation using the :math:`\texttt{moments}` app, we
 shall simulate the GEM (Geospace Environment Modeling) magnetic reconnection problem 
 using the 5-moment multi-fluid equations, whose Lua input file can be found in
-``moments/luareg/rt_5m_gem.lua``. In the 5-moment, multi-fluid model, an arbitrary number
-of fluid species (indexed by :math:`s`) are evolved via the Euler equations, assuming an
-ideal fluid model with an isotropic (scalar) pressure. These consist of evolution
-equations for the species number density :math:`n_s`:
+``moments/luareg/rt_5m_gem.lua``. In the 5-moment, multi-fluid model, an arbitrary
+number of fluid species (indexed by :math:`s`) are evolved via the Euler equations,
+assuming an ideal fluid model with an isotropic (scalar) pressure. These consist of
+evolution equations for the species number density :math:`n_s`:
 
 .. math::
   \frac{\partial n_s}{\partial t} + \nabla \cdot \left( n_s \mathbf{u}_s \right) = 0,
@@ -35,11 +35,34 @@ and the species pressure :math:`p_s`:
   \nabla \cdot \mathbf{u}_s,
 
 where :math:`m_s` is the mass of each particle in the species, :math:`q_s` is the charge
-of each particle in the species, and :math:`\gamma_s` is the adiabatic index of the fluid
-species, assuming an ideal gas equation of state. The fluid species are coupled together
-through their interactions with a shared electromagnetic field, evolved via Maxwell's
-equations, consisting of evolution and constraint equations for the electric field
-:math:`\mathbf{E}`:
+of each particle in the species, and :math:`\gamma_s` is the adiabatic index of the
+fluid species, assuming an ideal gas equation of state. For the purpose of numerical
+solution, the species velocity and species pressure equations are recast into
+conservation law form, representing conservation of the species momentum density
+:math:`m_s n_s \mathbf{u}_s`:
+
+.. math::
+  \frac{\partial}{\partial t} \left( m_s n_s \mathbf{u}_s \right) + \nabla \cdot \left(
+  p_s \mathbf{I} + m_s n_s \mathbf{u}_s \otimes \mathbf{u}_s \right) = n_s q_s \left(
+  \mathbf{E} + \mathbf{u}_s \times \mathbf{B} \right),
+
+and the species total energy density :math:`E_s`:
+
+.. math::
+  \frac{\partial E_s}{\partial t} + \nabla \cdot \left( \mathbf{u}_s p_s +
+  \mathbf{u_s} E_s \right) = q_s n_s \mathbf{u}_s \cdot \mathbf{E}_s,
+
+where the species total energy density :math:`E_s` is given by a sum of internal and
+kinetic energy densities (assuming an ideal gas equation of state):
+
+.. math::
+  E_s &= E_{s}^{internal} + E_{s}^{kinetic}
+  &= \left( \frac{p_s}{\gamma_s - 1} \right) + \frac{1}{2} m_s n_s \left\lVert
+  \mathbf{u}_s \right\rVert.
+
+The fluid species are coupled together through their interactions with a shared
+electromagnetic field, evolved via Maxwell's equations, consisting of evolution and
+constraint equations for the electric field :math:`\mathbf{E}`:
 
 .. math::
   \frac{1}{c^2} \left( \frac{\partial \mathbf{E}}{\partial t} \right) - \nabla \times
@@ -66,8 +89,9 @@ respectively:
 
 For the GEM reconnection problem, we will simulate two fluid species (namely an electron
 species, indexed by :math:`s = e`, and an ion species, indexed by :math:`s = i`),
-coupled via an electromagnetic field. Looking inside the ``moments/luareg/rt_5m_gem.lua``
-Lua input file, we see that it begins (after introductory comments) with:
+coupled via an electromagnetic field. Looking inside the
+``moments/luareg/rt_5m_gem.lua`` Lua input file, we see that it begins (after
+introductory comments) with:
 
 .. code-block:: lua
 
@@ -90,8 +114,8 @@ mathematical constants:
   pi = math.pi
   ...
 
-which in our case defines a value for :math:`\pi` (i.e. ``math.pi``). Next, we define any
-necessary dimensional or physical constants:
+which in our case defines a value for :math:`\pi` (i.e. ``math.pi``). Next, we define
+any necessary dimensional or physical constants:
 
 .. code-block:: lua
 
@@ -116,43 +140,52 @@ defined, to facilitate the process of initialization:
 .. code-block:: lua
 
   ...
-  Ti_over_Te = 5.0 -- Ion temperature / electron temperature.
-  lambda = 0.5 -- Wavelength.
-  n0 = 1.0 -- Reference number density.
+  di = 1.0 -- Ion skin depth.
+  n0 = 1.0 -- Reference in-plane number density.
   nb_over_n0 = 0.2 -- Background number density / reference number density.
   B0 = 0.1 -- Reference magnetic field strength.
-  beta = 1.0 -- Plasma beta.
+  Ti_over_Te = 5.0 -- Ion temperature / electron temperature.
+  beta = 1.0 -- Total plasma beta.
   ...
 
-which defines the ratio of ion to electron temperature :math:`\frac{T_i}{T_e} = 5`,
-the plasma wavelength :math:`\lambda = \frac{1}{2}`, the reference number density
+which defines the ion skin depth :math:`\delta_i = 1`, the reference number density
 :math:`n_0 = 1`, the ratio of background to reference number density
-:math:`\frac{n_b}{n_0} = \frac{1}{5}`, the reference magnetic field strength
-:math:`B_0 = \frac{1}{10}`, and the plasma beta :math:`\beta = 1`. Next, we define any
-*derived* physical quantities (i.e. quantities derived from the physical constants
-defined above):
+:math:`\frac{n_b}{n_0} = \frac{1}{5}`, the reference *in-plane* magnetic field strength
+:math:`B_0 = \frac{1}{10}` (which defines the ratio of the in-plane Alfvén wave speed to
+the speed of light, since :math:`\mu_0 = n_0 = m_i = 1`), the ratio of ion to electron
+temperature :math:`\frac{T_i}{T_e} = 5`, and the *total* plasma beta :math:`\beta = 1`
+(i.e. the electron beta is :math:`\frac{1}{6}` and the ion beta is :math:`\frac{5}{6}`,
+so the total is 1). Next, we define any *derived* physical quantities (i.e. quantities
+derived from the physical constants defined above):
 
 .. code-block:: lua
 
   ...
   -- Derived physical quantities (using normalized code units).
-  psi0 = 0.1 * B0 -- Reference magnetic scalar potential.
+  lambda = 0.5 * di -- Current sheet width.
+  psi0 = 0.1 * B0 * di -- Reference perturbation strength.
 
   Ti_frac = Ti_over_Te / (1.0 + Ti_over_Te) -- Fraction of total temperature from ions.
   Te_frac = 1.0 / (1.0 + Ti_over_Te) -- Fraction of total temperature from electrons.
   T_tot = beta * (B0 * B0) / 2.0 / n0 -- Total temperature.
+
+  omega_ci = math.abs(charge_ion * B0 / mass_ion) -- Ion cyclotron frequency.
   ...
 
-which defines the reference magnetic scalar potential :math:`\psi_0 = \frac{B_0}{10}`,
-the fractions of the total plasma temperature contributed by the ions and electrons:
+
+which defines the width of the current sheet :math:`\lambda = \frac{d_i}{2}`, the
+reference perturbation strength :math:`\psi_0 = \frac{B_0 \delta_i}{10}` (magnitude of
+perturbation to the magnetic vector potential), the fractions of the total plasma
+temperature contributed by the ions and electrons:
 
 .. math::
   T_{i}^{frac} = \frac{\left( \frac{T_i}{T_e} \right)}{1 + \left( \frac{T_i}{T_e}
   \right)}, \qquad T_{e}^{frac} = \frac{1}{1 + \left( \frac{T_i}{T_e} \right)},
 
-respectively, and the total plasma temperature
-:math:`T^{tot} = \beta \left( \frac{B_{0}^{2}}{2 n_0} \right)`. Next, we define some
-overall parameters for the simulation:
+respectively, the total plasma temperature
+:math:`T^{tot} = \beta \left( \frac{B_{0}^{2}}{2 n_0} \right)`, and the ion cyclotron
+frequency :math:`\Omega_{c, i} = \left\lvert \frac{q_i B_0}{m_i} \right\rvert` . Next,
+we define some overall parameters for the simulation:
 
 .. code-block:: lua
 
@@ -160,14 +193,14 @@ overall parameters for the simulation:
   --  Simulation parameters.
   Nx = 128 -- Cell count (x-direction).
   Ny = 64 -- Cell count (y-direction).
-  Lx = 25.6 -- Cell count (x-direction).
-  Ly = 12.8 -- Cell count (y-direction).
+  Lx = 25.6 * di -- Cell count (x-direction).
+  Ly = 12.8 * di -- Cell count (y-direction).
   cfl_frac = 1.0 -- CFL coefficient.
   ...
 
-which defines a simulation domain consisting of :math:`128 \times 64 = 8192` total cells,
-of size :math:`25.6 \times 12.8` (resulting in a uniform cell size of
-:math:`\Delta x = \Delta y = 0.2`), and a CFL coefficient of
+which defines a simulation domain consisting of :math:`128 \times 64 = 8192` total
+cells, of size :math:`25.6 \delta_i \times 12.8 \delta_i` (resulting in a uniform cell
+size of :math:`\Delta x = \Delta y = 0.2 \delta_i`), and a CFL coefficient of
 :math:`C_{CFL} = \frac{a \Delta t}{\Delta x} = 1` (corresponding to taking the largest
 stable time-step :math:`\Delta t` permitted by the CFL stability criterion, where
 :math:`a` is the largest absolute wave-speed in the simulation domain). Finally, we
@@ -176,7 +209,7 @@ complete this preambulatory section with the remaining simulation parameters:
 .. code-block:: lua
 
   ...
-  t_end = 250.0 -- Final simulation time.
+  t_end = 25.0 / omega_ci -- Final simulation time.
   num_frames = 1 -- Number of output frames.
   field_energy_calcs = GKYL_MAX_INT -- Number of times to calculate field energy.
   integrated_mom_calcs = GKYL_MAX_INT -- Number of times to calculate integrated moments.
@@ -184,24 +217,24 @@ complete this preambulatory section with the remaining simulation parameters:
   num_failures_max = 20 -- Maximum allowable number of consecutive small time-steps.
   ...
 
-which defines a final simulation time :math:`t_{end} = 250` (the initial simulation time
-is always assumed to be :math:`t_{init} = 0`), specifies that a single output frame
-should be written out to the file system (i.e. only the final state of the simulation is
-written out, without any intermediate frames being stored), specifies that certain
-diagnostic variables, namely the field energy and the integrated diagnostic moments,
-should be calculated as frequently as possible (i.e. they are calculated every step, and
-will be written out along with the output frames), and finally specifies that the
-simulation should automatically terminate if more than 20 consecutive steps are taken
-where the stable time-step :math:`\Delta t` is calculated to be less than
-:math:`10^{-4}` times the initial stable time-step
+which defines a final simulation time :math:`t_{end} = \frac{25}{\Omega_{c, i}}` (the
+initial simulation time is always assumed to be :math:`t_{init} = 0`), specifies that a
+single output frame should be written out to the file system (i.e. only the final state
+of the simulation is written out, without any intermediate frames being stored),
+specifies that certain diagnostic variables, namely the field energy and the integrated
+diagnostic moments, should be calculated as frequently as possible (i.e. they are
+calculated every step, and will be written out along with the output frames), and
+finally specifies that the simulation should automatically terminate if more than 20
+consecutive steps are taken where the stable time-step :math:`\Delta t` is calculated
+to be less than :math:`10^{-4}` times the initial stable time-step
 :math:`\left( \Delta t \right)_{init}` (to prevent time-step crashes).
 
 The next part of the Lua input file initializes the :math:`\texttt{moments}` app itself,
 and passes in several of the key simulation parameters defined above (i.e. the final
 simulation time :math:`t_{end}`, the number of output frames, the frequency of field
 energy and integrated diagnostic moments calculations, the small time-step termination
-criteria, the lower and upper boundaries of the simulation domain, the number of cells in
-each direction, and the CFL coefficient :math:`C_{CFL}`):
+criteria, the lower and upper boundaries of the simulation domain, the number of cells
+in each direction, and the CFL coefficient :math:`C_{CFL}`):
 
 .. code-block:: lua
 
@@ -226,9 +259,9 @@ each direction, and the CFL coefficient :math:`C_{CFL}`):
 thus defining the range of the simulation domain to be
 :math:`\left[ -12.8, 12.8 \right] \times \left[ -6.4, 6.4 \right]`. The next field to be
 passed into ``Moments.App.new`` represents the decomposition of the simulation domain
-into subdomains for the purposes of parallelization (in our case, we are running a serial
-simulation, so we only want to partition into a single subdomain in each of the :math:`x`
-and :math:`y` coordinate directions):
+into subdomains for the purposes of parallelization (in our case, we are running a
+serial simulation, so we only want to partition into a single subdomain in each of the
+:math:`x` and :math:`y` coordinate directions):
 
 .. code-block:: lua
 
@@ -251,8 +284,8 @@ the boundaries in the :math:`y` coordinate direction are assumed to have reflect
   ...
 
 where "1" here refers to the first coordinate direction (i.e. :math:`x`). The next items
-to be passed into ``Moments.App.new`` are the two fluid species (``elc`` for the electron
-species, ``ion`` for the ion species) themselves:
+to be passed into ``Moments.App.new`` are the two fluid species (``elc`` for the
+electron species, ``ion`` for the ion species) themselves:
 
 .. code-block:: lua
 
@@ -288,8 +321,8 @@ cases), followed by some initialization code which we have omitted, followed fin
 a flag to indicate that both species should be evolved in time (i.e. the fluids are not
 static) and that the boundaries in the :math:`y` coordinate direction, on both sides of
 the domain, should have reflective/wall boundary conditions applied to them (i.e.
-``G0.SpeciesBc.bcWall``). The initial conditions for the electron species are imposed via
-the initialization function:
+``G0.SpeciesBc.bcWall``). The initial conditions for the electron species are imposed
+via the initialization function:
 
 .. code-block:: lua
 
@@ -349,8 +382,8 @@ momentum density :math:`\rho_s \mathbf{u}_s`, and the species total energy densi
   &= \left( \frac{p_s}{\gamma_s - 1} \right) + \frac{1}{2} \rho_s \left\lVert
   \mathbf{u}_s \right\rVert^2
 
-where, for the particular case of the GEM reconnection problem, both the electron and ion
-species are initialized with number density:
+where, for the particular case of the GEM reconnection problem, both the electron and
+ion species are initialized with number density:
 
 .. math::
   n_s &= n_b \left[ \mathrm{sech} \left( \frac{y}{\lambda} \right) \right]^2\\
@@ -362,11 +395,11 @@ momentum density:
 .. math::
   \rho_s \mathbf{u}_s = \left( \frac{m_s}{q_s} \right) T_{s}^{frac} \, \mathbf{J},
 
-and total enegy density:
+and total energy density:
 
 .. math::
-  E_s &= \left( \frac{n_s \, T^{tot} \, T_{s}^{frac}}{\gamma_s - 1} \right) + \frac{1}{2}
-  \rho_s \left\lVert \mathbf{u}_s \right\rVert^2\\
+  E_s &= \left( \frac{n_s \, T^{tot} \, T_{s}^{frac}}{\gamma_s - 1} \right) +
+  \frac{1}{2} \rho_s \left\lVert \mathbf{u}_s \right\rVert^2\\
   &= \left( \frac{n_s \, T^{tot} \, T_{s}^{frac}}{\gamma_s - 1} \right) + \frac{1}{2}
   \left( \frac{\left\lVert \rho_s \mathbf{u}_s \right\rVert^2}{\rho_s} \right),
 
@@ -386,7 +419,8 @@ and :math:`\mathrm{sech}` is the hyperbolic secant function:
   \left[ \mathrm{sech} \left( \frac{y}{\lambda} \right) \right]^2 = \left(
   \frac{1}{\cosh \left( \frac{y}{\lambda} \right)} \right)^2.
 
-The final item to be passed into ``Moments.App.new`` is the electromagnetic field itself:
+The final item to be passed into ``Moments.App.new`` is the electromagnetic field
+itself:
 
 .. code-block:: lua
 
@@ -438,12 +472,12 @@ electromagnetic field are imposed via the initialization function:
 
 We see that the final values that get passed into :math:`\texttt{Gkeyll}` for the
 purposes of electromagnetic field initialization are the electric field
-:math:`\mathbf{E}`,the magnetic field :math:`\mathbf{B}`, and the two field potentials
+:math:`\mathbf{E}`, the magnetic field :math:`\mathbf{B}`, and the two field potentials
 :math:`\phi` and :math:`\psi` (both set to 0 here), used by the hyperbolic divergence
-cleaning algorithm for the propagation of divergence errors in the :math:`\mathbf{E}` and
-:math:`\mathbf{B}` fields, respectively. For the particular case of the GEM reconnection
-problem, the electromagnetic field is initialized with vanishing electric field
-:math:`\mathbf{E} = \mathbf{0}`, and non-vanishing magnetic field:
+cleaning algorithm for the propagation of divergence errors in the :math:`\mathbf{E}`
+and :math:`\mathbf{B}` fields, respectively. For the particular case of the GEM
+reconnection problem, the electromagnetic field is initialized with vanishing electric
+field :math:`\mathbf{E} = \mathbf{0}`, and non-vanishing magnetic field:
 
 .. math::
   \mathbf{B} = \begin{bmatrix}
@@ -492,14 +526,15 @@ via the collisionless Vlasov equation for the species distribution function
   \right) + \nabla_{\mathbf{v}} \cdot \left( \frac{q_s}{m_s} \left[ \mathbf{E} +
   \mathbf{v} \times \mathbf{B} \right] f_s \right) = 0,
 
-where :math:`m_s` is the mass of each particle species, :math:`q_s` is the charge of each
-particle species, :math:`\mathbf{x}` and :math:`\mathbf{v}` denote the configuration
-space and velocity space coordinates, respectively, and :math:`\nabla_{\mathbf{x}}` and
-:math:`\nabla_{\mathbf{v}}` denote the configuration and velocity space gradient
-operators, respectively. In the collisionless case, the kinetic particle species are
-coupled together through their interactions with a shared electromagnetic field, evolved
-via Maxwell's equations, consisting of evolution and constraint equations for the
-electric field :math:`\mathbf{E} = \mathbf{E} \left( \mathbf{x} \right)`:
+where :math:`m_s` is the mass of each particle species, :math:`q_s` is the charge of
+each particle species, :math:`\mathbf{x}` and :math:`\mathbf{v}` denote the
+configuration space and velocity space coordinates, respectively, and
+:math:`\nabla_{\mathbf{x}}` and :math:`\nabla_{\mathbf{v}}` denote the configuration and
+velocity space gradient operators, respectively. In the collisionless case, the kinetic
+particle species are coupled together through their interactions with a shared
+electromagnetic field, evolved via Maxwell's equations, consisting of evolution and
+constraint equations for the electric field
+:math:`\mathbf{E} = \mathbf{E} \left( \mathbf{x} \right)`:
 
 .. math::
   \frac{1}{c^2} \left( \frac{\partial \mathbf{E}}{\partial t} \right) -
@@ -571,30 +606,35 @@ facilitate the process of initialization:
 
   ...
   n0 = 1.0 -- Reference number density.
-  vt = 0.2 -- Thermal velocity.
-  Vx_drift = 1.0 -- Drift velocity (x-direction).
+  vt = 1.0 -- Thermal velocity.
+  Vx_drift = 5.0 -- Drift velocity (x-direction).
+  lambda_D = 1.0 -- Electron Debye length.
 
   alpha = 1.0e-6 -- Applied perturbation amplitude.
-  kx = 0.5 -- Perturbed wave number (x-direction).
   ...
 
 which defines the reference number density :math:`n_0 = 1`, the electron thermal
-velocity :math:`v_{t} = \frac{1}{5}`, the electron drift velocity (in the :math:`x`
-coordinate direction) :math:`u_x = 1`, the amplitude of the initial perturbation to be
-applied to the electron distribution function :math:`\alpha = 10^{-6}`, and the electron
-wavenumber to perturb (in the :math:`x` coordinate direction) :math:`k_x = \frac{1}{2}`.
-Next, we define any *derived* physical quantities (i.e. quantities derived from the
-physical constants defined above):
+velocity :math:`v_{t} = 1`, the electron drift velocity (in the :math:`x` coordinate
+direction) :math:`u_x = 5`, the electron Debye length :math:`\lambda_D = 1`, the
+amplitude of the initial perturbation to be applied to the electron distribution
+function :math:`\alpha = 10^{-6}`. Next, we define any *derived* physical quantities
+(i.e. quantities derived from the physical constants defined above):
 
 .. code-block:: lua
 
   ...
   -- Derived physical quantities (using normalized code units).
   T = (vt * vt) * mass_elc -- Temperature.
+
+  kx = 0.1 * lambda_D -- Perturbed wave number (x-direction).
+  omega_pe = vt / lambda_D -- Electron plasma frequency.
   ...
 
-which defines the electron temperature :math:`T = v_{t}^{2} \, m_e`. Next, we define some
-overall parameters for the simulation:
+which defines the electron temperature :math:`T = v_{t}^{2} \, m_e`, the electron
+wavenumber to perturb (in the :math:`x` coordinate direction)
+:math:`k_x = \frac{\lambda_D}{10}`, and the electron plasma frequency
+:math:`\Omega_{p, e} = \frac{v_t}{\lambda_D}`. Next, we define some overall parameters
+for the simulation:
 
 .. code-block:: lua
 
@@ -602,8 +642,8 @@ overall parameters for the simulation:
   -- Simulation parameters.
   Nx = 64 -- Cell count (configuration space: x-direction).
   Nvx = 32 -- Cell count (velocity space: vx-direction).
-  Lx = 2.0 * pi / kx -- Domain size (configuration space: x-direction).
-  vx_max = 6.0 -- Domain boundary (velocity space: vx-direction).
+  Lx = 20.0 * pi * lambdaD -- Domain size (configuration space: x-direction).
+  vx_max = 24.0 * vt -- Domain boundary (velocity space: vx-direction).
   poly_order = 2 -- Polynomial order.
   basis_type = "serendipity" -- Basis function set.
   time_stepper = "rk3" -- Time integrator.
@@ -612,12 +652,12 @@ overall parameters for the simulation:
 
 which defines a phase space simulation domain consisting of 64 cells in configuration
 space (:math:`x` coordinate direction) and 32 cells in velocity space (:math:`v_x`
-coordinate direction), of length :math:`L_x = \frac{2 \pi}{k_x}` in configuration space
-(:math:`x` coordinate direction), and with a maximum velocity space extent of 6
-(:math:`v_x` coordinate direction). The polynomial order of the modal discontinuous
-Galerkin method is set to 2 (i.e. piecewise quadratic), the set of modal basis functions
-is set to the ``Serendipity`` basis, the time integrator is set to third-order
-Runge-Kutta (i.e. ``RK3``), and the CFL coefficient is set to
+coordinate direction), of length :math:`L_x = 20 \pi lambda_D` in configuration space
+(:math:`x` coordinate direction), and with a maximum velocity space extent of
+:math:`24 v_{t}` (:math:`v_x` coordinate direction). The polynomial order of the modal
+discontinuous Galerkin method is set to 2 (i.e. piecewise quadratic), the set of modal
+basis functions is set to the ``Serendipity`` basis, the time integrator is set to
+third-order Runge-Kutta (i.e. ``RK3``), and the CFL coefficient is set to
 :math:`C_{CFL} = \frac{a \Delta t}{\Delta x} = 0.6` (corresponding to taking
 :math:`60 \%` of the largest stable time-step :math:`\Delta t` permitted by the CFL
 stability criterion, where :math:`a` is the largest absolute wave-speed in the
@@ -627,7 +667,7 @@ simulation parameters:
 .. code-block:: lua
 
   ...
-  t_end = 40.0 -- Final simulation time.
+  t_end = 100.0 / omega_pe -- Final simulation time.
   num_frames = 1 -- Number of output frames.
   field_energy_calcs = GKYL_MAX_INT -- Number of times to calculate field energy.
   integrated_mom_calcs = GKYL_MAX_INT -- Number of times to calculate integrated moments.
@@ -636,22 +676,22 @@ simulation parameters:
   num_failures_max = 20 -- Maximum allowable number of consecutive small time-steps.
   ...
 
-which defines a final simulation time :math:`t_{end} = 40` (the initial simulation time
-is always assumed to be :math:`t_{init}` = 0), specifies that a single output frame
-should be written out to the file system (i.e. only the final state of the simulation is
-written out, without any intermediate frames being stored), specifies that certain
-diagnostic variables, namely the field energy, the integrated diagnostic moments, and
-the integrated :math:`L^2`-norm of the distribution function :math:`f_s`, should be
-calculated as frequently as possible (i.e. they are calculated every step, and will be
-written out along with the output frames), and finally specifies that the simulation
-should automatically terminate if more than 20 consecutive steps are taken where the
-stable time-step :math:`\Delta t` is calculated to be less than :math:`10^{-4}` time
-the initial stable time-step :math:`\left( \Delta t \right)_{init}` (to prevent
-time-step crashes).
+which defines a final simulation time :math:`t_{end} = \frac{100}{\Omega_{p, e}}` (the
+initial simulation time is always assumed to be :math:`t_{init}` = 0), specifies that a
+single output frame should be written out to the file system (i.e. only the final state
+of the simulation is written out, without any intermediate frames being stored),
+specifies that certain diagnostic variables, namely the field energy, the integrated
+diagnostic moments, and the integrated :math:`L^2`-norm of the distribution function
+:math:`f_s`, should be calculated as frequently as possible (i.e. they are calculated
+every step, and will be written out along with the output frames), and finally specifies
+that the simulation should automatically terminate if more than 20 consecutive steps are
+taken where the stable time-step :math:`\Delta t` is calculated to be less than
+:math:`10^{-4}` time the initial stable time-step :math:`\left( \Delta t \right)_{init}`
+(to prevent time-step crashes).
 
 The next part of the Lua input file initializes the :math:`\texttt{vlasov}` app itself,
-and passes in several of the key simulation parameters defiend above (i.e. the final
-simulation time :math:`t_end`, the number of output frames, the frequency of field
+and passes in several of the key simulation parameters defined above (i.e. the final
+simulation time :math:`t_{end}`, the number of output frames, the frequency of field
 energy, :math:`L^2`-norm of :math:`f_s`, and integrated diagnostic moments calculations,
 the small time-step termination criteria, the lower and upper boundaries of the
 simulation domain *in configuration space*, the number of cells in each direction *of
@@ -681,8 +721,8 @@ configuration space*, and the CFL coefficient :math:`C_{CFL}`):
 thus defining the range of the configuration space domain to be
 :math:`\left[ - \frac{\pi}{k_x}, \frac{\pi}{k_x} \right]`. The next field to be passed
 into ``Vlasov.App.new`` represents the decomposition of the configuration space domain
-into subdomains for the purposes of parallelization (in our case, we are running a serial
-simulation, so we only want to partition into a single subdomain in the :math:`x`
+into subdomains for the purposes of parallelization (in our case, we are running a
+serial simulation, so we only want to partition into a single subdomain in the :math:`x`
 coordinate direction):
 
 .. code-block:: lua
@@ -705,8 +745,8 @@ conditions:
   ...
 
 where "1" here refers to the first coordinate direction (i.e. :math:`x`). The next items
-to be passed into ``Vlasov.App.new`` are the kinetic particle species (in this case, just
-``elc`` for the electron species) themselves:
+to be passed into ``Vlasov.App.new`` are the kinetic particle species (in this case,
+just ``elc`` for the electron species) themselves:
 
 .. code-block:: lua
 
@@ -729,11 +769,11 @@ to be passed into ``Vlasov.App.new`` are the kinetic particle species (in this c
   ...
 
 where we begin by passing in the Vlasov model type (in this case, ``G0.Model.Default``
-for the non-relativistic Vlasov equation), followed by the charge and mass of the species
-(:math:`q_e` and :math:`m_e` for the electron charge and mass), followed by the range of
-the velocity space domain (i.e. :math:`\left[ -6, 6 \right]`) and the number of cells to
-use in velocity space, followed by some initialization code which we have omitted,
-followed by a flag to indicate that the species should be evolved in time (i.e.
+for the non-relativistic Vlasov equation), followed by the charge and mass of the
+species (:math:`q_e` and :math:`m_e` for the electron charge and mass), followed by the
+range of the velocity space domain (i.e. :math:`\left[ -6, 6 \right]`) and the number of
+cells to use in velocity space, followed by some initialization code which we have
+omitted, followed by a flag to indicate that the species should be evolved in time (i.e.
 the particles are not static), followed finally by a specification of which diagnostic
 moments should be calculated, namely ``G0.Moment.M0``, ``G0.Moment.M1``, and
 ``G0.Moment.M2``, corresponding to the zeroth, first, and second moments of the species
@@ -823,8 +863,8 @@ species is locally characterized entirely by its configuration space number dens
   \frac{\left\lVert \mathbf{v} - \mathbf{u}_s \right\rVert}{2 T_s} \right).
 
 The isotropic temperature :math:`T` and drift velocity (in the :math:`x` coordinate
-direction) :math:`u_x` for the electron species have already been specified/computed, and
-the configuration space number density :math:`n` is computed as a perturbation of
+direction) :math:`u_x` for the electron species have already been specified/computed,
+and the configuration space number density :math:`n` is computed as a perturbation of
 amplitude :math:`\alpha` of the reference number density :math:`n_0` as:
 
 .. math::
@@ -881,8 +921,8 @@ We see that the final values that get passed into :math:`\texttt{Gkeyll}` for th
 purposes of electromagnetic field initialization are the electric field
 :math:`\textbf{E}`, the magnetic field :math:`\textbf{B}`, and the two field potentials
 :math:`\phi` and :math:`\psi` (both set to 0 here), used by the hyperbolic divergence
-cleaning algorithm for the propagation of divergence errors in the :math:`\mathbf{E}` and
-:math:`\mathbf{B}` fields, respectively. For the particular case of the two-stream
+cleaning algorithm for the propagation of divergence errors in the :math:`\mathbf{E}`
+and :math:`\mathbf{B}` fields, respectively. For the particular case of the two-stream
 instability problem, the electromagnetic field is initialized with vanishing magnetic
 field :math:`\mathbf{B} = \mathbf{0}`, and non-vanishing electric field:
 
@@ -1307,6 +1347,38 @@ the simulation should automatically terminate if more than 20 consecutive steps 
 taken where the stable time-step :math:`\Delta t` is calculated to be less than
 :math:`10^{-4}` times the inital stable time-step :math:`\left( \Delta t \right)_{init}`
 (to prevent time-step crashes).
+
+The next part of the Lua input file initializes the :math:`\texttt{gyrokinetic}` app
+itself, and passes in several of the key parameters defined above (i.e. the final
+simulation time :math:`t_{end}`, the number of output frames, the frequency of field
+energy and integrated diagnostic moments calculations, the small time-step termination
+criteria, the lower and upper boundaries of the simulation domain *in configuration
+space*, the number of cells in each direction *of configuration space*, and the CFL
+coefficient :math:`C_{CFL}`):
+
+.. code-block:: lua
+
+  ...
+  gyrokineticApp = Gyrokinetic.App.new {
+    
+    tEnd = t_end,
+    nFrame = num_frames,
+    fieldEnergyCalcs = field_energy_calcs,
+    integratedMomentCalcs = integrated_mom_calcs,
+    dtFailureTol = dt_failure_tol,
+    numFailuresMax = num_failures_max,
+    lower = { -0.5 * Lz },
+    upper = { 0.5 * Lz },
+    cells = { Nz },
+    cflFrac = cfl_frac,
+
+    basis = basis_type,
+    polyOrder = poly_order,
+    timeStepper = time_stepper,
+
+    ...
+  }
+  ...
 
 .. toctree::
   :maxdepth: 2
