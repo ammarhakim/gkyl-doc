@@ -860,7 +860,7 @@ species is locally characterized entirely by its configuration space number dens
 
 .. math::
   f_s = n_s \left( \frac{m_s}{2 \pi T_s} \right)^{\frac{1}{2}} \exp \left( - m_s
-  \frac{\left\lVert \mathbf{v} - \mathbf{u}_s \right\rVert}{2 T_s} \right).
+  \frac{\left\lVert \mathbf{v} - \mathbf{u}_s \right\rVert^2}{2 T_s} \right).
 
 The isotropic temperature :math:`T` and drift velocity (in the :math:`x` coordinate
 direction) :math:`u_x` for the electron species have already been specified/computed,
@@ -1178,8 +1178,8 @@ facilitate the process of initialization:
   nu_frac = 0.1 -- Collision frequency fraction.
   ...
 
-which defines the electron and ion temperatures :math:`T_e = T_i = 40 eV`, the reference
-number density :math:`n_0 = 7 \times 10^{18} m^{-3}`, the magnetic field axis
+which defines the electron and ion temperatures :math:`T_e = T_i = 40 eV`, the linearized
+polarization density :math:`n_0 = 7 \times 10^{18} m^{-3}`, the magnetic field axis
 :math:`B_{axis} = 0.5` and the major and minor radii/axes (:math:`R_0 = 0.85` and
 :math:`a_0 = 0.15`) of the simple toroidal coordinate system (used for computing the
 reference magnetic field strength), and the arbitrary coefficient
@@ -1370,7 +1370,306 @@ coefficient :math:`C_{CFL}`):
 
     ...
   }
+
+thus defining the range of the configuration space domain to be
+:math:`\left[ R - 25 \rho_s, R + 25 \rho_s \right] \times \left[ -2, 2 \right]`. The
+next field to be passed into ``Gyrokinetic.App.new`` represents the decomposition of the
+configuration space domain into subdomains for the purpose of parallelization (in our
+case, we are running a serial simulation, so we only want to partition into a single
+subdomain in the :math:`x` coordinate direction):
+
+.. code-block:: lua
+
   ...
+  -- Decomposition for configuration space.
+  decompCuts = { 1 }, -- Cuts in each coordinate direction (x-direction only).
+  ...
+
+The next field specifies which coordinate directions (if any) should have periodic
+boundary conditions applied to them; for the gyrokinetic sheath potential formation
+problem, neither the :math:`x` or :math:`z` coordinate direction boundaries are assumed
+to have periodic boundary conditions:
+
+.. code-block:: lua
+
+  ...
+  -- Boundary conditions for configuration space.
+  periodicDirs = { }, -- Periodic directions (none).
+  ...
+
+The next item to be passed into ``Gyrokinetic.App.new`` is the specification of the
+gyrokinetic geometry (i.e. the physical field-line-following coordinate system, as
+opposed to the *computational* coordinate system which is always logically Cartesian):
+
+.. code-block:: lua
+
+  ...
+  geometry = {
+    geometryID = G0.Geometry.MapC2P,
+    world = { 0.0, 0.0, 0.0 },
+
+    ...
+
+    -- Magnetic field strength.
+    bmagFunc = function (t, zc)
+      local x = zc[1]
+
+      return B0 * R / x
+    end
+  },
+  ...
+
+where we begin by passing in the gyrokinetic geometry type (in this case,
+``G0.Geometry.MapC2P`` for an explicit mapping function from the logically Cartesian
+computational coordinates to the simple toroidal physical coordinates) and its *world
+coordinates* :math:`\left( 0, 0,0 \right)` (a way to construct a coordinate system for a
+lower-dimensional simulation by evaluating a three-dimensional field-line-following
+coordinate system at specified inputs), followed by some coordinate transformation code
+which we have omitted, followed finally by a function to specify the local magnetic
+field strength :math:`\left\lVert \mathbf{B} \right\rVert = \frac{B_0 R}{x}` for the
+field-line-following coordinate system (where :math:`x` is the radial coordinate in
+simple toroidal coordinates). The coordinate transformation from simple toroidal
+(physical) coordinates :math:`\left( R, Z, \phi \right)` to logically Cartesian
+(computational) coordinates :math:`\left( x, y, z \right)` is specified via a ``mapc2p``
+function:
+
+.. code-block:: lua
+
+  ...
+  -- Computational coordinates (x, y, z) from physical coordinates (X, Y, Z).
+  mapc2p = function (t, zc)
+    local x, y, z = zc[1], zc[2], zc[3]
+
+    local xp = { }
+
+    local R = X
+    local phi = z / (R0 + a0)
+    local X = R * math.cos(phi)
+    local Y = R * math.sin(phi)
+    local Z = Y
+    
+    xp[1] = X
+    xp[2] = Y
+    xp[3] = Z
+  end,
+  ...
+
+i.e. :math:`x = R \cos \left( \phi \right)`, :math:`y = R \sin \left( \phi \right)`, and
+:math:`z = Z`. The next items to be passed into ``Gyrokinetic.App.new`` are the
+two gyroaveraged particle species (``elc`` for the electron species, ``ion`` for the ion
+species) themselves:
+
+.. code-block:: lua
+
+  ...
+  -- Electrons.
+  elc = Gyrokinetic.Species.new {
+    charge = charge_elc, mass = mass_elc,
+
+    -- Velocity space grid.
+    lower = { -vpar_max_elc, 0.0 },
+    upper = { vpar_max_elc, mu_max_elc },
+    cells = { Nvpar, Nmu },
+    polarizationDensity = n0,
+    noBy = true,
+
+    ...
+
+    evolve = true, -- Evolve species?
+    diagnostics = { G0.Moments.M0, G0.Moment.M1, G0.Moment.M2, G0.Moment.M2par, G0.Moment.M2perp }
+  },
+
+  -- Ions.
+  ion = Gyrokinetic.Species.new {
+    charge = charge_ion, mass = mass_ion,
+
+    -- Velocity space grid.
+    lower = { -vpar_max_ion, 0.0 },
+    upper = { vpar_max_ion, mu_max_ion },
+    cells = { Nvpar, Nmu },
+    polarizationDensity = n0,
+    noBy = true,
+
+    ...
+
+    evolve = true, -- Evolve species?
+    diagnostics = { G0.Moment.M0, G0.Moment.M1, G0.Moment.M2, G0.Moment.M2par, G0.Moment.M2perp }
+  },
+  ...
+
+where, in both cases, we begin by passing in parameters for the charge and mass of the
+species (:math:`q_e` and :math:`m_e` for the electrons, :math:`q_i` and :math:`m_i` for
+the ions, respectively), followed by the extents of the velocity space domain (i.e.
+:math:`\left[ -v_{\parallel, e}^{max}, v_{\parallel, e}^{max} \right] \times \left[ 0, \mu_{max, e} \right]`
+for the electrons,
+:math:`\left[ -v_{\parallel, i}^{max}, v_{\parallel, i}^{max} \right] \times \left[ 0, \mu_{max, i} \right]`
+for the ions, respectively) and the number of cells to use in velocity space, as well as
+the linearized polarization density :math:`n_0` and a flag to specify that the we are
+omitting the :math:`y`-component of the magnetic field, followed by some initialization
+code for the projections, sources, collisions, and boundary conditions which we have
+omitted, followed by a flag to indicate that the species should be evolved in time (i.e.
+the particles are not static), followed finally by a specification of which diagnostic
+moments should be calculated, namely ``G0.Moment.M0``, ``G0.Moment.M1``,
+``G0.Moment.M2``, ``G0.Moment.M2par``, and ``G0.Moment.M2perp``, corresponding to the
+zeroth, first, and second moments of the gyroaveraged species distribution function:
+
+.. math::
+  M_{0, s} &= \int_V \mathcal{J}_s \, f_s \, d \mathbf{v}\\
+  &= \left( \frac{2 \pi}{m_s} \right) \int_{- \infty}^{\infty} \int_{0}^{\infty}
+  \mathcal{J}_s \, f_s \, d \mu \, d v_{\parallel},
+
+.. math::
+  M_{1, s} &= \int_V v_{\parallel} \, \mathcal{J}_s \, f_s \, d \mathbf{v}\\
+  &= \left( \frac{2 \pi}{m_s} \right) \int_{- \infty}^{\infty} \int_{0}^{\infty}
+  v_{\parallel} \, \mathcal{J}_s \, f_s \, d \mu \, d v_{\parallel},
+
+and:
+
+.. math::
+  M_{2, s} &= \int_V \left( v_{\parallel}^{2} + \frac{2 \mu \left\lVert \mathbf{B}
+  \right\rVert}{m_s} \right) \mathcal{J}_s \, f_s \, d \mathbf{v}\\
+  &= \left( \frac{2 \pi}{m_s} \right) \int_{- \infty}^{\infty} \int_{0}^{\infty} \left(
+  v_{\parallel}^{2} + \frac{2 \mu \left\lVert \mathbf{B} \right\rVert}{m_s} \right)
+  \mathcal{J}_s \, f_s \, d \mu \, d v_{\parallel},
+
+respectively, as well as the parallel and perpendicular components of the second moment:
+
+.. math::
+  M_{2, s}^{\parallel} &= \int_V v_{\parallel}^{2} \, \mathcal{J}_s \, f_s \, d
+  \mathbf{v},\\
+  &= \left( \frac{2 \pi}{m_s} \right) \int_{- \infty}^{\infty} \int_{0}^{\infty}
+  v_{\parallel}^{2} \, \mathcal{J}_s \, f_s \, d \mu \, d v_{\parallel},
+
+and:
+
+.. math::
+  M_{2, s}^{\perp} &= \int_V \left( \frac{2 \mu \left\lVert \mathbf{B}
+  \right\rVert}{m_s} \right) \mathcal{J}_s \, f_s \, d \mu \, d v_{\parallel}\\
+  &= \left( \frac{2 \pi}{m_s} \right) \int_{- \infty}^{\infty} \int_{0}^{\infty} \left(
+  \frac{2 \mu \left\lVert \mathbf{B} \right\rVert}{m_s} \right) \mathcal{J}_s \, f_s \,
+  d \mu \, d v_{\parallel},
+
+respectively. The initial conditions for the electron species are imposed via the
+following primitive Maxwellian projection for the gyroaveraged species distribution
+function:
+
+.. code-block:: lua
+
+  ...
+  -- Initial conditions.
+  projection = {
+    projectionID = G0.Projection.MaxwellianPrimitive,
+
+    densityInit = function (t, xn)
+      local x, z = xn[1], xn[2]
+
+      local src_density = math.max(math.exp(-((x - xmu_src) * (x - xmu_src)) / ((2.0 * xsigma_src) * (2.0 * xsigma_srx))), floor_src) * n_src
+      local src_temp = 0.0
+      local n = 0.0
+
+      if x < xmu_src + 3.0 * xsigma_src then
+        src_temp = T_src
+      else
+        src_temp = (3.0 / 8.0) * T_src
+      end
+
+      local c_s_src = math.sqrt((5.0 / 3.0) * src_temp / mass_ion)
+      local n_peak = 4.0 * math.sqrt(5.0) / 3.0 / c_s_src * (0.125 * Lz) * src_density
+
+      if math.abs(z) <= 0.25 * Lz then
+        n = 0.5 * n_peak * (1.0 + math.sqrt(1.0 - (z / (0.25 * Lz)) * (z / (0.25 * Lz)))) -- Electron total number density (left).
+      else
+        n = 0.5 * n_peak -- Electron total number density (right).
+      end
+
+      return n
+    end,
+    temperatureInit = function (t, xn)
+      local x = xn[1]
+
+      local T = 0.0
+
+      if x < x_mu_src + 3.0 * xsigma_src then
+        T = (5.0 / 4.0) * Te -- Electron isotropic temperature (left).
+      else
+        T = 0.5 * Te -- Electron isotropic temperature (right).
+      end
+
+      return T
+    end,
+    parallelVelocityInit = function (t, xn)
+      return 0.0 -- Electron parallel velocity.
+    end
+  },
+  ...
+
+while the initial conditions for the ion species corresponding primitive Maxwellian
+projection for the gyroaveraged species distribution function:
+
+.. code-block:: lua
+
+  ...
+  -- Initial conditions.
+  projection = {
+    projectionID = G0.Projection.MaxwellianPrimitive,
+
+    densityInit = function (t, xn)
+      local x, z = xn[1], xn[2]
+
+      local src_density = math.max(math.exp(-((x - xmu_src) * (x - xmu_src)) / ((2.0 * xsigma_src) * (2.0 * xsigma_src))), floor_src) * n_src
+      local src_temp = 0.0
+      local n = 0.0
+
+      if x < xmu_src + 3.0 * xsigma_src then
+        src_temp = T_src
+      else
+        src_temp = (3.0 / 8.0) * T_src
+      end
+
+      local c_s_src = math.sqrt((5.0 / 3.0) * src_temp / mass_ion)
+      local n_peak = 4.0 * math.sqrt(5.0) / 3.0 / c_s_src * (0.125 * Lz) * src_density
+
+      if math.abs(z) <= 0.25 * Lz then
+        n = 0.5 * n_peak * (1.0 * math.sqrt(1.0 - (z / (0.25 * Lz)) * (z / (0.25 * Lz)))) -- Ion total number density (left).
+      else
+        n = 0.5 * n_peak -- Ion total number density (right).
+      end
+
+      return n
+    end,
+    temperatureInit = function (t, xn)
+      local x = xn[1]
+
+      local T = 0.0
+
+      if x < xmu_src + 3.0 * xsigma_src then
+        T = (5.0 / 4.0) * Ti -- Ion isotropic temperature (left).
+      else
+        T = 0.5 * Ti -- Ion isotropic temperature (right).
+      end
+
+      return T
+    end,
+    parallelVelocityInit = function (t, xn)
+      return 0.0 -- Ion parallel velocity.
+    end
+  },
+  ...
+
+which we can see are identical aside from the use of the electron temperature
+:math:`T_e` in the former and the ion temperature :math:`T_i` in the latter. In both of
+these cases, we begin by specifying that the type of projection to use is a primitive
+Maxwellian projection (i.e. ``G0.Projection.MaxwellianPrimitive``), which assumes that
+the particle species is locally characterized entirely by its configuration space number
+density :math:`n_s`, its isotropic temperature :math:`T_s`, and its parallel velocity
+:math:`u_{s, \parallel}` (i.e. its primitive fluid variables), and then proceeds to
+initialize the gyroaveraged species distribution function as a Maxwell-Boltzmann
+distribution:
+
+.. math::
+  f_s = n_s \left( \frac{m_s}{2 \pi T_s} \right)^{\frac{3}{2}} \exp \left[ - m_s
+  \frac{\left( v_{\parallel} - u_{s, \parallel} \right)^2}{2 T_s} - \frac{\left\lVert
+  \mathbf{B} \right\rVert \mu}{T_s} \right]
 
 .. toctree::
   :maxdepth: 2
