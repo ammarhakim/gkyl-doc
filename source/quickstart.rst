@@ -1603,8 +1603,8 @@ function:
   },
   ...
 
-while the initial conditions for the ion species corresponding primitive Maxwellian
-projection for the gyroaveraged species distribution function:
+while the initial conditions for the ion species are imposed via the corresponding
+primitive Maxwellian projection for the gyroaveraged species distribution function:
 
 .. code-block:: lua
 
@@ -1670,6 +1670,316 @@ distribution:
   f_s = n_s \left( \frac{m_s}{2 \pi T_s} \right)^{\frac{3}{2}} \exp \left[ - m_s
   \frac{\left( v_{\parallel} - u_{s, \parallel} \right)^2}{2 T_s} - \frac{\left\lVert
   \mathbf{B} \right\rVert \mu}{T_s} \right]
+
+The parallel velocities :math:`u_{s, \parallel}` are set to zero in both cases, and the
+isotropic temperatures :math:`T` are defined piecewise in terms of the electron/ion
+temperatures :math:`T_e` and :math:`T_i` that have already been specified, as:
+
+.. math::
+  T = \begin{cases}
+  \frac{5}{4} T_s, \qquad & \text{ for } \qquad x < \mu \left( S_ s \right) + 3 \sigma
+  \left( S_s \right),\\
+  \frac{1}{2} T_s, \qquad & \text{ for } \qquad x \geq \mu \left( S_s \right) + 3 \sigma
+  \left( S_s \right)
+  \end{cases}.
+
+The configuration space number densities :math:`n_s` are also defined piecewise:
+
+.. math::
+  n_s = \begin{cases}
+  \frac{1}{2} n_{peak} \left( 1 + \sqrt{1 - z^2} \right), \qquad & \text{ for } \qquad
+  \left\lvert z \right\rvert \leq 1,\\
+  \frac{1}{2} n_{peak}, \qquad & \text{ for } \qquad \left\lvert z \right\rvert > 1
+  \end{cases},
+
+where the peak number density :math:`n_{peak}`:
+
+.. math::
+  n_{peak} = \frac{4}{3} \left( \frac{\sqrt{5}}{c_{s}^{src}} \right) \left(
+  \frac{n_{s, src}}{2} \right),
+
+is defined in terms of the density :math:`n_{s, src}` of the source particle
+distribution:
+
+.. math::
+  n_{s, src} = \max \left( \exp \left[ \frac{- \left( x - \mu \left( S_s \right)
+  \right)^2}{\left( 2 \sigma \left( S_s \right) \right)^2} \right] , \left\lfloor S_s
+  \right\rfloor \right) n_{src},
+
+and the sound speed :math:`c_{s}^{src}` of the source particle distribution:
+
+.. math::
+  c_{s}^{src} = \sqrt{\frac{5}{3} \left( \frac{T_{s, src}}{m_i} \right)},
+
+where the temperature :math:`T_{s, src}` is defined piecewise in terms of the source
+temperature :math:`T_{src}` that has already been computed:
+
+.. math::
+  T_{s, src} = \begin{cases}
+  T_{src}, \qquad & \text{ for } \qquad x < \mu \left( S_s \right) + 3 \sigma \left( S_s
+  \right),\\
+  \frac{3}{8} T_{src}, \qquad & \text{ for } \qquad x \geq \mu \left( S_s \right) + 3
+  \sigma \left( S_s \right)
+  \end{cases}.
+
+The initial conditions for the electron source particle distribution are imposed by
+passing in a list of primitive Maxwellian projections for the gyroaveraged source
+distribution function:
+
+.. code-block:: lua
+  
+  ...
+  source = {
+    sourceID = G0.Source.Proj,
+
+    numSources = 1,
+    projections = {
+      {
+        projectionID = G0.Projection.MaxwellianPrimitive,
+
+        densityInit = function (t, xn)
+          local x, z = xn[1], xn[2]
+
+          local n = 0.0
+
+          if math.abs(z) < 0.25 * Lz then
+            n = math.max(math.exp(-((x - xmu_src) * (x - xmu_src)) / ((2.0 * xsigma_src) * (2.0 * xsigma_src))),
+              floor_src) * n_src -- Electron source total number density (left).
+          else
+            n = 1.0e-40 * n_src -- Electron source total number density (right).
+          end
+
+          return n
+        end,
+        temperatureInit = function (t, xn)
+          local x = xn[1]
+
+          local T = 0.0
+
+          if x < xmu_src + 3.0 * xsigma_src then
+            T = T_src -- Electron source isotropic temperature (left).
+          else
+            T = (3.0 / 8.0) * T_src -- Electron source isotropic temperature (right).
+          end
+
+          return T -- Electron source isotropic temperature.
+        end,
+        parallelVelocityInit = function (t, xn)
+          return 0.0 -- Electron source parallel velocity.
+        end
+      }
+    }
+  },
+  ...
+
+while the initial conditions for the ion source particle distribution are imposed by
+passing in a list of corresponding primitive Maxwellian projections for the gyroaveraged
+source distribution function:
+
+.. code-block:: lua
+
+  ...
+  source = {
+    sourceID = G0.Source.Proj,
+
+    numSources = 1,
+    projections = {
+      {
+        projectionID = G0.Projection.MaxwellianPrimitive,
+
+        densityInit = function (t, xn)
+          local x, z = xn[1], xn[2]
+
+          local n = 0.0
+
+          if math.abs(z) < 0.25 * Lz then
+            n = math.max(math.exp(-((x - xmu_src) * (x - xmu_src)) / ((2.0 * xsigma_src) * (2.0 * xsigma_src))),
+              floor_src) * n_src -- Ion source total number density (left).
+          else
+            n = 1.0e-40 * n_src -- Ion source total number density (right).
+          end
+        end,
+        temperatureInit = function (t, xn)
+          local x = xn[1]
+
+          local T = 0.0
+
+          if x < xmu_src + 3.0 * xsigma_src then
+            T = T_src -- Ion source isotropic temperature (left).
+          else
+            T = (3.0 / 8.0) * T_src -- Ion source isotropic temperature (right).
+          end
+
+          return T -- Ion source isotropic temperature.
+        end,
+        parallelVelocityInit = function (t, xn)
+          return 0.0 -- Ion source parallel velocity.
+        end
+      }
+    }
+  },
+  ...
+
+which we can see are identical aside from comments. In both of these cases, again, we
+begin by specifying that the type of projection to use is a primitive Maxwellian
+projection (i.e. ``G0.Projection.MaxwellianPrimitive``), such that the gyroaveraged
+source distribution function is a Maxwell-Boltzmann distribution as before. The parallel
+velocities :math:`u_{src, \parallel}` are set to zero in both cases, and, as abvove, the
+configuration space number densities :math:`n_{s, src}` and isotropic temperatures
+:math:`T_{s, src}` are defined piecewise as:
+
+.. math::
+  n_{s, src} = \begin{cases}
+  \max \left( \exp \left[ \frac{- \left( x - \mu \left( S_s \right) \right)^2}{\left( 2
+  \sigma \left( S_s \right) \right)^2} \right] , \left\lfloor S_s \right\rfloor \right)
+  n_{src}, \qquad & \text { for } \qquad z < 1\\
+  10^{-40} n_{src}, \qquad & \text{ for } \qquad z \geq 1
+  \end{cases},
+
+and:
+
+.. math::
+  T_{s, src} = \begin{cases}
+  T_{src}, \qquad & \text{ for } \qquad x < \mu \left( S_s \right) + 3 \sigma \left( S_s
+  \right),\\
+  \frac{3}{8} T_{src}, \qquad & \text{ for } \qquad x \geq \mu \left( S_s \right) + 3
+  \sigma \left( S_s \right)
+  \end{cases},
+
+respectively. The collision operators :math:`C \left[ f_s \right]` and boundary
+conditions for the electron species are specified as:
+
+.. code-block:: lua
+
+  ...
+  collisions = {
+    collisionID = G0.Collisions.LBO,
+
+    selfNu = function (t, xn)
+      return nu_elc
+    end,
+
+    numCrossCollisions = 1,
+    collideWith = { "ion" }
+  },
+
+  bcx = {
+    lower = {
+      type = G0.SpeciesBc.bcZeroFlux
+    },
+    upper = {
+      type = G0.SpeciesBc.bcZeroFlux
+    }
+  },
+
+  bcy = {
+    lower = {
+      type = G0.SpeciesBc.bcGkSheath
+    },
+    upper = {
+      type = G0.SpeciesBc.bcGkSheath
+    }
+  },
+  ...
+
+and for the ion species as:
+
+.. code-block:: lua
+
+  ...
+  collisions = {
+    collisionID = G0.Collisions.LBO,
+
+    selfNu = function (t, xn)
+      return nu_ion
+    end,
+
+    numCrossCollisions = 1,
+    collideWidth = { "elc" }
+  },
+
+  bcx = {
+    lower = {
+      type = G0.SpeciesBc.bcZeroFlux
+    },
+    upper = {
+      type = G0.SpeciesBc.bcZeroFlux
+    }
+  },
+  bcy = {
+    lower = {
+      type = G0.SpeciesBc.bcGkSheath
+    },
+    upper = {
+      type = G0.SpeciesBc.bcGkSheath
+    }
+  },
+  ...
+
+which we can see are identical aside from the use of the electron collision frequency
+:math:`\nu_e` (cross-colliding with ions) in the former and the ion collision frequency
+:math:`\nu_i` (cross-colliding with electrons) in the latter. In both cases, we begin by
+specifying that the type of collision operator :math:`C \left[ f_s \right]` to use is
+the multi-species Dougherty/Lenard-Bernstein (LBO) form (i.e. ``G0.Collisions.LBO``),
+before proceeding to specify the self-collision frequency :math:`\nu_s`, and the list of
+inter-species collision types. We also specify that the boundaries in the :math:`x`
+coordinate direction, on both sides of the domain, should have zero particle flux
+boundary conditions applied to them (i.e. ``G0.SpeciesBc.bcZeroFlux``), and that the
+boundaryes in the :math:`z` coordinate direction, on both sides of the domain, should
+have conducting sheath boundary conditions applied to them (i.e.
+``G0.SpeciesBc.bcGkSheath``), wherein any outgoing particles whose kinetic energies
+satisfy the inequality:
+
+.. math::
+  \frac{1}{2} m_s v_{\parallel}^{2} < - q_s \phi_{sh}
+
+are reflected back into the domain, and all others leave (where :math:`\phi_{sh}` is
+the value of the electrostatic potential :math:`\phi` evaluated at the domain boundary,
+as obtained via the gyrokinetic Poisson equation). The final item to be passed into
+``Gyrokinetic.App.new`` is the electrostatic field itself:
+
+.. code-block:: lua
+
+  ...
+  -- Field.
+  field = Gyrokinetic.Field.new {
+    femParBc = G0.ParProjBc.None,
+
+    poissonBcs = {
+      lowerType = {
+        G0.Poissonbc.bcDirichlet
+      },
+      upperType = {
+        G0.PoissonBc.bcDirichlet
+      },
+      lowerValue = {
+        0.0
+      },
+      upperValue = {
+        0.0
+      }
+    }
+  }
+  ...
+
+where we specify that the finite element solver for the gyrokinetic Poisson equation
+should assume no boundary conditions (i.e. ``G0.ParProjBc.None``) in the parallel
+directions, and Dirchlet boundary conditions with fixed values of 0 on both sides of the
+simulation domain in the perpendicular directions (i.e. ``G0.PoissonBc.bcDirichlet``).
+
+With the :math:`\texttt{gyrokinetic}` app thus fully initialized, all that remains is to
+instruct the app to launch:
+
+.. code-block:: lua
+
+  ...
+  gyrokineticApp:run()
+
+Once the Lua input file is complete, the simulation can now be run in the usual way:
+
+.. code-block:: bash
+
+  ./build/gkeyll/gkeyll ./gyrokinetic/luareg/rt_gk_sheath_2x2v_p1.lua
 
 .. toctree::
   :maxdepth: 2
