@@ -141,4 +141,4 @@ Other Pages
   quickstart
   gkeyll/pubs
   gkeyll/presentations
-  dev/main  
+  dev/main

@@ -478,5 +478,14 @@ and then plotting the resulting simulation data with :math:`\texttt{postgkyl}`:
 
   pgkyl 5m_gem-elc_1.gkyl sel -c3 plot -a
 
+.. figure:: figures/5MGemElc.png
+  :scale: 40%
+  :align: center
+
+  The :math:`z`-component (i.e. the out-of-plane component) of the electron momentum
+  density :math:`\rho_e \mathbf{u}_e` (i.e. component 3 of the conserved variable vector)
+  for the GEM (Geospace Environment Modeling) magnetic reconnection problem, as solved
+  using the 5-moment multi-fluid model.
+
 .. toctree::
   :maxdepth: 2

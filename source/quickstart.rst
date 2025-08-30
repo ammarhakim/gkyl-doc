@@ -508,6 +508,74 @@ Once the Lua input file is complete, the simulation can now be run in the usual 
 
   ./build/gkeyll/gkeyll ./moments/luareg/rt_5m_gem.lua
 
+Once the simulation has finished running, we can begin by plotting the
+:math:`z`-component (i.e. the out-of-plane component) of the electron momentum density
+:math:`\rho_e \mathbf{u}_e`, since this is effectively a proxy for the
+:math:`z`-component of the current density :math:`\mathbf{J}`. The final state of the
+electron species is output to the file ``rt_5m_gem-elc_1.gkyl`` (with the corresponding
+initial state output to ``rt_5m_gem-elc_0.gkyl``). We can instruct
+:math:`\texttt{postgkyl}` to select only component 3 (with component 0 corresponding to
+mass density :math:`\rho_e`, components 1, 2, and 3 corresponding to the :math:`x`,
+:math:`y`, and :math:`z` components of the momentum density :math:`\rho_e \mathbf{u}_e`,
+and component 4 corresponding to the total energy density :math:`E_e`) of this data by
+calling ``sel -c3`` before calling ``plot``, and we can append the argument ``-a`` to
+tell :math:`\texttt{postgkyl}` to plot everything with the correct aspect ratio:
+
+.. code-block:: bash
+
+  pgkyl rt_5m_gem-elc_1.gkyl sel -c3 plot -a
+
+.. figure:: figures/5MGemElc.png
+  :scale: 40%
+  :align: center
+
+  The :math:`z`-component (i.e. the out-of-plane component) of the electron momentum
+  density :math:`\rho_e \mathbf{u}_e` (i.e. component 3 of the conserved variable
+  vector) for the GEM (Geospace Environment Modeling) magnetic reconnection problem, as
+  solved using the 5-moment multi-fluid model.
+
+Likewise, the final state of the ion species is output to the file
+``rt_5m_gem-ion_1.gkyl`` (with the corresponding initial state output to
+``rt_5m_gem-ion_0.gkyl``), and we can instruct :math:`\texttt{postgkyl}` to select only
+component 3 of this data and plot it in exactly the same way:
+
+.. code-block:: bash
+
+  pgkyl rt_5m_gem-ion_1.gkyl sel -c3 plot -a
+
+.. figure:: figures/5MGemIon.png
+  :scale: 40%
+  :align: center
+
+  The :math:`z`-component  (i.e. the out-of-plane component) of the ion momentum
+  density :math:`\rho_i \mathbf{u}_i` (i.e. component 3 of the conserved variable
+  vector) for the GEM (Geospace Environment Modeling) magnetic reonnection problem, as
+  solved using the 5-moment multi-fluid model.
+
+Finally, we wish to plot the :math:`z`-component (i.e. the out-of-plane component) of
+the magnetic field :math:`\mathbf{B}`. The final state of the electromagnetic field is
+output to the file ``rt_5m_gem-field_1.gkyl`` (with the corresponding initial state
+output to ``rt_5m_gem-field_0.gkyl``). We can instruct :math:`\texttt{postgkyl}` to
+select only component 5 (with components 0, 1, and 2 corresponding to the :math:`x`,
+:math:`y`, and :math:`z` components of the electric field :math:`\mathbf{E}` and
+components 3, 4, and 5 corresponding to components :math:`x`, :math:`y`, and :math:`z`
+of the magnetic field :math:`\mathbf{B}`) of this data by calling ``sel -c5`` before
+calling ``plot``, and as before we can append the argument ``-a`` to tell
+:math:`\texttt{postgkyl}` to plot everything with the correct aspect ratio:
+
+.. code-block:: bash
+
+  pgkyl rt_5m_gem-field_1.gkyl sel -c5 plot -a
+
+.. figure:: figures/5MGemField.png
+  :scale: 40%
+  :align: center
+
+  The :math:`z`-component (i.e. the out-of-plane component) of the magnetic field
+  :math:`\mathbf{B}` (i.e. component 5 of the electromagnetic field) for the GEM
+  (Geospace Environment Modeling) magnetic reconnection problem, as solved using the
+  5-moment multi-fluid model.
+
 .. _quickstart_vlasov:
 
 A Simple :math:`\texttt{vlasov}` Simulation
@@ -946,6 +1014,55 @@ Once the Lua input file is complete, the simulation can now be run in the usual 
 .. code-block:: bash
 
   ./build/gkeyll/gkeyll ./vlasov/luareg/rt_vlasov_twostream_p2.lua
+
+Once the simulation has finished running, we can begin by plotting the electron
+distribution function :math:`f_e` across both configuration space (:math:`x` coordinate
+direction) and velocity space (:math:`v_x` coordinate direction). The final state of the
+electron species is output to the file ``rt_vlasov_twostream_p2-elc_1.gkyl`` (with the
+corresponding initial state output to ``rt_vlasov_twostream_p2-elc_0.gkyl``). We can
+instruct :math:`\texttt{postgkyl}` to interpolate a discontinuous solution from the
+stored coefficients of the modal discontinuous Galerkin (DG) expansion by calling
+``interp`` before calling ``plot``, and we can append the argument ``-a`` to tell
+:math:`\texttt{postgkyl}`  to plot everything with the correct aspect ratio:
+
+.. code-block:: bash
+
+  pgkyl rt_vlasov_twostream_p2-elc_1.gkyl interp plot -a
+
+.. figure:: figures/VlasovTwostreamElc.png
+  :scale: 40%
+  :align: center
+
+  The interpolated electron distribution function :math:`f_e` (plotted as a function of
+  configuration space coordinate :math:`x` and velocity space coordinate :math:`v_x`)
+  for the two-stream plasma instability problem, as solved using the collisionless
+  Vlasov-Maxwell kinetic model.
+
+Finally, we wish to plot the :math:`x`-component (i.e. the only non-vanishing component)
+of the electric field :math:`\mathbf{E}`. The final state of the electromagnetic field
+is output to the file ``rt_vlasov_twostream_p2-field_1.gkyl`` (with the corresponding
+initial state output to ``rt_vlasov_twostream_p2-field_0.gkyl``). We can instruct
+:math:`\texttt{postgkyl}` as before to interpolate a discontinuous solution from the
+stored coefficients of the modal DG expansion by calling ``interp``, and we can also
+instruct :math:`\texttt{postgkyl}` to select only component 0 (with components 0, 1, and
+2 corresponding to the :math:`x`, :math:`y`, and :math:`z` components of the electric
+field :math:`\mathbf{E}` and components 3, 4, and 5 corresponding to the :math:`x`,
+:math:`y`, and :math:`z` components of the magnetic field :math:`\textbf{B}`) of this
+data by calling ``sel -c0`` before calling ``plot`` (note that we omit the ``-a``
+argument since the data being plotted is one-dimensional):
+
+.. code-block:: bash
+
+  pgkyl rt_vlasov_twostream_p2-field_1.gkyl interp sel -c0 plot
+
+.. figure:: figures/VlasovTwostreamField.png
+  :scale: 40%
+  :align: center
+
+  The interpolated :math:`x`-component (i.e. the only non-vanishing component) of the
+  electric field :math:`\textbf{E}` (i.e. component 0 of the electromagnetic field) for
+  the two-stream plasma instability problem, as solved using the collisionless
+  Vlasov-Maxwell kinetic model.
 
 .. _quickstart_gyrokinetic:
 
@@ -1980,6 +2097,78 @@ Once the Lua input file is complete, the simulation can now be run in the usual 
 .. code-block:: bash
 
   ./build/gkeyll/gkeyll ./gyrokinetic/luareg/rt_gk_sheath_2x2v_p1.lua
+
+Once the simulation has finished running, we can begin by plotting the electron
+gyroaveraged distribution function :math:`f_e` across the two configuration space
+dimensions :math:`x` and :math:`z`, assuming gyroaveraged velocity space coordinates
+:math:`v_{\parallel} = 0` and :math:`\mu = 5 \times 10^{-17}` (approximately in the
+center of velocity space). The final state of the electron species is output to the file
+``rt_gk_sheath_2x2v_p1-elc_1.gkyl`` (with corresponding initial state output to
+``rt_gk_sheath_2x2v_p1-elc_0.gkyl``). We can instruct :math:`\texttt{postgkyl}` to
+interpolate a discontinuous solution from the stored coefficients of the modal
+discontinuous Galerkin (DG) expansion by calling ``interp``, and we can also instruct
+:math:`\texttt{postgkyl}` to select only those cells with velocity space coordinates
+:math:`v_{\parallel} = 0` and :math:`\mu = 5 \times 10^{-17}` (corresponding to
+coordinates 2 and 3, respectively, with coordinates 0 and 1 corresponding to the
+:math:`x` and :math:`z` coordinates in configuration space) by calling
+``sel --z2 0.0 --z3 5e-17`` before calling ``plot``:
+
+.. code-block:: bash
+
+  pgkyl rt_gk_sheath_2x2v_p1-elc_1.gkyl interp sel --z2 0.0 --z3 5e-17 plot
+
+.. figure:: figures/GyrokineticSheathElc.png
+  :scale: 40%
+  :align: center
+
+  The interpolated electron gyroaveraged distribution function :math:`f_e` (plotted as a
+  function of configuration space coordinates :math:`x` and :math:`z`, with gyroaveraged
+  velocity space coordinates :math:`v_{\parallel} = 0` and :math:`\mu = 0`) for the
+  self-consistent sheath potential formation problem, as solved using the full :math:`f`
+  electrostatic gyrokinetic model in the long-wavelength (drift-kinetic) limit.
+
+Likewise, the final state of the ion species is output to the file
+``rt_gk_sheath_2x2v_p1-ion_1.gkyl`` (with the corresponding initial state output to
+``rt_gk_sheath_2x2v_p1-ion_0.gkyl``), and we can instruct :math:`\texttt{postgkyl}` to
+interpolate a discontinuous solution from the stored coefficients of the modal DG
+expansion, selecting only those cells with velocity space coordinates
+:math:`v_{\parallel} = 0` and :math:`\mu = 5 \times 10^{-17}`, and plot it in exactly
+the same way:
+
+.. code-block:: bash
+
+  pgkyl rt_gk_sheath_2x2v_p1-ion_1.gkyl interp sel --z2 0.0 --z3 5e-17 plot
+
+.. figure:: figures/GyrokineticSheathIon.png
+  :scale: 40%
+  :align: center
+  
+  The interpolated ion gyroaveraged distribution function :math:`f_i` (plotted as a
+  function of configuration space coordinates :math:`x` and :math:`z`, with gyroaveraged
+  velocity space coordinates :math:`v_{\parallel} = 0` and :math:`\mu = 0`) for the
+  self-consisten sheath potential formation problem, as solved using the full :math:`f`
+  electrostatic gyrokinetic model in the long-wavelength (drift-kinetic) limit.
+
+Finally, we wish to plot the electrostatic potential :math:`\phi` obtained from the
+gyrokinetic Poisson equation. The final state of the electrostatic field is output to
+the file ``rt_gk_sheath_2x2v_p1-field_1.gkyl`` (with the corresponding initial state
+outpt to ``rt_gk_sheath_2x2v_p1-field_0.gkyl``). We can instruct
+:math:`\texttt{postgkyl}` as before to interpolate a discontinuous solution from the
+stored coefficients of the modal DG expansion by calling ``interp`` before calling
+``plot``:
+
+.. code-block:: bash
+
+  pgkyl rt_gk_sheath_2x2v_p1-field_1.gkyl interp plot
+
+.. figure:: figures/GyrokineticSheathField.png
+  :scale: 40%
+  :align: center
+  
+  The interpolated electrostatic potential :math:`\phi` (obtained from the gyrokinetic
+  Poisson equation) for the self-consistent sheath potential formation problem, as
+  solved using the full :math:`f` electrostatic gyrokinetic model in the long-wavelength
+  (drift-kinetic) limit.
 
 .. toctree::
   :maxdepth: 2
