@@ -3,14 +3,8 @@
 Modal basis functions
 +++++++++++++++++++++
 
-Each of the kinetic equations Gkeyll's solvers discretize using the discontinuous Galerkin 
-algorithm---the Vlasov equation, the gyrokinetic equation, and the PKPM system---all 
-benefit from utilizing polynomials for the basis in the underlying solution space. 
-There is enormous freedom for the specific form of the polynomials, and Gkeyll benefits 
-from a specific class of *orthonormal modal basis functions* for representing the discrete
-distribution function and other variables of interest. 
-
-These basis functions are defined on a d-dimensional hypercube :math:`I_d = [-1,1]^d`. Let
+Gkyl uses *orthonormal modal basis functions*. The basis functions are
+defined on a d-dimensional hypercube :math:`I_d = [-1,1]^d`. Let
 :math:`\psi_k(\mathbf{x})`, :math:`k=1,\ldots,N`, with :math:`\psi_1`
 a constant, be the basis. Then the basis satisfy
 
@@ -19,8 +13,9 @@ a constant, be the basis. Then the basis satisfy
    \langle \psi_k \psi_m \rangle = \delta_{km}
 
 where the angle brackets indicate integration over the hypercube
-:math:`I_d`. In this note we describe some common operations that are
-needed while working with these basis sets. 
+:math:`I_d`. In this note I describe some common operations that are
+needed while working with these basis sets. (All of this relatively
+straightforward stuff, but it is good to write it down somewhere).
 
 .. contents::
 

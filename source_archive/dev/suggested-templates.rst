@@ -201,7 +201,7 @@ Bug fix
 
   - [ ] Documentation has been updated.
   - [ ] My code follows the project's coding guidelines.
-  - [ ] Changes to `layer/zero` should have a unit test, e.g., `core/zero`.
+  - [ ] Changes to `/zero` should have a unit test.
 
   ## Testing: _(x (yes), blank (no))_
 
@@ -209,8 +209,7 @@ Bug fix
   - [ ] I added this feature to an existing regression test.
   - [ ] I added a unit test for this feature.
   - [ ] Ran `make check` and unit tests all pass.
-  - [ ] I ran the code with make valcheck, and it is clean.
-  - [ ] I ran the code through computer-sanitizer on GPU, and it is clean.
+  - [ ] I ran the code through Valgrind, and it is clean.
   - [ ] I ran a few regression tests to ensure no apparent errors.
   - [ ] Tested and works on CPU.
   - [ ] Tested and works on multi-CPU.
@@ -259,7 +258,7 @@ Feature addition
 
   - [ ] Documentation has been updated.
   - [ ] My code follows the project's coding guidelines.
-  - [ ] Changes to `layer/zero` should have a unit test, e.g., `core/zero`.
+  - [ ] Changes to `/zero` should have a unit test.
 
   ## Testing: _(x (yes), blank (no))_
 
@@ -267,8 +266,7 @@ Feature addition
   - [ ] I added this feature to an existing regression test.
   - [ ] I added a unit test to test this feature.
   - [ ] Ran `make check` and unit tests all pass.
-  - [ ] I ran the code with make valcheck, and it is clean.
-  - [ ] I ran the code through computer-sanitizer on GPU, and it is clean.
+  - [ ] I ran the code through Valgrind, and it is clean.
   - [ ] I ran a few regression tests to ensure no apparent errors.
   - [ ] Tested and works on CPU.
   - [ ] Tested and works on multi-CPU.
