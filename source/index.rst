@@ -7,10 +7,11 @@
 The :math:`\texttt{Gkeyll}` Simulation Framework
 ================================================
 
-:math:`\texttt{Gkeyll}` is a multi-scale, multi-physics simulation framework, developed
-for a variety of applications in plasma physics, space physics, general relativity, and
-high-energy astrophysics. The core of :math:`\texttt{Gkeyll}` is written in C, featuring
-a lightweight, modular design and minimal external dependencies, plus an additional Lua
+:math:`\texttt{Gkeyll}` (`GitHub Repository <https://github.com/ammarhakim/gkeyll>`_) is
+a multi-scale, multi-physics simulation framework, developed for a variety of
+applications in plasma physics, space physics, general relativity, and high-energy
+astrophysics. The core of :math:`\texttt{Gkeyll}` is written in C, featuring a
+lightweight, modular design and minimal external dependencies, plus an additional Lua
 scripting layer (for specifying simulation input parameters) provided via the `Lua-C API
 <https://www.lua.org/pil/24.html>`_.
 
@@ -29,7 +30,7 @@ built hierarchically, with the following layers:
     equations, and Einstein field equations. Also includes infrastructure for
     integrating ODEs, solving Poisson equations, and specifying curved spacetime
     geometries (e.g. black holes and neutron stars) for general relativistic
-    simulations.
+    simulations. [Wang2020]_ [Gorard2024]_
 
 * :math:`\texttt{vlasov}`
     :math:`\texttt{Gkeyll}`'s modal discontinuous Galerkin solvers for the
@@ -37,7 +38,8 @@ built hierarchically, with the following layers:
     continuum kinetics simulations in any number of configuration space and velocity
     space dimensions, from 1x1v (2D phase space) to full 3x3v (6D phase space). Also
     includes modal discontinuous Galerkin solvers for evolving various Hamiltonian
-    systems, as specified via their canonical Poisson bracket structure.
+    systems, as specified via their canonical Poisson bracket structure. [Juno2018]_
+    [Juno2020]_
 
 * :math:`\texttt{gyrokinetic}`
     :math:`\texttt{Gkeyll}`'s modal discontinuous Galerkin solvers for the full
@@ -45,20 +47,21 @@ built hierarchically, with the following layers:
     gyrokinetic Poisson equation), supporting continuum electrostatic gyrokinetics in
     any number of configuration space dimensions, from 1x2v (3D phase space) to
     full 3x2v (5D phase space). Also includes infrastructure for specifying tokamak and
-    mirror geometries for nuclear fusion applications.
+    mirror geometries for nuclear fusion applications. [Mandell2020]_ [Mandell2021]_
 
 * :math:`\texttt{pkpm}`
     :math:`\texttt{Gkeyll}`'s modal discontinuous Galerkin solvers for the
     parallel-kinetic-perpendicular-moment equations, supporting simulation of weakly
     collisional, magnetized plasmas in any number of configuration space dimensions,
-    from 1x1v (2D phase space) to 3x1v (4D phase space).
+    from 1x1v (2D phase space) to 3x1v (4D phase space). [Juno2025]_
 
 Technology Stack
 ----------------
 
-:math:`\texttt{Gkeyll}` is written in straight C, with support for multi-CPU parallelism
-via MPI, (NVIDIA) GPU acceleration via CUDA, and multi-GPU parallelism via NCCL. The only
-strictly *required* dependencies for installing :math:`\texttt{Gkeyll}` are:
+:math:`\texttt{Gkeyll}` (`GitHub Repository <https://github.com/ammarhakim/gkeyll>`_) is
+written in straight C, with support for multi-CPU parallelism via MPI, (NVIDIA) GPU
+acceleration via CUDA, and multi-GPU parallelism via NCCL. The only strictly *required*
+dependencies for installing :math:`\texttt{Gkeyll}` are:
 
 * ``OpenBLAS`` (including both ``BLAS`` and ``LAPACK``) for numerical linear algebra
   routines.
@@ -84,8 +87,11 @@ core aspects of :math:`\texttt{Gkeyll}`'s algorithmic infrastructure have also b
 formally verified, with symbolic correctness proofs produced using a bespoke automated
 theorem-proving system developed in ``Racket``. Both the ``Maxima`` computer algebra
 code and the ``Racket`` automated theorem-proving code are packaged as part of the
-:math:`\texttt{gkylcas}` project. Finally, the :math:`\texttt{postgkyl}` visualization
-and post-processing framework is developed in Python, based on ``matplotlib``.
+:math:`\texttt{gkylcas}` project, `whose GitHub repository can be found here
+<https://github.com/ammarhakim/gkylcas>`_. Finally, the :math:`\texttt{postgkyl}`
+visualization and post-processing framework is developed in Python, based on
+``matplotlib``, and `its GitHub repository can be found here
+<https://github.com/ammarhakim/postgkyl>`_.
 
 Developers
 ----------
@@ -130,6 +136,38 @@ repository, present or past) include:
 * **Chirag R. Skolar**, *New Jersey Institute of Technology*
 * **Luca Georgescu**, *University of California San Diego*
 * **Jason TenBarge**, *Princeton University*
+
+References
+----------
+
+.. [Wang2020] L. Wang, A. Hakim. J. Ng, C. Dong, and K. Germaschewski, "Exact and locally
+   implicit source term solvers for multifluid-Maxwell systems", *Journal of
+   Computational Physics* **415**: 109510, 2020.
+   `<https://doi.org/10.1016/j.jcp.2020.109510>`_
+
+.. [Gorard2024] J. Gorard, A. Hakim, J. Juno, and J. M. TenBarge, "A Tetrad-First
+   Approach to Robust Numerical Algorithms in General Relativity", 2024.
+   `<https://arxiv.org/abs/2410.02549>`_
+
+.. [Juno2018] J. Juno, A. Hakim, J. M. TenBarge, E. Shi, and W. Dorland, "Discontinuous
+   Galerkin algorithms for fully kinetic plasmas", *Journal of Computational Physics*
+   **353**: 110-147, 2018. `<https://doi.org/10.1016/j.jcp.2017.10.009>`_
+
+.. [Juno2020] J. Juno, "A Deep Dive into the Distribution Function: Understanding Phase
+   Space Dynamics Using Continuum Vlasov-Maxwell Simulations", *PhD Thesis, University
+   of Maryland*, 2020. `<https://arxiv.org/abs/2005.13539>`_
+
+.. [Mandell2020] N. R. Mandell, A. Hakim, G. W. Hammett, and M. Francisquez,
+   "Electromagnetic full-f gyrokinetics in the tokamak edge with discontinuous Galerkin
+   methods", *Journal of Plasma Physics* **86** (1), 2020.
+   `<https://doi.org/10.1017/S0022377820000070>`_
+
+.. [Mandell2021] N. R. Mandell, "Magnetic Fluctuations in Gyrokinetic Simulations of
+   Scrape-Off Layer Turbulence", *PhD Thesis, Princeton University*, 2021.
+   `<https://arxiv.org/abs/2103.16062>`_
+
+.. [Juno2025] J. Juno, A. Hakim, J. M. TenBarge, "A Parallel-Kinetic-Perpendicular-Moment
+   Model for Magnetized Plasmas", 2025. `<https://arxiv.org/abs/2505.02116>`_
 
 Other Pages
 -----------

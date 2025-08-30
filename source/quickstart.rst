@@ -5,6 +5,10 @@
 :math:`\texttt{Gkeyll}` Quick Start Guide
 =========================================
 
+This Quick Start guide assumes that you already have working installations of both
+:math:`\texttt{Gkeyll}` and :math:`\texttt{postgkyl}` on your chosen machine. If you
+don't, please read :ref:`our installation instructions <install>` first.
+
 .. _quickstart_moments:
 
 A Simple :math:`\texttt{moments}` Simulation

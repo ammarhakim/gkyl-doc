@@ -26,17 +26,17 @@ instructions below assume that you have a working C compiler (such as ``gcc`` or
 GPUs) installed on your machine.
 
 The first step in any :math:`\texttt{Gkeyll}` installation is to clone the repository
-from GitHub:
+from GitHub (`which can be found here <https://github.com/ammarhakim/gkeyll>`_):
 
 .. code-block:: bash
 
-  git clone https://github.com/ammarhakim/gkylzero.git
+  git clone https://github.com/ammarhakim/gkeyll.git
 
-and then, once it has been cloned, to navigate into the ``gkylzero`` directory:
+and then, once it has been cloned, to navigate into the ``gkeyll`` directory:
 
 .. code-block:: bash
 
-  cd gkylzero
+  cd gkeyll
 
 Depending upon whether you are building :math:`\texttt{Gkeyll}` on macOS, Linux, or a
 supercomputer cluster, begin by reading either the
@@ -412,7 +412,8 @@ Installing :math:`\texttt{postgkyl}`
 :math:`\texttt{postgkyl}` is :math:`\texttt{Gkeyll}`'s custom-built Python
 post-processing and visualization pipeline, capable of performing many advanced analysis
 and plotting tasks on :math:`\texttt{Gkeyll}` simulation output. To build
-:math:`\texttt{postgkyl}` from source, one must first clone the repository from GitHub:
+:math:`\texttt{postgkyl}` from source, one must first clone the repository from GitHub
+(`which can be found here <https://github.com/ammarhakim/postgkyl>`_):
 
 .. code-block:: bash
 
