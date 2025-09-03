@@ -115,7 +115,7 @@ Physics papers
 
 - Gorard, J., Juno, J., Hakim, A. (2025). "Hydrodynamic and Electromagnetic Discrepancies between Neutron Star and Black Hole Spacetimes", *Physical Review Letters* (submitted); arXiv:2505.05299. https://arxiv.org/abs/2505.05299  
 
-- Shukla, A., Roeltgen, J., Kotschenreuther, M., Juno, J., Bernard, T. N., Hakim, A., Hammett, G. W., Hatch, D. R., Mahajan, S. M., Francisquez, M. (2025). "Direct Comparison of Gyrokinetic and Fluid Scrape-Off-Layer Simulations of a Prospective Spherical Tokamak Pilot Plant", *AIP Advances* **15**, 075121. https://doi.org/10.1063/5.0150000  
+- Shukla, A., Roeltgen, J., Kotschenreuther, M., Juno, J., Bernard, T. N., Hakim, A., Hammett, G. W., Hatch, D. R., Mahajan, S. M., Francisquez, M. (2025). "Direct Comparison of Gyrokinetic and Fluid Scrape-Off-Layer Simulations of a Prospective Spherical Tokamak Pilot Plant", *AIP Advances* **15**, 075121. https://doi.org/10.1063/5.0268104  
 
 - Johnson, G., Hakim, A., Juno, J. (2025). "Discontinuous Galerkin Representation of the Maxwell-Jüttner Distribution", arXiv:2503.16827. https://arxiv.org/abs/2503.16827  
 
