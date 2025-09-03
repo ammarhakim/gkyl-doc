@@ -14,6 +14,10 @@ files with us.
 Doctoral Dissertations
 ----------------------
 
+- Walters, J. C. (2025, January 5). "Pressure anisotropy-driven instabilities in solar and astrophysical plasmas."
+  Ph.D. dissertation, University of Arizona, 2024. 
+  https://ezproxy.library.arizona.edu/login?url=https://www.proquest.com/dissertations-theses/pressure-anisotropy-driven-instabilities-solar/docview/3147686254/se-2
+
 - Bradshaw, K. (2024, February 23) "Emitting Wall Boundary Conditions in Continuum Kinetic Simulations:
   Unlocking the Effects of Energy-Dependent Material Emission on the Plasma Sheath." Ph.D. dissertation,
   Virginia Polytechnic Institute and State University, 2024.
