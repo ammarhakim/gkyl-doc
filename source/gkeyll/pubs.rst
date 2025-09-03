@@ -50,11 +50,11 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
-- Francisquez, M., Cagas, P., Shukla, A., Juno, J., Hammett, G. W. (2025). “Conservative velocity mappings for discontinuous Galerkin kinetics”, arXiv:2505.10754. https://arxiv.org/abs/2505.10754
+- Francisquez, M., Cagas, P., Shukla, A., Juno, J., Hammett, G. W. (2025). "Conservative velocity mappings for discontinuous Galerkin kinetics", arXiv:2505.10754. https://arxiv.org/abs/2505.10754  
 
-- Juno, J., Hakim, A., TenBarge, J. M. (2025). “A Parallel-Kinetic-Perpendicular-Moment Model for Magnetized Plasmas”, arXiv:2505.02116. https://arxiv.org/abs/2505.02116
+- Juno, J., Hakim, A., TenBarge, J. M. (2025). "A Parallel-Kinetic-Perpendicular-Moment Model for Magnetized Plasmas", arXiv:2505.02116. https://arxiv.org/abs/2505.02116  
 
-- Gorard, J., Hakim, A. (2025). “Shock with Confidence: Formal Proofs of Correctness for Hyperbolic Partial Differential Equation Solvers”, arXiv:2503.13877. https://arxiv.org/abs/2503.13877
+- Gorard, J., Hakim, A. (2025). "Shock with Confidence: Formal Proofs of Correctness for Hyperbolic Partial Differential Equation Solvers", arXiv:2503.13877. https://arxiv.org/abs/2503.13877
 
 - Gorard, J., Hakim, A., Juno, J., TenBarge, J. M. (2024). "A Tetrad-First Approach to 
   Robust Numerical Algorithms in General Relativity." arXiv preprint arXiv:2410.02549.
@@ -109,15 +109,15 @@ Algorithms papers
 Physics papers
 --------------
 
-- Roeltgen, J. P., Juno, J., Kotschenreuther, M., Bernard, T. N., Shukla, A., Francisquez, M., Hakim, A., Hammett, G. W., Power, D., Hatch, D. R. (2025). “A kinetic line-driven radiation operator and its application to gyrokinetics”, Nuclear Fusion, accepted manuscript (online 26 August 2025). https://doi.org/10.1088/1741-4326/adff28
+- Roeltgen, J. P., Juno, J., Kotschenreuther, M., Bernard, T. N., Shukla, A., Francisquez, M., Hakim, A., Hammett, G. W., Power, D., Hatch, D. R. (2025). "A kinetic line-driven radiation operator and its application to gyrokinetics", *Nuclear Fusion*, accepted manuscript (online 26 August 2025). https://doi.org/10.1088/1741-4326/adff28  
 
-- Francisquez, M., Stotler, D., Hakim, A., Juno, J., Johnson, G., Mandell, N., Hammett, G. W. (2025). “General kinetic ion-induced electron emission”, Physics of Plasmas 32, 082306. https://doi.org/10.1063/5.0231908
+- Skolar, C. R., Bradshaw, K., Francisquez, M., Murillo, L., Krishna Kumar, V., Srinivasan, B. (2025). "General kinetic ion-induced electron emission model for metallic walls applied to biased Z-pinch electrodes", *Physics of Plasmas* **32**, 082305. https://doi.org/10.1063/5.0261942  
 
-- Gorard, J., Juno, J., Hakim, A. (2025). “Hydrodynamic and Electromagnetic Discrepancies between Neutron Star and Black Hole Spacetimes”, Physical Review Letters (submitted); arXiv:2505.05299. https://arxiv.org/abs/2505.05299
-	
-- Shukla, A., Roeltgen, J., Kotschenreuther, M., Juno, J., Bernard, T. N., Hakim, A., Hammett, G. W., Hatch, D. R., Mahajan, S. M., Francisquez, M. (2025). “Direct Comparison of Gyrokinetic and Fluid Scrape-Off-Layer Simulations of a Prospective Spherical Tokamak Pilot Plant”, AIP Advances 15, 075121. https://doi.org/10.1063/5.0150000
+- Gorard, J., Juno, J., Hakim, A. (2025). "Hydrodynamic and Electromagnetic Discrepancies between Neutron Star and Black Hole Spacetimes", *Physical Review Letters* (submitted); arXiv:2505.05299. https://arxiv.org/abs/2505.05299  
 
-- Johnson, G., Hakim, A., Juno, J. (2025). “Discontinuous Galerkin Representation of the Maxwell-Jüttner Distribution”, arXiv:2503.16827. https://arxiv.org/abs/2503.16827
+- Shukla, A., Roeltgen, J., Kotschenreuther, M., Juno, J., Bernard, T. N., Hakim, A., Hammett, G. W., Hatch, D. R., Mahajan, S. M., Francisquez, M. (2025). "Direct Comparison of Gyrokinetic and Fluid Scrape-Off-Layer Simulations of a Prospective Spherical Tokamak Pilot Plant", *AIP Advances* **15**, 075121. https://doi.org/10.1063/5.0150000  
+
+- Johnson, G., Hakim, A., Juno, J. (2025). "Discontinuous Galerkin Representation of the Maxwell-Jüttner Distribution", arXiv:2503.16827. https://arxiv.org/abs/2503.16827  
 
 - Bradshaw, K., Hakim, A., Srinivasan, B. (2025). "Effects of oxidation and
   impurities in lithium surfaces on the emitting wall plasma sheath", 
