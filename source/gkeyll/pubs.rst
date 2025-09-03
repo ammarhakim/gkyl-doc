@@ -132,6 +132,12 @@ Physics papers
   impurities in lithium surfaces on the emitting wall plasma sheath", 
   *Physics of Plasmas* **32**, 063506. `<https://doi.org/10.1063/5.0258265>`_
 
+- Bernard, T. N., Halpern, F. D., Francisquez, M., Hammett, G. W., Marinoni, A., 
+  (2024). "Plasma edge and scrape-off layer turbulence in gyrokinetic simulations of 
+  negative triangularity plasmas." *Plasma Physics and Controlled Fusion*, **66**, 115017.
+  `<https://doi.org/10.1088/1361-6587/ad8186>`_
+
+
 - Conley, S. A., Juno, J., TenBarge, J. M., Barbhuiya, M. H., Cassak, P. A., Howes, G. G., 
   Lichko, E. (2024). "The kinetic analogue of the pressure-strain interaction." *Physics of Plasmas*, 
   **31**, 122117.
@@ -148,7 +154,7 @@ Physics papers
   on the Development of the Rayleigh–Taylor Instability." *Astrophysical Journal*, **965**, 173. 
 
 - Bose, S., TenBarge, J. M., Carter, T., Hahn, M., Ji, H., Juno, J., Savin, D. W., Tripathi, S., 
-  Vincena, S. (2024. "Experimental Study of Alfvén Wave Reflection from an Alfvén-speed Gradient 
+  Vincena, S. (2024). "Experimental Study of Alfvén Wave Reflection from an Alfvén-speed Gradient 
   Relevant to the Solar Coronal Holes." *Astrophysical Journal*, **971**, 72. 
 
 - Bradshaw, K., Srinivasan, B. (2024). "Energy-dependent implementation
