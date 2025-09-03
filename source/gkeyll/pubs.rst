@@ -14,10 +14,12 @@ files with us.
 Doctoral Dissertations
 ----------------------
 
+- Walters, J. (2024, November 8) "Pressure Anisotropy-Driven Instabilities in Solar and Astrophysical Plasmas." Ph.D. dissertation, University of Arizona, Tuscon, 2024. `Access here. <https://arizona.aws.openrepository.com/handle/10150/675554?show=full>`_
+
 - Bradshaw, K. (2024, February 23) "Emitting Wall Boundary Conditions in Continuum Kinetic Simulations:
   Unlocking the Effects of Energy-Dependent Material Emission on the Plasma Sheath." Ph.D. dissertation,
   Virginia Polytechnic Institute and State University, 2024.
-  https://vtechworks.lib.vt.edu/handle/10919/118137
+  `Access here. <https://vtechworks.lib.vt.edu/handle/10919/118137>`_
 
 - Mandell, N. R. (2021, March 26) "Magnetic Fluctuations in Gyrokinetic Simulations of Scrape-Off Layer Turbulence".
   Ph.D. dissertation, Princeton University, 2021. `arXiv:2103.16062 <https://arxiv.org/abs/2103.16062>`_
@@ -110,15 +112,15 @@ Algorithms papers
 Physics papers
 --------------
 
-- Roeltgen, J. P., Juno, J., Kotschenreuther, M., Bernard, T. N., Shukla, A., Francisquez, M., Hakim, A., Hammett, G. W., Power, D., Hatch, D. R. (2025). "A kinetic line-driven radiation operator and its application to gyrokinetics", Nuclear Fusion, accepted manuscript (online 26 August 2025). `<https://doi.org/10.1088/1741-4326/adff28>`_
+- Roeltgen, J. P., Juno, J., Kotschenreuther, M., Bernard, T. N., Shukla, A., Francisquez, M., Hakim, A., Hammett, G. W., Power, D., Hatch, D. R. (2025). "A kinetic line-driven radiation operator and its application to gyrokinetics", *Nuclear Fusion*, accepted manuscript (online 26 August 2025). `<https://doi.org/10.1088/1741-4326/adff28>`_
 
-- Francisquez, M., Stotler, D., Hakim, A., Juno, J., Johnson, G., Mandell, N., Hammett, G. W. (2025). "General kinetic ion-induced electron emission", Physics of Plasmas 32, 082306. `<https://doi.org/10.1063/5.0231908>`_
+- Skolar, C. R., Bradshaw, K., Francisquez, M., Murillo, L., Krishna Kumar, V., Srinivasan, B. (2025). "General kinetic ion-induced electron emission model for metallic walls applied to biased Z-pinch electrodes", *Physics of Plasmas* **32**, 082306. `<https://doi.org/10.1063/5.0231908>`_
 
-- Gorard, J., Juno, J., Hakim, A. (2025). "Hydrodynamic and Electromagnetic Discrepancies between Neutron Star and Black Hole Spacetimes", Physical Review Letters (submitted); `arXiv:2505.05299. <https://arxiv.org/abs/2505.05299>`_
-	
-- Shukla, A., Roeltgen, J., Kotschenreuther, M., Juno, J., Bernard, T. N., Hakim, A., Hammett, G. W., Hatch, D. R., Mahajan, S. M., Francisquez, M. (2025). "Direct Comparison of Gyrokinetic and Fluid Scrape-Off-Layer Simulations of a Prospective Spherical Tokamak Pilot Plant", AIP Advances 15, 075121. `<https://doi.org/10.1063/5.0150000>`_
+- Gorard, J., Juno, J., Hakim, A. (2025). "Hydrodynamic and Electromagnetic Discrepancies between Neutron Star and Black Hole Spacetimes", *Physical Review Letters* (submitted); `arXiv:2505.05299. <https://arxiv.org/abs/2505.05299>`_
 
-- Johnson, G., Hakim, A., Juno, J. (2025). "Discontinuous Galerkin Representation of the Maxwell-Jüttner Distribution", `<arXiv:2503.16827. https://arxiv.org/abs/2503.16827>`_
+- Shukla, A., Roeltgen, J., Kotschenreuther, M., Juno, J., Bernard, T. N., Hakim, A., Hammett, G. W., Hatch, D. R., Mahajan, S. M., Francisquez, M. (2025). "Direct Comparison of Gyrokinetic and Fluid Scrape-Off-Layer Simulations of a Prospective Spherical Tokamak Pilot Plant", *AIP Advances* **15**, 075121. `<https://doi.org/10.1063/5.0268104>`_
+
+- Johnson, G., Hakim, A., Juno, J. (2025). "Discontinuous Galerkin Representation of the Maxwell-Jüttner Distribution", `arXiv:2503.16827. <https://arxiv.org/abs/2503.16827>`_
 
 - Bradshaw, K., Hakim, A., Srinivasan, B. (2025). "Effects of oxidation and
   impurities in lithium surfaces on the emitting wall plasma sheath", 
