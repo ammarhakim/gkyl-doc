@@ -39,7 +39,7 @@ Doctoral Dissertations
 
 - Cagas, P. (2018, July 30). "Continuum kinetic simulations of plasma
   sheaths and instabilities". Ph.D. dissertation, Virginia Polytechnic Institute and State University, 2018.
-  https://vtechworks.lib.vt.edu/handle/10919/84979
+  `<https://vtechworks.lib.vt.edu/handle/10919/84979>`_
 
 - Wang, L. (2014, Aug 30). "Integrating Kinetic Physics in Fluid Models for Magnetic Reconnection". Ph.D. dissertation, University of New Hampshire, 2014.
 
@@ -50,52 +50,53 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
-- Francisquez, M., Cagas, P., Shukla, A., Juno, J., Hammett, G. W. (2025). “Conservative velocity mappings for discontinuous Galerkin kinetics”, arXiv:2505.10754. https://arxiv.org/abs/2505.10754
+- Francisquez, M., Cagas, P., Shukla, A., Juno, J., Hammett, G. W. (2025). "Conservative velocity mappings for discontinuous Galerkin kinetics", `arXiv:2505.10754. <https://arxiv.org/abs/2505.10754>`_
 
-- Juno, J., Hakim, A., TenBarge, J. M. (2025). “A Parallel-Kinetic-Perpendicular-Moment Model for Magnetized Plasmas”, arXiv:2505.02116. https://arxiv.org/abs/2505.02116
+- Juno, J., Hakim, A., TenBarge, J. M. (2025). "A Parallel-Kinetic-Perpendicular-Moment Model for Magnetized Plasmas", `arXiv:2505.02116. <https://arxiv.org/abs/2505.02116>`_
 
-- Gorard, J., Hakim, A. (2025). “Shock with Confidence: Formal Proofs of Correctness for Hyperbolic Partial Differential Equation Solvers”, arXiv:2503.13877. https://arxiv.org/abs/2503.13877
+- Gorard, J., Hakim, A. (2025). "Shock with Confidence: Formal Proofs of Correctness for Hyperbolic Partial Differential Equation Solvers", `arXiv:2503.13877. <https://arxiv.org/abs/2503.13877>`_
+
 
 - Gorard, J., Hakim, A., Juno, J., TenBarge, J. M. (2024). "A Tetrad-First Approach to 
-  Robust Numerical Algorithms in General Relativity." arXiv preprint arXiv:2410.02549.
+  Robust Numerical Algorithms in General Relativity." `arXiv:2410.02549 <https://arxiv.org/abs/2410.02549>`_
 
 - Francisquez, M., Mandell, N. R., Hakim, A., Hammett, G. W. (2024)
   "Conservative discontinuous Galerkin interpolation: sheared boundary conditions"
-  *Compute Physics Communications* **298**, 109109. https://doi.org/10.1016/j.cpc.2024.109109
+  *Compute Physics Communications* **298**, 109109. `<https://doi.org/10.1016/j.cpc.2024.109109>`_
 
 - Cagas, P and Hakim, A and Srinivasan, B. (2021) "A boundary value “reservoir
   problem” and boundary conditions for multi-moment multifluid simulations
-  of sheaths." *Physics of Plasmas* **28.1**. https://doi.org/10.1063/5.0024510
+  of sheaths." *Physics of Plasmas* **28.1**. `<https://doi.org/10.1063/5.0024510>`_
 
 - Hakim, A and Juno, J. (2020). "Alias-free, Matrix-free, and Quadrature-free
   Discontinuous Galerkin Algorithms for (Plasma) Kinetic
   Equations". *SC20: Proceedings of the International Conference for High
   Performance Computing, Networking, Storage and Analysis*, IEEE
-  Press. https://doi.org/10.1109/SC41405.2020.00077
+  Press. `<https://doi.org/10.1109/SC41405.2020.00077>`_
 
 - Francisquez, M., Bernard, T. N., Mandell, N. R., Hammett, G. W.,
   Hakim, A. (2020).  "Conservative discontinuous Galerkin scheme of a
   gyro-averaged Dougherty collision operator", *Nuclear Fusion*,
-  **60**, (9). https://doi.org/10.1088%2F1741-4326%2Faba0c9
+  **60**, (9). `<https://doi.org/10.1088%2F1741-4326%2Faba0c9>`_
 
 - Hakim, A., Francisquez, M., Juno, J., & Hammett, G. W. (2020).
   "Conservative discontinuous Galerkin schemes for nonlinear
   Dougherty–Fokker–Planck collision operators", *Journal of Plasma
-  Physics*, **86**, (4). https://doi.org/10.1017/S0022377820000586
+  Physics*, **86**, (4). `<https://doi.org/10.1017/S0022377820000586>`_
 
 - Wang, L., Hakim, A., Ng, J., Dong, C., & Germaschewski, K. (2020). 
   "Exact and locally implicit source term solvers for multifluid-Maxwell systems", 
-  *Journal of Computational Physics*, **415**, 109510. https://doi.org/10.1016/j.jcp.2020.109510
+  *Journal of Computational Physics*, **415**, 109510. `<https://doi.org/10.1016/j.jcp.2020.109510>`_
 
 - Cagas, P., Hakim, A., & Srinivasan, B. (2020). "Plasma-material
   boundary conditions for discontinuous Galerkin continuum-kinetic
   simulations, with a focus on secondary electron emission", *Journal
-  of Computational Physics*, **406**, 109215. https://doi.org/10.1016/j.jcp.2019.109215
+  of Computational Physics*, **406**, 109215. `<https://doi.org/10.1016/j.jcp.2019.109215>`_
 
 - Mandell, N. R., Hakim, A., Hammett, G. W., & Francisquez,
   M. (2020). "Electromagnetic full-f  gyrokinetics in the tokamak edge
   with discontinuous Galerkin methods", *Journal of Plasma Physics*,
-  **86**. https://doi.org/10.1017/S0022377820000070
+  **86**. `<https://doi.org/10.1017/S0022377820000070>`_
 
 - Juno, J., Hakim, A., TenBarge, J., Shi, E., &
   Dorland, W. (2018). "Discontinuous Galerkin algorithms for fully
@@ -109,19 +110,19 @@ Algorithms papers
 Physics papers
 --------------
 
-- Roeltgen, J. P., Juno, J., Kotschenreuther, M., Bernard, T. N., Shukla, A., Francisquez, M., Hakim, A., Hammett, G. W., Power, D., Hatch, D. R. (2025). “A kinetic line-driven radiation operator and its application to gyrokinetics”, Nuclear Fusion, accepted manuscript (online 26 August 2025). https://doi.org/10.1088/1741-4326/adff28
+- Roeltgen, J. P., Juno, J., Kotschenreuther, M., Bernard, T. N., Shukla, A., Francisquez, M., Hakim, A., Hammett, G. W., Power, D., Hatch, D. R. (2025). "A kinetic line-driven radiation operator and its application to gyrokinetics", Nuclear Fusion, accepted manuscript (online 26 August 2025). `<https://doi.org/10.1088/1741-4326/adff28>`_
 
-- Francisquez, M., Stotler, D., Hakim, A., Juno, J., Johnson, G., Mandell, N., Hammett, G. W. (2025). “General kinetic ion-induced electron emission”, Physics of Plasmas 32, 082306. https://doi.org/10.1063/5.0231908
+- Francisquez, M., Stotler, D., Hakim, A., Juno, J., Johnson, G., Mandell, N., Hammett, G. W. (2025). "General kinetic ion-induced electron emission", Physics of Plasmas 32, 082306. `<https://doi.org/10.1063/5.0231908>`_
 
-- Gorard, J., Juno, J., Hakim, A. (2025). “Hydrodynamic and Electromagnetic Discrepancies between Neutron Star and Black Hole Spacetimes”, Physical Review Letters (submitted); arXiv:2505.05299. https://arxiv.org/abs/2505.05299
+- Gorard, J., Juno, J., Hakim, A. (2025). "Hydrodynamic and Electromagnetic Discrepancies between Neutron Star and Black Hole Spacetimes", Physical Review Letters (submitted); `arXiv:2505.05299. <https://arxiv.org/abs/2505.05299>`_
 	
-- Shukla, A., Roeltgen, J., Kotschenreuther, M., Juno, J., Bernard, T. N., Hakim, A., Hammett, G. W., Hatch, D. R., Mahajan, S. M., Francisquez, M. (2025). “Direct Comparison of Gyrokinetic and Fluid Scrape-Off-Layer Simulations of a Prospective Spherical Tokamak Pilot Plant”, AIP Advances 15, 075121. https://doi.org/10.1063/5.0150000
+- Shukla, A., Roeltgen, J., Kotschenreuther, M., Juno, J., Bernard, T. N., Hakim, A., Hammett, G. W., Hatch, D. R., Mahajan, S. M., Francisquez, M. (2025). "Direct Comparison of Gyrokinetic and Fluid Scrape-Off-Layer Simulations of a Prospective Spherical Tokamak Pilot Plant", AIP Advances 15, 075121. `<https://doi.org/10.1063/5.0150000>`_
 
-- Johnson, G., Hakim, A., Juno, J. (2025). “Discontinuous Galerkin Representation of the Maxwell-Jüttner Distribution”, arXiv:2503.16827. https://arxiv.org/abs/2503.16827
+- Johnson, G., Hakim, A., Juno, J. (2025). "Discontinuous Galerkin Representation of the Maxwell-Jüttner Distribution", `<arXiv:2503.16827. https://arxiv.org/abs/2503.16827>`_
 
 - Bradshaw, K., Hakim, A., Srinivasan, B. (2025). "Effects of oxidation and
   impurities in lithium surfaces on the emitting wall plasma sheath", 
-  *Physics of Plasmas* **32**, 063506. https://doi.org/10.1063/5.0258265
+  *Physics of Plasmas* **32**, 063506. `<https://doi.org/10.1063/5.0258265>`_
 
 - Conley, S. A., Juno, J., TenBarge, J. M., Barbhuiya, M. H., Cassak, P. A., Howes, G. G., 
   Lichko, E. (2024). "The kinetic analogue of the pressure-strain interaction." *Physics of Plasmas*, 
