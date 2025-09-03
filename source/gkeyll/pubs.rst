@@ -109,6 +109,10 @@ Algorithms papers
 Physics papers
 --------------
 
+- Roeltgen, J. P., Juno, J., Kotschenreuther, M., Bernard, T. N., Shukla, A., Francisquez, M., Hakim, A., Hammett, G. W., Power, D., Hatch, D. R. (2025). “A kinetic line-driven radiation operator and its application to gyrokinetics”, Nuclear Fusion, accepted manuscript (online 26 August 2025). https://doi.org/10.1088/1741-4326/adff28
+
+- Francisquez, M., Stotler, D., Hakim, A., Juno, J., Johnson, G., Mandell, N., Hammett, G. W. (2025). “General kinetic ion-induced electron emission”, Physics of Plasmas 32, 082306. https://doi.org/10.1063/5.0231908
+
 - Gorard, J., Juno, J., Hakim, A. (2025). “Hydrodynamic and Electromagnetic Discrepancies between Neutron Star and Black Hole Spacetimes”, Physical Review Letters (submitted); arXiv:2505.05299. https://arxiv.org/abs/2505.05299
 	
 - Shukla, A., Roeltgen, J., Kotschenreuther, M., Juno, J., Bernard, T. N., Hakim, A., Hammett, G. W., Hatch, D. R., Mahajan, S. M., Francisquez, M. (2025). “Direct Comparison of Gyrokinetic and Fluid Scrape-Off-Layer Simulations of a Prospective Spherical Tokamak Pilot Plant”, AIP Advances 15, 075121. https://doi.org/10.1063/5.0150000
