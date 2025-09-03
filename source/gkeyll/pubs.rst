@@ -132,7 +132,7 @@ Physics papers
   impurities in lithium surfaces on the emitting wall plasma sheath", 
   *Physics of Plasmas* **32**, 063506. `<https://doi.org/10.1063/5.0258265>`_
 
-- Bernard, T. N., Halpern, F. D., Francisquez, M., Hammett, G. W., Marinoni, A., 
+- Bernard, T. N., Halpern, F. D., Francisquez, M., Hammett, G. W., Marinoni, A. 
   (2024). "Plasma edge and scrape-off layer turbulence in gyrokinetic simulations of 
   negative triangularity plasmas." *Plasma Physics and Controlled Fusion*, **66**, 115017.
   `<https://doi.org/10.1088/1361-6587/ad8186>`_
