@@ -56,6 +56,7 @@ Algorithms papers
 
 - Gorard, J., Hakim, A. (2025). "Shock with Confidence: Formal Proofs of Correctness for Hyperbolic Partial Differential Equation Solvers", `arXiv:2503.13877. <https://arxiv.org/abs/2503.13877>`_
 
+
 - Gorard, J., Hakim, A., Juno, J., TenBarge, J. M. (2024). "A Tetrad-First Approach to 
   Robust Numerical Algorithms in General Relativity." `arXiv:2410.02549 <https://arxiv.org/abs/2410.02549>`_
 
