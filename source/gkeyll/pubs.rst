@@ -14,7 +14,9 @@ files with us.
 Doctoral Dissertations
 ----------------------
 
-- Walters, J. (2024, November 8) "Pressure Anisotropy-Driven Instabilities in Solar and Astrophysical Plasmas." Ph.D. dissertation, University of Arizona, Tuscon, 2024. `Access here. <https://arizona.aws.openrepository.com/handle/10150/675554?show=full>`_
+- Walters, J. C. (2025, January 5). "Pressure anisotropy-driven instabilities in solar and astrophysical plasmas."
+  Ph.D. dissertation, University of Arizona, 2024. 
+  https://www.proquest.com/dissertations-theses/pressure-anisotropy-driven-instabilities-solar/docview/3147686254/se-2
 
 - Bradshaw, K. (2024, February 23) "Emitting Wall Boundary Conditions in Continuum Kinetic Simulations:
   Unlocking the Effects of Energy-Dependent Material Emission on the Plasma Sheath." Ph.D. dissertation,
@@ -56,8 +58,12 @@ Algorithms papers
 
 - Juno, J., Hakim, A., TenBarge, J. M. (2025). "A Parallel-Kinetic-Perpendicular-Moment Model for Magnetized Plasmas", `arXiv:2505.02116. <https://arxiv.org/abs/2505.02116>`_
 
-- Gorard, J., Hakim, A. (2025). "Shock with Confidence: Formal Proofs of Correctness for Hyperbolic Partial Differential Equation Solvers", `arXiv:2503.13877. <https://arxiv.org/abs/2503.13877>`_
+- Johnson, G., Hakim, A., & Juno, J. (2025).
+  "A moment-conserving discontinuous Galerkin
+  representation of the relativistic Maxwellian distribution",
+  `arXiv:2503.16827 <https://arxiv.org/abs/2503.16827>`_
 
+- Gorard, J., Hakim, A. (2025). "Shock with Confidence: Formal Proofs of Correctness for Hyperbolic Partial Differential Equation Solvers", `arXiv:2503.13877. <https://arxiv.org/abs/2503.13877>`_
 
 - Gorard, J., Hakim, A., Juno, J., TenBarge, J. M. (2024). "A Tetrad-First Approach to 
   Robust Numerical Algorithms in General Relativity." `arXiv:2410.02549 <https://arxiv.org/abs/2410.02549>`_
