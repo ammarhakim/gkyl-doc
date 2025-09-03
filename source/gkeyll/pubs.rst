@@ -14,6 +14,10 @@ files with us.
 Doctoral Dissertations
 ----------------------
 
+- Walters, J. C. (2025, January 5). "Pressure anisotropy-driven instabilities in solar and astrophysical plasmas."
+  Ph.D. dissertation, University of Arizona, 2024. 
+  https://www.proquest.com/dissertations-theses/pressure-anisotropy-driven-instabilities-solar/docview/3147686254/se-2
+  
 - Bradshaw, K. (2024, February 23) "Emitting Wall Boundary Conditions in Continuum Kinetic Simulations:
   Unlocking the Effects of Energy-Dependent Material Emission on the Plasma Sheath." Ph.D. dissertation,
   Virginia Polytechnic Institute and State University, 2024.
@@ -53,6 +57,11 @@ Algorithms papers
 - Francisquez, M., Cagas, P., Shukla, A., Juno, J., Hammett, G. W. (2025). "Conservative velocity mappings for discontinuous Galerkin kinetics", `arXiv:2505.10754. <https://arxiv.org/abs/2505.10754>`_
 
 - Juno, J., Hakim, A., TenBarge, J. M. (2025). "A Parallel-Kinetic-Perpendicular-Moment Model for Magnetized Plasmas", `arXiv:2505.02116. <https://arxiv.org/abs/2505.02116>`_
+
+- Johnson, G., Hakim, A., & Juno, J. (2025).
+  "A moment-conserving discontinuous Galerkin
+  representation of the relativistic Maxwellian distribution",
+  `arXiv:2503.16827 <https://arxiv.org/abs/2503.16827>`_
 
 - Gorard, J., Hakim, A. (2025). "Shock with Confidence: Formal Proofs of Correctness for Hyperbolic Partial Differential Equation Solvers", `arXiv:2503.13877. <https://arxiv.org/abs/2503.13877>`_
 
