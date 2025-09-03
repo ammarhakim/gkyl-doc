@@ -54,6 +54,11 @@ Algorithms papers
 
 - Juno, J., Hakim, A., TenBarge, J. M. (2025). "A Parallel-Kinetic-Perpendicular-Moment Model for Magnetized Plasmas", `arXiv:2505.02116. <https://arxiv.org/abs/2505.02116>`_
 
+- Johnson, G., Hakim, A., & Juno, J. (2025).
+  "A moment-conserving discontinuous Galerkin
+  representation of the relativistic Maxwellian distribution",
+  `arXiv:2503.16827 <https://arxiv.org/abs/2503.16827>`_
+
 - Gorard, J., Hakim, A. (2025). "Shock with Confidence: Formal Proofs of Correctness for Hyperbolic Partial Differential Equation Solvers", `arXiv:2503.13877. <https://arxiv.org/abs/2503.13877>`_
 
 
