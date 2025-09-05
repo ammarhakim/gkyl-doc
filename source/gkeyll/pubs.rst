@@ -120,7 +120,7 @@ Physics papers
 
 - Roeltgen, J. P., Juno, J., Kotschenreuther, M., Bernard, T. N., Shukla, A., Francisquez, M., Hakim, A., Hammett, G. W., Power, D., Hatch, D. R. (2025). "A kinetic line-driven radiation operator and its application to gyrokinetics", *Nuclear Fusion*, accepted manuscript (online 26 August 2025). `<https://doi.org/10.1088/1741-4326/adff28>`_
 
-- Skolar, C. R., Bradshaw, K., Francisquez, M., Murillo, L., Krishna Kumar, V., Srinivasan, B. (2025). "General kinetic ion-induced electron emission model for metallic walls applied to biased Z-pinch electrodes", *Physics of Plasmas* **32**, 082306. `<https://doi.org/10.1063/5.0231908>`_
+- Skolar, C. R., Bradshaw, K., Francisquez, M., Murillo, L., Krishna Kumar, V., Srinivasan, B. (2025). "General kinetic ion-induced electron emission model for metallic walls applied to biased Z-pinch electrodes", *Physics of Plasmas* **32**, 082306. `<https://doi.org/10.1063/5.0261942>`_
 
 - Gorard, J., Juno, J., Hakim, A. (2025). "Hydrodynamic and Electromagnetic Discrepancies between Neutron Star and Black Hole Spacetimes", *Physical Review Letters* (submitted); `arXiv:2505.05299. <https://arxiv.org/abs/2505.05299>`_
 
