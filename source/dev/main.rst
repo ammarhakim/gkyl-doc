@@ -16,3 +16,4 @@ Developer notes
   grhd-eigensystem
   blackhole-spacetimes
   grhd-primitive
+  tokamak-topology
