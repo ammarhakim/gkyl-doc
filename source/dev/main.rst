@@ -4,6 +4,7 @@ Developer notes
 .. toctree::
   :maxdepth: 1
 
+  valgrind
   suggested-templates        
   onmaxima
   modalbasis
