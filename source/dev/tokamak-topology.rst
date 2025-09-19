@@ -61,14 +61,50 @@ which means that for a connection, the number of cells running along the directi
 For example, in the case of ``(0,1,Upper) <-> (1,1,Lower)``, the shared edge runs along the 0 direction for both blocks, which means that 
 both blocks must have the same number of cells in the 0 direction. 
 
+Single Null Tokamak Topology
+----------------------------
 
+.. figure:: figures/SN-Tokamak-Blocks.jpg
+   :alt: Single null topology
+   
+   Figure 4: Single null tokamak topology with 6 blocks (0-5) and directional vectors
+
+
+The general block layout for any single null Tokamak configuration is shown above. Each block is numbered with the convention that the 
+outermost block on the bottom is numbered zero and subsequent blocks are numbered by going counter-clockwise and then inwards around the geometry. The scheme consists of 6 blocks labeled from 0 to 5 and various arrows are 
+included throughout the image to help identify where the directional vectors of each block point. 
+
+A general rule of thumb is that starting at the bottom right and going around counter clockwise, direction 0 points perpendicular to the separatrix 
+and direction 0 points parallel to the separatrix.
+
+In a physical context, direction 0 for the blocks corresponds to changes in psi and direction 1 corresponds to changes in a theta arc length parameter. 
+
+All block connections are as shown below:
+
+- (0,0,Upper) <-> (1,0,Lower)
+- (0,1,Upper) <-> (4,1,Lower)
+- (1,1,Upper) <-> (2,1,Lower)
+- (2,0,Lower) <-> (5,0,Upper)
+- (2,1,Upper) <-> (3,1,Lower)
+- (3,0,Lower) <-> (4,0,Upper)
+- (5,1,Upper) <-> (5,1,Lower)
+
+Additionally, due to the continuity clause between blocks the degrees of freedom in choosing the number of cells for each block is as shown below:
+
+- Block 0: 2
+- Block 1: 1
+- Block 2: 1
+- Block 3: 1
+- Block 4: 0
+- Block 5: 1
+ 
 Double Null Tokamak Topology
 ----------------------------
 
 .. figure:: figures/DN-Tokamak-Blocks.jpg
    :alt: Double null topology
    
-   Figure 4: Double null tokamak topology with 12 blocks (0-11) and directional vectors
+   Figure 5: Double null tokamak topology with 12 blocks (0-11) and directional vectors
 
 
 The general block layout for any double null Tokamak configuration is shown above. Each block is numbered with the convention that the 
@@ -87,7 +123,7 @@ All block connections are as shown below:
 - (0,0,Upper) <-> (1,0,Lower)
 - (0,1,Upper) <-> (9,1,Lower)
 - (1,1,Upper) <-> (2,1,Lower)
-- (2,0,Lowee) <-> (10,0,Upper)
+- (2,0,Lower) <-> (10,0,Upper)
 - (2,1,Upper) <-> (3,1,Lower)
 - (3,0,Lower) <-> (4,0,Upper)
 - (4,1,Lower) <-> (5,1,Upper)
@@ -106,18 +142,20 @@ Additionally, due to the continuity clause between blocks the degrees of freedom
 - Block 9: 0
 - Block 10: 1
 - Block 11: 0
+ 
 
-
-Building a Double Null Tokamak Topology
+Building a Tokamak's Topology
 ---------------------------------------
 
-The construction of a double null tokamak topology can be automated to require only a few user inputs:  
+The construction of a tokamak's topology can be automated to require only a few user inputs:  
 
+- Specifying single or double null
 - Diverter plate geometry  
 - Number of cells along blocks  
 - Desired psi widths  
 - Minimum and maximum bounds of Z and R for the tokamak  
 
 This can be simplified even further by having default configurations for the number of cells and psi widths, making the specification of these inputs optional.  
-By using the same numbers of cells for blocks of similar sizes and mirroring the lower and upper sections of the tokamak the number of required inputs can be
-reduced from 11 to 6. 
+By using the same numbers of cells for blocks of similar sizes the number required cell specifications can be
+reduced from 6 to 4 for a single null tokamak and from 11 to 6 for a double null tokamak. 
+
