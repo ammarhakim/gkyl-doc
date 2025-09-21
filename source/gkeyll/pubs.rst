@@ -54,27 +54,33 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
-- Francisquez, M., Cagas, P., Shukla, A., Juno, J., Hammett, G. W. (2025). "Conservative velocity mappings for discontinuous Galerkin kinetics", `arXiv:2505.10754. <https://arxiv.org/abs/2505.10754>`_
+- Francisquez, M., Cagas, P., Shukla, A., Juno, J., Hammett, G. W. (2025). 
+  "Conservative velocity mappings for discontinuous Galerkin kinetics", 
+  `arXiv:2505.10754. <https://arxiv.org/abs/2505.10754>`_
 
-- Juno, J., Hakim, A., TenBarge, J. M. (2025). "A Parallel-Kinetic-Perpendicular-Moment Model for Magnetized Plasmas", `arXiv:2505.02116. <https://arxiv.org/abs/2505.02116>`_
+- Juno J., Hakim A., TenBarge J. M. (2025). 
+  "A parallel-kinetic-perpendicular-moment model for magnetised plasmas", 
+  *Journal of Plasma Physics* **91**, 5:E129. `<https://doi.org/10.1017/S0022377825100706>`_
 
-- Johnson, G., Hakim, A., & Juno, J. (2025).
-  "A moment-conserving discontinuous Galerkin
-  representation of the relativistic Maxwellian distribution",
-  `arXiv:2503.16827 <https://arxiv.org/abs/2503.16827>`_
+- Johnson G., Hakim A., Juno J. (2025). 
+  "A moment-conserving discontinuous Galerkin 
+  representation of the relativistic Maxwellian distribution", 
+  *Journal of Plasma Physics* **91**, 5:E130. `<https://doi.org/10.1017/S0022377825100718>`_
 
-- Gorard, J., Hakim, A. (2025). "Shock with Confidence: Formal Proofs of Correctness for Hyperbolic Partial Differential Equation Solvers", `arXiv:2503.13877. <https://arxiv.org/abs/2503.13877>`_
+- Gorard, J., Hakim, A. (2025). "Shock with Confidence: Formal Proofs of Correctness 
+  for Hyperbolic Partial Differential Equation Solvers", 
+  `arXiv:2503.13877. <https://arxiv.org/abs/2503.13877>`_
 
 - Gorard, J., Hakim, A., Juno, J., TenBarge, J. M. (2024). "A Tetrad-First Approach to 
-  Robust Numerical Algorithms in General Relativity." `arXiv:2410.02549 <https://arxiv.org/abs/2410.02549>`_
+  Robust Numerical Algorithms in General Relativity", `arXiv:2410.02549 <https://arxiv.org/abs/2410.02549>`_
 
 - Francisquez, M., Mandell, N. R., Hakim, A., Hammett, G. W. (2024)
-  "Conservative discontinuous Galerkin interpolation: sheared boundary conditions"
+  "Conservative discontinuous Galerkin interpolation: sheared boundary conditions",
   *Compute Physics Communications* **298**, 109109. `<https://doi.org/10.1016/j.cpc.2024.109109>`_
 
 - Cagas, P and Hakim, A and Srinivasan, B. (2021) "A boundary value “reservoir
   problem” and boundary conditions for multi-moment multifluid simulations
-  of sheaths." *Physics of Plasmas* **28.1**. `<https://doi.org/10.1063/5.0024510>`_
+  of sheaths", *Physics of Plasmas* **28.1**. `<https://doi.org/10.1063/5.0024510>`_
 
 - Hakim, A and Juno, J. (2020). "Alias-free, Matrix-free, and Quadrature-free
   Discontinuous Galerkin Algorithms for (Plasma) Kinetic
@@ -118,15 +124,35 @@ Algorithms papers
 Physics papers
 --------------
 
-- Roeltgen, J. P., Juno, J., Kotschenreuther, M., Bernard, T. N., Shukla, A., Francisquez, M., Hakim, A., Hammett, G. W., Power, D., Hatch, D. R. (2025). "A kinetic line-driven radiation operator and its application to gyrokinetics", *Nuclear Fusion*, accepted manuscript (online 26 August 2025). `<https://doi.org/10.1088/1741-4326/adff28>`_
+- Zeng, S., Philippov, A., Juno, J., Beloborodov, A. M., Popova, E. (2025).
+  "Origin of Pulsed Radio Emission from Magnetars",
+  `arXiv:2509.13419 <https://arxiv.org/abs/2509.13419>`_
 
-- Skolar, C. R., Bradshaw, K., Francisquez, M., Murillo, L., Krishna Kumar, V., Srinivasan, B. (2025). "General kinetic ion-induced electron emission model for metallic walls applied to biased Z-pinch electrodes", *Physics of Plasmas* **32**, 082306. `<https://doi.org/10.1063/5.0261942>`_
+- Liu, D., Juno, J., Hammett, G. W., Hakim, A., Shukla, A., Francisquez, M. (2025).
+  "Axisymmetric Gyrokinetic Simulation of ASDEX-Upgrade Scrape-off Layer Using 
+  a Conservative Implicit BGK Collision Operator",
+  `arXiv:2507.22821 <https://arxiv.org/abs/2507.22821>`_
 
-- Gorard, J., Juno, J., Hakim, A. (2025). "Hydrodynamic and Electromagnetic Discrepancies between Neutron Star and Black Hole Spacetimes", *Physical Review Letters* (submitted); `arXiv:2505.05299. <https://arxiv.org/abs/2505.05299>`_
+- Roeltgen, J. P., Juno, J., Kotschenreuther, M., Bernard, T. N., Shukla, A., 
+  Francisquez, M., Hakim, A., Hammett, G. W., Power, D., Hatch, D. R. (2025). 
+  "A kinetic line-driven radiation operator and its application to gyrokinetics", 
+  *Nuclear Fusion* **65**, 106020. 
+  `<https://doi.org/10.1088/1741-4326/adff28>`_
 
-- Shukla, A., Roeltgen, J., Kotschenreuther, M., Juno, J., Bernard, T. N., Hakim, A., Hammett, G. W., Hatch, D. R., Mahajan, S. M., Francisquez, M. (2025). "Direct Comparison of Gyrokinetic and Fluid Scrape-Off-Layer Simulations of a Prospective Spherical Tokamak Pilot Plant", *AIP Advances* **15**, 075121. `<https://doi.org/10.1063/5.0268104>`_
+- Skolar, C. R., Bradshaw, K., Francisquez, M., Murillo, L., Krishna Kumar, V., 
+  Srinivasan, B. (2025). "General kinetic ion-induced electron emission model 
+  for metallic walls applied to biased Z-pinch electrodes", *Physics of Plasmas* 
+  **32**, 082306. `<https://doi.org/10.1063/5.0261942>`_
 
-- Johnson, G., Hakim, A., Juno, J. (2025). "Discontinuous Galerkin Representation of the Maxwell-Jüttner Distribution", `arXiv:2503.16827. <https://arxiv.org/abs/2503.16827>`_
+- Gorard, J., Juno, J., Hakim, A. (2025). "Hydrodynamic and Electromagnetic 
+  Discrepancies between Neutron Star and Black Hole Spacetimes", 
+  *Physical Review Letters* (submitted); `arXiv:2505.05299. <https://arxiv.org/abs/2505.05299>`_
+
+- Shukla, A., Roeltgen, J., Kotschenreuther, M., Juno, J., Bernard, T. N., 
+  Hakim, A., Hammett, G. W., Hatch, D. R., Mahajan, S. M., Francisquez, M. (2025). 
+  "Direct Comparison of Gyrokinetic and Fluid Scrape-Off-Layer Simulations of 
+  a Prospective Spherical Tokamak Pilot Plant", *AIP Advances* **15**, 075121. 
+  `<https://doi.org/10.1063/5.0268104>`_
 
 - Bradshaw, K., Hakim, A., Srinivasan, B. (2025). "Effects of oxidation and
   impurities in lithium surfaces on the emitting wall plasma sheath", 
