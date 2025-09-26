@@ -94,72 +94,14 @@ todo_include_todos = True
 #html_theme = 'classic'
 #html_theme = "sphinx_immaterial"
 #html_theme = "haiku"
-#html_theme = "sphinx_rtd_theme"
+html_theme = "furo"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-html_theme_options = {
-  "icon": {
-    "repo": "fontawesome/brands/github",
-    "edit": "material/file-edit-outline",
-  },
-  "site_url": "https://gkeyll.readthedocs.io/en/latest/",
-  "repo_url": "https://github.com/ammarhakim/gkylzero",
-  "repo_name": "Gkeyll",
-  #"edit_uri": "blob/main/docs",
-  "globaltoc_collapse": True,
-  "features": [
-    "navigation.expand",
-    # "navigation.tabs",
-    # "toc.integrate",
-    "navigation.sections",
-    # "navigation.instant",
-    # "header.autohide",
-    "navigation.top",
-    # "navigation.tracking",
-    # "search.highlight",
-    "search.share",
-    "toc.follow",
-    "toc.sticky",
-    "content.tabs.link",
-    "announce.dismiss",
-  ],
-  "palette": [
-    {
-      "media": "(prefers-color-scheme: light)",
-      "scheme": "default",
-      "primary": "blue",
-      "accent": "indigo",
-      "toggle": {
-        "icon": "material/lightbulb-outline",
-        "name": "Switch to dark mode",
-      },
-    },
-    {
-      "media": "(prefers-color-scheme: dark)",
-      "scheme": "slate",
-      "primary": "blue",
-      "accent": "indigo",
-      "toggle": {
-        "icon": "material/lightbulb",
-        "name": "Switch to light mode",
-      },
 
-    },
-  ],
-  "toc_title_is_page_title": True,
-  # BEGIN: social icons
-  "social": [
-    {
-      "icon": "fontawesome/brands/github",
-      "link": "https://github.com/ammarhakim/gkyl-doc",
-      "name": "Source on github.com",
-    },
-  ],
-}
-html_logo = "_static/logoG1.png"
+html_logo = None  # Furo uses theme options for logos
 html_favicon = "_static/logo.svg"
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -230,3 +172,56 @@ texinfo_documents = [
      author, 'gkyl', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+html_theme_options = {
+    "light_logo": "logoG1.png",   # dark logo for light mode
+    "dark_logo": "logoG1_w.png", # white logo for dark mode
+    "icon": {
+        "repo": "fontawesome/brands/github",
+        "edit": "material/file-edit-outline",
+    },
+    "site_url": "https://gkeyll.readthedocs.io/en/latest/",
+    "repo_url": "https://github.com/ammarhakim/gkylzero",
+    "repo_name": "Gkeyll",
+    "globaltoc_collapse": True,
+    "features": [
+        "navigation.expand",
+        "navigation.sections",
+        "navigation.top",
+        "search.share",
+        "toc.follow",
+        "toc.sticky",
+        "content.tabs.link",
+        "announce.dismiss",
+    ],
+    "palette": [
+        {
+            "media": "(prefers-color-scheme: light)",
+            "scheme": "default",
+            "primary": "blue",
+            "accent": "indigo",
+            "toggle": {
+                "icon": "material/lightbulb-outline",
+                "name": "Switch to dark mode",
+            },
+        },
+        {
+            "media": "(prefers-color-scheme: dark)",
+            "scheme": "slate",
+            "primary": "blue",
+            "accent": "indigo",
+            "toggle": {
+                "icon": "material/lightbulb",
+                "name": "Switch to light mode",
+            },
+        },
+    ],
+    "toc_title_is_page_title": True,
+    "social": [
+        {
+            "icon": "fontawesome/brands/github",
+            "link": "https://github.com/ammarhakim/gkyl-doc",
+            "name": "Source on github.com",
+        },
+    ],
+}
