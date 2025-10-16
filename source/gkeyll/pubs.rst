@@ -18,6 +18,9 @@ Doctoral Dissertations
   Ph.D. dissertation, University of Arizona, 2024. 
   https://www.proquest.com/dissertations-theses/pressure-anisotropy-driven-instabilities-solar/docview/3147686254/se-2
 
+- McGreivy, Nick (2024, May) "Differentiable Programming for Computational Plasma Physics"
+  Ph.D. dissertation, Princeton University, 2024. `arXiv:2410.11161 <https://arxiv.org/abs/2410.11161>`_
+
 - Bradshaw, K. (2024, February 23) "Emitting Wall Boundary Conditions in Continuum Kinetic Simulations:
   Unlocking the Effects of Energy-Dependent Material Emission on the Plasma Sheath." Ph.D. dissertation,
   Virginia Polytechnic Institute and State University, 2024.
@@ -74,6 +77,11 @@ Algorithms papers
 - Gorard, J., Hakim, A., Juno, J., TenBarge, J. M. (2024). "A Tetrad-First Approach to 
   Robust Numerical Algorithms in General Relativity", `arXiv:2410.02549 <https://arxiv.org/abs/2410.02549>`_
 
+- Nick McGreivy and Ammar Hakim (2024) "Weak baselines and reporting
+  biases lead to overoptimism in machine learning for fluid-related
+  partial differential equations". Nature Machine Intelligence volume
+  6, 1256–1269 (2024) `<https://www.nature.com/articles/s42256-024-00897-5>`_
+
 - Francisquez, M., Mandell, N. R., Hakim, A., Hammett, G. W. (2024)
   "Conservative discontinuous Galerkin interpolation: sheared boundary conditions",
   *Compute Physics Communications* **298**, 109109. `<https://doi.org/10.1016/j.cpc.2024.109109>`_
@@ -123,6 +131,11 @@ Algorithms papers
 
 Physics papers
 --------------
+
+- A. C. D. Hoffmann, T. N. Bernard, M. Francisquez, G. W. Hammett, A. Hakim, J. Boedo, R. Rizkallah, C. K. Tsui,
+  the TCV team (2025). "Towards fully predictive gyrokinetic full-f
+  simulations".  `arXiv:2510.11874
+  <https://arxiv.org/abs/2510.11874>`_
 
 - Zeng, S., Philippov, A., Juno, J., Beloborodov, A. M., Popova, E. (2025).
   "Origin of Pulsed Radio Emission from Magnetars",
