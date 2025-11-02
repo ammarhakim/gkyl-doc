@@ -57,6 +57,16 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
+- Jonathan Gorard, James Juno, Ammar Hakim (2025). "Beyond GRMHD: A
+  Robust Numerical Scheme for Extended, Non-Ideal General Relativistic
+  Multifluid Simulations",
+  `arXiv:2510.26019. <https://arxiv.org/abs/2510.26019>`_
+
+- Akash Shukla, Ammar Hakim, James Juno, Gregory Hammett, Manaure
+  Francisquez (2025). "Constructing Field Aligned Coordinate Systems
+  for Gyrokinetic Simulations of Tokamaks in X-point Geometries",
+  `arXiv:2510.21676. <https://arxiv.org/abs/2510.21676>`_
+
 - Francisquez, M., Cagas, P., Shukla, A., Juno, J., Hammett, G. W. (2025). 
   "Conservative velocity mappings for discontinuous Galerkin kinetics", 
   `arXiv:2505.10754. <https://arxiv.org/abs/2505.10754>`_
