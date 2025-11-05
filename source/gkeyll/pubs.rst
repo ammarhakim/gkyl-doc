@@ -96,6 +96,10 @@ Algorithms papers
   "Conservative discontinuous Galerkin interpolation: sheared boundary conditions",
   *Compute Physics Communications* **298**, 109109. `<https://doi.org/10.1016/j.cpc.2024.109109>`_
 
+- Nick McGreivy, Ammar Hakim, "Invariant preservation in machine
+  learned PDE solvers via error correction",
+  `arXiv:2303.16110. <https://arxiv.org/abs/2303.16110>`_
+
 - Cagas, P and Hakim, A and Srinivasan, B. (2021) "A boundary value “reservoir
   problem” and boundary conditions for multi-moment multifluid simulations
   of sheaths", *Physics of Plasmas* **28.1**. `<https://doi.org/10.1063/5.0024510>`_
