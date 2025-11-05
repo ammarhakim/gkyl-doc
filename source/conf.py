@@ -117,6 +117,12 @@ html_static_path = ['_static', 'postgkyl/_static']
 #      }
 html_css_files = ['theme_overrides.css']  # override wide tables in RTD theme
 
+# Force MathJax to load on every page by adding it to every page's scripts
+html_js_files = [
+  ('https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js', 
+  {'async': 'async'}),
+]
+
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
