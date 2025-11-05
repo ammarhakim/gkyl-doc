@@ -4,7 +4,7 @@ This is the documentation and tutorials for the
 
 In order to build the docs locally, one needs
 [sphinx](https://www.sphinx-doc.org/en/master/) and the
-[immaterial](https://jbms.github.io/sphinx-immaterial/) theme.
+[furo](https://github.com/pradyunsg/furo) theme.
 
 We recommend creating a virtual environment[^1] and installing the dependencies
 through [conda](https://conda.io/miniconda.html):
