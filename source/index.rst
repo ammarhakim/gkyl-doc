@@ -115,6 +115,7 @@ source repository within the past 12 months) include:
 * **Kolter Bradshaw**, *Princeton University*
 * **Jonathan Roeltgen**, *University of Texas at Austin*
 * **Dingyun Liu**, *Princeton University*
+* **Joshua (Josh) Josephy-Zack**, *Princeton University*
 
 The lead developers of the :math:`\texttt{postgkyl}` visualization and post-processing
 framework are **Petr Cagas** and **Ammar Hakim**.
