@@ -14,6 +14,11 @@ files with us.
 Doctoral Dissertations
 ----------------------
 
+- John Rodman (2025). "Discontinuous Galerkin Studies of Collisional
+  Dynamics in Continuum-Kinetic Plasma". Ph.D dissertation, Virginia
+  Tech. `Access
+  here. <https://vtechworks.lib.vt.edu/items/70ea6b49-81b8-4af1-b040-bd2a51bee799>`_
+
 - Walters, J. C. (2025, January 5). "Pressure anisotropy-driven instabilities in solar and astrophysical plasmas."
   Ph.D. dissertation, University of Arizona, 2024. 
   https://www.proquest.com/dissertations-theses/pressure-anisotropy-driven-instabilities-solar/docview/3147686254/se-2
@@ -48,14 +53,21 @@ Doctoral Dissertations
   sheaths and instabilities". Ph.D. dissertation, Virginia Polytechnic Institute and State University, 2018.
   `<https://vtechworks.lib.vt.edu/handle/10919/84979>`_
 
-- Wang, L. (2014, Aug 30). "Integrating Kinetic Physics in Fluid Models for Magnetic Reconnection". Ph.D. dissertation, University of New Hampshire, 2014.
-
 - Shi, E. L. (2017, August 24). "Gyrokinetic Continuum Simulation of
   Turbulence in Open-Field-Line Plasmas", Ph.D. dissertation,
   Princeton University, 2017 `arXiv:1708.07283 <https://arxiv.org/abs/1708.07283>`_
 
+- Wang, L. (2014, Aug 30). "Integrating Kinetic Physics in Fluid
+  Models for Magnetic Reconnection". Ph.D. dissertation, University of
+  New Hampshire, 2014.
+
+
 Algorithms papers
 -----------------
+
+- Grant Johnson, Ammar Hakim, James Juno (2025). "A Conservative
+  Discontinuous Galerkin Algorithm for Particle Kinetics on Smooth
+  Manifolds", `arXiv:2512.05298. <https://arxiv.org/abs/2512.05298>`_
 
 - Jonathan Gorard, James Juno, Ammar Hakim (2025). "Beyond GRMHD: A
   Robust Numerical Scheme for Extended, Non-Ideal General Relativistic
@@ -84,8 +96,9 @@ Algorithms papers
   for Hyperbolic Partial Differential Equation Solvers", 
   `arXiv:2503.13877. <https://arxiv.org/abs/2503.13877>`_
 
-- Gorard, J., Hakim, A., Juno, J., TenBarge, J. M. (2024). "A Tetrad-First Approach to 
-  Robust Numerical Algorithms in General Relativity", `arXiv:2410.02549 <https://arxiv.org/abs/2410.02549>`_
+- Gorard, J., Hakim, A., Juno, J., TenBarge, J. M. (2024). "A
+  Tetrad-First Approach to Robust Numerical Algorithms in General
+  Relativity", `arXiv:2410.02549 <https://arxiv.org/abs/2410.02549>`_
 
 - Nick McGreivy and Ammar Hakim (2024) "Weak baselines and reporting
   biases lead to overoptimism in machine learning for fluid-related
@@ -145,6 +158,13 @@ Algorithms papers
 
 Physics papers
 --------------
+
+- Akash Shukla, Jonathan Roeltgen, Michael Kotschenreuther,
+ David R. Hatch, Manaure Francisquez, James Juno, Tess N. Bernard,
+ Ammar Hakim, Gregory W. Hammett, Swadesh M. Mahajan
+ (2025). "Gyrokinetic Simulations of a Low Recycling Scrape-off Layer
+ without a Lithium Target", `arXiv:2511.09437
+ <https://arxiv.org/abs/2511.09437>`_
 
 - A. C. D. Hoffmann, T. N. Bernard, M. Francisquez, G. W. Hammett, A. Hakim, J. Boedo, R. Rizkallah, C. K. Tsui,
   the TCV team (2025). "Towards fully predictive gyrokinetic full-f
