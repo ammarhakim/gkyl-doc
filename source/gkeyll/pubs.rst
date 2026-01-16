@@ -159,6 +159,16 @@ Algorithms papers
 Physics papers
 --------------
 
+- Lise Hanebring, James Juno, Ammar Hakim, Jason M. TenBarge, Istvan
+  Pusztai (2026). "From Weibel seeds to collisionless dynamos beyond
+  pair-plasmas", `arXiv:2601.10472
+  <https://arxiv.org/abs/2601.10472>`_
+
+- C. R. Skolar, B. Srinivasan. "Effects of parallel magnetic fields on
+  sheaths near biased electrodes in a highly collisional Z-pinch
+  plasma". `arXiv:2601.10039
+  <https://arxiv.org/abs/2601.10039>`_
+
 - Akash Shukla, Jonathan Roeltgen, Michael Kotschenreuther,
   David R. Hatch, Manaure Francisquez, James Juno, Tess N. Bernard,
   Ammar Hakim, Gregory W. Hammett, Swadesh M. Mahajan
