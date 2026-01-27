@@ -65,6 +65,11 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
+- Mustafa Aggul, Manaure Francisquez, Daniel R. Reynolds, Sylvia
+  Amihere (2026). "Super Time Stepping Methods for Diffusion using
+  Discontinuous-Galerkin Spatial Discretizations", 
+  `arXiv:2601.14508. <https://arxiv.org/abs/2601.14508>`_
+
 - Grant Johnson, Ammar Hakim, James Juno (2025). "A Conservative
   Discontinuous Galerkin Algorithm for Particle Kinetics on Smooth
   Manifolds", `arXiv:2512.05298. <https://arxiv.org/abs/2512.05298>`_
@@ -164,9 +169,9 @@ Physics papers
   pair-plasmas", `arXiv:2601.10472
   <https://arxiv.org/abs/2601.10472>`_
 
-- C. R. Skolar, B. Srinivasan. "Effects of parallel magnetic fields on
-  sheaths near biased electrodes in a highly collisional Z-pinch
-  plasma". `arXiv:2601.10039
+- C. R. Skolar, B. Srinivasan (2026). "Effects of parallel magnetic
+  fields on sheaths near biased electrodes in a highly collisional
+  Z-pinch plasma". `arXiv:2601.10039
   <https://arxiv.org/abs/2601.10039>`_
 
 - Akash Shukla, Jonathan Roeltgen, Michael Kotschenreuther,
