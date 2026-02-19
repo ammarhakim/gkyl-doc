@@ -65,6 +65,11 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
+- Jonathan Gorard, Ammar Hakim, Jimmy Juno (2026). "BEACONS:
+  Bounded-Error, Algebraically-Composable Neural Solvers for Partial
+  Differential Equations",
+  `arXiv:2602.14853. <https://arxiv.org/abs/2602.14853>`_
+
 - Mustafa Aggul, Manaure Francisquez, Daniel R. Reynolds, Sylvia
   Amihere (2026). "Super Time Stepping Methods for Diffusion using
   Discontinuous-Galerkin Spatial Discretizations", 
