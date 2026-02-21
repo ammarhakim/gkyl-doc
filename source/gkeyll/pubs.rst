@@ -65,6 +65,11 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
+- James Juno, Grant Johnson, Alexander Philippov, Ammar Hakim,
+  Alexander Chernoglazov, Shuzhe Zeng (2026). "Modeling of
+  Relativistic Plasmas with a Conservative Discontinuous Galerkin
+  Method",   `arXiv:2602.17487. <https://arxiv.org/abs/2602.17487>`_
+
 - Jonathan Gorard, Ammar Hakim, Jimmy Juno (2026). "BEACONS:
   Bounded-Error, Algebraically-Composable Neural Solvers for Partial
   Differential Equations",
@@ -168,6 +173,12 @@ Algorithms papers
 
 Physics papers
 --------------
+
+- Kolter Bradshaw, Ammar Hakim, James Juno, Joshua Pawlak, Jason
+  TenBarge, Amitava Bhattacharjee (2026), "Capturing Secondary Kinetic
+  Instabilities in Three-Dimensional Dayside Reconnection Using an
+  Improved Gradient-Based Closure", 
+  `arXiv:2602.16960 <https://arxiv.org/abs/2602.16960>`_
 
 - Lise Hanebring, James Juno, Ammar Hakim, Jason M. TenBarge, Istvan
   Pusztai (2026). "From Weibel seeds to collisionless dynamos beyond
