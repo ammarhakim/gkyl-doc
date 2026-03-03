@@ -174,6 +174,11 @@ Algorithms papers
 Physics papers
 --------------
 
+- Liang Wang, Chuanfei Dong, Yi-Min Huang, Yue Yuan, Xinmin Li, Yang
+  Zhang (2026), "Transition of Magnetic Reconnection Regimes in
+  Partially Ionized Plasmas",
+  `arXiv:2602.23683 <https://arxiv.org/abs/2602.23683>`_
+
 - Kolter Bradshaw, Ammar Hakim, James Juno, Joshua Pawlak, Jason
   TenBarge, Amitava Bhattacharjee (2026), "Capturing Secondary Kinetic
   Instabilities in Three-Dimensional Dayside Reconnection Using an
