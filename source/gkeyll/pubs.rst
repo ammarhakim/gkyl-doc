@@ -174,6 +174,10 @@ Algorithms papers
 Physics papers
 --------------
 
+- Joshua Pawlak, James Juno, Jason M. TenBarge (2026), "Line-Tied Flux
+  Rope Relaxation and Reconnection: A 3D Kinetic Case Study", 
+  `arXiv:2603.05855 <https://arxiv.org/abs/2603.05855>`_
+
 - Liang Wang, Chuanfei Dong, Yi-Min Huang, Yue Yuan, Xinmin Li, Yang
   Zhang (2026), "Transition of Magnetic Reconnection Regimes in
   Partially Ionized Plasmas",
