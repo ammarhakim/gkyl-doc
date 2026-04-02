@@ -19,7 +19,7 @@ The ``Moment`` app solves high-moment multifluid equations on a Cartesian grid, 
 * The sources that couples the plasma species momenta and electromagnetic fields are described :ref:`here<devFluidSrc>` and more comprehensively in [Wang+2020]_.
 
 
-This App solves the hyperbolic and source parts parts of the coupled system separately and apply high accuracy schemes on both.
+This App solves the hyperbolic and source parts of the coupled system separately and applies high accuracy schemes on both.
 
 * Ignoring sources, the homogeneous equations of the fluid moments and electromagneic fields are solved separately using a high-resolution wave-propagation finite-volume method described in [Hakim+2006]_. The main time-step size constraint comes from the speed of light.
 
