@@ -34,7 +34,7 @@ two-stream instability simulation.
    :caption: Script
 
    import postgkyl as pg
-   data = pg.Data('two-stream_elc_80.bp')
+   data = pg.GData('two-stream_elc_80.bp')
    dg = pg.GInterpModal(data)
    dg.interpolate(stack=True)
    pg.output.plot(data)
@@ -63,7 +63,7 @@ electron density correfponding to the figure above.
    :caption: Script
                 
    import postgkyl as pg
-   data = pg.Data('two-stream_elc_M0_80.bp')
+   data = pg.GData('two-stream_elc_M0_80.bp')
    dg = pg.GInterpModal(data)
    dg.interpolate(stack=True)
    pg.output.plot(data)
@@ -96,7 +96,7 @@ example and let Postgkyl plot the expansion coefficients.
    :caption: Script
 
    import postgkyl as pg
-   data = pg.Data('two-stream_elc_M0_80.bp')
+   data = pg.GData('two-stream_elc_M0_80.bp')
    pg.output.plot(data)
 
 .. code-block:: bash
@@ -127,7 +127,7 @@ not the best example of the functionality.
    :caption: Script
 
    import postgkyl as pg
-   data = pg.Data('two-stream_elc_M0_80.bp')
+   data = pg.GData('two-stream_elc_M0_80.bp')
    pg.output.plot(data, squeeze=True)
   
 .. code-block:: bash
@@ -171,10 +171,10 @@ each other.
    :caption: Script
                     
    import postgkyl as pg
-   data1 = pg.Data('two-stream_elc_M0_70.bp')
+   data1 = pg.GData('two-stream_elc_M0_70.bp')
    dg = pg.GInterpModal(data1)
    dg.interpolate(stack=True)
-   data2 = pg.Data('two-stream_elc_M0_80.bp')
+   data2 = pg.GData('two-stream_elc_M0_80.bp')
    dg = pg.GInterpModal(data2)
    dg.interpolate(stack=True)
    pg.output.plot(data1, figure=0)
@@ -211,10 +211,10 @@ slightly more manual control.
    :caption: Script
                     
    import postgkyl as pg
-   data1 = pg.Data('two-stream_elc_M0_70.bp')
+   data1 = pg.GData('two-stream_elc_M0_70.bp')
    dg = pg.GInterpModal(data1)
    dg.interpolate(stack=True)
-   data2 = pg.Data('two-stream_elc_M0_80.bp')
+   data2 = pg.GData('two-stream_elc_M0_80.bp')
    dg = pg.GInterpModal(data2)
    dg.interpolate(stack=True)
    pg.output.plot(data1, figure=0, numAxes=2)
@@ -236,7 +236,7 @@ Countour
    :caption: Script
                     
    import postgkyl as pg
-   data = pg.Data('two-stream_elc_80.bp')
+   data = pg.GData('two-stream_elc_80.bp')
    dg = pg.GInterpModal(data)
    dg.interpolate(stack=True)
    pg.output.plot(data, contour=True)
@@ -294,10 +294,10 @@ would be too many lines). Then the plot with ``group=True`` is used.
    :caption: Script
 
    import postgkyl as pg
-   data = pg.Data('two-stream_elc_80.bp')
+   data = pg.GData('two-stream_elc_80.bp')
    dg = pg.GInterpModal(data)
    dg.interpolate(stack=True)
-   pg.data.select(data, z0='1.5:2.0', stack=True)
+   pg.GData.select(data, z0='1.5:2.0', stack=True)
    pg.output.plot(data, group=1)
 
 .. code-block:: bash
@@ -347,7 +347,7 @@ Postgkyl allows to specify all the axis labels and the plot title.
    :caption: Script
 
    import postgkyl as pg
-   data = pg.Data('two-stream_elc_80.bp')
+   data = pg.GData('two-stream_elc_80.bp')
    dg = pg.GInterpModal(data)
    dg.interpolate(stack=True)
    pg.output.plot(data, xlabel=r'$x$', ylabel=r'$v_x$',
@@ -383,8 +383,8 @@ the :math:`E_x^2`, which is the only component growing in this case.
    :caption: Script
 
    import postgkyl as pg
-   data = pg.Data('two-stream_fieldEnergy.bp')
-   pg.data.select(data, comp=0, stack=True)
+   data = pg.GData('two-stream_fieldEnergy.bp')
+   pg.GData.select(data, comp=0, stack=True)
    pg.output.plot(data, logy=True)                
    
 .. code-block:: bash
