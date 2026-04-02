@@ -3,7 +3,7 @@
 info
 ====
 
-``info`` is a function of the ``postgkyl.data.Data`` class that
+``info`` is a function of the ``postgkyl.data.GData`` class that
 returns information about the current dataset (see :ref:`pg_loading`
 for more details about the class itself). The function doesn't take
 any arguments and it is wrapped into the ``info`` command.
@@ -87,7 +87,7 @@ Script mode
   :emphasize-lines: 3
 
   import postgkyl as pg
-  data = pg.data.Data('two-stream_elc_0.bp')
+  data = pg.data.GData('two-stream_elc_0.bp')
   print(data.info())
 
 .. raw:: html

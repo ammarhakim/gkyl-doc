@@ -10,7 +10,7 @@ Data loading
 
 One can argue that loading data is the most important part of a
 postprocessing tool. In Postgkyl, it is handled by the
-``postgkyl.data.Data`` class (there is a ``postgkyl.Data``
+``postgkyl.data.GData`` class (there is a ``postgkyl.GData``
 shortcut). It load data on initialization and serves as an input for
 all the other parts of Postgkyl.
 
@@ -33,13 +33,13 @@ Accessing a Gkeyll file
 ---------------------
 
 Gkeyll files are loaded in Postgkyl by creating a new instance of the
-``Data`` class with the file name as the parameter.
+``GData`` class with the file name as the parameter.
 
 .. code-block:: python
   :caption: Script
 
   import postgkyl as pg
-  data = pg.Data('filename')
+  data = pg.GData('filename')
 
 Next, ``getGrid()`` and ``getValues()`` can be used to return the grid
 and values as NumPy arrays. For structured meshes, the ``getGrid()``
@@ -62,7 +62,7 @@ component.
   :emphasize-lines: 1,2,3,36,47,49,51
 
   import postgkyl as pg
-  data = pg.Data('two-stream_elc_0.bp')
+  data = pg.GData('two-stream_elc_0.bp')
   print(data.getGrid())
     [array([-6.283185307179586 , -6.086835766330224 , -5.890486225480862 ,
             -5.6941366846315   , -5.497787143782138 , -5.301437602932776 ,
@@ -155,7 +155,7 @@ Loading multiple datasets
 -------------------------
 
 Loading multiple files in a script is straightforward; one creates more
-instances of the ``Data`` class. Postgkyl does naturally support loading
+instances of the ``GData`` class. Postgkyl does naturally support loading
 any number of files.
 
 .. code-block:: bash
@@ -257,7 +257,7 @@ the command line mode.
   :caption: Script
 
   import postgkyl as pg
-  data = pg.Data('two-stream_elc_0.bp', z1='1:3', comp=0)
+  data = pg.GData('two-stream_elc_0.bp', z1='1:3', comp=0)
 
 .. code-block:: bash
   :caption: Command line

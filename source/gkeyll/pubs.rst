@@ -174,6 +174,10 @@ Algorithms papers
 Physics papers
 --------------
 
+- Hoffmann, A.C.D., Bernard, T.N., Francisquez, M., Hammett, G. W., Hakim, A., Boedo, J., Rizkallah, R., Tsui, C. K.,
+  the TCV team (2026). "Towards fully predictive gyrokinetic full-f simulations: validation and triangularity studies in TCV".  *Nucl. Fusion*, **66**, 046022.
+  `<https://iopscience.iop.org/article/10.1088/1741-4326/ae4eff>`_
+
 - Joshua Pawlak, James Juno, Jason M. TenBarge (2026), "Line-Tied Flux
   Rope Relaxation and Reconnection: A 3D Kinetic Case Study", 
   `arXiv:2603.05855 <https://arxiv.org/abs/2603.05855>`_
@@ -205,11 +209,6 @@ Physics papers
   (2025). "Gyrokinetic Simulations of a Low Recycling Scrape-off Layer
   without a Lithium Target", `arXiv:2511.09437
   <https://arxiv.org/abs/2511.09437>`_
-
-- A. C. D. Hoffmann, T. N. Bernard, M. Francisquez, G. W. Hammett, A. Hakim, J. Boedo, R. Rizkallah, C. K. Tsui,
-  the TCV team (2025). "Towards fully predictive gyrokinetic full-f
-  simulations".  `arXiv:2510.11874
-  <https://arxiv.org/abs/2510.11874>`_
 
 - Zeng, S., Philippov, A., Juno, J., Beloborodov, A. M., Popova, E. (2025).
   "Origin of Pulsed Radio Emission from Magnetars",
