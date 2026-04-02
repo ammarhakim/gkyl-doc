@@ -9,7 +9,15 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 
 Tutorials
 
-- "Postgkyl tutorial", Petr Cagas `pdf <https://drive.google.com/file/d/1ra-e1d5KlhFhumgFloo_a4dTTXCsvxNc/view?usp=share_link>`_
+- "An introduction to the Gkeyll simulation framework for both research and education", J. Juno, Open Source Software for Fusion Energy conference, Munich, Germany, March 2026. `pdf <https://drive.google.com/file/d/1VROtfo9rmmstGmKSbAJdHAngC1tf8y6v/view?usp=drive_link>`_, `video recording <https://drive.google.com/file/d/1QNeLpbtVbfFAiCavIo0rwm0i2h4wSIVd/view?usp=drive_link>`_
+
+- "Postgkyl tutorial", P. Cagas, Virginia Tech. seminar, November 2022. `pdf <https://drive.google.com/file/d/1ra-e1d5KlhFhumgFloo_a4dTTXCsvxNc/view?usp=share_link>`_
+
+2026
+
+- "Using Gkeyll as a self-consistent gyrokinetic predictive tool for tokamak edge turbulence", A.C.D. Hoffmann, Open Source Software for Fusion Energy conference, Munich, Germany, March 2026. `pdf <https://drive.google.com/file/d/1bEfKp82f6xjkszc4PwxL8Y-2EX--dVjl/view?usp=sharing>`_
+
+2025
 
 2024
 
