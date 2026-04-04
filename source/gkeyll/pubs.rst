@@ -65,6 +65,10 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
+- Maxwell Rosen, Manaure Francisquez, Gregory Hammett (2026).
+  "An explicit multiscale pseudo orbit-averaging time integration algorithm",
+  `https://arxiv.org/abs/2604.00121. <https://arxiv.org/abs/2604.00121>`_
+
 - James Juno, Grant Johnson, Alexander Philippov, Ammar Hakim,
   Alexander Chernoglazov, Shuzhe Zeng (2026). "Modeling of
   Relativistic Plasmas with a Conservative Discontinuous Galerkin

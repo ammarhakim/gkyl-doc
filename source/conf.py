@@ -180,8 +180,8 @@ texinfo_documents = [
 ]
 
 html_theme_options = {
-    "light_logo": "logoG1.png",   # dark logo for light mode
-    "dark_logo": "logoG1_w.png", # white logo for dark mode
+    "light_logo": "logo-turb.png",   # dark logo for light mode
+    "dark_logo": "logo-turb.png", # white logo for dark mode
     "icon": {
         "repo": "fontawesome/brands/github",
         "edit": "material/file-edit-outline",

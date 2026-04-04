@@ -183,6 +183,8 @@ Bug fix
 
   _Italicized text may be removed for final submission_
 
+  _Describe any usage of LLMs_
+
   ## Summary
 
   Description: _Describe the bug in a sentence or two. What was the root cause?_
@@ -203,13 +205,14 @@ Bug fix
   - [ ] My code follows the project's coding guidelines.
   - [ ] Changes to `layer/zero` should have a unit test, e.g., `core/zero`.
 
-  ## Testing: _(x (yes), blank (no))_
+  ## Testing:
 
   - [ ] I added a regression test to test this feature.
   - [ ] I added this feature to an existing regression test.
   - [ ] I added a unit test for this feature.
   - [ ] Ran `make check` and unit tests all pass.
   - [ ] I ran the code with make valcheck, and it is clean.
+  - [ ] I ran runregression and it agrees with main.
   - [ ] I ran the code through computer-sanitizer on GPU, and it is clean.
   - [ ] I ran a few regression tests to ensure no apparent errors.
   - [ ] Tested and works on CPU.
@@ -230,6 +233,8 @@ Feature addition
   # Feature
 
   _Italicized text may be removed for final submission_
+
+  _Describe any usage of LLMs_
 
   ## Summary
 
@@ -268,6 +273,7 @@ Feature addition
   - [ ] I added a unit test to test this feature.
   - [ ] Ran `make check` and unit tests all pass.
   - [ ] I ran the code with make valcheck, and it is clean.
+  - [ ] I ran runregression and it agrees with main.
   - [ ] I ran the code through computer-sanitizer on GPU, and it is clean.
   - [ ] I ran a few regression tests to ensure no apparent errors.
   - [ ] Tested and works on CPU.
