@@ -9,6 +9,8 @@ You can browse a `folder of pdf / PowerPoint / Keynote files <https://drive.goog
 
 Tutorials
 
+- "Gyrokinetic equilibria for high field magnetic mirrors with multiscale methods", M. ROsen, Realta Fusion Open Science Meeting, virtual, April 2026. `pdf <https://drive.google.com/file/d/1_2OETOl0A7mou64FUich0FWU3xUWQx8L/view?usp=sharing>`_.
+
 - "An introduction to the Gkeyll simulation framework for both research and education", J. Juno, Open Source Software for Fusion Energy conference, Munich, Germany, March 2026. `pdf <https://drive.google.com/file/d/1VROtfo9rmmstGmKSbAJdHAngC1tf8y6v/view?usp=drive_link>`_, `video recording <https://drive.google.com/file/d/1QNeLpbtVbfFAiCavIo0rwm0i2h4wSIVd/view?usp=drive_link>`_
 
 - "Postgkyl tutorial", P. Cagas, Virginia Tech. seminar, November 2022. `pdf <https://drive.google.com/file/d/1ra-e1d5KlhFhumgFloo_a4dTTXCsvxNc/view?usp=share_link>`_
