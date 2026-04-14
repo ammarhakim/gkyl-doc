@@ -65,10 +65,14 @@ Doctoral Dissertations
 Algorithms papers
 -----------------
 
+- Maxwell H. Rosen, Manaure Francisquez, Gregory W. Hammett. "An
+  explicit multiscale pseudo orbit-averaging time integration
+  algorithm", `arXiv:2604.00121. <https://arxiv.org/abs/2604.00121>`_
+
 - James Juno, Grant Johnson, Alexander Philippov, Ammar Hakim,
   Alexander Chernoglazov, Shuzhe Zeng (2026). "Modeling of
   Relativistic Plasmas with a Conservative Discontinuous Galerkin
-  Method",   `arXiv:2602.17487. <https://arxiv.org/abs/2602.17487>`_
+  Method", `arXiv:2602.17487. <https://arxiv.org/abs/2602.17487>`_
 
 - Jonathan Gorard, Ammar Hakim, Jimmy Juno (2026). "BEACONS:
   Bounded-Error, Algebraically-Composable Neural Solvers for Partial
@@ -174,8 +178,16 @@ Algorithms papers
 Physics papers
 --------------
 
-- Hoffmann, A.C.D., Bernard, T.N., Francisquez, M., Hammett, G. W., Hakim, A., Boedo, J., Rizkallah, R., Tsui, C. K.,
-  the TCV team (2026). "Towards fully predictive gyrokinetic full-f simulations: validation and triangularity studies in TCV".  *Nucl. Fusion*, **66**, 046022.
+- Maxwell H. Rosen, Manaure Francisquez, Ammar Hakim,
+  Gregory W. Hammett. "Gyrokinetic equilibria of high temperature
+  superconducting magnetic mirrors", 
+  `arXiv:2604.11684 <https://arxiv.org/abs/2604.11684>`_
+
+- Hoffmann, A.C.D., Bernard, T.N., Francisquez, M., Hammett, G. W.,
+  Hakim, A., Boedo, J., Rizkallah, R., Tsui, C. K., the TCV team
+  (2026). "Towards fully predictive gyrokinetic full-f simulations:
+  validation and triangularity studies in TCV".  *Nucl. Fusion*,
+  **66**, 046022.
   `<https://iopscience.iop.org/article/10.1088/1741-4326/ae4eff>`_
 
 - Joshua Pawlak, James Juno, Jason M. TenBarge (2026), "Line-Tied Flux
@@ -184,7 +196,7 @@ Physics papers
 
 - Liang Wang, Chuanfei Dong, Yi-Min Huang, Yue Yuan, Xinmin Li, Yang
   Zhang (2026), "Transition of Magnetic Reconnection Regimes in
-  Partially Ionized Plasmas",
+"  Partially Ionized Plasmas",
   `arXiv:2602.23683 <https://arxiv.org/abs/2602.23683>`_
 
 - Kolter Bradshaw, Ammar Hakim, James Juno, Joshua Pawlak, Jason
