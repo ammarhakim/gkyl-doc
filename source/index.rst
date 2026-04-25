@@ -138,6 +138,14 @@ repository, present or past) include:
 * **Luca Georgescu**, *University of California San Diego*
 * **Jason TenBarge**, *Princeton University*
 
+Contributing
+------------
+
+If you want to contribute to Gkeyll development please see
+:ref:`Contribution Guidelines <devRules>`, as well as our :ref:`Design
+and Code Review Process <processDesignCode>`. For license see
+:doc:`License <aboutAndLicense>`.
+
 References
 ----------
 

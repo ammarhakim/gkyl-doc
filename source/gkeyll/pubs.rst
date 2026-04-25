@@ -178,10 +178,15 @@ Algorithms papers
 Physics papers
 --------------
 
+- Vivek Shrivastav, Mani K Chettri, Hemam D Singh, Britan Singh, Rupak
+  Mukherjee (2026). "Vivek Shrivastav, Mani K Chettri, Hemam D Singh,
+  Britan Singh, Rupak Mukherjee", `arXiv:2604.11684
+  <https://arxiv.org/abs/2604.11684>`_
+
 - Maxwell H. Rosen, Manaure Francisquez, Ammar Hakim,
-  Gregory W. Hammett. "Gyrokinetic equilibria of high temperature
-  superconducting magnetic mirrors", 
-  `arXiv:2604.11684 <https://arxiv.org/abs/2604.11684>`_
+  Gregory W. Hammett. (2026). "Gyrokinetic equilibria of high
+  temperature superconducting magnetic mirrors", `arXiv:2604.11684
+  <https://arxiv.org/abs/2604.11684>`_
 
 - Hoffmann, A.C.D., Bernard, T.N., Francisquez, M., Hammett, G. W.,
   Hakim, A., Boedo, J., Rizkallah, R., Tsui, C. K., the TCV team
