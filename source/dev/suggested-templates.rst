@@ -7,10 +7,6 @@ When creating an issue or pull request, we suggest using the following templates
 Templates are a great way to standardize the review process and ensure compliance with project guidelines. Also, they make sure that
 developers are rigorous in their testing and do not forget checks.
 
-.. contents:: Table of Contents
-   :depth: 2
-   :local:
-
 Issues
 ------
 
