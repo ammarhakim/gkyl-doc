@@ -1,7 +1,7 @@
 .. _processDesignCode:
 
 Gkeyll Design and Code Review Process
-=====================================
++++++++++++++++++++++++++++++++++++++
 
 We intend for Gkeyll to be, and to remain, a robust, stable and maintainable code that
 provides a scalable and reliable foundation for open-ended scientific research and
