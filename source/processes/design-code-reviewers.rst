@@ -1,7 +1,7 @@
 .. _processDesignCodeReviewers:
 
 Design and Code Review Personnel
-================================
+++++++++++++++++++++++++++++++++
 
 As outlined in the :ref:`Gkeyll Design and Code Review Process <processDesignCode>`
 guide, as well as its corresponding

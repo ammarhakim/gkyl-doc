@@ -1,7 +1,7 @@
 .. _processDesignCodeCondensed:
 
 Gkeyll Design and Code Review Process: Condensed Version
-========================================================
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 To be followed by anyone making modifications to code in either of the ``/apps`` or
 ``/zero`` directories in ``gkylzero``, or modifications to any part of the Lua/G2 layer
