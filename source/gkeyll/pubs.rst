@@ -61,6 +61,11 @@ Doctoral Dissertations
   Models for Magnetic Reconnection". Ph.D. dissertation, University of
   New Hampshire, 2014.
 
+Master's theses
+---------------
+
+- Reinhoudt, S. (2026, March 18). "The impact of kinetic shielding on divertor
+  impurity transport in ASDEX Upgrade and ITER". MSc Thesis, Eindhoven University of Technology/DIFFER, 2026.
 
 Algorithms papers
 -----------------
