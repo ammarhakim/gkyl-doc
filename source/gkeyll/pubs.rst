@@ -14,6 +14,15 @@ files with us.
 Doctoral Dissertations
 ----------------------
 
+- Dingyun Liu, "Gyrokinetic Simulation of ASDEX-Upgrade Scrape-off
+  Layer Plasmas with Moments-Conserving Implicit BGK Collision
+  Operator", Ph.D. dissertation, Princeton University, April 2026.
+
+- Akash Shukla, "Gyrokinetic Simulations for Spherical Tokamak
+  Divertor Design", Ph.D dissertation, University of Texas,
+  Austin, March 2026. 
+  `arXiv:2605.22960 <https://arxiv.org/abs/2605.22960>`_
+
 - Walters, J. C. (2025, January 5). "Pressure anisotropy-driven instabilities in solar and astrophysical plasmas."
   Ph.D. dissertation, University of Arizona, 2024. 
   https://www.proquest.com/dissertations-theses/pressure-anisotropy-driven-instabilities-solar/docview/3147686254/se-2
@@ -177,6 +186,10 @@ Algorithms papers
 
 Physics papers
 --------------
+
+- A.C.D. Hoffmann, M. Francisquez, T.N. Bernard, 
+  G.W. Hammett, A. Hakim (2026). "High-throughput full-f gyrokinetics of
+  the tokamak boundary", `arXiv:2605.01117 <https://arxiv.org/abs/2605.01117>`_
 
 - Vivek Shrivastav, Mani K Chettri, Hemam D Singh, Britan Singh, Rupak
   Mukherjee (2026). "Vivek Shrivastav, Mani K Chettri, Hemam D Singh,
