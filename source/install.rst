@@ -477,7 +477,7 @@ and then plotting the resulting simulation data with :math:`\texttt{postgkyl}`:
 
 .. code-block:: bash
 
-  pgkyl 5m_gem-elc_1.gkyl sel -c3 plot -a
+  pgkyl rt_5m_gem-elc_1.gkyl sel -c3 plot -a
 
 .. figure:: figures/5MGemElc.png
   :scale: 40%
