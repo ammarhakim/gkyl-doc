@@ -22,8 +22,6 @@ where the angle brackets indicate integration over the hypercube
 :math:`I_d`. In this note we describe some common operations that are
 needed while working with these basis sets. 
 
-.. contents::
-
 Pre-computed basis functions
 ----------------------------
 

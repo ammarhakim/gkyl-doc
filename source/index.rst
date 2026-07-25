@@ -100,9 +100,9 @@ visualization and post-processing framework is developed in Python, based on
 Developers
 ----------
 
-The originator of the :math:`\texttt{Gkeyll}` project is `**Ammar
-Hakim** <https://ammar-hakim.org/>`_. The Project Co-Leaders are Jimmy
-Juno and Mana Francisquez.
+The originator of the :math:`\texttt{Gkeyll}` project is `Ammar Hakim
+<https://ammar-hakim.org/>`_. The Project Co-Leaders are Jimmy Juno
+and Mana Francisquez.
 
 The other active developers of the :math:`\texttt{Gkeyll}` code (defined as being those
 who have contributed to the ``main`` branch of the primary :math:`\texttt{Gkeyll}`
