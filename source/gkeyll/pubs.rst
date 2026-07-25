@@ -222,11 +222,12 @@ Physics papers
   Partially Ionized Plasmas", `arXiv:2602.23683
   <https://arxiv.org/abs/2602.23683>`_
 
-- Kolter Bradshaw, Ammar Hakim, James Juno, Joshua Pawlak, Jason
-  TenBarge, Amitava Bhattacharjee (2026), "Capturing Secondary Kinetic
-  Instabilities in Three-Dimensional Dayside Reconnection Using an
-  Improved Gradient-Based Closure", 
-  `arXiv:2602.16960 <https://arxiv.org/abs/2602.16960>`_
+- Bradshaw, K., Hakim, A. H., Juno, J., Pawlak, J., TenBarge, J. M., &
+  Bhattacharjee, A. (2026). "Capturing secondary kinetic instabilities
+  in three-dimensional dayside reconnection using an improved
+  gradient-based closure". *Journal of Geophysical Research: Space
+  Physics*, **131**,
+  e2026JA035250. https://doi.org/10.1029/2026JA035250
 
 - Lise Hanebring, James Juno, Ammar Hakim, Jason M. TenBarge, Istvan
   Pusztai (2026). "From Weibel seeds to collisionless dynamos beyond
