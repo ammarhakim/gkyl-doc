@@ -7,7 +7,7 @@ webpage <https://github.com/ammarhakim/ammar-simjournal>`_.
 
 We have also compiled input files for the simulations reported in
 publications in `this repository
-<https://github.com/ammarhakim/gkyl-paper-inp>`_. Note that this
+<https://github.com/gkeyllorg/gkyl-paper-inp>`_. Note that this
 collection is incomplete as not all authors have desposited their input
 files with us.
 
