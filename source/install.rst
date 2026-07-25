@@ -30,7 +30,7 @@ from GitHub (`which can be found here <https://github.com/gkeyllorg/gkeyll>`_):
 
 .. code-block:: bash
 
-  git clone https://github.com/ammarhakim/gkeyll.git
+  git clone https://github.com/gkeyllorg/gkeyll.git
 
 and then, once it has been cloned, to navigate into the ``gkeyll`` directory:
 
