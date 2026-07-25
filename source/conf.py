@@ -226,7 +226,7 @@ html_theme_options = {
     "social": [
         {
             "icon": "fontawesome/brands/github",
-            "link": "https://github.com/ammarhakim/gkyl-doc",
+            "link": "https://github.com/gkeyllorg/gkyl-doc",
             "name": "Source on github.com",
         },
     ],

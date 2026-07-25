@@ -16,7 +16,7 @@ regular text (and equations) with Maxima interactions.
 A very comprehensive physics oriented tutorial is `Maxima by Example
 by Edwin Woollett <https://web.csulb.edu/~woollett/>`_.
 
-All Maxima code is checked into the `gkylcas <https://github.com/ammarhakim/gkylcas>`_ directory. 
+All Maxima code is checked into the `gkylcas <https://github.com/gkeyllorg/gkylcas>`_ directory. 
 To use the Maxima code in this directory you need to tell Maxima to find
 it. To do this, create the directory (if it does not exist already)::
 
