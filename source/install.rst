@@ -26,7 +26,7 @@ instructions below assume that you have a working C compiler (such as ``gcc`` or
 GPUs) installed on your machine.
 
 The first step in any :math:`\texttt{Gkeyll}` installation is to clone the repository
-from GitHub (`which can be found here <https://github.com/ammarhakim/gkeyll>`_):
+from GitHub (`which can be found here <https://github.com/gkeyllorg/gkeyll>`_):
 
 .. code-block:: bash
 
