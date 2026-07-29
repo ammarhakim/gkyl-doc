@@ -100,9 +100,7 @@ visualization and post-processing framework is developed in Python, based on
 Developers
 ----------
 
-The originator of the :math:`\texttt{Gkeyll}` project is `Ammar Hakim
-<https://ammar-hakim.org/>`_. The Project Co-Leaders are Jimmy Juno
-and Mana Francisquez.
+The Project Co-Leaders are Jimmy Juno and Mana Francisquez.
 
 The other active developers of the :math:`\texttt{Gkeyll}` code (defined as being those
 who have contributed to the ``main`` branch of the primary :math:`\texttt{Gkeyll}`
@@ -121,8 +119,8 @@ source repository within the past 12 months) include:
 * **Dingyun Liu**, *Princeton University*
 * **Joshua (Josh) Josephy-Zack**, *Princeton University*
 
-The lead developers of the :math:`\texttt{postgkyl}` visualization and post-processing
-framework are **Petr Cagas** and **Ammar Hakim**.
+The lead developer of the :math:`\texttt{postgkyl}` visualization and post-processing
+framework is **Petr Cagas**. Many others have also contributed.
 
 Previous contributors to the :math:`\texttt{Gkeyll}` project (defined as being those who
 have ever contributed to the ``main`` branches of any :math:`\texttt{Gkeyll}` source
@@ -141,6 +139,7 @@ repository, present or past) include:
 * **Chirag R. Skolar**, *New Jersey Institute of Technology*
 * **Luca Georgescu**, *University of California San Diego*
 * **Jason TenBarge**, *Princeton University*
+* **Ammar Hakim**
 
 Contributing
 ------------
