@@ -26,11 +26,11 @@ instructions below assume that you have a working C compiler (such as ``gcc`` or
 GPUs) installed on your machine.
 
 The first step in any :math:`\texttt{Gkeyll}` installation is to clone the repository
-from GitHub (`which can be found here <https://github.com/ammarhakim/gkeyll>`_):
+from GitHub (`which can be found here <https://github.com/gkeyllorg/gkeyll>`_):
 
 .. code-block:: bash
 
-  git clone https://github.com/ammarhakim/gkeyll.git
+  git clone https://github.com/gkeyllorg/gkeyll.git
 
 and then, once it has been cloned, to navigate into the ``gkeyll`` directory:
 
@@ -413,11 +413,11 @@ Installing :math:`\texttt{postgkyl}`
 post-processing and visualization pipeline, capable of performing many advanced analysis
 and plotting tasks on :math:`\texttt{Gkeyll}` simulation output. For further information on how to use these capabilities, please refer to this `tutorial presentation by Petr Cagas <_static/Postgkyl_Petr.pdf>`_. To build
 :math:`\texttt{postgkyl}` from source, one must first clone the repository from GitHub
-(`which can be found here <https://github.com/ammarhakim/postgkyl>`_):
+(`which can be found here <https://github.com/gkeyllorg/postgkyl>`_):
 
 .. code-block:: bash
 
-  git clone https://github.com/ammarhakim/postgkyl.git
+  git clone https://github.com/gkeyllorg/postgkyl.git
 
 and then, once it has been cloned, navigate into the ``postgkyl`` directory:
 
