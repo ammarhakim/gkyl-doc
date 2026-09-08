@@ -12,6 +12,7 @@ Developer notes
   ssp-rk
   vlasov-normalizations
   vlasov-denorm  
+  collision-models
   maxwell-eigensystem
   euler-eigensystem
   tenmom-eigensystem

@@ -17,8 +17,6 @@ first-order Euler update:
 where :math:`\mathcal{L}[f]` is the RHS operator from the spatial
 discretization of the DG scheme.
 
-.. contents::
-
 SSP-RK2
 -------
 

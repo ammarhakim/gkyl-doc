@@ -7,12 +7,14 @@
 The :math:`\texttt{Gkeyll}` Simulation Framework
 ================================================
 
-:math:`\texttt{Gkeyll}` (`GitHub Repository <https://github.com/ammarhakim/gkeyll>`_) is
-a multi-scale, multi-physics simulation framework, developed for a variety of
-applications in plasma physics, space physics, general relativity, and high-energy
-astrophysics. The core of :math:`\texttt{Gkeyll}` is written in C, featuring a
-lightweight, modular design and minimal external dependencies, plus an additional Lua
-scripting layer (for specifying simulation input parameters) provided via the `Lua-C API
+:math:`\texttt{Gkeyll}` (`GitHub Organization
+<https://github.com/gkeyllorg>`_) is a multi-scale, multi-physics
+simulation framework, developed for a variety of applications in
+plasma physics, space physics, general relativity, and high-energy
+astrophysics. The core of :math:`\texttt{Gkeyll}` is written in C,
+featuring a lightweight, modular design and minimal external
+dependencies, plus an additional Lua scripting layer (for specifying
+simulation input parameters) provided via the `Lua-C API
 <https://www.lua.org/pil/24.html>`_.
 
 :math:`\texttt{Gkeyll}`'s clean and modular design ensures that the entire code can be
@@ -58,10 +60,12 @@ built hierarchically, with the following layers:
 Technology Stack
 ----------------
 
-:math:`\texttt{Gkeyll}` (`GitHub Repository <https://github.com/ammarhakim/gkeyll>`_) is
-written in straight C, with support for multi-CPU parallelism via MPI, (NVIDIA) GPU
-acceleration via CUDA, and multi-GPU parallelism via NCCL. The only strictly *required*
-dependencies for installing :math:`\texttt{Gkeyll}` are:
+:math:`\texttt{Gkeyll}` (`GitHub Repository
+<https://github.com/gkeyllorg/gkeyll>`_) is written in straight C,
+with support for multi-CPU parallelism via MPI, (NVIDIA) GPU
+acceleration via CUDA, and multi-GPU parallelism via NCCL. The only
+strictly *required* dependencies for installing
+:math:`\texttt{Gkeyll}` are:
 
 * ``OpenBLAS`` (including both ``BLAS`` and ``LAPACK``) for numerical linear algebra
   routines.
@@ -88,17 +92,15 @@ formally verified, with symbolic correctness proofs produced using a bespoke aut
 theorem-proving system developed in ``Racket``. Both the ``Maxima`` computer algebra
 code and the ``Racket`` automated theorem-proving code are packaged as part of the
 :math:`\texttt{gkylcas}` project, `whose GitHub repository can be found here
-<https://github.com/ammarhakim/gkylcas>`_. Finally, the :math:`\texttt{postgkyl}`
+<https://github.com/gkeyllorg/gkylcas>`_. Finally, the :math:`\texttt{postgkyl}`
 visualization and post-processing framework is developed in Python, based on
 ``matplotlib``, and `its GitHub repository can be found here
-<https://github.com/ammarhakim/postgkyl>`_.
+<https://github.com/gkeyllorg/postgkyl>`_.
 
 Developers
 ----------
 
-The originator, lead developer and chief algorithm alchemist of the
-:math:`\texttt{Gkeyll}` project is **Ammar Hakim** (*Princeton Plasma Physics
-Laboratory*).
+The Project Co-Leaders are Jimmy Juno and Mana Francisquez.
 
 The other active developers of the :math:`\texttt{Gkeyll}` code (defined as being those
 who have contributed to the ``main`` branch of the primary :math:`\texttt{Gkeyll}`
@@ -117,8 +119,8 @@ source repository within the past 12 months) include:
 * **Dingyun Liu**, *Princeton University*
 * **Joshua (Josh) Josephy-Zack**, *Princeton University*
 
-The lead developers of the :math:`\texttt{postgkyl}` visualization and post-processing
-framework are **Petr Cagas** and **Ammar Hakim**.
+The lead developer of the :math:`\texttt{postgkyl}` visualization and post-processing
+framework is **Petr Cagas**. Many others have also contributed.
 
 Previous contributors to the :math:`\texttt{Gkeyll}` project (defined as being those who
 have ever contributed to the ``main`` branches of any :math:`\texttt{Gkeyll}` source
@@ -137,6 +139,7 @@ repository, present or past) include:
 * **Chirag R. Skolar**, *New Jersey Institute of Technology*
 * **Luca Georgescu**, *University of California San Diego*
 * **Jason TenBarge**, *Princeton University*
+* **Ammar Hakim**
 
 Contributing
 ------------
