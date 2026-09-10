@@ -75,6 +75,7 @@ Master's theses
 
 - Reinhoudt, S. (2026, March 18). "The impact of kinetic shielding on divertor
   impurity transport in ASDEX Upgrade and ITER". MSc Thesis, Eindhoven University of Technology/DIFFER, 2026.
+  `Access here: <https://research.tue.nl/en/studentTheses/the-impact-of-kinetic-shielding-on-divertor-impurity-transport-in/>`_
 
 Algorithms papers
 -----------------
