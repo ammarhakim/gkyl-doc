@@ -189,6 +189,7 @@ Other Pages
 
   install
   quickstart
+  postgkyl/index
   gkeyll/pubs
   gkeyll/presentations
   dev/main

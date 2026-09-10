@@ -28,7 +28,7 @@ non-relativistic case. Thus, for a generic equation of state, it is argued by
 hydrodynamics cannot be represented as a closed-form algebraic operation, and instead
 requires one to perform some kind of (potentially higher-dimensional) root-finding
 operation. To this end, Gkeyll employs a certain "robustified" variant of the algorithm
-proposed by [Eulderink1995]_, which has been specifically modified to accommodate low
+proposed by [Eulderink1995-grhd-primitive]_, which has been specifically modified to accommodate low
 densities, low pressures, and high values of the Lorentz factor, without going unstable,
 whilst still retaining the favorable convergence properties of the original Eulderink
 and Mellema algorithm in less extreme cases. In this short technical note, we will
@@ -79,7 +79,7 @@ now becomes:
   c_s = \sqrt{\frac{\Gamma P}{\rho \left( 1 + \left( \frac{P}{\rho} \right) \left(
   \frac{\Gamma}{\Gamma - 1} \right) \right)}}.
 
-The approach advocated by [Eulderink1995]_ is then to use a non-linear root-finding
+The approach advocated by [Eulderink1995-grhd-primitive]_ is then to use a non-linear root-finding
 algorithm (namely the one-dimensional Newton-Raphson method) to find the roots of the
 following quartic polynomial in :math:`\xi`:
 
@@ -265,7 +265,7 @@ References
 .. [Marti2003] J. M. Martí and E. Müller, "Numerical Hydrodynamics in Special
    Relativity", *Living Reviews in Relativity* **6** (7). 2003.
 
-.. [Eulderink1995] F. Eulderink and G. Mellema, "General Relativistic Hydrodynamics
+.. [Eulderink1995-grhd-primitive] F. Eulderink and G. Mellema, "General Relativistic Hydrodynamics
    with a Roe solver", *Astronomy and Astrophysics Supplement Series* **110**: 587-623.
    1995.
 

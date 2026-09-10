@@ -25,3 +25,4 @@ Developer notes
   grhd-primitive
   tokamak-topology
   valgrind
+  regression

@@ -20,6 +20,8 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('postgkyl/_ext'))
+postgkyl_doc_root = 'postgkyl'
 #import sphinx_rtd_theme
 
 
@@ -38,6 +40,9 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.mathjax',
     'sphinx.ext.autosectionlabel',
+    'sphinx.ext.napoleon',
+    'myst_parser',
+    'postgkyl_docs',
 #    'sphinx_immaterial',
 ]
 
@@ -48,7 +53,9 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = {'.rst': 'restructuredtext', '.md': 'markdown'}
+autodoc_typehints = 'none'
+autosectionlabel_prefix_document = True
 
 # The master toctree document.
 master_doc = 'index'
@@ -82,7 +89,7 @@ language = 'en'
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = []
+exclude_patterns = ['postgkyl/_inputs/**', 'postgkyl/_ext/**']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -112,7 +119,7 @@ html_favicon = "_static/logo.svg"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static', 'postgkyl/_static']
+html_static_path = ['_static']
 
 
 # html_context = {
@@ -184,55 +191,8 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
+# Furo options; the previous Material-theme options were not used by Furo.
 html_theme_options = {
-    "light_logo": "logoG1.png",   # dark logo for light mode
-    "dark_logo": "logoG1_w.png", # white logo for dark mode
-    "icon": {
-        "repo": "fontawesome/brands/github",
-        "edit": "material/file-edit-outline",
-    },
-    "site_url": "https://gkeyll.readthedocs.io/en/latest/",
-    "repo_url": "https://github.com/ammarhakim/gkylzero",
-    "repo_name": "Gkeyll",
-    "globaltoc_collapse": True,
-    "features": [
-        "navigation.expand",
-        "navigation.sections",
-        "navigation.top",
-        "search.share",
-        "toc.follow",
-        "toc.sticky",
-        "content.tabs.link",
-        "announce.dismiss",
-    ],
-    "palette": [
-        {
-            "media": "(prefers-color-scheme: light)",
-            "scheme": "default",
-            "primary": "blue",
-            "accent": "indigo",
-            "toggle": {
-                "icon": "material/lightbulb-outline",
-                "name": "Switch to dark mode",
-            },
-        },
-        {
-            "media": "(prefers-color-scheme: dark)",
-            "scheme": "slate",
-            "primary": "blue",
-            "accent": "indigo",
-            "toggle": {
-                "icon": "material/lightbulb",
-                "name": "Switch to light mode",
-            },
-        },
-    ],
-    "toc_title_is_page_title": True,
-    "social": [
-        {
-            "icon": "fontawesome/brands/github",
-            "link": "https://github.com/gkeyllorg/gkyl-doc",
-            "name": "Source on github.com",
-        },
-    ],
+    "light_logo": "logoG1.png",
+    "dark_logo": "logoG1_w.png",
 }

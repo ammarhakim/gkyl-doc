@@ -1,0 +1,76 @@
+name: Documentation
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+  schedule:
+    - cron: '23 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  website:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      MPLBACKEND: Agg
+      POSTGKYL_REQUIRE_GKEYLL: '1'
+      VTK_DEFAULT_OPENGL_WINDOW: vtkEGLRenderWindow
+      LIBGL_ALWAYS_SOFTWARE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: source/requirements.txt
+      - name: Install host documentation tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libgl1-mesa-dri
+          python -m pip install -r source/requirements.txt
+      - name: Verify main tracking and local preview behavior
+        run: python -m unittest discover -s tests -v
+      - name: Fetch Postgkyl main and prepare its documentation
+        run: python scripts/prepare_postgkyl.py
+      - name: Test upstream documentation and examples
+        working-directory: external/postgkyl
+        run: |
+          python -m pip install --no-build-isolation -e '.[docs,test]'
+          python -m pytest tests/test_documentation.py tests/test_examples.py tests/test_docs_build.py
+      - name: Build the complete website
+        run: python -m sphinx -W --keep-going -b html source build/html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gkeyll-website
+          path: build/html
+          if-no-files-found: error
+      - name: Refresh hosted docs after the daily upstream check
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        env:
+          READTHEDOCS_TOKEN: ${{ secrets.READTHEDOCS_TOKEN }}
+        run: |
+          python - <<'PY'
+          import os
+          import urllib.request
+          token = os.environ.get("READTHEDOCS_TOKEN")
+          if not token:
+              print("READTHEDOCS_TOKEN is unset; preview built, hosted refresh skipped.")
+          else:
+              request = urllib.request.Request(
+                  "https://app.readthedocs.org/api/v3/projects/gkeyll/versions/latest/builds/",
+                  method="POST", headers={"Authorization": f"Token {token}"})
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  if response.status != 202:
+                      raise RuntimeError(f"Build trigger returned {response.status}")
+              print("Requested a Read the Docs rebuild from Postgkyl main.")
+          PY
