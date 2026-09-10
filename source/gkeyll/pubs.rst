@@ -2,12 +2,12 @@ Publications and theses
 +++++++++++++++++++++++
 
 A good source of various benchmarks and other tests is A. Hakim's
-`Simulation Journal <http://ammar-hakim.org/sj/>`_ and its `github
-webpage <https://github.com/ammarhakim/ammar-simjournal>`_.
+`Simulation Journal <http://ammar-hakim.org/sj/>`__ and its `github
+webpage <https://github.com/ammarhakim/ammar-simjournal>`__.
 
 We have also compiled input files for the simulations reported in
 publications in `this repository
-<https://github.com/gkeyllorg/gkyl-paper-inp>`_. Note that this
+<https://github.com/gkeyllorg/gkyl-paper-inp>`__. Note that this
 collection is incomplete as not all authors have desposited their input
 files with us.
 
@@ -30,41 +30,41 @@ Doctoral Dissertations
 - John Rodman (2025, November). "Discontinuous Galerkin Studies of
   Collisional Dynamics in Continuum-Kinetic Plasma". Ph.D
   dissertation, Virginia Tech. `Access
-  here. <https://vtechworks.lib.vt.edu/items/70ea6b49-81b8-4af1-b040-bd2a51bee799>`_
+  here. <https://vtechworks.lib.vt.edu/items/70ea6b49-81b8-4af1-b040-bd2a51bee799>`__
 
 - McGreivy, Nick (2024, May) "Differentiable Programming for Computational Plasma Physics"
-  Ph.D. dissertation, Princeton University, 2024. `arXiv:2410.11161 <https://arxiv.org/abs/2410.11161>`_
+  Ph.D. dissertation, Princeton University, 2024. `arXiv:2410.11161 <https://arxiv.org/abs/2410.11161>`__
 
 - Bradshaw, K. (2024, February 23) "Emitting Wall Boundary Conditions in Continuum Kinetic Simulations:
   Unlocking the Effects of Energy-Dependent Material Emission on the Plasma Sheath." Ph.D. dissertation,
   Virginia Polytechnic Institute and State University, 2024.
-  `Access here. <https://vtechworks.lib.vt.edu/handle/10919/118137>`_
+  `Access here. <https://vtechworks.lib.vt.edu/handle/10919/118137>`__
 
 - Mandell, N. R. (2021, March 26) "Magnetic Fluctuations in Gyrokinetic Simulations of Scrape-Off Layer Turbulence".
-  Ph.D. dissertation, Princeton University, 2021. `arXiv:2103.16062 <https://arxiv.org/abs/2103.16062>`_
+  Ph.D. dissertation, Princeton University, 2021. `arXiv:2103.16062 <https://arxiv.org/abs/2103.16062>`__
   
 - Juno, J. (2020, March 27) "A Deep Dive into the Distribution Function: Understanding
   Phase Space Dynamics Using Continuum Vlasov-Maxwell Simulations". Ph. D. 
   dissertation, University of Maryland, College Park, 2020. `arXiv:2005.13539 
-  <https://arxiv.org/abs/2005.13539>`_
+  <https://arxiv.org/abs/2005.13539>`__
 
 - Bernard, T. N. "Discontinuous Galerkin Modeling of Plasma Turbulence
   in a Simple Magnetized Torus". Ph. D. dissertation, The University
   of Texas at Austin, 2019. `PDF
-  <https://repositories.lib.utexas.edu/bitstream/handle/2152/75831/BERNARD-DISSERTATION-2019.pdf?sequence=1>`_
+  <https://repositories.lib.utexas.edu/bitstream/handle/2152/75831/BERNARD-DISSERTATION-2019.pdf?sequence=1>`__
 
 - Ng, J. "Fluid closures for the modeling of reconnection and
   instabilities in magnetotail current sheets". Ph.D. dissertation,
   Princeton University, 2018.  `PDF
-  <https://drive.google.com/file/d/1aNnwdSMcFJ8slLyfFtH67p-gHdi-2FRX/view?usp=sharing>`_
+  <https://drive.google.com/file/d/1aNnwdSMcFJ8slLyfFtH67p-gHdi-2FRX/view?usp=sharing>`__
 
 - Cagas, P. (2018, July 30). "Continuum kinetic simulations of plasma
   sheaths and instabilities". Ph.D. dissertation, Virginia Polytechnic Institute and State University, 2018.
-  `<https://vtechworks.lib.vt.edu/handle/10919/84979>`_
+  `<https://vtechworks.lib.vt.edu/handle/10919/84979>`__
 
 - Shi, E. L. (2017, August 24). "Gyrokinetic Continuum Simulation of
   Turbulence in Open-Field-Line Plasmas", Ph.D. dissertation,
-  Princeton University, 2017 `arXiv:1708.07283 <https://arxiv.org/abs/1708.07283>`_
+  Princeton University, 2017 `arXiv:1708.07283 <https://arxiv.org/abs/1708.07283>`__
 
 - Wang, L. (2014, Aug 30). "Integrating Kinetic Physics in Fluid
   Models for Magnetic Reconnection". Ph.D. dissertation, University of
@@ -82,104 +82,104 @@ Algorithms papers
 
 - Maxwell H. Rosen, Manaure Francisquez, Gregory W. Hammett. "An
   explicit multiscale pseudo orbit-averaging time integration
-  algorithm", `arXiv:2604.00121. <https://arxiv.org/abs/2604.00121>`_
+  algorithm", `arXiv:2604.00121. <https://arxiv.org/abs/2604.00121>`__
 
 - James Juno, Grant Johnson, Alexander Philippov, Ammar Hakim,
   Alexander Chernoglazov, Shuzhe Zeng (2026). "Modeling of
   Relativistic Plasmas with a Conservative Discontinuous Galerkin
-  Method", `arXiv:2602.17487. <https://arxiv.org/abs/2602.17487>`_
+  Method", `arXiv:2602.17487. <https://arxiv.org/abs/2602.17487>`__
 
 - Jonathan Gorard, Ammar Hakim, Jimmy Juno (2026). "BEACONS:
   Bounded-Error, Algebraically-Composable Neural Solvers for Partial
   Differential Equations",
-  `arXiv:2602.14853. <https://arxiv.org/abs/2602.14853>`_
+  `arXiv:2602.14853. <https://arxiv.org/abs/2602.14853>`__
 
 - Mustafa Aggul, Manaure Francisquez, Daniel R. Reynolds, Sylvia
   Amihere (2026). "Super Time Stepping Methods for Diffusion using
   Discontinuous-Galerkin Spatial Discretizations", 
-  `arXiv:2601.14508. <https://arxiv.org/abs/2601.14508>`_
+  `arXiv:2601.14508. <https://arxiv.org/abs/2601.14508>`__
 
 - Grant Johnson, Ammar Hakim, James Juno (2025). "A Conservative
   Discontinuous Galerkin Algorithm for Particle Kinetics on Smooth
-  Manifolds", `arXiv:2512.05298. <https://arxiv.org/abs/2512.05298>`_
+  Manifolds", `arXiv:2512.05298. <https://arxiv.org/abs/2512.05298>`__
 
 - Jonathan Gorard, James Juno, Ammar Hakim (2025). "Beyond GRMHD: A
   Robust Numerical Scheme for Extended, Non-Ideal General Relativistic
   Multifluid Simulations",
-  `arXiv:2510.26019. <https://arxiv.org/abs/2510.26019>`_
+  `arXiv:2510.26019. <https://arxiv.org/abs/2510.26019>`__
 
 - Akash Shukla, Ammar Hakim, James Juno, Gregory Hammett, Manaure
   Francisquez (2025). "Constructing Field Aligned Coordinate Systems
   for Gyrokinetic Simulations of Tokamaks in X-point Geometries",
-  `arXiv:2510.21676. <https://arxiv.org/abs/2510.21676>`_
+  `arXiv:2510.21676. <https://arxiv.org/abs/2510.21676>`__
 
 - Francisquez, M., Cagas, P., Shukla, A., Juno, J., Hammett, G. W. (2025). 
   "Conservative velocity mappings for discontinuous Galerkin kinetics", 
-  `arXiv:2505.10754. <https://arxiv.org/abs/2505.10754>`_
+  `arXiv:2505.10754. <https://arxiv.org/abs/2505.10754>`__
 
 - Juno J., Hakim A., TenBarge J. M. (2025). 
   "A parallel-kinetic-perpendicular-moment model for magnetised plasmas", 
-  *Journal of Plasma Physics* **91**, 5:E129. `<https://doi.org/10.1017/S0022377825100706>`_
+  *Journal of Plasma Physics* **91**, 5:E129. `<https://doi.org/10.1017/S0022377825100706>`__
 
 - Johnson G., Hakim A., Juno J. (2025). 
   "A moment-conserving discontinuous Galerkin 
   representation of the relativistic Maxwellian distribution", 
-  *Journal of Plasma Physics* **91**, 5:E130. `<https://doi.org/10.1017/S0022377825100718>`_
+  *Journal of Plasma Physics* **91**, 5:E130. `<https://doi.org/10.1017/S0022377825100718>`__
 
 - Gorard, J., Hakim, A. (2025). "Shock with Confidence: Formal Proofs of Correctness 
   for Hyperbolic Partial Differential Equation Solvers", 
-  `arXiv:2503.13877. <https://arxiv.org/abs/2503.13877>`_
+  `arXiv:2503.13877. <https://arxiv.org/abs/2503.13877>`__
 
 - Gorard, J., Hakim, A., Juno, J., TenBarge, J. M. (2024). "A
   Tetrad-First Approach to Robust Numerical Algorithms in General
-  Relativity", `arXiv:2410.02549 <https://arxiv.org/abs/2410.02549>`_
+  Relativity", `arXiv:2410.02549 <https://arxiv.org/abs/2410.02549>`__
 
 - Nick McGreivy and Ammar Hakim (2024) "Weak baselines and reporting
   biases lead to overoptimism in machine learning for fluid-related
   partial differential equations". Nature Machine Intelligence volume
-  6, 1256–1269 (2024) `<https://www.nature.com/articles/s42256-024-00897-5>`_
+  6, 1256–1269 (2024) `<https://www.nature.com/articles/s42256-024-00897-5>`__
 
 - Francisquez, M., Mandell, N. R., Hakim, A., Hammett, G. W. (2024)
   "Conservative discontinuous Galerkin interpolation: sheared boundary conditions",
-  *Compute Physics Communications* **298**, 109109. `<https://doi.org/10.1016/j.cpc.2024.109109>`_
+  *Compute Physics Communications* **298**, 109109. `<https://doi.org/10.1016/j.cpc.2024.109109>`__
 
 - Nick McGreivy, Ammar Hakim, "Invariant preservation in machine
   learned PDE solvers via error correction",
-  `arXiv:2303.16110. <https://arxiv.org/abs/2303.16110>`_
+  `arXiv:2303.16110. <https://arxiv.org/abs/2303.16110>`__
 
 - Cagas, P and Hakim, A and Srinivasan, B. (2021) "A boundary value “reservoir
   problem” and boundary conditions for multi-moment multifluid simulations
-  of sheaths", *Physics of Plasmas* **28.1**. `<https://doi.org/10.1063/5.0024510>`_
+  of sheaths", *Physics of Plasmas* **28.1**. `<https://doi.org/10.1063/5.0024510>`__
 
 - Hakim, A and Juno, J. (2020). "Alias-free, Matrix-free, and Quadrature-free
   Discontinuous Galerkin Algorithms for (Plasma) Kinetic
   Equations". *SC20: Proceedings of the International Conference for High
   Performance Computing, Networking, Storage and Analysis*, IEEE
-  Press. `<https://doi.org/10.1109/SC41405.2020.00077>`_
+  Press. `<https://doi.org/10.1109/SC41405.2020.00077>`__
 
 - Francisquez, M., Bernard, T. N., Mandell, N. R., Hammett, G. W.,
   Hakim, A. (2020).  "Conservative discontinuous Galerkin scheme of a
   gyro-averaged Dougherty collision operator", *Nuclear Fusion*,
-  **60**, (9). `<https://doi.org/10.1088%2F1741-4326%2Faba0c9>`_
+  **60**, (9). `<https://doi.org/10.1088%2F1741-4326%2Faba0c9>`__
 
 - Hakim, A., Francisquez, M., Juno, J., & Hammett, G. W. (2020).
   "Conservative discontinuous Galerkin schemes for nonlinear
   Dougherty–Fokker–Planck collision operators", *Journal of Plasma
-  Physics*, **86**, (4). `<https://doi.org/10.1017/S0022377820000586>`_
+  Physics*, **86**, (4). `<https://doi.org/10.1017/S0022377820000586>`__
 
 - Wang, L., Hakim, A., Ng, J., Dong, C., & Germaschewski, K. (2020). 
   "Exact and locally implicit source term solvers for multifluid-Maxwell systems", 
-  *Journal of Computational Physics*, **415**, 109510. `<https://doi.org/10.1016/j.jcp.2020.109510>`_
+  *Journal of Computational Physics*, **415**, 109510. `<https://doi.org/10.1016/j.jcp.2020.109510>`__
 
 - Cagas, P., Hakim, A., & Srinivasan, B. (2020). "Plasma-material
   boundary conditions for discontinuous Galerkin continuum-kinetic
   simulations, with a focus on secondary electron emission", *Journal
-  of Computational Physics*, **406**, 109215. `<https://doi.org/10.1016/j.jcp.2019.109215>`_
+  of Computational Physics*, **406**, 109215. `<https://doi.org/10.1016/j.jcp.2019.109215>`__
 
 - Mandell, N. R., Hakim, A., Hammett, G. W., & Francisquez,
   M. (2020). "Electromagnetic full-f  gyrokinetics in the tokamak edge
   with discontinuous Galerkin methods", *Journal of Plasma Physics*,
-  **86**. `<https://doi.org/10.1017/S0022377820000070>`_
+  **86**. `<https://doi.org/10.1017/S0022377820000070>`__
 
 - Juno, J., Hakim, A., TenBarge, J., Shi, E., &
   Dorland, W. (2018). "Discontinuous Galerkin algorithms for fully
@@ -188,7 +188,7 @@ Algorithms papers
 
 - Hakim, A., Hammett, G. W., Shi, E. L. (2014). "On discontinuous Galerkin
   discretizations of second-order
-  derivatives", `arXiv:1405.5907 <https://arxiv.org/abs/1405.5907>`_
+  derivatives", `arXiv:1405.5907 <https://arxiv.org/abs/1405.5907>`__
 
 Physics papers
 --------------
@@ -205,23 +205,23 @@ Physics papers
 - Maxwell H. Rosen, Manaure Francisquez, Ammar Hakim,
   Gregory W. Hammett. (2026). "Gyrokinetic equilibria of high
   temperature superconducting magnetic mirrors", `arXiv:2604.11684
-  <https://arxiv.org/abs/2604.11684>`_
+  <https://arxiv.org/abs/2604.11684>`__
 
 - Hoffmann, A.C.D., Bernard, T.N., Francisquez, M., Hammett, G. W.,
   Hakim, A., Boedo, J., Rizkallah, R., Tsui, C. K., the TCV team
   (2026). "Towards fully predictive gyrokinetic full-f simulations:
   validation and triangularity studies in TCV".  *Nucl. Fusion*,
   **66**, 046022.
-  `<https://iopscience.iop.org/article/10.1088/1741-4326/ae4eff>`_
+  `<https://iopscience.iop.org/article/10.1088/1741-4326/ae4eff>`__
 
 - Joshua Pawlak, James Juno, Jason M. TenBarge (2026), "Line-Tied Flux
   Rope Relaxation and Reconnection: A 3D Kinetic Case Study", 
-  `arXiv:2603.05855 <https://arxiv.org/abs/2603.05855>`_
+  `arXiv:2603.05855 <https://arxiv.org/abs/2603.05855>`__
 
 - Liang Wang, Chuanfei Dong, Yi-Min Huang, Yue Yuan, Xinmin Li, Yang
   Zhang (2026), "Transition of Magnetic Reconnection Regimes in
   Partially Ionized Plasmas", `arXiv:2602.23683
-  <https://arxiv.org/abs/2602.23683>`_
+  <https://arxiv.org/abs/2602.23683>`__
 
 - Bradshaw, K., Hakim, A. H., Juno, J., Pawlak, J., TenBarge, J. M., &
   Bhattacharjee, A. (2026). "Capturing secondary kinetic instabilities
@@ -233,58 +233,58 @@ Physics papers
 - Lise Hanebring, James Juno, Ammar Hakim, Jason M. TenBarge, Istvan
   Pusztai (2026). "From Weibel seeds to collisionless dynamos beyond
   pair-plasmas", `arXiv:2601.10472
-  <https://arxiv.org/abs/2601.10472>`_
+  <https://arxiv.org/abs/2601.10472>`__
 
 - C. R. Skolar, B. Srinivasan (2026). "Effects of parallel magnetic
   fields on sheaths near biased electrodes in a highly collisional
   Z-pinch plasma". `arXiv:2601.10039
-  <https://arxiv.org/abs/2601.10039>`_
+  <https://arxiv.org/abs/2601.10039>`__
 
 - Akash Shukla, Jonathan Roeltgen, Michael Kotschenreuther,
   David R. Hatch, Manaure Francisquez, James Juno, Tess N. Bernard,
   Ammar Hakim, Gregory W. Hammett, Swadesh M. Mahajan
   (2025). "Gyrokinetic Simulations of a Low Recycling Scrape-off Layer
   without a Lithium Target", `arXiv:2511.09437
-  <https://arxiv.org/abs/2511.09437>`_
+  <https://arxiv.org/abs/2511.09437>`__
 
 - Zeng, S., Philippov, A., Juno, J., Beloborodov, A. M., Popova, E. (2025).
   "Origin of Pulsed Radio Emission from Magnetars",
-  `arXiv:2509.13419 <https://arxiv.org/abs/2509.13419>`_
+  `arXiv:2509.13419 <https://arxiv.org/abs/2509.13419>`__
 
 - Liu, D., Juno, J., Hammett, G. W., Hakim, A., Shukla, A., Francisquez, M. (2025).
   "Axisymmetric Gyrokinetic Simulation of ASDEX-Upgrade Scrape-off Layer Using 
   a Conservative Implicit BGK Collision Operator",
-  `arXiv:2507.22821 <https://arxiv.org/abs/2507.22821>`_
+  `arXiv:2507.22821 <https://arxiv.org/abs/2507.22821>`__
 
 - Roeltgen, J. P., Juno, J., Kotschenreuther, M., Bernard, T. N., Shukla, A., 
   Francisquez, M., Hakim, A., Hammett, G. W., Power, D., Hatch, D. R. (2025). 
   "A kinetic line-driven radiation operator and its application to gyrokinetics", 
   *Nuclear Fusion* **65**, 106020. 
-  `<https://doi.org/10.1088/1741-4326/adff28>`_
+  `<https://doi.org/10.1088/1741-4326/adff28>`__
 
 - Skolar, C. R., Bradshaw, K., Francisquez, M., Murillo, L., Krishna Kumar, V., 
   Srinivasan, B. (2025). "General kinetic ion-induced electron emission model 
   for metallic walls applied to biased Z-pinch electrodes", *Physics of Plasmas* 
-  **32**, 082306. `<https://doi.org/10.1063/5.0261942>`_
+  **32**, 082306. `<https://doi.org/10.1063/5.0261942>`__
 
 - Gorard, J., Juno, J., Hakim, A. (2025). "Hydrodynamic and Electromagnetic 
   Discrepancies between Neutron Star and Black Hole Spacetimes", 
-  *Physical Review Letters* (submitted); `arXiv:2505.05299. <https://arxiv.org/abs/2505.05299>`_
+  *Physical Review Letters* (submitted); `arXiv:2505.05299. <https://arxiv.org/abs/2505.05299>`__
 
 - Shukla, A., Roeltgen, J., Kotschenreuther, M., Juno, J., Bernard, T. N., 
   Hakim, A., Hammett, G. W., Hatch, D. R., Mahajan, S. M., Francisquez, M. (2025). 
   "Direct Comparison of Gyrokinetic and Fluid Scrape-Off-Layer Simulations of 
   a Prospective Spherical Tokamak Pilot Plant", *AIP Advances* **15**, 075121. 
-  `<https://doi.org/10.1063/5.0268104>`_
+  `<https://doi.org/10.1063/5.0268104>`__
 
 - Bradshaw, K., Hakim, A., Srinivasan, B. (2025). "Effects of oxidation and
   impurities in lithium surfaces on the emitting wall plasma sheath", 
-  *Physics of Plasmas* **32**, 063506. `<https://doi.org/10.1063/5.0258265>`_
+  *Physics of Plasmas* **32**, 063506. `<https://doi.org/10.1063/5.0258265>`__
 
 - Bernard, T. N., Halpern, F. D., Francisquez, M., Hammett, G. W., Marinoni, A. 
   (2024). "Plasma edge and scrape-off layer turbulence in gyrokinetic simulations of 
   negative triangularity plasmas." *Plasma Physics and Controlled Fusion*, **66**, 115017.
-  `<https://doi.org/10.1088/1361-6587/ad8186>`_
+  `<https://doi.org/10.1088/1361-6587/ad8186>`__
 
 
 - Conley, S. A., Juno, J., TenBarge, J. M., Barbhuiya, M. H., Cassak, P. A., Howes, G. G., 
@@ -346,7 +346,7 @@ Physics papers
 - Rodman, J., Cagas, P., Hakim, A., Srinivasan, B. (2022). 
   "A kinetic interpretation of the classical Rayleigh-Taylor
   instability", *Physical Review E*,
-  `PhysRevE.105.065209 <https://doi.org/10.1103/PhysRevE.105.065209>`_.
+  `PhysRevE.105.065209 <https://doi.org/10.1103/PhysRevE.105.065209>`__.
 
 - Francisquez, M., Juno, J., Hakim, A., Hammett, G. W.,
   Ernst, D. R. (2022).  "Improved multispecies Dougherty collisions"
@@ -362,7 +362,7 @@ Physics papers
 - Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2022).
   "Reduction of transport due to magnetic shear in gyrokinetic
   simulations of the scrape-off layer", `arXiv:2112.14220
-  <https://arxiv.org/abs/2112.14220>`_. Under review in Plasma Physics
+  <https://arxiv.org/abs/2112.14220>`__. Under review in Plasma Physics
   and Controlled Fusion.
 
 - Mandell, N. R., Hammett, G. W., Hakim, A., Francisquez, M. (2022).
@@ -379,7 +379,7 @@ Physics papers
 - Wang, L., Hakim, A., Srinivasan, B., Juno, J. (2021). "Electron
   cyclotron drift instability and anomalous transport: two-fluid
   moment theory and modeling", `arXiv:2107.09874
-  <https://arxiv.org/abs/2107.09874>`_.
+  <https://arxiv.org/abs/2107.09874>`__.
 
 - Jenab, S. M., Brodin, G., Juno, J., Kourakis, I. (2021). "Ultrafast
   Electron Holes in Plasma Phase Space Dynamics", *Scientific

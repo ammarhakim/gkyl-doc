@@ -7,7 +7,7 @@ For the purpose of supporting the (prototype) general relativistic hydrodynamics
 capabilities currently available within the Moment app, Gkeyll solves a particular
 hyperbolic conservation law form of the hydrodynamics equations in curved spacetime
 known colloquially as the :math:`{3 + 1}` "Valencia" formulation, due originally to
-[Banyuls1997]_, and based (as the name suggests) on the :math:`{3 + 1}` "ADM" formalism
+[Banyuls1997-grhd-equations]_, and based (as the name suggests) on the :math:`{3 + 1}` "ADM" formalism
 of [Arnowitt1959]_. This technical note details exactly how Gkeyll performs and
 represents the :math:`{3 + 1}` decomposition of the general relativistic hydrodynamics
 equations, and hence introduces the specific form of the equations solved by the Moment
@@ -310,7 +310,7 @@ respectively.
 The :math:`{3 + 1}` "Valencia" formulation
 ------------------------------------------
 
-The :math:`{3 + 1}` "Valencia" formulation of [Banyuls1997]_ is now derived by
+The :math:`{3 + 1}` "Valencia" formulation of [Banyuls1997-grhd-equations]_ is now derived by
 considering the specific case of the ADM energy and momentum conservation
 equations for a perfect relativistic fluid, and expressing the resulting equations
 in terms of the spatial fluid velocity :math:`\mathbf{v}` (i.e. the fluid velocity
@@ -512,7 +512,7 @@ and the baryon number conservation equation:
 References
 ----------
 
-.. [Banyuls1997] F. Banyuls, J. A. Font, J. M. Ibáñez, J. M. Martí and
+.. [Banyuls1997-grhd-equations] F. Banyuls, J. A. Font, J. M. Ibáñez, J. M. Martí and
    J. A. Miralles, "Numerical {3 + 1} General Relativistic Hydrodynamics:
    A Local Characteristic Approach", *The Astrophysical Journal* **476**
    (1): 221-231, 1997.

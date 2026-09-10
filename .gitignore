@@ -1,3 +1,7 @@
 *~
 build/*
 *.bp
+/external/
+/source/postgkyl/
+__pycache__/
+/.venv/

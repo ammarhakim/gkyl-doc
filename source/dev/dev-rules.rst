@@ -35,4 +35,4 @@ and concerns should be directed to the core Gkeyll Dev Team.
   PR. That person ideally should build the code and make check, but
   this is not a requirement.
 - Always be sure to follow our
-  :ref:`Design and Code Review Process <processDesignCode>`.
+  `Design and Code Review Process <https://github.com/gkeyllorg/gkyl-doc/blob/master/source_archive/processes/design-code.rst>`_.

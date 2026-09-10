@@ -2,7 +2,7 @@ name: gkyl-doc
 channels:
   - defaults
 dependencies:
-  - python>=3.11
+  - python=3.12
   - pip
   - sphinx>=5.0.2
   - furo>=2024.8.6
